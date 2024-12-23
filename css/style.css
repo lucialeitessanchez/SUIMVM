@@ -1,0 +1,79 @@
+*{
+    margin:0;
+}
+
+navbar navbar-expand-lg bg-dark navbar-dark{
+    margin-left: 5px;
+}
+
+
+.intro {
+    background-color: #f8f9fa;
+}
+
+.intro h2 {
+    font-family: 'Red Hat Display', sans-serif;
+    color: #343a40;
+}
+
+.intro p {
+    font-family: 'Red Hat Display', sans-serif;
+    color: #6c757d;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#divSecretaria {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    gap: 15px; /* Espacio entre los elementos */
+}
+
+#divSecretaria h2, #divSecretaria input {
+    display: flex; /* Asegura que el contenido de ambos elementos se alinee correctamente */
+    align-items: center; /* Centra el contenido de los elementos verticalmente */
+    height: 50px; /* Define la altura para ambos elementos */
+    padding: 0 10px; /* Ajusta el padding para un mejor espaciado */
+    margin: 0; /* Elimina márgenes adicionales */
+}
+
+#divSecretaria input {
+    width: 200px; /* Ancho del input */
+    max-width: 100%; /* Evita que el input se haga más grande que su contenedor */
+}
+/* Aplica el cursor de tipo "pointer" y un color de fondo al pasar el mouse */
+table tbody tr:hover {
+    background-color: #f5f5f5; /* Color de fondo al hacer hover (ajústalo a tu gusto) */
+}
+
+#formulario-caso{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(600px,1fr));
+}
+
+#caso-table i {
+    
+    cursor: pointer; /* Para darle un toque interactivo al icono */
+    color: #007bff; /* Color del icono (ajústalo a tu gusto) */
+    font-size: 1.2rem; /* Tamaño del icono (ajústalo a tu gusto) */
+}
+
+#formSecretaria {
+    background-color: #f8f9fa; /* Fondo claro */
+    border: 1px solid #dee2e6; /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px; /* Espaciado interno */
+}
+
+
+
+#formulario-caso .form-control {
+    margin-bottom: 1rem; /* Espacio inferior entre campos */
+    border-radius: 5px; /* Bordes redondeados de los inputs */
+}
+
+.btn-primary {
+    margin-top: 1rem; /* Espacio superior del botón */
+}
