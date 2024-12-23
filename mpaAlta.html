@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="https://www.santafe.gob.ar/assets/standard/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Sistema Unico de Informacion sobre muertes violentas de mujeres</title>
+</head>
+
+<body>
+    <header>
+    
+    </header>
+    
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark" style="background-color: #e3f2fd;">
+        
+        <img src="https://www.santafe.gob.ar/assets/standard/images/gob-santafe.png" class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Casos
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="casoAlta.html">Iniciar Caso</a></li>
+                    <li><a class="dropdown-item" href="casoList.html">Listado Casos</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Historial Casos</a></li>
+                </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Organismos Colaboradores
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Poder Judicial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">SDNAyF</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Camara Federal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Defensoria del Pueblo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Secretaría de Derechos
+                            Humanos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Ministerio de Salud</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Areas locales</a>
+                    </li>
+                </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="smgyd.html">SMGyD</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mpaAlta.html">MPA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a>
+                </li>
+            </ul>
+        
+    </div>
+</nav>
+<main>
+    <section id="formSecretaria" class="container my-5">
+        <div class="mb-5" id="divSecretaria">
+            <h2 class="text-center mb-5">Sección Ministerio Publico de la Acusación</h2>
+            <input type="text" id="disabledTextInput" class="form-control mb-1" placeholder="Caso 0000" disabled>
+        </div>
+    <div class="container my-5">
+        <form id="formHecho">
+            <div class="mb-3">
+                <label for="fechaMuerte" class="form-label">Fecha de Muerte</label>
+                <input type="date" class="form-control" id="fechaMuerte" required>
+            </div>
+            <div class="mb-3">
+                <label for="horaHecho" class="form-label">Hora del Hecho</label>
+                <input type="time" class="form-control" id="horaHecho" required>
+            </div>
+            <div class="mb-3">
+                <label for="tipoLugar" class="form-label">Tipo de Lugar</label>
+                <select class="form-select" id="tipoLugar" required>
+                    <option value="">Seleccione el tipo de lugar</option>
+                    <option value="carcel">Cárcel</option>
+                    <option value="dependencia-policial">Dependencia Policial</option>
+                    <option value="vivienda-compartida">Vivienda Compartida de Víctima y Agresor</option>
+                    <option value="vivienda-victima">Vivienda de la Víctima</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="otraInformacion" class="form-label">Otra Información Relevante sobre el Lugar</label>
+                <textarea class="form-control" id="otraInformacion" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="contextoHecho" class="form-label">Contexto del Hecho</label>
+                <select class="form-select" id="contextoHecho" required>
+                    <option value="">Seleccione el contexto del hecho</option>
+                    <option value="violencia-domestica">Violencia Doméstica</option>
+                    <option value="violencia-laboral">Violencia Laboral</option>
+                    <option value="violencia-obstetrica">Violencia Obstétrica</option>
+                    <option value="violencia-simbolica">Violencia Simbólica/Correctiva</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="otrosDelitos" class="form-label">Contexto de Otros Delitos</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="otrosDelitos" id="otrosDelitosSi" value="si" required>
+                    <label class="form-check-label" for="otrosDelitosSi">
+                        Sí
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="otrosDelitos" id="otrosDelitosNo" value="no" required>
+                    <label class="form-check-label" for="otrosDelitosNo">
+                        No
+                    </label>
+                </div>
+            </div>
+            <br><br><br><br>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#" selected>1</a></li>
+                <li class="page-item"><a class="page-link" href="mpaAlta2.html">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="mpaAlta2.html">Siguiente</a></li>
+            </ul>
+            </nav>
+        </form>
+    </div>
+    
+    
+</main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

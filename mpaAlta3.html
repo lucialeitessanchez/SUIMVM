@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="https://www.santafe.gob.ar/assets/standard/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Sistema Unico de Informacion sobre muertes violentas de mujeres</title>
+</head>
+
+<body>
+    <header>
+    
+    </header>
+    
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark" style="background-color: #e3f2fd;">
+        
+        <img src="https://www.santafe.gob.ar/assets/standard/images/gob-santafe.png" class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Casos
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="casoAlta.html">Iniciar Caso</a></li>
+                    <li><a class="dropdown-item" href="casoList.html">Listado Casos</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Historial Casos</a></li>
+                </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Organismos Colaboradores
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Poder Judicial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">SDNAyF</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Camara Federal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Defensoria del Pueblo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Secretaría de Derechos
+                            Humanos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Ministerio de Salud</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="dropdown-item" href="#">Areas locales</a>
+                    </li>
+                </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="smgyd.html">SMGyD</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mpaAlta.html">MPA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a>
+                </li>
+            </ul>
+        
+    </div>
+</nav>
+<section id="formSecretaria" class="container my-5">
+    <div class="mb-5" id="divSecretaria">
+        <h2 class="text-center mb-5">Sección Ministerio Publico de la Acusación</h2>
+        <input type="text" id="disabledTextInput" class="form-control mb-1" placeholder="Caso 0000" disabled>
+    </div>
+    <h4>Escenarios en contextos de criminalidad organizada y economías
+        ilegales</h4>
+
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Seccion A
+            </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body"><h5> Ataques asociados al rol de la víctima en organizaciones criminales</h5>
+                <section id="formVictima" class="container my-5">
+                    <div class="container my-5">
+                        <form id="formPreguntas">
+                
+                            <!-- Rol desempeñado por la víctima -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="rolVictima" class="form-label">Rol desempeñado por la víctima</label>
+                                    <select class="form-select" id="rolVictima" required>
+                                        <option value="">Seleccione el rol</option>
+                                        <option value="subordinado">Subordinado</option>
+                                        <option value="lider">Líder</option>
+                                        <option value="facilitador">Facilitador</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="vinculoOrganizacion" class="form-label">Vínculo con miembros de la organización criminal</label>
+                                    <input type="text" class="form-control" id="vinculoOrganizacion" placeholder="Describa el vínculo" required>
+                                </div>
+                            </div>
+                
+                            <!-- Relación afectiva o familiar con miembros de la organización -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="relacionOrganizacion" class="form-label">Relación afectiva o familiar con miembros de la organización</label>
+                                    <select class="form-select" id="relacionOrganizacion" required>
+                                        <option value="">Seleccione la relación</option>
+                                        <option value="pareja">Pareja</option>
+                                        <option value="familiar">Familiar</option>
+                                        <option value="amigo">Amigo/a</option>
+                                        <option value="ninguna">Ninguna</option>
+
+                                    </select>
+                                </div>
+                                
+                                <!-- Motivo del ataque -->
+                                <div class="col-md-6">
+                                    <label for="motivoAtaque" class="form-label">Motivo del ataque</label>
+                                    <select class="form-select" id="motivoAtaque" required>
+                                        <option value="">Seleccione el motivo</option>
+                                        <option value="represalia">Represalia</option>
+                                        <option value="control-territorial">Control territorial</option>
+                                        <option value="venganza">Venganza</option>
+                                
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                Seccion B
+            </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <h5>Ataques a mujeres relacionadas con personas involucradas en
+                    organizaciones criminales</h5>
+                    <section id="formAtaques" class="container my-5">
+                        <div class="container my-5">
+                            <form id="formPreguntas2">
+                    
+                                <!-- Relacion 13.b.1 -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="rolVictima" class="form-label">Relación con miembros de organizaciones criminales</label>
+                                        <select class="form-select" id="rolVictima" required>
+                                            <option value="">Seleccione relacion</option>
+                                            <option value="pareja">Paraja</option>
+                                            <option value="familiar">Familiar</option>
+                                            <option value="amigo">Amigo/a</option>
+                                        </select>
+                                    </div>
+
+
+                                        <div class="col-md-6">
+                                            <label for="rolVictima" class="form-label">Tipo de resistencia</label>
+                                            <select class="form-select" id="rolVictima" required>
+                                                <option value="">Seleccione tipo resistencia</option>
+                                                <option value="Defensa de hijos/as">Defensa de hijos/as</option>
+                                                <option value="Protección de hogar">Protección de hogar</option>
+                                                <option value="Negativa a colaborar">Negativa a colaborar</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="rolVictima" class="form-label">Antecedentes de violencia en la relación  </label>
+                                            <div class="form-check form-check-inline">
+                                                
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="si">
+                                                <label class="form-check-label" for="inlineRadio1">Si</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="no">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                <label class="form-check-label" for="inlineRadio3">No especificado</label>
+                                            </div>
+                                    </div>
+
+            </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                Seccion C
+            </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <h5>Muertes vinculadas a la resistencia de la víctima ante organizaciones
+                        criminales</h5>
+                        <section id="formAtaques" class="container my-5">
+                            <div class="container my-5">
+                                <form id="formPreguntas2">
+                        
+                                    <!-- Relacion 13.b.1 -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="rolVictima" class="form-label">Relación con miembros de organizaciones criminales</label>
+                                            <select class="form-select" id="rolVictima" required>
+                                                <option value="">Seleccione relacion</option>
+                                                <option value="pareja">Paraja</option>
+                                                <option value="familiar">Familiar</option>
+                                                <option value="amigo">Amigo/a</option>
+                                            </select>
+                                        </div>
+    
+    
+                                            <div class="col-md-6">
+                                                <label for="rolVictima" class="form-label">Tipo de resistencia</label>
+                                                <select class="form-select" id="rolVictima" required>
+                                                    <option value="">Seleccione tipo resistencia</option>
+                                                    <option value="Defensa de hijos/as">Defensa de hijos/as</option>
+                                                    <option value="Protección de hogar">Protección de hogar</option>
+                                                    <option value="Negativa a colaborar">Negativa a colaborar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="rolVictima" class="form-label">Antecedentes de violencia en la relación  </label>
+                                                <div class="form-check form-check-inline">
+                                                    
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="si">
+                                                    <label class="form-check-label" for="inlineRadio1">Si</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="no">
+                                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                    <label class="form-check-label" for="inlineRadio3">No especificado</label>
+                                                </div>
+                                        </div>
+    
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsefour" aria-expanded="false" aria-controls="flush-collapsefour">
+                Seccion D
+            </button>
+            </h2>
+            <div id="flush-collapsefour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                <div class="container mt-4">
+                    <h5 class="mb-4">Ataques a mujeres en conflictos territoriales y narcotráfico</h2>
+                    <form>
+                        <!-- Campos principales -->
+                        <div class="mb-3">
+                            <label for="tipoIncidente" class="form-label">Tipo de incidente</label>
+                            <select id="tipoIncidente" class="form-select">
+                                <option>Tiroteo</option>
+                                <option>Ataque dirigido</option>
+                                <option>Incendio</option>
+                                <option>Error de identidad</option>
+                                <option>Error de domicilio</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">¿Fue la víctima el objetivo directo del ataque?</label>
+                            <div>
+                                <input type="radio" id="objetivoSi" name="objetivo" value="Sí">
+                                <label for="objetivoSi">Sí</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="objetivoNo" name="objetivo" value="No">
+                                <label for="objetivoNo">No</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="objetivoNoEspecificado" name="objetivo" value="No especificado">
+                                <label for="objetivoNoEspecificado">No especificado</label>
+                            </div>
+                        </div>
+            
+                        <!-- Acordeones para responder -->
+                        <h4 class="mt-5">Detalles adicionales</h4>
+                        <div class="accordion" id="accordionExample">
+                            <!-- Ataques vinculados a testigos -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        14. Ataques vinculados a testigos en causas penales
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">¿La víctima era testigo o denunciante en alguna causa penal?</label>
+                                            <div>
+                                                <input type="radio" id="testigoSi" name="testigo" value="Sí">
+                                                <label for="testigoSi">Sí</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="testigoNo" name="testigo" value="No">
+                                                <label for="testigoNo">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="tipoCausa" class="form-label">Tipo de causa penal</label>
+                                            <select id="tipoCausa" class="form-select">
+                                                <option>Narcotráfico</option>
+                                                <option>Trata de personas</option>
+                                                <option>Violencia de género</option>
+                                                <option>Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">¿Protección brindada por el Estado?</label>
+                                            <div>
+                                                <input type="radio" id="proteccionSi" name="proteccion" value="Sí">
+                                                <label for="proteccionSi">Sí</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="proteccionNo" name="proteccion" value="No">
+                                                <label for="proteccionNo">No</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="proteccionDesconocido" name="proteccion" value="Desconocido">
+                                                <label for="proteccionDesconocido">Desconocido</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="detalleProteccion" class="form-label">Detalle de medidas de protección</label>
+                                            <textarea id="detalleProteccion" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Investigación con perspectiva de género -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        15. Investigación con perspectiva de género
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">¿Intervino una unidad fiscal especializada en violencia de género?</label>
+                                            <div>
+                                                <input type="radio" id="unidadFiscalSi" name="unidadFiscal" value="Sí">
+                                                <label for="unidadFiscalSi">Sí</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="unidadFiscalNo" name="unidadFiscal" value="No">
+                                                <label for="unidadFiscalNo">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">¿Se incorporó un enfoque de género en la investigación?</label>
+                                            <div>
+                                                <input type="radio" id="enfoqueGeneroSi" name="enfoqueGenero" value="Sí">
+                                                <label for="enfoqueGeneroSi">Sí</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="enfoqueGeneroNo" name="enfoqueGenero" value="No">
+                                                <label for="enfoqueGeneroNo">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">¿Se identificaron signos de violencia de género?</label>
+                                            <div>
+                                                <input type="radio" id="signosViolenciaSi" name="signosViolencia" value="Sí">
+                                                <label for="signosViolenciaSi">Sí</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="signosViolenciaNo" name="signosViolencia" value="No">
+                                                <label for="signosViolenciaNo">No</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="antecedentes" class="form-label">¿Existencia de antecedentes relacionados con violencia de género?</label>
+                                            <select id="antecedentes" class="form-select">
+                                                <option>Sí</option>
+                                                <option>No</option>
+                                                <option>No especificado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+</section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
