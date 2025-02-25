@@ -100,7 +100,7 @@
     </ul>
 </div>
 
-<!-- 🔹 Contenedor del Acordeón (Preguntas) -->
+<!-- 🔹 Contenedor del Acordeón 911 opcion -->
 <div id="accordionContainer911" class="accordionContainer">
     <h4>Detalles del 911 - Centro de Emergencias</h4>
     <div class="accordion" id="accordion911">
@@ -265,121 +265,44 @@
 
 <!-- Acordeón para Denuncias Previas -->
 <div id="accordionContainerDenunciasPrevias" class="accordionContainer" style="display: none;">
-    <div class="card">
-        <div class="card-header" id="headingDenunciasPrevias">
-            <h5 class="mb-0">
-                    Formulario de Denuncias Previas
-            </h5>
-        </div>
-        <div id="collapseDenunciasPrevias" class="collapse" aria-labelledby="headingDenunciasPrevias" data-parent="#accordionContainerDenunciasPrevias">
-            <div class="card-body">
-                <!-- Historial de Denuncias Previas -->
-                <h5>1. Historial de denuncias previas</h5>
-                <div class="form-group">
+    <h4>Denuncias previas</h4>
+    <div class="accordion" id="accordiondenunciasPrevias">
+        <!-- Sección 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#seccion1">
+                    1. Historial de denuncias previas
+                </button>
+            </h2>
+            <div id="seccion1" class="accordion-collapse collapse">
+                <div class="accordion-body">
                     <label for="denunciasPrevias">¿Cuántas denuncias previas registró la víctima en esta sede?</label>
                     <input type="number" class="form-control" id="denunciasPrevias" placeholder="Número de denuncias previas">
-                </div>
-                <div class="form-group">
-                    <label for="delitoDenunciado">Delito denunciado</label>
-                    <select multiple class="form-control" id="delitoDenunciado">
-                        <option>Amenazas</option>
-                        <option>Acoso</option>
-                        <option>Hostigamiento</option>
-                    </select>
-                </div>
-                <div class="form-group">
+
+                    <div class="form-group">
+                        <label for="delitoDenunciado">Delito denunciado</label>
+                        <select class="form-select" id="delitoDenunciado">
+                            <option>Amenazas</option>
+                            <option>Acoso</option>
+                            <option>Hostigamiento</option>
+                        </select>
+                    </div>
+
                     <label for="fechaDenuncia">Fecha aproximada de la denuncia</label>
                     <input type="date" class="form-control" id="fechaDenuncia">
-                </div>
-                <div class="form-group">
+
                     <label for="resultadoDenuncia">Resultado de la denuncia</label>
-                    <select class="form-control" id="resultadoDenuncia">
+                    <select class="form-select" id="resultadoDenuncia">
                         <option>En curso</option>
                         <option>Archivada</option>
                         <option>Resuelta</option>
                         <option>Intervención preventiva sin sanción</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <label for="tipoViolencia">Tipo de violencia denunciada</label>
-                    <select multiple class="form-control" id="tipoViolencia">
-                        <option>Física</option>
-                        <option>Psicológica</option>
-                        <option>Sexual</option>
-                        <option>Simbólica</option>
-                    </select>
-                </div>
-
-                <!-- Relación con el agresor en denuncias previas -->
-                <h5>2. Relación con el agresor en denuncias previas</h5>
-                <div class="form-group">
-                    <label for="conviviaConElAgresor">¿Convivía la víctima con el agresor en el momento de la denuncia?</label>
-                    <select class="form-control" id="conviviaConElAgresor">
-                        <option>Si</option>
-                        <option>No</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="tipoRelacion">Tipo de relación con el agresor</label>
-                    <select class="form-control" id="tipoRelacion">
-                        <option>Pareja</option>
-                        <option>Expareja</option>
-                        <option>Familiar</option>
-                        <option>Conocido</option>
-                        <option>Desconocido</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="agresorOrganizacion">¿El agresor pertenecía a alguna organización o grupo criminal conocido?</label>
-                    <select class="form-control" id="agresorOrganizacion">
-                        <option>Si</option>
-                        <option>No</option>
-                    </select>
-                </div>
-
-                <!-- Existencia de medidas de protección previas -->
-                <h5>3. Existencia de medidas de protección previas</h5>
-                <div class="form-group">
-                    <label for="medidasProteccionActivas">¿La víctima contaba con medidas de protección activas en el momento de los hechos?</label>
-                    <select class="form-control" id="medidasProteccionActivas">
-                        <option>Si</option>
-                        <option>No</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="tipoMedidas">Tipo de medidas</label>
-                    <select class="form-control" id="tipoMedidas">
-                        <option>Botón antipánico</option>
-                        <option>Restricción perimetral</option>
-                        <option>Refugio temporal</option>
-                        <option>Vigilancia policial</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="cumplimientoMedidas">Cumplimiento de las medidas de protección</label>
-                    <select class="form-control" id="cumplimientoMedidas">
-                        <option>Cumplidas</option>
-                        <option>No cumplidas</option>
-                        <option>En evaluación</option>
-                    </select>
-                </div>
-
-                <!-- Asistencia y apoyo recibido por la víctima -->
-                <h5>4. Asistencia y apoyo recibido por la víctima</h5>
-                <div class="form-group">
-                    <label for="asistioServicios">¿La víctima asistió a servicios de orientación o apoyo en centros de víctimas o similares?</label>
-                    <select class="form-control" id="asistioServicios">
-                        <option>Si</option>
-                        <option>No</option>
-                    </select>
-                </div>
-                <div class="form-group" id="especificarAsistencia" style="display: none;">
-                    <label for="especificarAsistenciaText">Especificar</label>
-                    <input type="text" class="form-control" id="especificarAsistenciaText" placeholder="Especificar el servicio recibido">
-                </div>
             </div>
         </div>
-    </div>
+</div>
+
+
 </div>
 
 
