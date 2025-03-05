@@ -12,9 +12,9 @@ use Doctrine\Common\Collections\Collection;
 class Localidad
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id_localidad = null;
+    private int $id_localidad;
 
     #[ORM\Column(type: Types::STRING, length: 45)]
     private string $localidad;

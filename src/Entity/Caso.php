@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Caso
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id_caso = null;
+    private int $id_caso;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $fecha_carga;
