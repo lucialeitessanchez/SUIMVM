@@ -19,7 +19,7 @@ class Caso
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $fecha_anoticiamiento;
-
+/*
     #[ORM\Column(type: "string", enumType: FranjaEtariaEnum::class, nullable: true)]
     private ?string $franja_etaria = null;
 
@@ -193,5 +193,5 @@ public function setOrganismoOrigenIdOrigen(OrganismoOrigen $organismo_origen_id_
     $this->organismo_origen_id_origen = $organismo_origen_id_origen;
     return $this;
 }
-
+*/
 }
