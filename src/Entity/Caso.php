@@ -20,22 +20,22 @@ class Caso
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $fecha_anoticiamiento;
 
-    #[ORM\Column(type: "string", enumType: FranjaEtariaEnum::class, nullable: true)]
+    #[ORM\Column(type: "string",  nullable: true)]
     private ?string $franja_etaria = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $domicilio = null;
 
-    #[ORM\Column(type: "string", enumType: BooleanEnum::class, nullable: true)]
+    #[ORM\Column(type: "string",  nullable: true)]
     private ?string $femicidio_vinculado = null;
 
-    #[ORM\Column(type: "string", enumType: BooleanEnum::class, nullable: true)]
+    #[ORM\Column(type: "string",  nullable: true)]
     private ?string $crimen_odio = null;
 
     #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
     private ?string $barrio_hecho = null;
 
-    #[ORM\Column(type: "string", enumType: TipoMuerteEnum::class, nullable: true)]
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $tipo_muerte = null;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
