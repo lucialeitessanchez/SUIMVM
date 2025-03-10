@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+#[ORM\Entity]
+#[ORM\Table(name: "tipo_vulneracion_has_sddnayf")]
+class TipoVulneracionHasSddnayf
+{
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: TipoVulneracion::class, inversedBy: "sddnayfs")]
+    #[ORM\JoinColumn(name: "tipo_vulneracion_id_tipo_vulneracion", referencedColumnName: "id_tipo_vulneracion", nullable: false)]
+    private ?TipoVulneracion $tipoVulneracion = null;
+
+    #[ORM\Id]
+    #[ORM\ManyToOne(targetEntity: Sddnayf::class, inversedBy: "tipoVulneraciones")]
+    #[ORM\JoinColumn(name: "sddnayf_id_sddnayf", referencedColumnName: "id_sddnayf", nullable: false)]
+    private ?Sddnayf $sddnayf = null;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $sddnayf6b = null;
+
+    public function getTipoVulneracion(): ?TipoVulneracion
+    {
+        return $this->tipoVulneracion;
+    }
+
+    public function setTipoVulneracion(?TipoVulneracion $tipoVulneracion): self
+    {
+        $this->tipoVulneracion = $tipoVulneracion;
+        return $this;
+    }
+
+    public function getSddnayf(): ?Sddnayf
+    {
+        return $this->sddnayf;
+    }
+
+    public function setSddnayf(?Sddnayf $sddnayf): self
+    {
+        $this->sddnayf = $sddnayf;
+        return $this;
+    }
+
+    public function getSddnayf6b(): ?string
+    {
+        return $this->sddnayf6b;
+    }
+
+    public function setSddnayf6b(?string $sddnayf6b): self
+    {
+        $this->sddnayf6b = $sddnayf6b;
+        return $this;
+    }
+}
