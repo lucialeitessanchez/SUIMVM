@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Nomenclador
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id_nomenclador = null;
+    private int $id_nomenclador;
 
     #[ORM\Column(type: Types::STRING, length: 45)]
     private string $nomenclador;

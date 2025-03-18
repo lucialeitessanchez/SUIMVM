@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class AccionesAic
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id_acciones_aic = null;
+    private int $id_acciones_aic;
 
     #[ORM\Column(type: Types::INTEGER)]
     private int $mjys_id_mjys;

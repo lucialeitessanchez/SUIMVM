@@ -10,32 +10,32 @@ use Doctrine\ORM\Mapping as ORM;
 class Caso
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id_caso = null;
+    private int $id_caso;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $fecha_carga;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $fecha_anoticiamiento;
-/*
-    #[ORM\Column(type: "string", enumType: FranjaEtariaEnum::class, nullable: true)]
+
+    #[ORM\Column(type: "string",  nullable: true)]
     private ?string $franja_etaria = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $domicilio = null;
 
-    #[ORM\Column(type: "string", enumType: BooleanEnum::class, nullable: true)]
+    #[ORM\Column(type: "string",  nullable: true)]
     private ?string $femicidio_vinculado = null;
 
-    #[ORM\Column(type: "string", enumType: BooleanEnum::class, nullable: true)]
+    #[ORM\Column(type: "string",  nullable: true)]
     private ?string $crimen_odio = null;
 
     #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
     private ?string $barrio_hecho = null;
 
-    #[ORM\Column(type: "string", enumType: TipoMuerteEnum::class, nullable: true)]
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $tipo_muerte = null;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
@@ -193,5 +193,5 @@ public function setOrganismoOrigenIdOrigen(OrganismoOrigen $organismo_origen_id_
     $this->organismo_origen_id_origen = $organismo_origen_id_origen;
     return $this;
 }
-*/
+
 }
