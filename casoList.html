@@ -84,102 +84,25 @@
         
     </div>
 </nav>
-<section id="caso-table">
+    <section id="caso-table">
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th>Caso</th>
-                <th>Fecha del hecho</th>
-                <th>Localidad</th>
-                <th>Institución de carga</th>
-                <th>Actualizaciones</th>
-            </tr>
+        <tr>
+            <th>Caso</th>
+            <th>Fecha del hecho</th>
+            <th>Localidad</th>
+            <th>Institución de carga</th>
+            <th>Actualizaciones</th>
+        </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Caso 001</td>
-                <td>2024-05-12</td>
-                <td>Santa Fe</td>
-                <td>Ministerio de Justicia y Seguridad</td>
-                <td><span class="badge text-bg-primary rounded-pill">12</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 002</td>
-                <td>2024-05-15</td>
-                <td>Córdoba</td>
-                <td>SMGyD</td>
-                <td><span class="badge text-bg-primary rounded-pill">2</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 003</td>
-                <td>2024-05-20</td>
-                <td>Santo Tome</td>
-                <td>SMGyD</td>
-                <td><span class="badge text-bg-primary rounded-pill">3</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 004</td>
-                <td>2024-06-01</td>
-                <td>Rosario</td>
-                <td>Ministerio de Justicia y Seguridad</td>
-                <td><span class="badge text-bg-primary rounded-pill">4</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 005</td>
-                <td>2024-06-10</td>
-                <td>Casilda</td>
-                <td>SMGyD</td>
-                <td><span class="badge text-bg-primary rounded-pill">3</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 006</td>
-                <td>2024-06-18</td>
-                <td>San Justo</td>
-                <td>SMGyD</td>
-                <td><span class="badge text-bg-primary rounded-pill">6</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 007</td>
-                <td>2024-06-25</td>
-                <td>Santa Fe</td>
-                <td>MPA</td>
-                <td><span class="badge text-bg-primary rounded-pill">14</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 008</td>
-                <td>2024-07-02</td>
-                <td>Rafaela</td>
-                <td>SMGyD</td>
-                <td><span class="badge text-bg-primary rounded-pill">8</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 009</td>
-                <td>2024-07-10</td>
-                <td>San Lorenzo</td>
-                <td>MPA</td>
-                <td><span class="badge text-bg-primary rounded-pill">12</span>
-                    <i class="fas fa-eye"></i></td>
-            </tr>
-            <tr>
-                <td>Caso 010</td>
-                <td>2024-07-15</td>
-                <td>Venado Tuerto</td>
-                <td>SMGyD</td>
-                <td><span class="badge text-bg-primary rounded-pill">6</span><i class="fas fa-eye"></i></td>
-            </tr>
+        <tbody id="caso-body">
+        <!-- Filas dinámicas -->
         </tbody>
     </table>
-</section>
+    </section>
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/rellenarTable.js"></script>
 </body>
 </html>
