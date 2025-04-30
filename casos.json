@@ -1,0 +1,114 @@
+{
+  "casos": [
+    {
+      "id": 1,
+      "nombre": "Lucía Gómez",
+      "edad": 13,
+      "franja_etaria": "0 a 15",
+      "localidad": "Gregoria Pérez De Denis",
+      "departamento": "9 de Julio",
+      "microregion": null,
+      "nacionalidad": "argentina",
+      "fecha": "2024-08-22"
+    },
+    {
+      "id": 2,
+      "nombre": "Camila Torres",
+      "edad": 8,
+      "franja_etaria": "0 a 15",
+      "localidad": "Avellaneda",
+      "departamento": "General Obligado",
+      "microregion": "Norte",
+      "nacionalidad": "argentina",
+      "fecha": "2024-07-31"
+    },
+    {
+      "id": 3,
+      "nombre": "Mariana López",
+      "edad": 53,
+      "franja_etaria": "51 a 70",
+      "localidad": "Reconquista",
+      "departamento": "General Obligado",
+      "microregion": "Norte",
+      "nacionalidad": "argentina",
+      "fecha": "2024-08-30"
+    },
+    {
+      "id": 4,
+      "nombre": "Josefina Pérez",
+      "edad": 31,
+      "franja_etaria": "31 a 50",
+      "localidad": "Tostado",
+      "departamento": "9 de Julio",
+      "microregion": "Norte",
+      "nacionalidad": "paraguaya",
+      "fecha": "2024-04-30"
+    },
+    {
+      "id": 5,
+      "nombre": "Ana Rodríguez",
+      "edad": 59,
+      "franja_etaria": "51 a 70",
+      "localidad": "Malabrigo",
+      "departamento": "General Obligado",
+      "microregion": "Norte",
+      "nacionalidad": "uruguaya",
+      "fecha": "2024-06-03"
+    },
+    {
+      "id": 6,
+      "nombre": "Florencia Acosta",
+      "edad": 62,
+      "franja_etaria": "51 a 70",
+      "localidad": "Villa Ocampo",
+      "departamento": "General Obligado",
+      "microregion": "Norte",
+      "nacionalidad": "brasileña",
+      "fecha": "2025-01-25"
+    },
+    {
+      "id": 7,
+      "nombre": "Victoria Benítez",
+      "edad": 84,
+      "franja_etaria": "71 o más",
+      "localidad": "Las Toscas",
+      "departamento": "General Obligado",
+      "microregion": "Norte",
+      "nacionalidad": "argentina",
+      "fecha": "2024-07-27"
+    },
+    {
+      "id": 8,
+      "nombre": "Julieta Ríos",
+      "edad": 20,
+      "franja_etaria": "16 a 30",
+      "localidad": "El Nochero",
+      "departamento": "9 de Julio",
+      "microregion": null,
+      "nacionalidad": "argentina",
+      "fecha": "2024-07-31"
+    },
+    {
+      "id": 9,
+      "nombre": "Natalia Ferrero",
+      "edad": 60,
+      "franja_etaria": "51 a 70",
+      "localidad": "San Bernardo",
+      "departamento": "9 de Julio",
+      "microregion": null,
+      "nacionalidad": "argentina",
+      "fecha": "2024-09-02"
+    },
+    {
+      "id": 10,
+      "nombre": "Laura Medina",
+      "edad": 37,
+      "franja_etaria": "31 a 50",
+      "localidad": "Villa Guillermina",
+      "departamento": "General Obligado",
+      "microregion": "Norte",
+      "nacionalidad": "argentina",
+      "fecha": "2024-12-14"
+    }
+  ]
+}

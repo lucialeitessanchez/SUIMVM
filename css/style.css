@@ -6,6 +6,14 @@ navbar navbar-expand-lg bg-dark navbar-dark{
     margin-left: 5px;
 }
 
+/* navbar superior*/
+#navbarNav ul li .nav-link {
+    color: whitesmoke;
+}
+
+#navbarNav ul li .nav-link:hover {
+    color: grey; /* Color al pasar el cursor */
+}
 
 .intro {
     background-color: #f8f9fa;
