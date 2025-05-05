@@ -80,6 +80,13 @@ class Caj
     #[ORM\Column(type: Types::TEXT)]
     private string $caj_4c;
 
+    #[ORM\Column(type: Types::STRING)]
+    private string $caj_3j;
+
+    #[ORM\ManyToOne(targetEntity: EquipoReferencia::class)]
+    #[ORM\JoinColumn(name: "caj_3j", referencedColumnName: "id_equipo", nullable: false)]
+    private EquipoReferencia $caj_3j;
+
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
     private Caso $caso;
@@ -240,6 +247,61 @@ class Caj
     public function setCaj3g(string $caj_3g): self
     {
         $this->caj_3g = $caj_3g;
+        return $this;
+    }
+
+    public function getCaj3h(): string
+    {
+        return $this->caj_3h;
+    }
+
+    public function setCaj3h(string $caj_3h): self
+    {
+        $this->caj_3h = $caj_3h;
+        return $this;
+    }
+
+    public function getCaj1c(): Nomenclador
+    {
+        return $this->caj_1c;
+    }
+
+    public function setCaj1c(Nomenclador $caj_1c): self
+    {
+        $this->caj_1c = $caj_1c;
+        return $this;
+    }
+
+    public function getCaj1d(): Nomenclador
+    {
+        return $this->caj_1d;
+    }
+
+    public function setCaj1d(Nomenclador $caj_1d): self
+    {
+        $this->caj_1d = $caj_1d;
+        return $this;
+    }
+
+    public function getCaj3b(): Nomenclador
+    {
+        return $this->caj_3b;
+    }
+
+    public function setCaj3b(Nomenclador $caj_3b): self
+    {
+        $this->caj_3b = $caj_3b;
+        return $this;
+    }
+
+    public function getCaj3i(): EquipoReferencia
+    {
+        return $this->caj_3i;
+    }
+
+    public function setCaj3i(EquipoReferencia $caj_3i): self
+    {
+        $this->caj_3i = $caj_3i;
         return $this;
     }
 

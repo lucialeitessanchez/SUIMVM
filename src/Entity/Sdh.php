@@ -16,6 +16,12 @@ class Sdh
     #[ORM\Column(type: "string")]
     private string $sdh_1_1;
 
+    #[ORM\Column(type: "string")]
+    private string $sdh_1_9;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private \DateTimeInterface $sdh_1_10;
+
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(nullable: false)]
     private Nomenclador $sdh_1_2_id_nomenclador;
@@ -56,6 +62,12 @@ class Sdh
     private ?string $sdh_3_2 = null;
 
     #[ORM\Column(type: "string", nullable: true)]
+    private ?string $sdh_3_3 = null;
+
+    #[ORM\Column(type: "string", nullable: true)]
+    private ?string $sdh_3_4 = null;
+
+    #[ORM\Column(type: "string", nullable: true)]
     private ?string $sdh_4_1 = null;
 
     #[ORM\Column(type: "string", nullable: true)]
@@ -85,6 +97,12 @@ class Sdh
 
     public function getSdh11(): string { return $this->sdh_1_1; }
     public function setSdh11(string $value): self { $this->sdh_1_1 = $value; return $this; }
+
+    public function getSdh19(): ?string { return $this->sdh_1_9; }
+    public function setSdh19(?string $value): self { $this->sdh_1_9 = $value; return $this; }
+
+    public function getSdh110(): ?\DateTimeInterface { return $this->sdh_1_10; }
+    public function setSdh110(?\DateTimeInterface $value): self { $this->sdh_1_10 = $value; return $this; }
 
     public function getSdh12IdNomenclador(): Nomenclador { return $this->sdh_1_2_id_nomenclador; }
     public function setSdh12IdNomenclador(Nomenclador $value): self { $this->sdh_1_2_id_nomenclador = $value; return $this; }
@@ -121,6 +139,12 @@ class Sdh
 
     public function getSdh32(): ?string { return $this->sdh_3_2; }
     public function setSdh32(?string $value): self { $this->sdh_3_2 = $value; return $this; }
+
+    public function getSdh33(): ?string { return $this->sdh_3_3; }
+    public function setSdh33(?string $value): self { $this->sdh_3_3 = $value; return $this; }
+
+    public function getSdh34(): ?string { return $this->sdh_3_4; }
+    public function setSdh34(?string $value): self { $this->sdh_3_4 = $value; return $this; }
 
     public function getSdh41(): ?string { return $this->sdh_4_1; }
     public function setSdh41(?string $value): self { $this->sdh_4_1 = $value; return $this; }
