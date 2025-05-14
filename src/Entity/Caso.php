@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: App\Repository\CasoRepository::class)]
 #[ORM\Table(name: "caso")]
 class Caso
 {
@@ -18,7 +18,13 @@ class Caso
     private \DateTimeInterface $fecha_carga;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTimeInterface $fecha_hecho;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $fecha_anoticiamiento;
+
+    #[ORM\Column(type: "integer",  nullable: true)]
+    private ?int $edad = null;
 
     #[ORM\Column(type: "string",  nullable: true)]
     private ?string $franja_etaria = null;
@@ -73,6 +79,17 @@ public function setFechaCarga(\DateTimeInterface $fecha_carga): self
     return $this;
 }
 
+public function getFechaHecho(): \DateTimeInterface
+{
+    return $this->fecha_hecho;
+}
+
+public function setFechaHecho(\DateTimeInterface $fecha_hecho): self
+{
+    $this->fecha_hecho = $fecha_hecho;
+    return $this;
+}
+
 public function getFechaAnoticiamiento(): \DateTimeInterface
 {
     return $this->fecha_anoticiamiento;
@@ -81,6 +98,17 @@ public function getFechaAnoticiamiento(): \DateTimeInterface
 public function setFechaAnoticiamiento(\DateTimeInterface $fecha_anoticiamiento): self
 {
     $this->fecha_anoticiamiento = $fecha_anoticiamiento;
+    return $this;
+}
+
+public function getEdad(): ?int
+{
+    return $this->edad;
+}
+
+public function setEdad(?int $edad): self
+{
+    $this->edad = $edad;
     return $this;
 }
 
