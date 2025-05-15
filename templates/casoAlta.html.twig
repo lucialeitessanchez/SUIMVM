@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nueva CASO{% endblock %}
+
+    {% block body %}
+<section class="container my-5">
+    <h2 class="text-left mb-4">Identificación de la víctima</h2>
+    <hr>
+    {{ form_start(form) }}
+    <div class="row mb-3">
+                <!-- Fecha de carga -->
+                <div class="col-md-4">
+                                
+                    {{ form_label(form.fechaCarga , null, {'label_attr': {'class': 'form-label'}}) }}                    
+                    {{ form_errors(form.fechaCarga) }}
+                    {{ form_widget(form.fechaCarga,{'attr': {'class': 'form-control'}})  }}
+                </div>
+                <!-- Fecha de del hecho -->
+                <div class="col-md-4">
+                    {{ form_label(form.fechaHecho, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.fechaHecho) }}
+                    {{ form_widget(form.fechaHecho,{'attr': {'class': 'form-control'}})  }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(form.fechaAnoticiamiento, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.fechaAnoticiamiento) }}
+                    {{ form_widget(form.fechaAnoticiamiento,{'attr': {'class': 'form-control'}})  }}
+                </div>
+    </div>
+    <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Nombre de la víctima" required>
+                </div>
+                <div class="col-md-4">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" placeholder="Apellido de la víctima" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="dni" class="form-label">DNI</label>
+                    <input type="text" class="form-control" id="nrodoc" placeholder="Número de DNI" required>
+                </div>
+    </div>
+    <div class="row mb-3">
+                <!-- Sexo asignado en el DNI -->
+                <div class="col-md-4">
+                    <label class="form-label">Sexo asignado en el DNI</label>
+                    <select class="form-select" id="sexo" required>
+                        <option selected disabled>Seleccione...</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="No binario">No binario</option>
+                    </select>
+                </div>
+    
+                <!-- Género autopercibido de la víctima -->
+                <div class="col-md-4">
+                    <label for="generoAutop" class="form-label">Género autopercibido de la víctima</label>
+                    <select class="form-select" id="generoAutop" required>
+                        <option selected disabled>Seleccione...</option>
+                        <option value="Mujer cis">Mujer cis</option>
+                        <option value="Mujer trans">Mujer trans</option>
+                        <option value="Varon trans">Varon trans</option>
+                        <option value="No binario">No binario</option>
+                        <option value="No especificado">No especificado</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+
+                    {{ form_label(form.edad, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.edad) }}
+                    {{ form_widget(form.edad,{'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-2">
+                    <label for="franjaEtaria" class="form-label">Franja etaria</label>
+                    <select class="form-select" id="franjaEtaria" disabled>
+                        <option disabled selected>Según edad seleccionada</option>
+                        <option value="0-15 años">0-15 años</option>
+                        <option value="16-30 años">16-30 años</option>
+                        <option value="31-50 años">31-50 años</option>
+                        <option value="51-70 años">51-70 años</option>
+                        <option value="71 años o más">71 años o más</option>
+                    </select>
+                </div>
+    </div>
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+</section>
+  
+{% endblock %} 
+{% block javascript %}
+    {{ parent() }}
+        <script src="{{ asset('js/franjaEtaria.js') }}"></script>
+    {% endblock %}
+   
