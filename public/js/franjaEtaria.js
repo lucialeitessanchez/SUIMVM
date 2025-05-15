@@ -1,7 +1,7 @@
-$(document).ready(function () {
-alert("entra");
+document.addEventListener("DOMContentLoaded", function () {
+
 const edadInput = document.getElementById('caso_edad');
-alert(edadInput);
+
 const franjaEtariaSelect = document.getElementById('franjaEtaria');
 
 edadInput.addEventListener('input', () => {

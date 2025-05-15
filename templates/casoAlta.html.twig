@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Nueva CASO{% endblock %}
 
-    {% block body %}
+{% block body %}
 <section class="container my-5">
     <h2 class="text-left mb-4">Identificación de la víctima</h2>
     <hr>
@@ -88,8 +88,8 @@
 </section>
   
 {% endblock %} 
-{% block javascript %}
+{% block javascripts %}
     {{ parent() }}
         <script src="{{ asset('js/franjaEtaria.js') }}"></script>
-    {% endblock %}
+{% endblock %}
    
