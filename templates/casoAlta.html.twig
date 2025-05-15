@@ -35,9 +35,16 @@
                         <label for="apellido" class="form-label">Apellido</label>
                         <input type="text" class="form-control" id="apellido" placeholder="Apellido de la víctima" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="dni" class="form-label">DNI</label>
                     <input type="text" class="form-control" id="nrodoc" placeholder="Número de DNI" required>
+                </div>
+              
+                <div class="col-md-2">
+                     <label class="form-label" for="nacionalidad">Nacionalidad</label>
+                    <select class="form-select" id="nacionalidad" name="nacionalidad" required>
+                            <option selected disabled>Seleccione...</option>
+                    </select>
                 </div>
     </div>
     <div class="row mb-3">
@@ -82,6 +89,61 @@
                     </select>
                 </div>
     </div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+                    <label for="femicidioVinculado" class="form-label">¿Presuntamente se trata de un femicidio vinculado?</label>
+                    <div class="form-check form-switch">
+                            {{ form_row(form.femicidioVinculado, {'label_attr': {'class': 'form-label'}}) }}
+                    </div>
+        </div> 
+        <div class="col-md-4">
+                    <label for="crimenOdio" class="form-label">¿Se trata de un crimen de odio o discriminación?</label>
+                    <div class="form-check form-switch">
+                            {{ form_row(form.crimenOdio, {'label_attr': {'class': 'form-label'}}) }}
+                    </div>
+        </div> 
+        <div class="col-md-4">
+                    {{ form_label(form.tipoMuerte, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.tipoMuerte, {'attr': {'class': 'form-select'}}) }}
+                    {{ form_errors(form.tipoMuerte) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+                    {{ form_label(form.lugarHecho, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.lugarHecho, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.lugarHecho) }}
+        </div>
+        <div class="col-md-4">
+                    {{ form_label(form.domicilio, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.domicilio, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.domicilio) }}
+        </div>
+        <div class="col-md-4">
+                    {{ form_label(form.barrio, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.barrio, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.barrio) }}
+        </div>
+     </div>
+     <div class="row mb-3">
+                <div class="col-md-4">
+                    {{ form_label(form.localidadIdLocalidad, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.localidadIdLocalidad) }}
+                    {{ form_widget(form.localidadIdLocalidad,{'attr': {'class': 'form-select'}})  }}
+                </div>
+                <!-- Departamento -->
+                    <div class="col-md-4">
+                        <label for="departamento" class="form-label">Departamento</label>
+                        <input type="text" class="form-control" id="departamento" readonly="true">
+                    </div>
+                
+                    <!-- Microregión -->
+                    <div class="col-md-4">
+                        <label for="microregion" class="form-label">Microregión</label>
+                        <input type="text" class="form-control" id="microregion" disabled>
+                    </div>
+     </div>
+     
         {{ form_widget(form) }}
     {{ form_end(form) }}
 
@@ -91,5 +153,7 @@
 {% block javascripts %}
     {{ parent() }}
         <script src="{{ asset('js/franjaEtaria.js') }}"></script>
+        <script src="{{ asset('js/nacionalidad.js') }}"></script>
+        <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
 {% endblock %}
    

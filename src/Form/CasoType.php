@@ -9,6 +9,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,8 +38,43 @@ class CasoType extends AbstractType
                 'label' => 'Edad',
                 'required' => false,
             ])
-            ->add('barrioHecho', TextType::class, [
-                'label' => 'Barrio del hecho',
+
+            ->add('femicidioVinculado', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('crimenOdio', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('tipoMuerte', ChoiceType::class, [
+                'label' => 'Tipo de muerte',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'Intervención de un tercero' => 'Intervencion',
+                    'Suicidio' => 'Suicidio',
+                    'Muerte dudosa' => 'Dudosa',
+                    'Femicidio íntimo o familiar' => 'Femicidiointimoofamiliar',
+                    'Muerte en contexto de criminalidad organizada' => 'MuerteEnContextoDeCriminalidadOrganizada',
+                    'Femicidio en contexto de criminalidad organizada' => 'Femicidio en contexto de criminalidad organizada',
+                    'Femicidio vinculado' => 'Femicidio vinculado',
+                ],
+                'required' => true,
+            ])
+            ->add('lugarHecho', TextType::class, [
+                'label' => 'Lugar del hecho',
+                'required' => false,
+            ])
+            ->add('domicilio', TextType::class, [
+                'label' => 'Domicilio de la víctima',
+                'required' => false,
+            ])
+            ->add('barrio', TextType::class, [
+                'label' => 'Barrio',
                 'required' => false,
             ])
             

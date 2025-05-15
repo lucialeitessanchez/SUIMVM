@@ -39,7 +39,10 @@ class Caso
     private ?string $crimen_odio = null;
 
     #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
-    private ?string $barrio_hecho = null;
+    private ?string $barrio = null;
+
+    #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
+    private ?string $lugar_hecho = null;
 
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $tipo_muerte = null;
@@ -156,14 +159,25 @@ public function setCrimenOdio(?string $crimen_odio): self
     return $this;
 }
 
-public function getBarrioHecho(): ?string
+public function getBarrio(): ?string
 {
-    return $this->barrio_hecho;
+    return $this->barrio;
 }
 
-public function setBarrioHecho(?string $barrio_hecho): self
+public function setBarrio(?string $barrio): self
 {
-    $this->barrio_hecho = $barrio_hecho;
+    $this->barrio = $barrio;
+    return $this;
+}
+
+public function getLugarHecho(): ?string
+{
+    return $this->lugar_hecho;
+}
+
+public function setLugarHecho(?string $lugar_hecho): self
+{
+    $this->lugar_hecho = $lugar_hecho;
     return $this;
 }
 
