@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Caso;
+use App\Entity\Mpa;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class MpaForm extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('mpa_1')
+            ->add('mpa_2')
+            ->add('mpa_3')
+            ->add('mpa_3a')
+            ->add('mpa_3a1')
+            ->add('mpa_3b')
+            ->add('mpa_3b1')
+            ->add('mpa_4')
+            ->add('mpa_5')
+            ->add('mpa_6')
+            ->add('mpa_6a')
+            ->add('mpa_6b')
+            ->add('mpa_6c')
+            ->add('mpa_7')
+            ->add('mpa_7a')
+            ->add('mpa_8')
+            ->add('mpa_9a')
+            ->add('mpa_9b')
+            ->add('mpa_9c')
+            ->add('mpa_9d')
+            ->add('mpa_9e')
+            ->add('mpa_9f')
+            ->add('mpa_9g')
+            ->add('mpa_9h')
+            ->add('mpa_9ha')
+            ->add('mpa_10')
+            ->add('mpa_11')
+            ->add('mpa_12')
+            ->add('mpa_13')
+            ->add('mpa_13a')
+            ->add('mpa_14')
+            ->add('mpa_15')
+            ->add('caso', EntityType::class, [
+                'class' => Caso::class,
+                'choice_label' => 'id',
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Mpa::class,
+        ]);
+    }
+}

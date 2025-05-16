@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\DBAL\Types\Types;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -50,6 +51,6 @@ class JfDenuncias
     public function setJf11(string $jf11): self
     {
         $this->jf11 = $jf11;
-        return $;
+        return $this;
     }
 }

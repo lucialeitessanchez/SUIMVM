@@ -1,0 +1,208 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ministerio Publico de la Acusacion{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+  <!-- Campo Código de Caso -->
+  <div class="mb-3">
+    <label for="codigoCaso" class="form-label">Código del caso</label>
+    <input type="text" id="codigoCaso" name="codigoCaso" class="form-control" readonly>
+  </div>
+
+  <!-- Campo oculto ID -->
+  <input type="hidden" id="idCaso" name="idCaso">
+ {{ form_start(form) }}
+  <div class="accordion" id="accordionFormularioViolencia">
+    <!-- Sección 1: Información del hecho -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading1">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+          1. Información del hecho
+        </button>
+      </h2>
+      <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#accordionFormularioViolencia">
+        <div class="accordion-body">
+          <div class="mb-3">
+            <label for="mpa_1" class="form-label">1. Fecha de muerte</label>
+            <input type="date" class="form-control" id="mpa_1" name="mpa_1">
+          </div>
+          <div class="mb-3">
+            <label for="mpa_2" class="form-label">2. Hora del hecho</label>
+            <input type="time" class="form-control" id="mpa_2" name="mpa_2">
+          </div>
+          <div class="mb-3">
+            <label for="mpa_3" class="form-label">3. Tipo de lugar</label>
+            <select class="form-select nomenclador-TIPO_LUGAR" id="mpa_3" name="mpa_3">
+              <option value="">Seleccione...</option>
+              <option value="Cárcel">Cárcel</option>
+              <option value="Dependencia Policial">Dependencia Policial</option>
+              <option value="Vivienda compartida de víctima y agresor">Vivienda compartida de víctima y agresor</option>
+              <option value="Vivienda de la víctima">Vivienda de la víctima</option>
+              <option value="Vivienda del agresor">Vivienda del agresor</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_4" class="form-label">4. Otra información relevante sobre el lugar</label>
+            <textarea class="form-control" id="mpa_4" name="mpa_4" rows="2"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_5" class="form-label">5. Contexto del hecho</label>
+            <select class="form-select nomenclador-TIPO_VIOLENCIA" id="mpa_5" name="mpa_5">
+              <option value="">Seleccione...</option>
+              <option value="Intimo">Íntimo</option>
+              <option value="Familiar">Familiar</option>
+              <option value="Sexual">Sexual</option>
+              <option value="En contexto de criminalidad organizada">En contexto de criminalidad organizada</option>
+              <option value="Otras muertes relacionadas a violencia de género">Otras muertes relacionadas a violencia de género</option>
+              <option value="Conflictos interpersonales">Conflictos interpersonales</option>
+              <option value="En ocasión de robo">En ocasión de robo</option>
+              <option value="En investigación">En investigación</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_6" class="form-label">6. Contexto de otros delitos</label>
+            <select class="form-select" id="mpa_6" name="mpa_6">
+              <option value="">Seleccione...</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 2: Información del imputado -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading2">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+          2. Información del imputado
+        </button>
+      </h2>
+      <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#accordionFormularioViolencia">
+        <div class="accordion-body">
+          <div class="mb-3">
+            <label for="mpa_7a" class="form-label">7a. Apellido y Nombre</label>
+            <input type="text" class="form-control" id="mpa_7a" name="mpa_7a">
+          </div>
+          <div class="mb-3">
+            <label for="mpa_7b" class="form-label">7b. Edad</label>
+            <input type="number" class="form-control" id="mpa_7b" name="mpa_7b" min="0">
+          </div>
+          <div class="mb-3">
+            <label for="mpa_7c" class="form-label">7c. Vínculo con la víctima</label>
+            <select class="form-select nomenclador-TIPO_VINCULO" id="mpa_7c" name="mpa_7c">
+              <option value="">Seleccione...</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_7d" class="form-label">7d. Es miembro de las Fuerzas de Seguridad</label>
+            <select class="form-select" id="mpa_7d" name="mpa_7d">
+              <option value="">Seleccione...</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_7e" class="form-label">7e. Posee armas de fuego</label>
+            <select class="form-select" id="mpa_7e" name="mpa_7e">
+              <option value="">Seleccione...</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_7f" class="form-label">7f. Antecedentes de violencia hacia otras mujeres</label>
+            <select class="form-select" id="mpa_7f" name="mpa_7f">
+              <option value="">Seleccione...</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_7g" class="form-label">7g. Antecedentes por delitos contra la integridad física</label>
+            <select class="form-select" id="mpa_7g" name="mpa_7g">
+              <option value="">Seleccione...</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_7h" class="form-label">7h. Antecedentes por otros delitos</label>
+            <select class="form-select" id="mpa_7h" name="mpa_7h">
+              <option value="">Seleccione...</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_7i" class="form-label">7i. ¿Cuál antecedente?</label>
+            <textarea class="form-control" id="mpa_7i" name="mpa_7i" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 3: Información adicional del ataque -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading3">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+          3. Detalles adicionales del hecho
+        </button>
+      </h2>
+      <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#accordionFormularioViolencia">
+        <div class="accordion-body">
+          <div class="mb-3">
+            <label for="mpa_8" class="form-label">8. Destinatario principal del ataque</label>
+            <select class="form-select" id="mpa_8" name="mpa_8">
+              <option value="">Seleccione...</option>
+              <option value="Víctima">Víctima</option>
+              <option value="Familia de la víctima">Familia de la víctima</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_9" class="form-label">9. Mecanismo del SNIC</label>
+            <select class="form-select nomenclador-TIPO_ARMA" id="mpa_9" name="mpa_9">
+              <option value="">Seleccione...</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_10" class="form-label">10. Otras modalidades de violencia por motivo de género</label>
+            <textarea class="form-control" id="mpa_10" name="mpa_10" rows="2"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_11" class="form-label">11. Femicidio o tentativa</label>
+            <select class="form-select" id="mpa_11" name="mpa_11">
+              <option value="">Seleccione...</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+              <option value="Tentativa">Tentativa</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_12" class="form-label">12. Modalidad del hecho</label>
+            <select class="form-select nomenclador-MODALIDAD_HECHO" id="mpa_12" name="mpa_12">
+              <option value="">Seleccione...</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="mpa_13" class="form-label">13. Antecedentes de violencia</label>
+            <select class="form-select" id="mpa_13" name="mpa_13">
+              <option value="">Seleccione...</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+              <option value="No especificado">No especificado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    {% endblock %} 
+{% block javascripts %}
+
+{% endblock %}

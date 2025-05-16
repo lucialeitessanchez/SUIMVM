@@ -1,9 +1,6 @@
 <?php
-
-namespace App\Entity;
-
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity]
 #[ORM\Table(name: "equipo_referencia")]
@@ -11,13 +8,12 @@ class EquipoReferencia
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\Column(type: "integer")]
     private int $id_equipo;
 
-    #[ORM\Column(type: Types::STRING, length: 100)]
+    #[ORM\Column(type: "string", length: 100)]
     private string $equipo;
 
-   
     public function getIdEquipo(): ?int
     {
         return $this->id_equipo;
@@ -33,6 +29,4 @@ class EquipoReferencia
         $this->equipo = $equipo;
         return $this;
     }
-
-    
 }

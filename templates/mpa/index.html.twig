@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mpa index{% endblock %}
+
+{% block body %}
+    <h1>Mpa index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_mpa</th>
+                <th>Mpa_1</th>
+                <th>Mpa_2</th>
+                <th>Mpa_3</th>
+                <th>Mpa_3a</th>
+                <th>Mpa_3a1</th>
+                <th>Mpa_3b</th>
+                <th>Mpa_3b1</th>
+                <th>Mpa_4</th>
+                <th>Mpa_5</th>
+                <th>Mpa_6</th>
+                <th>Mpa_6a</th>
+                <th>Mpa_6b</th>
+                <th>Mpa_6c</th>
+                <th>Mpa_7</th>
+                <th>Mpa_7a</th>
+                <th>Mpa_8</th>
+                <th>Mpa_9a</th>
+                <th>Mpa_9b</th>
+                <th>Mpa_9c</th>
+                <th>Mpa_9d</th>
+                <th>Mpa_9e</th>
+                <th>Mpa_9f</th>
+                <th>Mpa_9g</th>
+                <th>Mpa_9h</th>
+                <th>Mpa_9ha</th>
+                <th>Mpa_10</th>
+                <th>Mpa_11</th>
+                <th>Mpa_12</th>
+                <th>Mpa_13</th>
+                <th>Mpa_13a</th>
+                <th>Mpa_14</th>
+                <th>Mpa_15</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mpa in mpas %}
+            <tr>
+                <td>{{ mpa.idMpa }}</td>
+                <td>{{ mpa.mpa1 }}</td>
+                <td>{{ mpa.mpa2 }}</td>
+                <td>{{ mpa.mpa3 }}</td>
+                <td>{{ mpa.mpa3a }}</td>
+                <td>{{ mpa.mpa3a1 }}</td>
+                <td>{{ mpa.mpa3b }}</td>
+                <td>{{ mpa.mpa3b1 }}</td>
+                <td>{{ mpa.mpa4 }}</td>
+                <td>{{ mpa.mpa5 ? mpa.mpa5|date('Y-m-d') : '' }}</td>
+                <td>{{ mpa.mpa6 ? mpa.mpa6|date('Y-m-d') : '' }}</td>
+                <td>{{ mpa.mpa6a ? mpa.mpa6a|date('Y-m-d') : '' }}</td>
+                <td>{{ mpa.mpa6b ? mpa.mpa6b|date('H:i:s') : '' }}</td>
+                <td>{{ mpa.mpa6c }}</td>
+                <td>{{ mpa.mpa7 }}</td>
+                <td>{{ mpa.mpa7a }}</td>
+                <td>{{ mpa.mpa8 }}</td>
+                <td>{{ mpa.mpa9a }}</td>
+                <td>{{ mpa.mpa9b }}</td>
+                <td>{{ mpa.mpa9c }}</td>
+                <td>{{ mpa.mpa9d }}</td>
+                <td>{{ mpa.mpa9e }}</td>
+                <td>{{ mpa.mpa9f }}</td>
+                <td>{{ mpa.mpa9g }}</td>
+                <td>{{ mpa.mpa9h }}</td>
+                <td>{{ mpa.mpa9ha }}</td>
+                <td>{{ mpa.mpa10 }}</td>
+                <td>{{ mpa.mpa11 }}</td>
+                <td>{{ mpa.mpa12 }}</td>
+                <td>{{ mpa.mpa13 }}</td>
+                <td>{{ mpa.mpa13a }}</td>
+                <td>{{ mpa.mpa14 }}</td>
+                <td>{{ mpa.mpa15 }}</td>
+                <td>
+                    <a href="{{ path('app_mpa_show', {'id_mpa': mpa.id_mpa}) }}">show</a>
+                    <a href="{{ path('app_mpa_edit', {'id_mpa': mpa.id_mpa}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="34">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_mpa_new') }}">Create new</a>
+{% endblock %}

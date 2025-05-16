@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\DBAL\Types\Types;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,20 +15,20 @@ class Sdh
     private int $id_sdh;
 
     #[ORM\Column(type: "string")]
-    private string $sdh_1_1;
+    private ?string $sdh_1_1;
 
     #[ORM\Column(type: "string")]
     private string $sdh_1_9;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private \DateTimeInterface $sdh_1_10;
+    private ?\DateTimeInterface $sdh_1_10 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(nullable: false)]
     private Nomenclador $sdh_1_2_id_nomenclador;
 
     #[ORM\Column(type: "string")]
-    private string $sdh_1_3;
+    private ?string $sdh_1_3;
 
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $sdh_1_4 = null;

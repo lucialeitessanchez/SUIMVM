@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mpa{% endblock %}
+
+{% block body %}
+    <h1>Mpa</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id_mpa</th>
+                <td>{{ mpa.idMpa }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_1</th>
+                <td>{{ mpa.mpa1 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_2</th>
+                <td>{{ mpa.mpa2 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_3</th>
+                <td>{{ mpa.mpa3 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_3a</th>
+                <td>{{ mpa.mpa3a }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_3a1</th>
+                <td>{{ mpa.mpa3a1 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_3b</th>
+                <td>{{ mpa.mpa3b }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_3b1</th>
+                <td>{{ mpa.mpa3b1 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_4</th>
+                <td>{{ mpa.mpa4 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_5</th>
+                <td>{{ mpa.mpa5 ? mpa.mpa5|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_6</th>
+                <td>{{ mpa.mpa6 ? mpa.mpa6|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_6a</th>
+                <td>{{ mpa.mpa6a ? mpa.mpa6a|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_6b</th>
+                <td>{{ mpa.mpa6b ? mpa.mpa6b|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_6c</th>
+                <td>{{ mpa.mpa6c }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_7</th>
+                <td>{{ mpa.mpa7 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_7a</th>
+                <td>{{ mpa.mpa7a }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_8</th>
+                <td>{{ mpa.mpa8 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9a</th>
+                <td>{{ mpa.mpa9a }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9b</th>
+                <td>{{ mpa.mpa9b }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9c</th>
+                <td>{{ mpa.mpa9c }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9d</th>
+                <td>{{ mpa.mpa9d }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9e</th>
+                <td>{{ mpa.mpa9e }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9f</th>
+                <td>{{ mpa.mpa9f }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9g</th>
+                <td>{{ mpa.mpa9g }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9h</th>
+                <td>{{ mpa.mpa9h }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_9ha</th>
+                <td>{{ mpa.mpa9ha }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_10</th>
+                <td>{{ mpa.mpa10 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_11</th>
+                <td>{{ mpa.mpa11 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_12</th>
+                <td>{{ mpa.mpa12 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_13</th>
+                <td>{{ mpa.mpa13 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_13a</th>
+                <td>{{ mpa.mpa13a }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_14</th>
+                <td>{{ mpa.mpa14 }}</td>
+            </tr>
+            <tr>
+                <th>Mpa_15</th>
+                <td>{{ mpa.mpa15 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_mpa_index') }}">back to list</a>
+
+    <a href="{{ path('app_mpa_edit', {'id_mpa': mpa.id_mpa}) }}">edit</a>
+
+    {{ include('mpa/_delete_form.html.twig') }}
+{% endblock %}

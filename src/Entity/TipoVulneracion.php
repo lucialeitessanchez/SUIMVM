@@ -34,6 +34,5 @@ class TipoVulneracion
         $this->vulneracion = $vulneracion;
         return $this;
     }
-      
     
 }

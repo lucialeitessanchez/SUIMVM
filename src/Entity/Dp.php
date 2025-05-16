@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\DBAL\Types\Types;
 
 use App\Repository\DpRepository;
 use Doctrine\ORM\Mapping as ORM;

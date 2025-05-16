@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
+use App\Entity\Caso;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity]
 class Mpa
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
     private ?int $id_mpa = null;
 
@@ -19,7 +21,8 @@ class Mpa
     private ?string $mpa_2 = null;
 
     #[ORM\Column(type: 'string')]
-    private ?string $mpa_3 = null;
+    private ?string $mpa_3 = null; // ← Este es el campo ENUM, lo tratamos como string
+
 
     #[ORM\Column(type: 'string')]
     private ?string $mpa_3a = null;
@@ -76,7 +79,7 @@ class Mpa
     private ?string $mpa_9e = null;
 
     #[ORM\Column(type: 'string')]
-    private ?string $mpa_9f = nul_
+    private ?string $mpa_9f = null;
 
     #[ORM\Column(type: 'string')]
     private ?string $mpa_9g = null;

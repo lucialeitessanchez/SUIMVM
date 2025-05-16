@@ -11,17 +11,22 @@ use Doctrine\Common\Collections\Collection;
 class TipoVulneracionHasSddnayf
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+    private ?int $id = null;
+
     #[ORM\ManyToOne(targetEntity: TipoVulneracion::class, inversedBy: "sddnayfs")]
     #[ORM\JoinColumn(name: "tipo_vulneracion_id_tipo_vulneracion", referencedColumnName: "id_tipo_vulneracion", nullable: false)]
     private ?TipoVulneracion $tipoVulneracion = null;
 
-    #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Sddnayf::class, inversedBy: "tipoVulneraciones")]
     #[ORM\JoinColumn(name: "sddnayf_id_sddnayf", referencedColumnName: "id_sddnayf", nullable: false)]
     private ?Sddnayf $sddnayf = null;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $sddnayf6b = null;
+
+    // Getters y Setters ...
 
     public function getTipoVulneracion(): ?TipoVulneracion
     {

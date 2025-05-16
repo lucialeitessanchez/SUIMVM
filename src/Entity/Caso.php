@@ -11,54 +11,55 @@ class Caso
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\Column(type: 'integer')]
     private int $id_caso;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $fecha_carga;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $fecha_hecho;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $fecha_anoticiamiento;
 
-    #[ORM\Column(type: "integer",  nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $edad = null;
 
-    #[ORM\Column(type: "string",  nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $franja_etaria = null;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $domicilio = null;
 
-    #[ORM\Column(type: "string",  nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $femicidio_vinculado = null;
 
-    #[ORM\Column(type: "string",  nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $crimen_odio = null;
 
-    #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
+    #[ORM\Column(type: 'string', length: 150, nullable: true)]
     private ?string $barrio_hecho = null;
 
-    #[ORM\Column(type: "string", nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $tipo_muerte = null;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "localidad_id_localidad", referencedColumnName: "id_localidad", nullable: false)]
-    private int $localidad_id_localidad;
+    private Localidad $localidad_id_localidad;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "localidad_id_hecho", referencedColumnName: "id_localidad", nullable: false)]
-    private ?int $localidad_id_hecho = null;
+    private Localidad $localidad_id_hecho;
 
     #[ORM\ManyToOne(targetEntity: Persona::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "persona_id_persona", referencedColumnName: "id_persona", nullable: false)]
-    private int $persona_id_persona;
+    private Persona $persona_id_persona;
 
     #[ORM\ManyToOne(targetEntity: OrganismoOrigen::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_origen", nullable: false)]
-    private int $organismo_origen_id_origen;
+    private OrganismoOrigen $organismo_origen_id_origen;
+
 
     // Getters y setters...
     // Getters y Setters

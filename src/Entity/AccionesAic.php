@@ -11,10 +11,10 @@ class AccionesAic
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\Column(type: 'integer')]
     private int $id_acciones_aic;
-
-    #[ORM\Column(type: Types::INTEGER)]
+    
+    #[ORM\Column(type: 'integer')]
     private int $mjys_id_mjys;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
