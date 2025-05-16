@@ -1,4 +1,5 @@
 <?php
+// src/Controller/LocalidadController.php
 
 namespace App\Controller;
 
@@ -8,20 +9,24 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
+#[Route('/localidad')]
 class LocalidadController extends AbstractController
 {
-    #[Route('/localidad/{id}/info', name: 'localidad_info', methods: ['GET'])]
-    public function getLocalidadInfo(int $id, EntityManagerInterface $em): JsonResponse
+    #[Route('/{id}/info', name: 'localidad_info')]
+    public function info(int $id, EntityManagerInterface $em): JsonResponse
     {
         $localidad = $em->getRepository(Localidad::class)->find($id);
-    
+
         if (!$localidad) {
-            return $this->json(['error' => 'Localidad no encontrada'], 404);
+            return new JsonResponse(['error' => 'Localidad no encontrada'], 404);
         }
-    
-        return $this->json([
-            'departamento' => $localidad->getDepartamento() ?? '',
-            //'microregion' => $localidad->getMicroregion()?->getNombre() ?? '',
+
+        $departamento = $localidad->getDepartamento();
+        $microregion=$localidad->getMicroregion();
+
+        return new JsonResponse([
+            'departamento' => $departamento ,
+            'microregion'=>$microregion,
         ]);
     }
 }

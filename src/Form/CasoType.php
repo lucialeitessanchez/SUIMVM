@@ -55,16 +55,15 @@ class CasoType extends AbstractType
                 'label' => 'Tipo de muerte',
                 'placeholder' => 'Seleccione...',
                 'choices' => [
-                    'Intervención de un tercero' => 'Intervencion',
+                    'Muerte violenta por intervención de un tercero' => 'Muerte violenta por intervención de un tercero',
                     'Suicidio' => 'Suicidio',
-                    'Muerte dudosa' => 'Dudosa',
-                    'Femicidio íntimo o familiar' => 'Femicidiointimoofamiliar',
-                    'Muerte en contexto de criminalidad organizada' => 'MuerteEnContextoDeCriminalidadOrganizada',
-                    'Femicidio en contexto de criminalidad organizada' => 'Femicidio en contexto de criminalidad organizada',
-                    'Femicidio vinculado' => 'Femicidio vinculado',
+                    'Muerte dudosa' => 'Muerte dudosa',
+                    'Femicidio íntimo o familiar' =>  'Femicidio íntimo o familiar',
+                    'Muerte en contexto de criminalidad organizada' => 'Muerte en contexto de criminalidad organizada',
                 ],
                 'required' => true,
             ])
+            //'Muerte violenta por intervención de un tercero','Suicidio','Muerte dudosa', 'Femicidio íntimo o familiar','Muerte en contexto de criminalidad organizada'
             ->add('lugarHecho', TextType::class, [
                 'label' => 'Lugar del hecho',
                 'required' => false,
@@ -74,13 +73,13 @@ class CasoType extends AbstractType
                 'required' => false,
             ])
             ->add('barrio', TextType::class, [
-                'label' => 'Barrio',
+                'label' => 'Barrio del hecho',
                 'required' => false,
             ])
             
-            ->add('localidadIdLocalidad', EntityType::class, array(
+            ->add('localidad', EntityType::class, array(
                 'required' => true,
-                'label' => 'Localidad',
+                'label' => 'Localidad del hecho',
                 'multiple' => false,
                 'choice_label' => 'localidad',
                 'placeholder' => 'Todos',

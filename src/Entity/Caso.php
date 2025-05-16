@@ -32,11 +32,11 @@ class Caso
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $domicilio = null;
 
-    #[ORM\Column(type: "string",  nullable: true)]
-    private ?string $femicidio_vinculado = null;
+    #[ORM\Column(type: "boolean", nullable: true)]
+    private ?bool $femicidio_vinculado = null;
 
-    #[ORM\Column(type: "string",  nullable: true)]
-    private ?string $crimen_odio = null;
+    #[ORM\Column(type: "boolean", nullable: true)]
+    private ?bool $crimen_odio = null;
 
     #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
     private ?string $barrio = null;
@@ -49,15 +49,15 @@ class Caso
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "localidad_id_localidad", referencedColumnName: "id_localidad", nullable: false)]
-    private int $localidad_id_localidad;
+    private ?Localidad $localidad = null;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "localidad_id_hecho", referencedColumnName: "id_localidad", nullable: false)]
-    private ?int $localidad_id_hecho = null;
+    private ?Localidad $localidad_id_hecho = null;
 
     #[ORM\ManyToOne(targetEntity: Persona::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "persona_id_persona", referencedColumnName: "id_persona", nullable: false)]
-    private int $persona_id_persona;
+    private Persona $persona_id_persona;
 
     #[ORM\ManyToOne(targetEntity: OrganismoOrigen::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_origen", nullable: false)]
@@ -137,25 +137,27 @@ public function setDomicilio(?string $domicilio): self
     return $this;
 }
 
-public function getFemicidioVinculado(): ?string
+public function getFemicidioVinculado(): ?bool
 {
     return $this->femicidio_vinculado;
 }
 
-public function setFemicidioVinculado(?string $femicidio_vinculado): self
+public function setFemicidioVinculado(?bool $femicidio_vinculado): self
 {
     $this->femicidio_vinculado = $femicidio_vinculado;
+
     return $this;
 }
 
-public function getCrimenOdio(): ?string
+public function getCrimenOdio(): ?bool
 {
     return $this->crimen_odio;
 }
 
-public function setCrimenOdio(?string $crimen_odio): self
+public function setCrimenOdio(?bool $crimen_odio): self
 {
     $this->crimen_odio = $crimen_odio;
+
     return $this;
 }
 
@@ -192,14 +194,14 @@ public function setTipoMuerte(?string $tipo_muerte): self
     return $this;
 }
 
-public function getLocalidadIdLocalidad(): Localidad
+public function getLocalidad(): ?Localidad
 {
-    return $this->localidad_id_localidad;
+    return $this->localidad;
 }
 
-public function setLocalidadIdLocalidad(Localidad $localidad_id_localidad): self
+public function setLocalidad(Localidad $localidad): self
 {
-    $this->localidad_id_localidad = $localidad_id_localidad;
+    $this->localidad = $localidad;
     return $this;
 }
 

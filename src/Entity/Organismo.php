@@ -33,7 +33,7 @@ class Organismo
     private string $email;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name: 'localidad_id_localidad', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'localidad_id_localidad', referencedColumnName: 'id_localidad')]
     private Localidad $localidad;
 
     public function getIdOrganismo(): int
