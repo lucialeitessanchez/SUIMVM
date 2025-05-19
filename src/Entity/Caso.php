@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Caso
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(name: "id_caso", type: "integer")]
+    #[ORM\GeneratedValue]
     private int $id_caso;
 
     #[ORM\Column(type: 'datetime')]
@@ -63,7 +64,8 @@ class Caso
     #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_origen", nullable: false)]
     private OrganismoOrigen $organismo_origen_id_origen;
 
-
+    #[ORM\OneToMany(mappedBy: "caso", targetEntity: Mpa::class)]
+    private Collection $mpas;
     // Getters y setters...
     // Getters y Setters
 

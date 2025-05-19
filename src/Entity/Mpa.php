@@ -111,8 +111,8 @@ class Mpa
     #[ORM\Column(type: 'string')]
     private ?string $mpa_15 = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id", nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Caso::class)]
+    #[ORM\JoinColumn(name: "id_caso", referencedColumnName: "id_caso", nullable: false)]
     private ?Caso $caso = null;
 
     // Getters y setters 
