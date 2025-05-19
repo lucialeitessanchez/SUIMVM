@@ -71,6 +71,10 @@ class Caj
     #[ORM\Column(type: Types::STRING)]
     private string $caj_3h;
 
+    #[ORM\ManyToOne(targetEntity: EquipoReferencia::class)]
+    #[ORM\JoinColumn(name: "caj_3i", referencedColumnName: "id_equipo", nullable: false)]
+    private EquipoReferencia $caj_3i;
+
     #[ORM\Column(type: Types::STRING)]
     private string $caj_4a;
 
@@ -79,13 +83,6 @@ class Caj
 
     #[ORM\Column(type: Types::TEXT)]
     private string $caj_4c;
-
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_3j;
-
-    #[ORM\ManyToOne(targetEntity: EquipoReferencia::class)]
-    #[ORM\JoinColumn(name: "caj_3j", referencedColumnName: "id_equipo", nullable: false)]
-    private EquipoReferencia $caj_3j;
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
