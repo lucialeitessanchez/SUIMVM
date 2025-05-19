@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: App\Repository\CasoRepository::class)]
 #[ORM\Table(name: "caso")]
 class Caso
 {
@@ -18,7 +18,13 @@ class Caso
     private \DateTimeInterface $fecha_carga;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTimeInterface $fecha_hecho;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $fecha_anoticiamiento;
+
+    #[ORM\Column(type: "integer",  nullable: true)]
+    private ?int $edad = null;
 
     #[ORM\Column(type: "string",  nullable: true)]
     private ?string $franja_etaria = null;
@@ -26,29 +32,32 @@ class Caso
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $domicilio = null;
 
-    #[ORM\Column(type: "string",  nullable: true)]
-    private ?string $femicidio_vinculado = null;
+    #[ORM\Column(type: "boolean", nullable: true)]
+    private ?bool $femicidio_vinculado = null;
 
-    #[ORM\Column(type: "string",  nullable: true)]
-    private ?string $crimen_odio = null;
+    #[ORM\Column(type: "boolean", nullable: true)]
+    private ?bool $crimen_odio = null;
 
     #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
-    private ?string $barrio_hecho = null;
+    private ?string $barrio = null;
+
+    #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
+    private ?string $lugar_hecho = null;
 
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $tipo_muerte = null;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "localidad_id_localidad", referencedColumnName: "id_localidad", nullable: false)]
-    private int $localidad_id_localidad;
+    private ?Localidad $localidad = null;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "localidad_id_hecho", referencedColumnName: "id_localidad", nullable: false)]
-    private ?int $localidad_id_hecho = null;
+    private ?Localidad $localidad_id_hecho = null;
 
     #[ORM\ManyToOne(targetEntity: Persona::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "persona_id_persona", referencedColumnName: "id_persona", nullable: false)]
-    private int $persona_id_persona;
+    private Persona $persona_id_persona;
 
     #[ORM\ManyToOne(targetEntity: OrganismoOrigen::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_origen", nullable: false)]
@@ -73,6 +82,17 @@ public function setFechaCarga(\DateTimeInterface $fecha_carga): self
     return $this;
 }
 
+public function getFechaHecho(): \DateTimeInterface
+{
+    return $this->fecha_hecho;
+}
+
+public function setFechaHecho(\DateTimeInterface $fecha_hecho): self
+{
+    $this->fecha_hecho = $fecha_hecho;
+    return $this;
+}
+
 public function getFechaAnoticiamiento(): \DateTimeInterface
 {
     return $this->fecha_anoticiamiento;
@@ -81,6 +101,17 @@ public function getFechaAnoticiamiento(): \DateTimeInterface
 public function setFechaAnoticiamiento(\DateTimeInterface $fecha_anoticiamiento): self
 {
     $this->fecha_anoticiamiento = $fecha_anoticiamiento;
+    return $this;
+}
+
+public function getEdad(): ?int
+{
+    return $this->edad;
+}
+
+public function setEdad(?int $edad): self
+{
+    $this->edad = $edad;
     return $this;
 }
 
@@ -106,36 +137,49 @@ public function setDomicilio(?string $domicilio): self
     return $this;
 }
 
-public function getFemicidioVinculado(): ?string
+public function getFemicidioVinculado(): ?bool
 {
     return $this->femicidio_vinculado;
 }
 
-public function setFemicidioVinculado(?string $femicidio_vinculado): self
+public function setFemicidioVinculado(?bool $femicidio_vinculado): self
 {
     $this->femicidio_vinculado = $femicidio_vinculado;
+
     return $this;
 }
 
-public function getCrimenOdio(): ?string
+public function getCrimenOdio(): ?bool
 {
     return $this->crimen_odio;
 }
 
-public function setCrimenOdio(?string $crimen_odio): self
+public function setCrimenOdio(?bool $crimen_odio): self
 {
     $this->crimen_odio = $crimen_odio;
+
     return $this;
 }
 
-public function getBarrioHecho(): ?string
+public function getBarrio(): ?string
 {
-    return $this->barrio_hecho;
+    return $this->barrio;
 }
 
-public function setBarrioHecho(?string $barrio_hecho): self
+public function setBarrio(?string $barrio): self
 {
-    $this->barrio_hecho = $barrio_hecho;
+    $this->barrio = $barrio;
+    return $this;
+}
+
+public function getLugarHecho(): ?string
+{
+    return $this->lugar_hecho;
+}
+
+public function setLugarHecho(?string $lugar_hecho): self
+{
+    $this->lugar_hecho = $lugar_hecho;
     return $this;
 }
 
@@ -150,14 +194,14 @@ public function setTipoMuerte(?string $tipo_muerte): self
     return $this;
 }
 
-public function getLocalidadIdLocalidad(): Localidad
+public function getLocalidad(): ?Localidad
 {
-    return $this->localidad_id_localidad;
+    return $this->localidad;
 }
 
-public function setLocalidadIdLocalidad(Localidad $localidad_id_localidad): self
+public function setLocalidad(Localidad $localidad): self
 {
-    $this->localidad_id_localidad = $localidad_id_localidad;
+    $this->localidad = $localidad;
     return $this;
 }
 

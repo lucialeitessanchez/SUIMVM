@@ -20,7 +20,7 @@ class DefaultController extends AbstractController {
         //  ->getRepository(Bien::class)
         //  ->findAll();
 
-        return $this->render('index.html', array('' => $usuario));
+        return $this->render('index.html.twig', array('' => $usuario));
     }
 
     #[Route('/', name: 'app_default', methods: ['GET'])]
@@ -31,7 +31,7 @@ class DefaultController extends AbstractController {
         $usuario = $this->getUser();
 
         // return $this->render('index.html.twig');
-        return $this->render('index.html', array('' => $usuario));
+        return $this->render('index.html.twig', array('' => $usuario));
     }
 
 }
