@@ -83,9 +83,6 @@ class Caj
     #[ORM\Column(type: Types::STRING)]
     private string $caj_3j;
 
-    #[ORM\ManyToOne(targetEntity: EquipoReferencia::class)]
-    #[ORM\JoinColumn(name: "caj_3j", referencedColumnName: "id_equipo", nullable: false)]
-    private EquipoReferencia $caj_3j;
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
