@@ -11,8 +11,8 @@ class Organismo
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private int $idOrganismo;
+    #[ORM\Column(name: 'id_organismo', type: 'integer')]
+    private ?int $idOrganismo=null;
 
     #[ORM\Column(type: 'string', length: 45)]
     private string $nombreOrganismo;
@@ -33,21 +33,15 @@ class Organismo
     private string $email;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name: 'localidad_id_localidad', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'localidad_id_localidad', referencedColumnName: 'id_localidad')]
     private Localidad $localidad;
 
-    public function getIdOrganismo(): int
+    public function getIdOrganismo(): ?int
     {
         return $this->idOrganismo;
     }
 
-    public function setIdOrganismo(int $idOrganismo): self
-    {
-        $this->idOrganismo = $idOrganismo;
-        return $this;
-    }
-
-    public function getNombreOrganismo(): string
+        public function getNombreOrganismo(): string
     {
         return $this->nombreOrganismo;
     }

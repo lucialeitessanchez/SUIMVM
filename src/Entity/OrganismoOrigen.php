@@ -11,24 +11,19 @@ class OrganismoOrigen
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(name: 'id_origen', type: 'integer')]
     private int $idOrigen;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'organismo_id_organismo', referencedColumnName: 'idOrganismo')]
     private Organismo $organismo;
 
-    public function getIdOrigen(): int
+    public function getIdOrigen(): ?int
     {
         return $this->idOrigen;
     }
 
-    public function setIdOrigen(int $idOrigen): self
-    {
-        $this->idOrigen = $idOrigen;
-        return $this;
-    }
-
+   
     public function getOrganismo(): Organismo
     {
         return $this->organismo;

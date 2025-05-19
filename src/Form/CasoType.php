@@ -9,6 +9,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,14 +38,48 @@ class CasoType extends AbstractType
                 'label' => 'Edad',
                 'required' => false,
             ])
-            ->add('barrioHecho', TextType::class, [
+
+            ->add('femicidioVinculado', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('crimenOdio', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('tipoMuerte', ChoiceType::class, [
+                'label' => 'Tipo de muerte',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'Muerte violenta por intervención de un tercero' => 'Muerte violenta por intervención de un tercero',
+                    'Suicidio' => 'Suicidio',
+                    'Muerte dudosa' => 'Muerte dudosa',
+                    'Femicidio íntimo o familiar' =>  'Femicidio íntimo o familiar',
+                    'Muerte en contexto de criminalidad organizada' => 'Muerte en contexto de criminalidad organizada',
+                ],
+                'required' => true,
+            ])
+            //'Muerte violenta por intervención de un tercero','Suicidio','Muerte dudosa', 'Femicidio íntimo o familiar','Muerte en contexto de criminalidad organizada'
+            ->add('lugarHecho', TextType::class, [
+                'label' => 'Lugar del hecho',
+                'required' => false,
+            ])
+            ->add('domicilio', TextType::class, [
+                'label' => 'Domicilio de la víctima',
+                'required' => false,
+            ])
+            ->add('barrio', TextType::class, [
                 'label' => 'Barrio del hecho',
                 'required' => false,
             ])
             
-            ->add('localidadIdLocalidad', EntityType::class, array(
+            ->add('localidad', EntityType::class, array(
                 'required' => true,
-                'label' => 'Localidad',
+                'label' => 'Localidad del hecho',
                 'multiple' => false,
                 'choice_label' => 'localidad',
                 'placeholder' => 'Todos',
