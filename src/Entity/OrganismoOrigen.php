@@ -16,7 +16,7 @@ class OrganismoOrigen
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'organismo_id_organismo', referencedColumnName: 'idOrganismo')]
-    private Organismo $organismo;
+    private Organismo $organismoIdOrganismo;
 
     public function getIdOrigen(): ?int
     {
@@ -24,14 +24,14 @@ class OrganismoOrigen
     }
 
    
-    public function getOrganismo(): Organismo
+    public function getOrganismoIdOrganismo(): organismoIdOrganismo
     {
-        return $this->organismo;
+        return $this->organismoIdOrganismo;
     }
 
-    public function setOrganismo(Organismo $organismo): self
+    public function setOrganismoIdOrganismo(organismoIdOrganismo $organismoIdOrganismo): self
     {
-        $this->organismo = $organismo;
+        $this->organismoIdOrganismo = $organismoIdOrganismo;
         return $this;
     }
 }

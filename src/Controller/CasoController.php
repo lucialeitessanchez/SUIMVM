@@ -31,10 +31,9 @@ class CasoController extends AbstractController
      //seteo el origen (hasta que reciba usuario)
      $organismo=new Organismo();
      $organismo = $em->getRepository(Organismo::class)->find(1);
-     var_dump($organismo->getIdOrganismo());
+    // var_dump($organismo->getIdOrganismo());
      $organismoOrigen=new OrganismoOrigen();
-     $organismoOrigen=$em->getRepository(OrganismoOrigen::class)->findOneBy(['organismo' => $organismo->getIdOrganismo()
-    ]);
+     $organismoOrigen=$em->getRepository(OrganismoOrigen::class)->findOneBy(['organismoIdOrganismo' => $organismo]);
         // dd('Estoy en el método new');
         $caso = new Caso();
         $form = $this->createForm(CasoType::class, $caso);
@@ -55,7 +54,7 @@ class CasoController extends AbstractController
 
             $caso->setPersonaIdPersona($persona);
             // Setear el organismo en el caso
-            $caso->setOrganismoOrigenIdOrigen($organismoOrigen);
+          //  $caso->setOrganismoOrigenIdOrigen($organismo);
 
             $em->persist($persona);
             $em->persist($caso);
