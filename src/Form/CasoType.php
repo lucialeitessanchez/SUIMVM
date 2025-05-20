@@ -25,14 +25,17 @@ class CasoType extends AbstractType
             ->add('fechaCarga', DateType::class, [
                 'label' => 'Fecha de Ingreso',
                 'widget' => 'single_text',
+                'required' => true,
             ])
             ->add('fechaHecho', DateType::class, [
                 'label' => 'Fecha del hecho',
                 'widget' => 'single_text',
+                
             ])
             ->add('fechaAnoticiamiento', DateType::class, [
                 'label' => 'Fecha de anoticiamiento del hecho',
                 'widget' => 'single_text',
+                'required' => true,
             ])
             ->add('edad',IntegerType::class, [
                 'label' => 'Edad',

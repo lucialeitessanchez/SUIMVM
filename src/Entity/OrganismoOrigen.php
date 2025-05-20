@@ -15,7 +15,7 @@ class OrganismoOrigen
     private int $idOrigen;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name: 'organismo_id_organismo', referencedColumnName: 'idOrganismo')]
+    #[ORM\JoinColumn(name: 'organismo_id_organismo', referencedColumnName: 'id_organismo')]
     private Organismo $organismo;
 
     public function getIdOrigen(): int
