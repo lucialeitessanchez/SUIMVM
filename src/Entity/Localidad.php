@@ -26,6 +26,9 @@ class Localidad
     #[ORM\Column(type: Types::STRING, length: 45)]
     private string $provincia;
 
+    #[ORM\Column(type: Types::STRING, length: 150)]
+    private string $microregion;
+
     #[ORM\OneToMany(mappedBy: "localidad", targetEntity: Caso::class)]
     private Collection $casos;
 
@@ -69,6 +72,17 @@ class Localidad
     public function setProvincia(string $provincia): self
     {
         $this->provincia = $provincia;
+        return $this;
+    }
+
+    public function getMicroregion(): string
+    {
+        return $this->microregion;
+    }
+
+    public function setMicroregion(string $microregion): self
+    {
+        $this->microregion = $microregion;
         return $this;
     }
 

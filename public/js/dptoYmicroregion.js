@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    
+   
     const localidadSelect = document.getElementById('caso_localidad');
     const departamentoInput = document.getElementById('departamento');
     const microInput=document.getElementById('microregion');
