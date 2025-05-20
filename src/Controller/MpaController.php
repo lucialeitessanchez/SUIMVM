@@ -74,7 +74,7 @@ final class MpaController extends AbstractController
     #[Route('/{id_mpa}', name: 'app_mpa_delete', methods: ['POST'])]
     public function delete(Request $request, Mpa $mpa, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$mpa->getId_mpa(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$mpa->getIdMpa(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($mpa);
             $entityManager->flush();
         }
