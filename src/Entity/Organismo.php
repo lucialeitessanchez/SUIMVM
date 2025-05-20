@@ -12,7 +12,7 @@ class Organismo
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'id_organismo', type: 'integer')]
-    private ?int $idOrganismo;
+    private int $idOrganismo;
 
     #[ORM\Column(type: 'string', length: 45)]
     private string $nombreOrganismo;
