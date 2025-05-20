@@ -33,15 +33,21 @@ class Organismo
     private string $email;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name: 'localidad_id_localidad', referencedColumnName: 'id_localidad')]
+    #[ORM\JoinColumn(name: 'localidad_id_localidad', referencedColumnName: 'id')]
     private Localidad $localidad;
 
-    public function getIdOrganismo(): ?int
+    public function getIdOrganismo(): int
     {
         return $this->idOrganismo;
     }
 
-        public function getNombreOrganismo(): string
+    public function setIdOrganismo(int $idOrganismo): self
+    {
+        $this->idOrganismo = $idOrganismo;
+        return $this;
+    }
+
+    public function getNombreOrganismo(): string
     {
         return $this->nombreOrganismo;
     }
