@@ -30,7 +30,7 @@ class CasoController extends AbstractController
     {
      //seteo el origen (hasta que reciba usuario)
      $organismo=new Organismo();
-    // $organismo = $em->getRepository(Organismo::class)->find(1);
+     $organismo = $em->getRepository(Organismo::class)->findAll();
     // $organismo->getIdOrganismo();
     // var_dump($organismo->getIdOrganismo());
   //   $organismoOrigen=new OrganismoOrigen();
