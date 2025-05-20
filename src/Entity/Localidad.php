@@ -14,7 +14,7 @@ class Localidad
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\Column(name: "id_localidad", type: "integer")]
     private int $id_localidad;
 
     #[ORM\Column(type: Types::STRING, length: 45)]
