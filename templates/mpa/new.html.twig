@@ -3,92 +3,121 @@
 
 {% block body %}
 <div class="container mt-4">
-<h1>Alta de Registro MPA</h1>
+  <h1>Alta de Registro MPA</h1>
 
-  {{ form_start(form) }}
+  {% for label, messages in app.flashes %}
+    {% for message in messages %}
+      <div class="alert alert-{{ label == 'error' ? 'danger' : 'success' }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endfor %}
 
-  <!-- Código del caso -->
-  <div class="mb-3">
-    <label class="form-label">Código del caso</label>
-    <input type="text" class="form-control" value="{{ form.caso.vars.data.id }}" readonly>
-  </div>
+  {% set casoSeleccionado = form.caso.vars.data ?? null %}
 
-  <div class="accordion" id="accordionFormularioViolencia">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="heading1">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
-          1. Información del hecho
-        </button>
-      </h2>
-      <div id="collapse1" class="accordion-collapse collapse show">
-        <div class="accordion-body">
-          {{ form_row(form.mpa_1, {'attr': {'class': 'form-control'}}) }}
-          {{ form_row(form.mpa_2, {'attr': {'class': 'form-control'}}) }}
-          {{ form_row(form.mpa_3, {'attr': {'class': 'form-select nomenclador-TIPO_LUGAR'}}) }}
-          {{ form_row(form.mpa_4, {'attr': {'class': 'form-control'}}) }}
-          {{ form_row(form.mpa_5, {'attr': {'class': 'form-select nomenclador-TIPO_VIOLENCIA'}}) }}
-          {{ form_row(form.mpa_6, {'attr': {'class': 'form-select'}}) }}
+  {% if not form.caso.vars.data %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        Swal.fire({
+          icon: "error",
+          title: "Debe seleccionar un caso",
+          text: "Antes de registrar un MPA, es necesario elegir un caso.",
+          confirmButtonText: "Ir a casos"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "{{ path('app_index') }}";
+          }
+        });
+      });
+    </script>
+  {% endif %}
+
+  {% if casoSeleccionado %}
+    {{ form_start(form) }}
+
+    <div class="mb-3">
+      <label class="form-label">Código del caso</label>
+      <input type="text" class="form-control" value="{{ form.caso.vars.data.id_caso }}" readonly>
+    </div>
+
+    {# Acordeón del formulario #}
+    <div class="accordion" id="accordionFormularioViolencia">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading1">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+            1. Información del hecho
+          </button>
+        </h2>
+        <div id="collapse1" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            {{ form_row(form.mpa_1) }}
+            {{ form_row(form.mpa_2) }}
+            {{ form_row(form.mpa_3, {'attr': {'class': 'form-select nomenclador-TIPO_LUGAR'}}) }}
+            {{ form_row(form.mpa_4) }}
+            {{ form_row(form.mpa_5, {'attr': {'class': 'form-select nomenclador-TIPO_VIOLENCIA'}}) }}
+            {{ form_row(form.mpa_6) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+            2. Información del imputado
+          </button>
+        </h2>
+        <div id="collapse2" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            {{ form_row(form.mpa_7) }}
+            {{ form_row(form.mpa_7a) }}
+            {{ form_row(form.mpa_7b) }}
+            {{ form_row(form.mpa_7c, {'attr': {'class': 'form-select nomenclador-TIPO_VINCULO'}}) }}
+            {{ form_row(form.mpa_7d) }}
+            {{ form_row(form.mpa_7e) }}
+            {{ form_row(form.mpa_7f) }}
+            {{ form_row(form.mpa_7g) }}
+            {{ form_row(form.mpa_7h) }}
+            {{ form_row(form.mpa_7i) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+            3. Detalles adicionales del hecho
+          </button>
+        </h2>
+        <div id="collapse3" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            {{ form_row(form.mpa_8) }}
+            {{ form_row(form.mpa_9a, {'attr': {'class': 'form-select nomenclador-TIPO_ARMA'}}) }}
+            {{ form_row(form.mpa_9b) }}
+            {{ form_row(form.mpa_9c) }}
+            {{ form_row(form.mpa_9d) }}
+            {{ form_row(form.mpa_9e) }}
+            {{ form_row(form.mpa_9f) }}
+            {{ form_row(form.mpa_9g) }}
+            {{ form_row(form.mpa_9h) }}
+            {{ form_row(form.mpa_9ha) }}
+            {{ form_row(form.mpa_10) }}
+            {{ form_row(form.mpa_11) }}
+            {{ form_row(form.mpa_12, {'attr': {'class': 'form-select nomenclador-MODALIDAD_HECHO'}}) }}
+            {{ form_row(form.mpa_13) }}
+            {{ form_row(form.mpa_13a) }}
+            {{ form_row(form.mpa_14) }}
+            {{ form_row(form.mpa_15) }}
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="heading2">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
-          2. Información del imputado
-        </button>
-      </h2>
-      <div id="collapse2" class="accordion-collapse collapse">
-        <div class="accordion-body">
-          {{ form_row(form.mpa_7) }}
-          {{ form_row(form.mpa_7a) }}
-          {{ form_row(form.mpa_7b) }}
-          {{ form_row(form.mpa_7c, {'attr': {'class': 'form-select nomenclador-TIPO_VINCULO'}}) }}
-          {{ form_row(form.mpa_7d) }}
-          {{ form_row(form.mpa_7e) }}
-          {{ form_row(form.mpa_7f) }}
-          {{ form_row(form.mpa_7g) }}
-          {{ form_row(form.mpa_7h) }}
-          {{ form_row(form.mpa_7i) }}
-        </div>
-      </div>
+    <div class="mt-4">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="{{ path('app_mpa_index') }}" class="btn btn-secondary">Cancelar</a>
     </div>
 
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="heading3">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
-          3. Detalles adicionales del hecho
-        </button>
-      </h2>
-      <div id="collapse3" class="accordion-collapse collapse">
-        <div class="accordion-body">
-          {{ form_row(form.mpa_8) }}
-          {{ form_row(form.mpa_9a, {'attr': {'class': 'form-select nomenclador-TIPO_ARMA'}}) }}
-          {{ form_row(form.mpa_9b) }}
-          {{ form_row(form.mpa_9c) }}
-          {{ form_row(form.mpa_9d) }}
-          {{ form_row(form.mpa_9e) }}
-          {{ form_row(form.mpa_9f) }}
-          {{ form_row(form.mpa_9g) }}
-          {{ form_row(form.mpa_9h) }}
-          {{ form_row(form.mpa_9ha) }}
-          {{ form_row(form.mpa_10) }}
-          {{ form_row(form.mpa_11) }}
-          {{ form_row(form.mpa_12, {'attr': {'class': 'form-select nomenclador-MODALIDAD_HECHO'}}) }}
-          {{ form_row(form.mpa_13) }}
-          {{ form_row(form.mpa_13a) }}
-          {{ form_row(form.mpa_14) }}
-          {{ form_row(form.mpa_15) }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="mt-4">
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{{ path('app_mpa_index') }}" class="btn btn-secondary">Cancelar</a>
-  </div>
-
-  {{ form_end(form) }}
+    {{ form_end(form) }}
+  {% endif %}
 </div>
 {% endblock %}

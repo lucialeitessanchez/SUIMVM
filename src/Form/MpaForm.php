@@ -48,7 +48,7 @@ class MpaForm extends AbstractType
             ->add('mpa_15')
             ->add('caso', EntityType::class, [
                 'class' => Caso::class,
-                'choice_label' => 'id',
+                'choice_label' => 'id_caso',
             ])
         ;
     }
