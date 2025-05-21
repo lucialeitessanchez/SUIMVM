@@ -17,12 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/caso')]
 class CasoController extends AbstractController
 {
-    #[Route('/', name: 'caso_index', methods: ['GET'])]
-    public function index(CasoRepository $casoRepository): Response
+    #[Route(name: 'app_caso_index', methods: ['GET'])]
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        return $this->render('casoAlta.html.twig', [
-            'casos' => $casoRepository->findAll(),
-        ]);
+        $casos = $entityManager
+        ->getRepository(Caso::class)
+        ->findAll();
+
+    return $this->render('/caso/casoList.html.twig', [
+        'casos' => $casos,
+    ]);
     }
 
     #[Route('/nuevo', name: 'caso_new', methods: ['GET', 'POST'])]

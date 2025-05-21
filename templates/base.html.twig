@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Sistema Unico de Informacion sobre muertes violentas de mujeres{% endblock %}</title>
     <link rel="icon" href="https://www.santafe.gob.ar/assets/standard/images/favicon.ico">
   {% block stylesheets %}
 
@@ -31,7 +31,7 @@
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Casos</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('caso_new') }}">Iniciar Caso</a></li>
-                        <li><a class="dropdown-item" href="#">Listado Casos</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_caso_index') }}">Listado Casos</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Historial Casos</a></li>
                     </ul>
