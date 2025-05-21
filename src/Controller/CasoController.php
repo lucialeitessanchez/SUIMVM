@@ -10,8 +10,10 @@ use App\Form\CasoType;
 use App\Repository\CasoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/caso')]
@@ -74,6 +76,19 @@ class CasoController extends AbstractController
         ]);
     }
 
+    #[Route('/guardar-caso-sesion', name: 'guardar_caso_sesion', methods: ['POST'])]
+    public function guardarCasoSesion(Request $request, SessionInterface $session): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $idCaso = $data['idCaso'] ?? null;
+
+        if ($idCaso) {
+            $session->set('caso_id', $idCaso);
+            return new JsonResponse(['success' => true]);
+        }
+
+        return new JsonResponse(['success' => false, 'error' => 'ID no válido'], 400);
+    }
     
     #[Route('/listado', name: 'caso_listar')]
     public function listar(CasoRepository $casoRepository): Response
