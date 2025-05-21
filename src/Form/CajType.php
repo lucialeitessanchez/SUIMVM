@@ -10,6 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,38 +21,139 @@ class CajType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('caj_1a', TextType::class)
-            ->add('caj_1b', DateType::class, ['widget' => 'single_text'])
-            ->add('caj_1c', EntityType::class, [
-                'class' => Nomenclador::class,
-                'choice_label' => 'nombre', // ajusta según tu entidad
+           
+            ->add('caj_1a', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
             ])
-            ->add('caj_1d', EntityType::class, [
+            ->add('caj_1b', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Fecha de la consulta', 
+                ])
+              
+            ->add('caj_1c', EntityType::class, array(
+                'required' => true,
+                'label' => 'Motivo de la consulta',
+                'multiple' => false,
+                'choice_label' => 'id_nomenclador',
+                'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
-                'choice_label' => 'nombre',
-            ])
-            ->add('caj_2a', TextType::class)
-            ->add('caj_2b', TextType::class)
-            ->add('caj_2c', DateType::class, ['widget' => 'single_text'])
-            ->add('caj_2d', TextType::class)
-            ->add('caj_2e', TextareaType::class)
-            ->add('caj_2f', TextType::class)
-            ->add('caj_3a', TextType::class)
-            ->add('caj_3b', EntityType::class, [
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'MOTIVO_CONSULTA')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
+            ->add('caj_1d', EntityType::class, array(
+                'required' => true,
+                'label' => 'Tipo de asistencia brindada',
+                'multiple' => false,
+                'choice_label' => 'id_nomenclador',
+                'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
-                'choice_label' => 'nombre',
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'TIPO_TRATAMIENTO')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
+            ->add('caj_2a', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
             ])
-            ->add('caj_3c', TextType::class)
+            ->add('caj_2b', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('caj_2c', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Fecha de patrocinio', 
+                ])
+
+            ->add('caj_2d', ChoiceType::class, [
+                  'label' => 'Estado actual del patrocinio',
+                  'placeholder' => 'Seleccione...',
+                  'choices' => [
+                        'activo' => 'Activo',
+                        'finalizado' => 'Finalizado',                       
+                    ],
+                  'required' => false,
+                ])
+            ->add('caj_2e', TextareaType::class, [
+                   'label' => 'Resultado del patrocinio',
+                    ])
+            ->add('caj_2f', ChoiceType::class, [
+                'label' => 'Especificar la razón de no aceptación del patrocinio',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                      'No se pudo establecer contacto' => 'No se pudo establecer contacto',
+                      'Optó por patrocinio privado' => 'Optó por patrocinio privado',  
+                      'No quiso presentarse como querellante'=>'No quiso presentarse como querellante',                     
+                      'Otro'=>'Otro',
+                  ],
+                'required' => false,
+              ])
+            ->add('caj_3i', EntityType::class, [
+                'class' => EquipoReferencia::class,
+                'label' => '¿Cómo llegó el caso al CAJ?',
+                'choice_label' => 'equipo', // ajusta según tu entidad
+            ])
+            ->add('caj_3j', ChoiceType::class, [
+                'label' => 'Tipo de caso',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'Suicidio' => 'Suicidio',
+                    'Muerte dudosa' => 'Muerte dudosa',
+                    'Femicidio'=>'Femicidio',
+                    'Travesticidio'=>'Travesticidio',
+                    'Transfemicidio' => 'Transfemicidio',
+                    'Tentativa de femicidio' => 'Tentativa de femicidio',
+                ],
+                'required' => true,
+            ])
+            ->add('caj_3a', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            
+            ->add('caj_3b', EntityType::class, array(
+                'required' => true,
+                'label' => 'Tipo de asistencia proporcionada al grupo familiar',
+                'multiple' => false,
+                'choice_label' => 'id_nomenclador',
+                'placeholder' => 'Seleccione',
+                'class' => Nomenclador::class,
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'MEDIDA_PROTECCION')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
+            ->add('caj_3c', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+          
             ->add('caj_3d', TextType::class)
             ->add('caj_3e', DateType::class, ['widget' => 'single_text'])
             ->add('caj_3f', TextType::class)
             ->add('caj_3g', TextareaType::class)
             ->add('caj_3h', TextType::class)
-            ->add('caj_3i', EntityType::class, [
-                'class' => EquipoReferencia::class,
-                'choice_label' => 'nombre', // ajusta según tu entidad
-            ])
-            ->add('caj_3j', TextType::class)
+            
+            
             ->add('caj_4a', TextType::class)
             ->add('caj_4b', TextType::class)
             ->add('caj_4c', TextareaType::class);
