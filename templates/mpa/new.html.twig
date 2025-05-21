@@ -3,7 +3,7 @@
 
 {% block body %}
 <div class="container mt-4">
-  <h1>Alta de Registro MPA</h1>
+  <h1>Sección Ministerio Publico de la Acusación</h1>
 
   {% for label, messages in app.flashes %}
     {% for message in messages %}
@@ -21,7 +21,7 @@
         Swal.fire({
           icon: "error",
           title: "Debe seleccionar un caso",
-          text: "Antes de registrar un MPA, es necesario elegir un caso.",
+          text: "Antes de registrar MPA, es necesario elegir un caso.",
           confirmButtonText: "Ir a casos"
         }).then((result) => {
           if (result.isConfirmed) {
@@ -36,7 +36,7 @@
     {{ form_start(form) }}
 
     <div class="mb-3">
-      <label class="form-label">Código del caso</label>
+      <label class="form-label">Caso </label>
       <input type="text" class="form-control" value="{{ form.caso.vars.data.id_caso }}" readonly>
     </div>
 
