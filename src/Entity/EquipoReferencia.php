@@ -1,14 +1,18 @@
 <?php
-use Doctrine\ORM\Mapping as ORM;
+namespace App\Entity;
+
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: "equipo_referencia")]
+
 class EquipoReferencia
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: "integer")]
+    #[ORM\Column(name: "id_equipo", type: "integer")]
     private int $id_equipo;
 
     #[ORM\Column(type: "string", length: 100)]

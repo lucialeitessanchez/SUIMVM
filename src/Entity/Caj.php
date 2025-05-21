@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
+use App\Entity\Caso;
 use Doctrine\ORM\Mapping as ORM;
-use EquipoReferencia;
+use Doctrine\DBAL\Types\Types;
+
 
 #[ORM\Entity]
 #[ORM\Table(name: "caj")]
@@ -12,7 +13,7 @@ class Caj
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\Column(name: "id_caj", type: "integer")]
     private int $id_caj;
 
     #[ORM\Column(type: Types::STRING)]
@@ -76,8 +77,8 @@ class Caj
     #[ORM\JoinColumn(name: "caj_3i", referencedColumnName: "id_equipo", nullable: false)]
     private EquipoReferencia $caj_3i;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_4a;
+    #[ORM\Column(type: "boolean", nullable: true)]
+    private ?bool $caj_4a = null;
 
     #[ORM\Column(type: Types::STRING)]
     private string $caj_4b;
@@ -90,7 +91,7 @@ class Caj
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
-    private Caso $caso;
+    private ?Caso $caso;
 
     public function getIdCaj(): ?int
     {
@@ -259,6 +260,51 @@ class Caj
     public function setCaj3h(string $caj_3h): self
     {
         $this->caj_3h = $caj_3h;
+        return $this;
+    }
+
+    public function getCaj3j(): string
+    {
+        return $this->caj_3j;
+    }
+
+    public function setCaj3j(string $caj_3j): self
+    {
+        $this->caj_3j = $caj_3j;
+        return $this;
+    }
+
+    public function getCaj4a(): ?bool
+    {
+        return $this->caj_4a;
+    }
+
+    public function setCaj4a(?bool $caj_4a): self
+    {
+        $this->caj_4a = $caj_4a;
+
+        return $this;
+    }
+
+    public function getCaj4b(): string
+    {
+        return $this->caj_4b;
+    }
+
+    public function setCaj4b(string $caj_4b): self
+    {
+        $this->caj_4b = $caj_4b;
+        return $this;
+    }
+
+    public function getCaj4c(): string
+    {
+        return $this->caj_4c;
+    }
+
+    public function setCaj4c(string $caj_3j): self
+    {
+        $this->caj_4c = $caj_4c;
         return $this;
     }
 
