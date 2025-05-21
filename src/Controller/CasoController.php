@@ -70,20 +70,16 @@ class CasoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/editar', name: 'caso_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Caso $caso, EntityManagerInterface $em): Response
+    
+    #[Route('/listado', name: 'caso_listar')]
+    public function listar(CasoRepository $casoRepository): Response
     {
-        $form = $this->createForm(CasoType::class, $caso);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            return $this->redirectToRoute('caso_index');
-        }
-
-        return $this->render('caso/edit.html.twig', [
-            'form' => $form->createView(),
-            'caso' => $caso,
+        $casos = $casoRepository->findAll();
+    
+        return $this->render('casoList.html.twig', [
+            'casos' => $casos,
         ]);
     }
+    
+    
 }
