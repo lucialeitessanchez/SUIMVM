@@ -147,12 +147,40 @@ class CajType extends AbstractType
                 'label_attr' => ['class' => 'form-check-label'],
             ])
           
-            ->add('caj_3d', TextType::class)
-            ->add('caj_3e', DateType::class, ['widget' => 'single_text'])
-            ->add('caj_3f', TextType::class)
+            ->add('caj_3d', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('caj_3e', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Fecha inicio del patrocinio', 
+                ])
+            ->add('caj_3f', ChoiceType::class, [
+                    'label' => 'Estado actual del patrocinio',
+                    'placeholder' => 'Seleccione...',
+                    'choices' => [
+                          'activo' => 'Activo',
+                          'finalizado' => 'Finalizado',                       
+                      ],
+                    'required' => false,
+                  ])
             ->add('caj_3g', TextareaType::class)
-            ->add('caj_3h', TextType::class)
-            
+            ->add('caj_3g', TextareaType::class, [
+                'label' => 'Resultados obtenidos',
+                 ])
+            ->add('caj_3h', ChoiceType::class, [
+                'label' => 'Especificar la razón de no aceptación del patrocinio',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                      'No se pudo establecer contacto' => 'No se pudo establecer contacto',
+                      'Optó por patrocinio privado' => 'Optó por patrocinio privado',  
+                      'No quiso presentarse como querellante'=>'No quiso presentarse como querellante',                     
+                      'Otro'=>'Otro',
+                  ],
+                'required' => false,
+              ])
             
             ->add('caj_4a', TextType::class)
             ->add('caj_4b', TextType::class)

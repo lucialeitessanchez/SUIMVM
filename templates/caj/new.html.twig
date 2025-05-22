@@ -130,12 +130,42 @@
                 </div>
               </div>
             </div>       
-        {{ form_row(form.caj_3d) }}
-        {{ form_row(form.caj_3e) }}
-        {{ form_row(form.caj_3f) }}
-        {{ form_row(form.caj_3g) }}
-        {{ form_row(form.caj_3h) }}
-     
+             <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="caj_3d" class="form-label">¿El grupo familiar aceptó el patrocinio? </label>
+                     <div class="form-check form-switch">
+                       {{ form_widget(form.caj_3d, {
+                        'id': 'caj_3d',
+                        'attr': {'class': 'form-check-input'}
+                        }) }}
+                    </div>
+                </div>
+             </div>   
+              <div class="row mb-3" id='fila-caj3-si' style='display:none'>
+                   <div class="col-md-4">
+                        {{ form_label(form.caj_3e, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_errors(form.caj_3e) }}
+                        {{ form_widget(form.caj_3e,{'attr': {'class': 'form-control'}})  }}
+                   </div>
+                   <div class="col-md-4">
+                        {{ form_label(form.caj_3f, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_errors(form.caj_3f) }}
+                        {{ form_widget(form.caj_3f,{'attr': {'class': 'form-control'}})  }}
+                  </div>
+                    <div class="col-md-4">
+                        {{ form_label(form.caj_3g, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_errors(form.caj_3g) }}
+                        {{ form_widget(form.caj_3g,{'attr': {'class': 'form-control'}})  }}
+          
+                  </div>
+            </div>
+            <div class="row mb-3" id='fila-caj3-no'>
+                   <div class="col-md-4">
+                           {{ form_label(form.caj_3h, null, {'label_attr': {'class': 'form-label'}}) }}
+                           {{ form_errors(form.caj_3h) }}
+                           {{ form_widget(form.caj_3h,{'attr': {'class': 'form-select'}})  }}
+                    </div>
+            </div>
     </fieldset>
 
     <fieldset>
