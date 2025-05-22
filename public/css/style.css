@@ -125,4 +125,7 @@ table tbody tr:hover {
             border-radius: 8px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
-
+        .swal2-sm {
+            width: 250px !important; /* o el tamaño que prefieras */
+            font-size: 0.85rem;
+            }

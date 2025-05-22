@@ -76,19 +76,20 @@ class CasoController extends AbstractController
         ]);
     }
 
-    #[Route('/guardar-caso-sesion', name: 'guardar_caso_sesion', methods: ['POST'])]
+    #[Route('/caso/guardar-caso-sesion', name: 'guardar_caso_sesion', methods: ['POST'])]
     public function guardarCasoSesion(Request $request, SessionInterface $session): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $idCaso = $data['idCaso'] ?? null;
-
+    
         if ($idCaso) {
             $session->set('caso_id', $idCaso);
             return new JsonResponse(['success' => true]);
         }
-
+    
         return new JsonResponse(['success' => false, 'error' => 'ID no válido'], 400);
     }
+    
     
     #[Route('/listado', name: 'caso_listar')]
     public function listar(CasoRepository $casoRepository): Response
