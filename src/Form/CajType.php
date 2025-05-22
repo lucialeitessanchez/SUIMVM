@@ -38,13 +38,13 @@ class CajType extends AbstractType
                 'required' => true,
                 'label' => 'Motivo de la consulta',
                 'multiple' => false,
-                'choice_label' => 'id_nomenclador',
+                'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
                 'query_builder' => function ($repositorio) {
                     return $repositorio->createQueryBuilder('n')
                     ->where('n.nomenclador = :nomenclador')
-                    ->setParameter('nomenclador', 'MOTIVO_CONSULTA')
+                    ->setParameter('nomenclador', 'TIPO_CONSULTA')
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
             ))
@@ -52,7 +52,7 @@ class CajType extends AbstractType
                 'required' => true,
                 'label' => 'Tipo de asistencia brindada',
                 'multiple' => false,
-                'choice_label' => 'id_nomenclador',
+                'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
                 'query_builder' => function ($repositorio) {
@@ -131,7 +131,7 @@ class CajType extends AbstractType
                 'required' => true,
                 'label' => 'Tipo de asistencia proporcionada al grupo familiar',
                 'multiple' => false,
-                'choice_label' => 'id_nomenclador',
+                'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
                 'query_builder' => function ($repositorio) {

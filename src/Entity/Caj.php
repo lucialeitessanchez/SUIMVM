@@ -302,7 +302,7 @@ class Caj
         return $this->caj_4c;
     }
 
-    public function setCaj4c(string $caj_3j): self
+    public function setCaj4c(string $caj_4c): self
     {
         $this->caj_4c = $caj_4c;
         return $this;
