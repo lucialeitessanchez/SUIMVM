@@ -87,6 +87,7 @@
               </div>
               <!-- Fila visible cuando el switch está en "No" -->
               <div class="row mb-3"  id="fila-caj-no" style="display: none;">
+                          <div class="col-md-6"></div>
                     <div class="col-md-4">
                            {{ form_label(form.caj_2f, null, {'label_attr': {'class': 'form-label'}}) }}
                            {{ form_errors(form.caj_2f) }}
@@ -99,38 +100,40 @@
     <fieldset>
         <legend><h5>3.Acompañamiento y Asistencia Posterior al hecho al Grupo Familiar</h5></legend>
             <div class="row mb-3">
-                <div class="col-md-4">
+                <div class="col-md-6">
                         {{ form_label(form.caj_3i, null, {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_errors(form.caj_3i) }}
                         {{ form_widget(form.caj_3i,{'attr': {'class': 'form-select'}})  }}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                         {{ form_label(form.caj_3j, null, {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_errors(form.caj_3j) }}
                         {{ form_widget(form.caj_3j,{'attr': {'class': 'form-select'}})  }}
                 </div>
-                <div class="col-md-4">     
+                
+            </div>
+             <div class="row mb-3">    
+                <div class="col-md-6">     
                      <label for="caj_3a" class="form-label">¿El CAJ brindó asistencia al grupo familiar de la víctima después del hecho?</label>
                      <div class="form-check form-switch">
                         {{ form_row(form.caj_3a, {'label_attr': {'class': 'form-label'}}) }}
                     </div>
                 </div>
-            </div>
-             <div class="row mb-3">    
-                <div class="col-md-4">
+                <div class="col-md-6">
                         {{ form_label(form.caj_3b, null, {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_errors(form.caj_3b) }}
                         {{ form_widget(form.caj_3b,{'attr': {'class': 'form-select'}})  }}
                 </div>
+                <div class="col-md-12"><br></div>
+              </div>
+            </div>       
+            <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="caj_3c" class="form-label">¿Se ofreció patrocinio legal al grupo familiar para constituirse como querellantes?</label>
                      <div class="form-check form-switch">
                         {{ form_row(form.caj_3c, {'label_attr': {'class': 'form-label'}}) }}
                     </div>
                 </div>
-              </div>
-            </div>       
-             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="caj_3d" class="form-label">¿El grupo familiar aceptó el patrocinio? </label>
                      <div class="form-check form-switch">
@@ -140,7 +143,7 @@
                         }) }}
                     </div>
                 </div>
-             </div>   
+            </div>   
               <div class="row mb-3" id='fila-caj3-si' style='display:none'>
                    <div class="col-md-4">
                         {{ form_label(form.caj_3e, null, {'label_attr': {'class': 'form-label'}}) }}
@@ -160,6 +163,7 @@
                   </div>
             </div>
             <div class="row mb-3" id='fila-caj3-no'>
+             <div class="col-md-6"></div>
                    <div class="col-md-4">
                            {{ form_label(form.caj_3h, null, {'label_attr': {'class': 'form-label'}}) }}
                            {{ form_errors(form.caj_3h) }}
@@ -169,15 +173,38 @@
     </fieldset>
 
     <fieldset>
-        <legend><h5>4. Evaluación de la Efectividad de las Intervenciones<h5></legend>
-        {{ form_row(form.caj_4a) }}
-        {{ form_row(form.caj_4b) }}
-        {{ form_row(form.caj_4c) }}
+        <legend><h5>4. Evaluación de la Efectividad de las Intervenciones</h5></legend>
+         <div class="row mb-3">
+                <div class="col-md-8">     
+                     <label for="caj_4a" class="form-label">¿Se realizó una evaluación de la efectividad de las intervenciones brindadas a la víctima y al grupo familiar?</label>
+                    <div class="form-check form-switch">
+                          {{ form_row(form.caj_4a, {'label_attr': {'class': 'form-label'}}) }}
+                    </div>
+                </div>
+        </div>
+        <div class="row mb-3">
+                <div class="col-md-8"> {{ form_label(form.caj_4b) }}</div>     
+        </div>    
+        <div class="row mb-3">       
+                   <div class="col-md-6"> 
+                   {{ form_widget(form.caj_4b) }}
+                        <div id="etiqueta-rango" class="mt-2 fw-bold ">Seleccione una opción</div>
+                    
+                </div>
+        </div>
+         <div class="row mb-3">   
+                  <div class="col-md-12">     
+                        {{ form_label(form.caj_4c) }}
+                        {{ form_errors(form.caj_4c) }}
+                        {{ form_widget(form.caj_4c,{'attr': {'class': 'form-control'}})  }}
+                  </div>     
+        </div>
     </fieldset>
 
     
-
-    <button class="btn btn-primary">Guardar</button>
+    <div class="text-center mt-4">
+        <button class="btn btn-primary">Guardar</button>
+    </div>
 </section>
 
     {{ form_end(form) }}

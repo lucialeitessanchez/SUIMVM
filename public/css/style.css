@@ -125,3 +125,33 @@ table tbody tr:hover {
             border-radius: 8px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
+
+       /* Estado 0: No */
+.range-no::-webkit-slider-thumb,
+.range-no::-moz-range-thumb {
+  background-color: #dc3545; /* rojo */
+}
+.range-no::-webkit-slider-runnable-track,
+.range-no::-moz-range-track {
+  background-color: #f8d7da;
+}
+
+/* Estado 1: Parcialmente */
+.range-parcial::-webkit-slider-thumb,
+.range-parcial::-moz-range-thumb {
+  background-color: #ffc107; /* amarillo */
+}
+.range-parcial::-webkit-slider-runnable-track,
+.range-parcial::-moz-range-track {
+  background-color: #fff3cd;
+}
+
+/* Estado 2: Sí */
+.range-si::-webkit-slider-thumb,
+.range-si::-moz-range-thumb {
+  background-color: #28a745; /* verde */
+}
+.range-si::-webkit-slider-runnable-track,
+.range-si::-moz-range-track {
+  background-color: #d4edda;
+}

@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -181,10 +182,28 @@ class CajType extends AbstractType
                   ],
                 'required' => false,
               ])
-            
-            ->add('caj_4a', TextType::class)
-            ->add('caj_4b', TextType::class)
-            ->add('caj_4c', TextareaType::class);
+          
+            ->add('caj_4a', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('caj_4b', RangeType::class, [
+                'label' => '¿Las intervenciones contribuyeron a la protección y asistencia efectiva de la víctima y su familia?',
+                'attr' => [
+                    'min' => 0,
+                    'max' => 2,
+                    'step' => 1,
+                    'class' => 'form-range', // Bootstrap 5
+                  
+                ],
+                'required' => false,
+            ])
+
+            ->add('caj_4c', TextareaType::class, [
+                'label' => 'Observaciones y recomendaciones para mejorar futuras intervenciones',
+                 ]);
             /*->add('caso', EntityType::class, [
                 'class' => Caso::class,
                 'choice_label' => 'id_Caso', // ajusta según tu entidad
