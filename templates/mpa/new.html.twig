@@ -2,8 +2,6 @@
 {% block title %}Registro MPA{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-  <h1>Alta de Registro MPA</h1>
 
   {% for label, messages in app.flashes %}
     {% for message in messages %}
@@ -21,7 +19,7 @@
         Swal.fire({
           icon: "error",
           title: "Debe seleccionar un caso",
-          text: "Antes de registrar un MPA, es necesario elegir un caso.",
+          text: "Antes de registrar MPA, es necesario elegir un caso.",
           confirmButtonText: "Ir a casos"
         }).then((result) => {
           if (result.isConfirmed) {
@@ -32,13 +30,13 @@
     </script>
   {% endif %}
 
-  {% if casoSeleccionado %}
+  {% if casoSeleccionado %} 
+<section id="formSecretaria" class="container my-5">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0">Sección Ministerio Público de la Acusación</h2>
+          <input type="text" class="form-control w-auto ms-3" value="Caso {{ caso.idCaso }}" disabled style="max-width: 150px;">
+      </div>
     {{ form_start(form) }}
-
-    <div class="mb-3">
-      <label class="form-label">Código del caso</label>
-      <input type="text" class="form-control" value="{{ form.caso.vars.data.id_caso }}" readonly>
-    </div>
 
     {# Acordeón del formulario #}
     <div class="accordion" id="accordionFormularioViolencia">
@@ -70,14 +68,7 @@
           <div class="accordion-body">
             {{ form_row(form.mpa_7) }}
             {{ form_row(form.mpa_7a) }}
-            {{ form_row(form.mpa_7b) }}
-            {{ form_row(form.mpa_7c, {'attr': {'class': 'form-select nomenclador-TIPO_VINCULO'}}) }}
-            {{ form_row(form.mpa_7d) }}
-            {{ form_row(form.mpa_7e) }}
-            {{ form_row(form.mpa_7f) }}
-            {{ form_row(form.mpa_7g) }}
-            {{ form_row(form.mpa_7h) }}
-            {{ form_row(form.mpa_7i) }}
+
           </div>
         </div>
       </div>
@@ -118,6 +109,7 @@
     </div>
 
     {{ form_end(form) }}
+    </section>
   {% endif %}
 </div>
 {% endblock %}

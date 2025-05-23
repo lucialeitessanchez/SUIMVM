@@ -173,7 +173,7 @@ class Mpa
 
     public function getMpa7a(): ?string { return $this->mpa_7a; }
     public function setMpa7a(?string $mpa_7a): self { $this->mpa_7a = $mpa_7a; return $this; }
-
+    
     public function getMpa8(): ?string { return $this->mpa_8; }
     public function setMpa8(?string $mpa_8): self { $this->mpa_8 = $mpa_8; return $this; }
 
@@ -227,4 +227,9 @@ class Mpa
 
     public function getCaso(): ?Caso { return $this->caso; }
     public function setCaso(?Caso $caso): self { $this->caso = $caso; return $this; }
+
+    public function __toString(): string
+{
+    return (string) $this->id_mpa;
+}
 }

@@ -39,4 +39,9 @@ class OrganismoOrigen
         $this->organismo = $organismo;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return (string) $this->getOrganismo();
+    }
 }

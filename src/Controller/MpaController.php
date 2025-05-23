@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Caso;
 use App\Entity\Mpa;
 use App\Form\MpaForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/mpa')]
@@ -26,24 +28,41 @@ final class MpaController extends AbstractController
     }
 
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $mpa = new Mpa();
-        $form = $this->createForm(MpaForm::class, $mpa);
-        $form->handleRequest($request);
+public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
+{
+    $idCaso = $session->get('caso_id');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($mpa);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_mpa_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('mpa/new.html.twig', [
-            'mpa' => $mpa,
-            'form' => $form,
-        ]);
+    if (!$idCaso) {
+        $this->addFlash('error', 'Debe seleccionar un caso primero.');
+        return $this->redirectToRoute('app_caso_index');
     }
+
+    $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
+
+    if (!$caso) {
+        throw $this->createNotFoundException("Caso no encontrado.");
+    }
+
+    $mpa = new Mpa();
+    $mpa->setCaso($caso);
+
+    $form = $this->createForm(MpaForm::class, $mpa);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->persist($mpa);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_mpa_index');
+    }
+
+    return $this->render('mpa/new.html.twig', [
+        'mpa' => $mpa,
+        'form' => $form,
+        'caso' => $caso,
+    ]);
+}
+
 
     #[Route('/{id_mpa}', name: 'app_mpa_show', methods: ['GET'])]
     public function show(Mpa $mpa): Response

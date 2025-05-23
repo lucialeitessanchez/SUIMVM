@@ -90,4 +90,8 @@ class Localidad
     {
         return $this->casos;
     }
+    public function __toString(): string
+    {
+        return (string) $this->getLocalidad();
+    }
 }
