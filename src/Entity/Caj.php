@@ -28,14 +28,14 @@ class Caj
     #[ORM\Column(type: Types::STRING)]
     private string $caj_2b;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private \DateTimeInterface $caj_2c;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $caj_2c =null;
 
     #[ORM\Column(type: Types::STRING)]
     private string $caj_2d;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private string $caj_2e;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $caj_2e = null;
 
     #[ORM\Column(type: Types::STRING)]
     private string $caj_2f;
@@ -142,12 +142,12 @@ class Caj
         return $this;
     }
 
-    public function getCaj2c(): \DateTimeInterface
+    public function getCaj2c(): ?\DateTimeInterface
     {
         return $this->caj_2c;
     }
 
-    public function setCaj2c(\DateTimeInterface $caj_2c): self
+    public function setCaj2c(?\DateTimeInterface $caj_2c): self
     {
         $this->caj_2c = $caj_2c;
         return $this;
@@ -164,12 +164,12 @@ class Caj
         return $this;
     }
 
-    public function getCaj2e(): string
+    public function getCaj2e(): ?string
     {
         return $this->caj_2e;
     }
 
-    public function setCaj2e(string $caj_2e): self
+    public function setCaj2e(?string $caj_2e): self
     {
         $this->caj_2e = $caj_2e;
         return $this;

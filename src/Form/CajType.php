@@ -77,6 +77,7 @@ class CajType extends AbstractType
             ->add('caj_2c', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Fecha de patrocinio', 
+                'required'=>false,
                 ])
 
             ->add('caj_2d', ChoiceType::class, [
@@ -90,6 +91,7 @@ class CajType extends AbstractType
                 ])
             ->add('caj_2e', TextareaType::class, [
                    'label' => 'Resultado del patrocinio',
+                   'required'=>false,
                     ])
             ->add('caj_2f', ChoiceType::class, [
                 'label' => 'Especificar la razón de no aceptación del patrocinio',
@@ -157,6 +159,7 @@ class CajType extends AbstractType
             ->add('caj_3e', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Fecha inicio del patrocinio', 
+                'required'=>false,
                 ])
             ->add('caj_3f', ChoiceType::class, [
                     'label' => 'Estado actual del patrocinio',
@@ -167,9 +170,10 @@ class CajType extends AbstractType
                       ],
                     'required' => false,
                   ])
-            ->add('caj_3g', TextareaType::class)
+           
             ->add('caj_3g', TextareaType::class, [
                 'label' => 'Resultados obtenidos',
+                'required'=>false,
                  ])
             ->add('caj_3h', ChoiceType::class, [
                 'label' => 'Especificar la razón de no aceptación del patrocinio',
