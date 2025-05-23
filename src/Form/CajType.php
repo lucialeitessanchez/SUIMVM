@@ -35,7 +35,7 @@ class CajType extends AbstractType
                 ])
               
             ->add('caj_1c', EntityType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'Motivo de la consulta',
                 'multiple' => false,
                 'choice_label' => 'valor_nomenclador',
@@ -49,7 +49,7 @@ class CajType extends AbstractType
                 }
             ))
             ->add('caj_1d', EntityType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'Tipo de asistencia brindada',
                 'multiple' => false,
                 'choice_label' => 'valor_nomenclador',
@@ -130,7 +130,7 @@ class CajType extends AbstractType
             ])
             
             ->add('caj_3b', EntityType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'Tipo de asistencia proporcionada al grupo familiar',
                 'multiple' => false,
                 'choice_label' => 'valor_nomenclador',
@@ -207,6 +207,7 @@ class CajType extends AbstractType
 
             ->add('caj_4c', TextareaType::class, [
                 'label' => 'Observaciones y recomendaciones para mejorar futuras intervenciones',
+                'required'=> false,
                  ]);
             /*->add('caso', EntityType::class, [
                 'class' => Caso::class,

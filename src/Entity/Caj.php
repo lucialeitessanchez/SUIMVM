@@ -16,78 +16,79 @@ class Caj
     #[ORM\Column(name: "id_caj", type: "integer")]
     private int $id_caj;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_1a;
+    #[ORM\Column(type: Types::BOOLEAN,nullable:true)]
+    private ?bool $caj_1a = null;
+  
+    #[ORM\Column(type: Types::DATE_MUTABLE,nullable:true)]
+    private ?\DateTimeInterface $caj_1b=null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private \DateTimeInterface $caj_1b;
+    #[ORM\Column(type: Types::BOOLEAN,nullable:true)]
+    private ?bool $caj_2a = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_2a;
-
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_2b;
+    #[ORM\Column(type: Types::BOOLEAN, nullable:true)]
+    private ?bool $caj_2b = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $caj_2c =null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_2d;
+    #[ORM\Column(type: Types::STRING , nullable:true)]
+    private ?string $caj_2d = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $caj_2e = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_2f;
+    #[ORM\Column(type: Types::STRING,nullable:true)]
+    private ?string $caj_2f = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_3a;
-
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: "caj_1c", referencedColumnName: "id_nomenclador", nullable: false)]
-    private Nomenclador $caj_1c;
+    #[ORM\Column(type: Types::BOOLEAN, nullable:true)]
+    private ?bool $caj_3a = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: "caj_1d", referencedColumnName: "id_nomenclador", nullable: false)]
-    private Nomenclador $caj_1d;
+    #[ORM\JoinColumn(name: "caj_1c", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $caj_1c = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: "caj_3b", referencedColumnName: "id_nomenclador", nullable: false)]
-    private Nomenclador $caj_3b;
+    #[ORM\JoinColumn(name: "caj_1d", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $caj_1d = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_3c;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "caj_3b", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $caj_3b = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_3d;
+    #[ORM\Column(type: Types::BOOLEAN,nullable:true)]
+    private ?bool $caj_3c = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private \DateTimeInterface $caj_3e;
+    #[ORM\Column(type: Types::BOOLEAN,nullable:true)]
+    private ?bool $caj_3d = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_3f;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $caj_3e = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private string $caj_3g;
+    #[ORM\Column(type: Types::STRING,nullable:true)]
+    private ?string $caj_3f = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_3h;
+    #[ORM\Column(type: Types::TEXT,nullable:true)]
+    private ?string $caj_3g = null;
+
+    #[ORM\Column(type: Types::STRING,nullable:true)]
+    private ?string $caj_3h = null;
+
 
     #[ORM\ManyToOne(targetEntity: EquipoReferencia::class)]
-    #[ORM\JoinColumn(name: "caj_3i", referencedColumnName: "id_equipo", nullable: false)]
-    private EquipoReferencia $caj_3i;
+    #[ORM\JoinColumn(name: "caj_3i", referencedColumnName: "id_equipo", nullable: true)]
+    private ?EquipoReferencia $caj_3i = null;
 
     #[ORM\Column(type: "boolean", nullable: true)]
     private ?bool $caj_4a = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_4b;
+    #[ORM\Column(type: Types::INTEGER, nullable:true)]
+    private ?int $caj_4b = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private string $caj_4c;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $caj_4c = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $caj_3j;
+    #[ORM\Column(type: Types::STRING,nullable:true)]
+    private ?string $caj_3j = null;
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
@@ -98,45 +99,45 @@ class Caj
         return $this->id_caj;
     }
 
-    public function getCaj1a(): string
+    public function getCaj1a(): ?bool
     {
         return $this->caj_1a;
     }
 
-    public function setCaj1a(string $caj_1a): self
+    public function setCaj1a(?bool $caj_1a): self
     {
         $this->caj_1a = $caj_1a;
         return $this;
     }
 
-    public function getCaj1b(): \DateTimeInterface
+    public function getCaj1b(): ?\DateTimeInterface
     {
         return $this->caj_1b;
     }
 
-    public function setCaj1b(\DateTimeInterface $caj_1b): self
+    public function setCaj1b(?\DateTimeInterface $caj_1b): self
     {
         $this->caj_1b = $caj_1b;
         return $this;
     }
 
-    public function getCaj2a(): string
+    public function getCaj2a(): ?bool
     {
         return $this->caj_2a;
     }
 
-    public function setCaj2a(string $caj_2a): self
+    public function setCaj2a(?bool $caj_2a): self
     {
         $this->caj_2a = $caj_2a;
         return $this;
     }
 
-    public function getCaj2b(): string
+    public function getCaj2b(): ?bool
     {
         return $this->caj_2b;
     }
 
-    public function setCaj2b(string $caj_2b): self
+    public function setCaj2b(?bool $caj_2b): self
     {
         $this->caj_2b = $caj_2b;
         return $this;
@@ -153,12 +154,12 @@ class Caj
         return $this;
     }
 
-    public function getCaj2d(): string
+    public function getCaj2d(): ?string
     {
         return $this->caj_2d;
     }
 
-    public function setCaj2d(string $caj_2d): self
+    public function setCaj2d(?string $caj_2d): self
     {
         $this->caj_2d = $caj_2d;
         return $this;
@@ -175,100 +176,100 @@ class Caj
         return $this;
     }
 
-    public function getCaj2f(): string
+    public function getCaj2f(): ?string
     {
         return $this->caj_2f;
     }
 
-    public function setCaj2f(string $caj_2f): self
+    public function setCaj2f(?string $caj_2f): self
     {
         $this->caj_2f = $caj_2f;
         return $this;
     }
 
-    public function getCaj3a(): string
+    public function getCaj3a(): ?bool
     {
         return $this->caj_3a;
     }
 
-    public function setCaj3a(string $caj_3a): self
+    public function setCaj3a(?bool $caj_3a): self
     {
         $this->caj_3a = $caj_3a;
         return $this;
     }
 
-    public function getCaj3c(): string
+    public function getCaj3c(): ?bool
     {
         return $this->caj_3c;
     }
 
-    public function setCaj3c(string $caj_3c): self
+    public function setCaj3c(?bool $caj_3c): self
     {
         $this->caj_3c = $caj_3c;
         return $this;
     }
 
-    public function getCaj3d(): string
+    public function getCaj3d(): ?bool
     {
         return $this->caj_3d;
     }
 
-    public function setCaj3d(string $caj_3d): self
+    public function setCaj3d(?bool $caj_3d): self
     {
         $this->caj_3d = $caj_3d;
         return $this;
     }
 
-    public function getCaj3e(): \DateTimeInterface
+    public function getCaj3e(): ?\DateTimeInterface
     {
         return $this->caj_3e;
     }
 
-    public function setCaj3e(\DateTimeInterface $caj_3e): self
+    public function setCaj3e(?\DateTimeInterface $caj_3e): self
     {
         $this->caj_3e = $caj_3e;
         return $this;
     }
 
-    public function getCaj3f(): string
+    public function getCaj3f(): ?string
     {
         return $this->caj_3f;
     }
 
-    public function setCaj3f(string $caj_3f): self
+    public function setCaj3f(?string $caj_3f): self
     {
         $this->caj_3f = $caj_3f;
         return $this;
     }
 
-    public function getCaj3g(): string
+    public function getCaj3g(): ?string
     {
         return $this->caj_3g;
     }
 
-    public function setCaj3g(string $caj_3g): self
+    public function setCaj3g(?string $caj_3g): self
     {
         $this->caj_3g = $caj_3g;
         return $this;
     }
 
-    public function getCaj3h(): string
+    public function getCaj3h(): ?string
     {
         return $this->caj_3h;
     }
 
-    public function setCaj3h(string $caj_3h): self
+    public function setCaj3h(?string $caj_3h): self
     {
         $this->caj_3h = $caj_3h;
         return $this;
     }
 
-    public function getCaj3j(): string
+    public function getCaj3j(): ?string
     {
         return $this->caj_3j;
     }
 
-    public function setCaj3j(string $caj_3j): self
+    public function setCaj3j(?string $caj_3j): self
     {
         $this->caj_3j = $caj_3j;
         return $this;
@@ -286,67 +287,67 @@ class Caj
         return $this;
     }
 
-    public function getCaj4b(): string
+    public function getCaj4b(): ?int
     {
         return $this->caj_4b;
     }
 
-    public function setCaj4b(string $caj_4b): self
+    public function setCaj4b(?int $caj_4b): self
     {
         $this->caj_4b = $caj_4b;
         return $this;
     }
 
-    public function getCaj4c(): string
+    public function getCaj4c(): ?string
     {
         return $this->caj_4c;
     }
 
-    public function setCaj4c(string $caj_4c): self
+    public function setCaj4c(?string $caj_4c): self
     {
         $this->caj_4c = $caj_4c;
         return $this;
     }
 
-    public function getCaj1c(): Nomenclador
+    public function getCaj1c(): ?Nomenclador
     {
         return $this->caj_1c;
     }
 
-    public function setCaj1c(Nomenclador $caj_1c): self
+    public function setCaj1c(?Nomenclador $caj_1c): self
     {
         $this->caj_1c = $caj_1c;
         return $this;
     }
 
-    public function getCaj1d(): Nomenclador
+    public function getCaj1d(): ?Nomenclador
     {
         return $this->caj_1d;
     }
 
-    public function setCaj1d(Nomenclador $caj_1d): self
+    public function setCaj1d(?Nomenclador $caj_1d): self
     {
         $this->caj_1d = $caj_1d;
         return $this;
     }
 
-    public function getCaj3b(): Nomenclador
+    public function getCaj3b(): ?Nomenclador
     {
         return $this->caj_3b;
     }
 
-    public function setCaj3b(Nomenclador $caj_3b): self
+    public function setCaj3b(?Nomenclador $caj_3b): self
     {
         $this->caj_3b = $caj_3b;
         return $this;
     }
 
-    public function getCaj3i(): EquipoReferencia
+    public function getCaj3i(): ?EquipoReferencia
     {
         return $this->caj_3i;
     }
 
-    public function setCaj3i(EquipoReferencia $caj_3i): self
+    public function setCaj3i(?EquipoReferencia $caj_3i): self
     {
         $this->caj_3i = $caj_3i;
         return $this;
