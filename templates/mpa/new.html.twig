@@ -34,20 +34,28 @@
 <section id="formSecretaria" class="container my-5">
         <div class="d-flex align-items-center justify-content-between mb-4">
           <h2 class="mb-0">Sección Ministerio Público de la Acusación</h2>
-          <input type="text" class="form-control w-auto ms-3" value="Caso {{ caso.idCaso }}" disabled style="max-width: 150px;">
-      </div>
+
+          <span class="ms-3">
+            Ud. está trabajando con el caso Nro:
+            <span class="badge bg-info text-dark">{{ caso.idCaso }}</span>
+          </span>
+            {#<div class="form-group ms-4">
+              <label>Ud. está trabajando con el caso Nro:</label>
+              <input type="text" readonly class="form-control-plaintext" value="{{ caso.idCaso }}">
+            </div>#}
+        </div>
     {{ form_start(form) }}
 
     {# Acordeón del formulario #}
-    <div class="accordion" id="accordionFormularioViolencia">
+    <div class="accordion" id="accordionFormularioViolencia" >
       <div class="accordion-item">
         <h2 class="accordion-header" id="heading1">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+          <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" >
             1. Información del hecho
           </button>
         </h2>
         <div id="collapse1" class="accordion-collapse collapse show">
-          <div class="accordion-body">
+          <div class="accordion-body" >
             {{ form_row(form.mpa_1) }}
             {{ form_row(form.mpa_2) }}
             {{ form_row(form.mpa_3, {'attr': {'class': 'form-select nomenclador-TIPO_LUGAR'}}) }}
@@ -60,7 +68,7 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header" id="heading2">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+          <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
             2. Información del imputado
           </button>
         </h2>

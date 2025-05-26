@@ -27,6 +27,8 @@ class CajController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $caj->setCaso($caso);
+            $caj->setUsuarioCarga('prueba');
+            $caj->setFechaCarga(new \DateTime());
             $em->persist($caj);
             $em->flush();
 

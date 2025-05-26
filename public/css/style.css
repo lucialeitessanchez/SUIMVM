@@ -155,3 +155,18 @@ table tbody tr:hover {
 .range-si::-moz-range-track {
   background-color: #d4edda;
 }
+
+  /* Fondo blanco por defecto */
+  .accordion-button {
+    background-color: #ffffff;
+  }
+
+  /* Fondo violeta claro cuando está expandido */
+  .accordion-button:not(.collapsed) {
+    background-color: #d5cfff;
+  }
+
+  /* Aseguramos que el contenido (body) sea blanco */
+  .accordion-body {
+    background-color: #ffffff;
+  }

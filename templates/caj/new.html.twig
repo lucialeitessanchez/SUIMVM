@@ -3,9 +3,9 @@
 {% block title %}Nuevo CAJ{% endblock %}
 
 {% block body %}
- <section class="container my-5">
+ <section id="formSecretaria" class="container my-5">
     <h2 class="text-left mb-4">Sección Centro de Asistencia Judicial - CAJ</h2>
-    <hr>
+    
         {% for flashMessage in app.session.flashBag.get('aviso') %}
             <div class="alert alert-success">                                
                 {{ flashMessage|raw|nl2br }}
@@ -20,12 +20,13 @@
         {% endfor %}
      
         {{ form_start(form) }}
+
         {# Acordeón del formulario #}
         <div class="accordion" id="accordionFormularioCaj">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading1">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
-                      <h5>1. Consultas previas realizadas por la víctima</h5>
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" >
+                      1. Consultas previas realizadas por la víctima
                     </button>
                 </h2>
                 <div id="collapse1" class="accordion-collapse collapse show">
@@ -60,7 +61,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading2">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
-                        <h5>2.Patrocinio Brindado a la víctima</h5>
+                        2.Patrocinio Brindado a la víctima
                     </button>
                 </h2>
                 <div id="collapse2" class="accordion-collapse collapse">
@@ -116,7 +117,7 @@
             <div class="accordion-item">
                  <h2 class="accordion-header" id="heading3">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
-                            <h5>3.Acompañamiento y Asistencia Posterior al hecho al Grupo Familiar</h5>
+                            3.Acompañamiento y Asistencia Posterior al hecho al Grupo Familiar
                        </button>
                   </h2>
                <div id="collapse3" class="accordion-collapse collapse">
@@ -198,7 +199,7 @@
             <div class="accordion-item">
                  <h2 class="accordion-header" id="heading4">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
-                            <h5>4. Evaluación de la Efectividad de las Intervenciones</h5>
+                            4. Evaluación de la Efectividad de las Intervenciones
                        </button>
                   </h2>
                <div id="collapse4" class="accordion-collapse collapse">
