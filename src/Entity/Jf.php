@@ -18,6 +18,13 @@ class Jf
     #[ORM\JoinColumn(name: 'caso_id_caso', referencedColumnName: 'id_caso')]
     private Caso $caso;
 
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $fechaCarga = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $usuarioCarga = null;
+
     // Métodos getter y setter para id_jf
     public function getIdJf(): int
     {
@@ -37,4 +44,27 @@ class Jf
         $this->caso = $caso;
         return $this;
     }
+
+    public function getFechaCarga(): ?\DateTimeInterface
+    {
+        return $this->fechaCarga;
+    }
+
+    public function setFechaCarga(?\DateTimeInterface $fechaCarga): self
+    {
+        $this->fechaCarga = $fechaCarga;
+        return $this;
+    }
+
+    public function getUsuarioCarga(): ?string
+    {
+        return $this->usuarioCarga;
+    }
+
+    public function setUsuarioCarga(?string $usuarioCarga): self
+    {
+        $this->usuarioCarga = $usuarioCarga;
+        return $this;
+    }
+
 }

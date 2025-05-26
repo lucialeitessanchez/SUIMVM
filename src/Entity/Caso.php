@@ -66,6 +66,9 @@ class Caso
 
     #[ORM\OneToMany(mappedBy: "caso", targetEntity: Mpa::class)]
     private Collection $mpas;
+   
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $usuarioCarga = null;
     // Getters y setters...
     // Getters y Setters
 
@@ -245,4 +248,17 @@ public function __toString(): string
 {
     return (string) $this->id_caso;
 }
+
+
+public function getUsuarioCarga(): ?string
+{
+    return $this->usuarioCarga;
+}
+
+public function setUsuarioCarga(?string $usuarioCarga): self
+{
+    $this->usuarioCarga = $usuarioCarga;
+    return $this;
+}
+
 }

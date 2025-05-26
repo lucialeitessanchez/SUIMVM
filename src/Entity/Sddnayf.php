@@ -97,6 +97,13 @@ class Sddnayf
     #[ORM\JoinColumn(nullable: false)]
     private ?Caso $caso_id_caso = null;
 
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $fechaCarga = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $usuarioCarga = null;
+
     // Getters y Setters
     public function getIdSddnayf(): ?int { return $this->id_sddnayf; }
     public function getSddnayf6a(): ?string { return $this->sddnayf_6a; }
@@ -156,5 +163,12 @@ class Sddnayf
 
     public function getCasoIdCaso(): ?Caso { return $this->caso_id_caso; }
     public function setCasoIdCaso(?Caso $caso_id_caso): self { $this->caso_id_caso = $caso_id_caso; return $this; }
+    
+    public function getFechaCarga(): ?\DateTimeInterface { return $this->fechaCarga; }
+    public function setFechaCarga(?\DateTimeInterface $fechaCarga): self { $this->fechaCarga = $fechaCarga; return $this; }
+
+    public function getUsuarioCarga(): ?string { return $this->usuarioCarga; }
+    public function setUsuarioCarga(?string $usuarioCarga): self { $this->usuarioCarga = $usuarioCarga; return $this; }
+
     // Agregar los demás getters y setters aquí...
 }

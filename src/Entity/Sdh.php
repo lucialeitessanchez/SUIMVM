@@ -93,6 +93,12 @@ class Sdh
     #[ORM\JoinColumn(nullable: false)]
     private Caso $caso_id_caso;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $fechaCarga = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $usuarioCarga = null;
+
     // Getters y Setters
     public function getIdSdh(): int { return $this->id_sdh; }
 
@@ -170,4 +176,11 @@ class Sdh
 
     public function getCasoIdCaso(): Caso { return $this->caso_id_caso; }
     public function setCasoIdCaso(Caso $value): self { $this->caso_id_caso = $value; return $this; }
+
+    public function getFechaCarga(): ?\DateTimeInterface {return $this->fechaCarga; }
+    public function setFechaCarga(?\DateTimeInterface $fechaCarga): self {$this->fechaCarga = $fechaCarga; return $this; }
+
+    public function getUsuarioCarga(): ?string { return $this->usuarioCarga; }
+    public function setUsuarioCarga(?string $usuarioCarga): self { $this->usuarioCarga = $usuarioCarga; return $this; }
+
 }

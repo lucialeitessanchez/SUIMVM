@@ -96,6 +96,13 @@ class Smgyd
     #[ORM\JoinColumn(name: 'caso_id_caso', referencedColumnName: 'id_caso', nullable: true)]
     private ?Caso $casoIdCaso = null;
 
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $fechaCarga = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $usuarioCarga = null;
+
     // Getters and Setters
 
     public function getIdSmgyd(): int
@@ -377,4 +384,27 @@ class Smgyd
         $this->casoIdCaso = $casoIdCaso;
         return $this;
     }
+
+    public function getFechaCarga(): ?\DateTimeInterface
+    {
+        return $this->fechaCarga;
+    }
+
+    public function setFechaCarga(?\DateTimeInterface $fechaCarga): self
+    {
+        $this->fechaCarga = $fechaCarga;
+        return $this;
+    }
+
+    public function getUsuarioCarga(): ?string
+    {
+        return $this->usuarioCarga;
+    }
+
+    public function setUsuarioCarga(?string $usuarioCarga): self
+    {
+        $this->usuarioCarga = $usuarioCarga;
+        return $this;
+    }
+
 }
