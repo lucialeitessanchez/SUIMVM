@@ -6,7 +6,7 @@
  <section class="container my-5">
     <h2 class="text-left mb-4">Sección Centro de Asistencia Judicial - CAJ</h2>
     <hr>
-{% for flashMessage in app.session.flashBag.get('aviso') %}
+        {% for flashMessage in app.session.flashBag.get('aviso') %}
             <div class="alert alert-success">                                
                 {{ flashMessage|raw|nl2br }}
             </div>
@@ -18,196 +18,226 @@
                 {{ flashMessage|nl2br }}
             </div>
         {% endfor %}
-    {{ form_start(form) }}
+     
+        {{ form_start(form) }}
+        {# Acordeón del formulario #}
+        <div class="accordion" id="accordionFormularioCaj">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading1">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                      1. Consultas previas realizadas por la víctima
+                    </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse show">
+                     <div class="accordion-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                              <label for="caj_1a" class="form-label">¿La víctima realizó consulta previas?</label>
+                               <div class="form-check form-switch">
+                                   {{ form_row(form.caj_1a, {'label_attr': {'class': 'form-label'}}) }}
+                               </div>
+                            </div>    
+                            <div class="col-md-3">
+                                    {{ form_label(form.caj_1b, null, {'label_attr': {'class': 'form-label'}}) }}
+                                    {{ form_errors(form.caj_1b) }}
+                                    {{ form_widget(form.caj_1b,{'attr': {'class': 'form-control'}})  }}
+                            </div>
+                            <div class="col-md-3">
+                                    {{ form_label(form.caj_1c, null, {'label_attr': {'class': 'form-label'}}) }}
+                                    {{ form_errors(form.caj_1c) }}
+                                    {{ form_widget(form.caj_1c,{'attr': {'class': 'form-select'}})  }}
+                            </div>
+                            <div class="col-md-3">
+                                     {{ form_label(form.caj_1d, null, {'label_attr': {'class': 'form-label'}}) }}
+                                     {{ form_errors(form.caj_1d) }}
+                                     {{ form_widget(form.caj_1d,{'attr': {'class': 'form-select'}})  }}
+                            </div>
+                        </div>
+                      </div>{#del accordion body 1#}
+                </div> {#del collapse 1#}                          
+            </div> {#item 1#}
 
-    <fieldset>
-        <legend ><h5>1. Consultas previas realizadas por la víctima</h5></legend>
-         <div class="row mb-3">
-                <div class="col-md-3">
-                <label for="caj_1a" class="form-label">¿La víctima realizó consulta previas?</label>
-                     <div class="form-check form-switch">
-                        {{ form_row(form.caj_1a, {'label_attr': {'class': 'form-label'}}) }}
-                    </div>
-                </div>    
-                <div class="col-md-3">
-                    {{ form_label(form.caj_1b, null, {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_errors(form.caj_1b) }}
-                    {{ form_widget(form.caj_1b,{'attr': {'class': 'form-control'}})  }}
-                </div>
-                <div class="col-md-3">
-                    {{ form_label(form.caj_1c, null, {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_errors(form.caj_1c) }}
-                    {{ form_widget(form.caj_1c,{'attr': {'class': 'form-select'}})  }}
-                </div>
-                <div class="col-md-3">
-                    {{ form_label(form.caj_1d, null, {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_errors(form.caj_1d) }}
-                    {{ form_widget(form.caj_1d,{'attr': {'class': 'form-select'}})  }}
-                </div>
-        </div>
-    </fieldset>
-
-    <fieldset>
-        <legend class="form-label"><h5>2.Patrocinio Brindado a la víctima</h5></legend>
-        <div class="row mb-3">
-                <div class="col-md-6">
-                     <label for="caj_2a" class="form-label">¿Se ofreció patrocinio legal a la víctima para constituirse como querellante? </label>
-                     <div class="form-check form-switch">
-                        {{ form_row(form.caj_2a, {'label_attr': {'class': 'form-label'}}) }}
-                    </div>
-                </div>
-                 <div class="col-md-6">
-                     <label for="caj_2b" class="form-label">¿La víctima aceptó el patrocinio? </label>
-                     <div class="form-check form-switch">
-                       {{ form_widget(form.caj_2b, {
-                        'id': 'caj_2b',
-                        'attr': {'class': 'form-check-input'}
-                        }) }}
-                    </div>
-                </div>
-        </div>          
-        <!-- Fila visible cuando el switch está en "Sí" -->
-             <div class="row mb-3"  id="fila-caj-si" style="display: none;">
-                
-                    <div class="col-md-4">
-                          {{ form_label(form.caj_2c, null, {'label_attr': {'class': 'form-label'}}) }}
-                          {{ form_errors(form.caj_2c) }}
-                          {{ form_widget(form.caj_2c,{'attr': {'class': 'form-control'}})  }}
-                    </div>
-                    <div class="col-md-4">
-                            {{ form_label(form.caj_2d, null, {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_errors(form.caj_2d) }}
-                            {{ form_widget(form.caj_2d,{'attr': {'class': 'form-control'}})  }}
-                    </div>
-                    <div class="col-md-4">
-                           {{ form_label(form.caj_2e, null, {'label_attr': {'class': 'form-label'}}) }}
-                           {{ form_errors(form.caj_2e) }}
-                           {{ form_widget(form.caj_2e,{'attr': {'class': 'form-control'}})  }}
-                    </div>
-              </div>
-              <!-- Fila visible cuando el switch está en "No" -->
-              <div class="row mb-3"  id="fila-caj-no" style="display: none;">
-                          <div class="col-md-6"></div>
-                    <div class="col-md-4">
-                           {{ form_label(form.caj_2f, null, {'label_attr': {'class': 'form-label'}}) }}
-                           {{ form_errors(form.caj_2f) }}
-                           {{ form_widget(form.caj_2f,{'attr': {'class': 'form-select'}})  }}
-                    </div>
-              </div>      
-             </div>   
-    </fieldset>
-
-    <fieldset>
-        <legend><h5>3.Acompañamiento y Asistencia Posterior al hecho al Grupo Familiar</h5></legend>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                        {{ form_label(form.caj_3i, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_errors(form.caj_3i) }}
-                        {{ form_widget(form.caj_3i,{'attr': {'class': 'form-select'}})  }}
-                </div>
-                <div class="col-md-6">
-                        {{ form_label(form.caj_3j, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_errors(form.caj_3j) }}
-                        {{ form_widget(form.caj_3j,{'attr': {'class': 'form-select'}})  }}
-                </div>
-                
-            </div>
-             <div class="row mb-3">    
-                <div class="col-md-6">     
-                     <label for="caj_3a" class="form-label">¿El CAJ brindó asistencia al grupo familiar de la víctima después del hecho?</label>
-                     <div class="form-check form-switch">
-                        {{ form_row(form.caj_3a, {'label_attr': {'class': 'form-label'}}) }}
-                    </div>
-                </div>
-                <div class="col-md-6">
-                        {{ form_label(form.caj_3b, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_errors(form.caj_3b) }}
-                        {{ form_widget(form.caj_3b,{'attr': {'class': 'form-select'}})  }}
-                </div>
-                <div class="col-md-12"><br></div>
-              </div>
-            </div>       
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="caj_3c" class="form-label">¿Se ofreció patrocinio legal al grupo familiar para constituirse como querellantes?</label>
-                     <div class="form-check form-switch">
-                        {{ form_row(form.caj_3c, {'label_attr': {'class': 'form-label'}}) }}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="caj_3d" class="form-label">¿El grupo familiar aceptó el patrocinio? </label>
-                     <div class="form-check form-switch">
-                       {{ form_widget(form.caj_3d, {
-                        'id': 'caj_3d',
-                        'attr': {'class': 'form-check-input'}
-                        }) }}
-                    </div>
-                </div>
-            </div>   
-              <div class="row mb-3" id='fila-caj3-si' style='display:none'>
-                   <div class="col-md-4">
-                        {{ form_label(form.caj_3e, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_errors(form.caj_3e) }}
-                        {{ form_widget(form.caj_3e,{'attr': {'class': 'form-control'}})  }}
-                   </div>
-                   <div class="col-md-4">
-                        {{ form_label(form.caj_3f, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_errors(form.caj_3f) }}
-                        {{ form_widget(form.caj_3f,{'attr': {'class': 'form-control'}})  }}
-                  </div>
-                    <div class="col-md-4">
-                        {{ form_label(form.caj_3g, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_errors(form.caj_3g) }}
-                        {{ form_widget(form.caj_3g,{'attr': {'class': 'form-control'}})  }}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                        2.Patrocinio Brindado a la víctima
+                    </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse">
+                     <div class="accordion-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="caj_2a" class="form-label">¿Se ofreció patrocinio legal a la víctima para constituirse como querellante? </label>
+                                    <div class="form-check form-switch">
+                                        {{ form_row(form.caj_2a, {'label_attr': {'class': 'form-label'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="caj_2b" class="form-label">¿La víctima aceptó el patrocinio? </label>
+                                    <div class="form-check form-switch">
+                                        {{ form_widget(form.caj_2b, {
+                                        'id': 'caj_2b',
+                                        'attr': {'class': 'form-check-input'}
+                                         }) }}
+                                    </div>
+                                </div>
+                            </div>          
+                            <!-- Fila visible cuando el switch está en "Sí" -->
+                            <div class="row mb-3"  id="fila-caj-si" style="display: none;">
+                                    <div class="col-md-4">
+                                        {{ form_label(form.caj_2c, null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_errors(form.caj_2c) }}
+                                        {{ form_widget(form.caj_2c,{'attr': {'class': 'form-control'}})  }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form_label(form.caj_2d, null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_errors(form.caj_2d) }}
+                                        {{ form_widget(form.caj_2d,{'attr': {'class': 'form-control'}})  }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ form_label(form.caj_2e, null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_errors(form.caj_2e) }}
+                                        {{ form_widget(form.caj_2e,{'attr': {'class': 'form-control'}})  }}
+                                    </div>
+                            </div>
+                            <!-- Fila visible cuando el switch está en "No" -->
+                            <div class="row mb-3"  id="fila-caj-no" style="display: none;">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-4">
+                                          {{ form_label(form.caj_2f, null, {'label_attr': {'class': 'form-label'}}) }}
+                                          {{ form_errors(form.caj_2f) }}
+                                          {{ form_widget(form.caj_2f,{'attr': {'class': 'form-select'}})  }}
+                                    </div>
+                            </div>      
+                        </div>
+                    </div> {#body 2#}
+                </div>{#colappse 2#}
+     
+            <div class="accordion-item">
+                 <h2 class="accordion-header" id="heading3">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                            3.Acompañamiento y Asistencia Posterior al hecho al Grupo Familiar
+                       </button>
+                  </h2>
+               <div id="collapse3" class="accordion-collapse collapse">
+                   <div class="accordion-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                       {{ form_label(form.caj_3i, null, {'label_attr': {'class': 'form-label'}}) }}
+                                       {{ form_errors(form.caj_3i) }}
+                                       {{ form_widget(form.caj_3i,{'attr': {'class': 'form-select'}})  }}
+                                </div>
+                                 <div class="col-md-6">
+                                        {{ form_label(form.caj_3j, null, {'label_attr': {'class': 'form-label'}}) }}
+                                       {{ form_errors(form.caj_3j) }}
+                                           {{ form_widget(form.caj_3j,{'attr': {'class': 'form-select'}})  }}
+                                 </div>
+                            </div>
+                            <div class="row mb-3">    
+                                <div class="col-md-6">     
+                                         <label for="caj_3a" class="form-label">¿El CAJ brindó asistencia al grupo familiar de la víctima después del hecho?</label>
+                                         <div class="form-check form-switch">
+                                                 {{ form_row(form.caj_3a, {'label_attr': {'class': 'form-label'}}) }}
+                                         </div>
+                                </div>
+                                <div class="col-md-6">
+                                               {{ form_label(form.caj_3b, null, {'label_attr': {'class': 'form-label'}}) }}
+                                               {{ form_errors(form.caj_3b) }}
+                                               {{ form_widget(form.caj_3b,{'attr': {'class': 'form-select'}})  }}
+                                 </div>
+                                <div class="col-md-12"><br></div>
+                            </div>
+                               
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                         <label for="caj_3c" class="form-label">¿Se ofreció patrocinio legal al grupo familiar para constituirse como querellantes?</label>
+                                    <div class="form-check form-switch">
+                                             {{ form_row(form.caj_3c, {'label_attr': {'class': 'form-label'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                         <label for="caj_3d" class="form-label">¿El grupo familiar aceptó el patrocinio? </label>
+                                           <div class="form-check form-switch">
+                                                    {{ form_widget(form.caj_3d, {
+                                                      'id': 'caj_3d',
+                                                      'attr': {'class': 'form-check-input'}
+                                                      }) }}
+                                           </div>
+                                </div>
+                             </div>   
+                            <div class="row mb-3" id='fila-caj3-si' style='display:none'>
+                                    <div class="col-md-4">
+                                         {{ form_label(form.caj_3e, null, {'label_attr': {'class': 'form-label'}}) }}
+                                         {{ form_errors(form.caj_3e) }}
+                                           {{ form_widget(form.caj_3e,{'attr': {'class': 'form-control'}})  }}
+                                    </div>
+                                    <div class="col-md-4">
+                                         {{ form_label(form.caj_3f, null, {'label_attr': {'class': 'form-label'}}) }}
+                                         {{ form_errors(form.caj_3f) }}
+                                          {{ form_widget(form.caj_3f,{'attr': {'class': 'form-control'}})  }}
+                                    </div>
+                                    <div class="col-md-4">
+                                           {{ form_label(form.caj_3g, null, {'label_attr': {'class': 'form-label'}}) }}
+                                            {{ form_errors(form.caj_3g) }}
+                                           {{ form_widget(form.caj_3g,{'attr': {'class': 'form-control'}})  }}
           
+                                    </div>
+                                </div>
+                                <div class="row mb-3" id='fila-caj3-no'>
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-4">
+                                            {{ form_label(form.caj_3h, null, {'label_attr': {'class': 'form-label'}}) }}
+                                             {{ form_errors(form.caj_3h) }}
+                                             {{ form_widget(form.caj_3h,{'attr': {'class': 'form-select'}})  }}
+                                    </div>
                   </div>
-            </div>
-            <div class="row mb-3" id='fila-caj3-no'>
-             <div class="col-md-6"></div>
-                   <div class="col-md-4">
-                           {{ form_label(form.caj_3h, null, {'label_attr': {'class': 'form-label'}}) }}
-                           {{ form_errors(form.caj_3h) }}
-                           {{ form_widget(form.caj_3h,{'attr': {'class': 'form-select'}})  }}
-                    </div>
-            </div>
-    </fieldset>
+                    </div> {#body#}
+                 </div>{#collapse#}
+            </div>{#item 3#}
 
-    <fieldset>
-        <legend><h5>4. Evaluación de la Efectividad de las Intervenciones</h5></legend>
-         <div class="row mb-3">
-                <div class="col-md-8">     
-                     <label for="caj_4a" class="form-label">¿Se realizó una evaluación de la efectividad de las intervenciones brindadas a la víctima y al grupo familiar?</label>
-                    <div class="form-check form-switch">
-                          {{ form_row(form.caj_4a, {'label_attr': {'class': 'form-label'}}) }}
-                    </div>
-                </div>
-        </div>
-        <div class="row mb-3">
-                <div class="col-md-8"> {{ form_label(form.caj_4b) }}</div>     
-        </div>    
-        <div class="row mb-3">       
-                   <div class="col-md-6"> 
-                   {{ form_widget(form.caj_4b) }}
-                        <div id="etiqueta-rango" class="mt-2 fw-bold ">Seleccione una opción</div>
-                    
-                </div>
-        </div>
-         <div class="row mb-3">   
-                  <div class="col-md-12">     
-                        {{ form_label(form.caj_4c) }}
-                        {{ form_errors(form.caj_4c) }}
-                        {{ form_widget(form.caj_4c,{'attr': {'class': 'form-control'}})  }}
-                  </div>     
-        </div>
-    </fieldset>
+            <div class="accordion-item">
+                 <h2 class="accordion-header" id="heading4">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                            4. Evaluación de la Efectividad de las Intervenciones
+                       </button>
+                  </h2>
+               <div id="collapse4" class="accordion-collapse collapse">
+                   <div class="accordion-body">
+                        <div class="row mb-3">
+                           <div class="col-md-8">     
+                                 <label for="caj_4a" class="form-label">¿Se realizó una evaluación de la efectividad de las intervenciones brindadas a la víctima y al grupo familiar?</label>
+                                 <div class="form-check form-switch">
+                                        {{ form_row(form.caj_4a, {'label_attr': {'class': 'form-label'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                                  <div class="col-md-8"> {{ form_label(form.caj_4b) }}</div>     
+                        </div>    
+                        <div class="row mb-3">       
+                                <div class="col-md-6"> 
+                                      {{ form_widget(form.caj_4b) }}
+                                      <div id="etiqueta-rango" class="mt-2 fw-bold ">Seleccione una opción</div>
+                                </div>
+                        </div>
+                        <div class="row mb-3">   
+                                <div class="col-md-12">     
+                                       {{ form_label(form.caj_4c) }}
+                                       {{ form_errors(form.caj_4c) }}
+                                        {{ form_widget(form.caj_4c,{'attr': {'class': 'form-control'}})  }}
+                                </div>     
+                        </div>
+                    </div> {#body 4#}
+               </div> {#collapse 4#}    
+            </div> {#acordeon 4#}   
 
-    
-    <div class="text-center mt-4">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </div>
+        </div> {#div del acordeon formulario#}
+
+        <div class="text-center mt-4">
+             <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
 </section>
-
-    {{ form_end(form) }}
+{{ form_end(form) }}
 
 {% endblock %}
 {% block javascripts %}
