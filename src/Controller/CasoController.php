@@ -63,11 +63,16 @@ class CasoController extends AbstractController
             // Setear el organismo en el caso
             $caso->setOrganismoOrigenIdOrigen($organismoOrigen);
 
+            //seteo usuario carga
+            $caso->setUsuarioCarga("prueba");
+
             $em->persist($persona);
             $em->persist($caso);
             $em->flush();
+
+            $id=$caso->getIdCaso();
         // ✅ Mensaje flash
-            $this->addFlash('aviso', 'El caso fue guardado exitosamente.');
+            $this->addFlash('aviso', 'El caso fue guardado exitosamente con el número '.$id);
             return $this->redirectToRoute('caso_new');
         }
     
