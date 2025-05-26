@@ -14,7 +14,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\PersonaService;
 
 #[Route('/caso')]
 class CasoController extends AbstractController
@@ -106,5 +108,28 @@ class CasoController extends AbstractController
         ]);
     }
     
+    #[Route('/{id}/ver', name: 'caso_ver')]
+    public function ver(Caso $caso, PersonaService $personaService, FormFactoryInterface $formFactory): Response
+    {
+        // Creamos el form pero sin intención de editar
+        $form = $formFactory->create(CasoType::class, $caso, [
+            'disabled' => true, // importante: desactiva todos los campos
+        ]);
+        
+        $persona= $caso->getPersonaIdPersona();
+        $datosPersona = $personaService->getDatosPersona($persona);
+
+        $localidad = $caso->getLocalidad();
+        $departamento = $localidad?->getDepartamento();
+        $microregion = $localidad?->getMicroregion();
+
+        return $this->render('caso/show.html.twig', [
+            'form' => $form,
+            'caso' => $caso,
+            'datosPersona'=>$datosPersona,
+            'departamento'=>$departamento,
+            'microregion'=>$microregion,
+        ]);
+    }
     
 }

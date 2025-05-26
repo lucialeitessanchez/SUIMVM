@@ -3,9 +3,7 @@
 {% block title %}Nuevo CAJ{% endblock %}
 
 {% block body %}
- <section id="formSecretaria" class="container my-5">
-    <h2 class="text-left mb-4">Sección Centro de Asistencia Judicial - CAJ</h2>
-    
+     
         {% for flashMessage in app.session.flashBag.get('aviso') %}
             <div class="alert alert-success">                                
                 {{ flashMessage|raw|nl2br }}
@@ -18,9 +16,37 @@
                 {{ flashMessage|nl2br }}
             </div>
         {% endfor %}
-     
-        {{ form_start(form) }}
+  
 
+    {% set casoSeleccionado = form.caso.vars.data ?? null %}
+       
+            {% if not form.caso.vars.data %}
+                <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    Swal.fire({
+                    icon: "error",
+                    title: "Debe seleccionar un caso",
+                    text: "Antes de registrar CAJ, es necesario elegir un caso.",
+                    confirmButtonText: "Ir a casos"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ path('app_index') }}";
+                    }
+                    });
+                });
+                </script>
+            {% endif %}
+      {% if casoSeleccionado %} 
+      <section id="formSecretaria" class="container my-5">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                <h2 class="mb-0">Sección Centro de Asistencia Judicial - CAJ</h2>
+                 <span class="ms-3">
+                    Ud. está trabajando con el caso Nro:
+                    <span class="badge badge-caso">{{caso.idCaso}}</span>
+                  </span>
+                 </div> 
+      
+        {{ form_start(form) }}
         {# Acordeón del formulario #}
         <div class="accordion" id="accordionFormularioCaj">
             <div class="accordion-item">
@@ -239,7 +265,7 @@
         </div>
 </section>
 {{ form_end(form) }}
-
+ {% endif %}
 {% endblock %}
 {% block javascripts %}
 

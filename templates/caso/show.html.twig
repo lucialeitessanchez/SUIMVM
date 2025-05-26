@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Nuevo CASO{% endblock %}
+{% block title %}Ver CASO{% endblock %}
 
 {% block body %}
 <section class="container my-5">
@@ -41,20 +41,20 @@
     <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre de la víctima" required>
+                    <input type="text" class="form-control" name="nombre" id="nombre" value = "{{datosPersona.nombre}}" placeholder="Nombre de la víctima" required disabled>
                 </div>
                 <div class="col-md-4">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido de la víctima" required>
+                        <input type="text" class="form-control" name="apellido" id="apellido" value = "{{datosPersona.apellido}}" placeholder="Apellido de la víctima" required disabled>
                 </div>
                 <div class="col-md-2">
                     <label for="dni" class="form-label">DNI</label>
-                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" placeholder="Número de DNI" required>
+                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" value = "{{datosPersona.nrodoc}}" placeholder="Número de DNI" required disabled>
                 </div>
               
                 <div class="col-md-2">
                      <label class="form-label" for="nacionalidad">Nacionalidad</label>
-                    <select class="form-select" id="nacionalidad" name="nacionalidad" required>
+                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}" required>
                             <option selected disabled>Seleccione...</option>
                     </select>
                 </div>
@@ -63,24 +63,24 @@
                 <!-- Sexo asignado en el DNI -->
                 <div class="col-md-4">
                     <label class="form-label">Sexo asignado en el DNI</label>
-                    <select class="form-select" id="sexo" required>
-                        <option selected disabled>Seleccione...</option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="No binario">No binario</option>
+                    <select class="form-select" id="sexo" name="sexo" required disabled>
+                        <option disabled {% if datosPersona.sexo is empty %}selected{% endif %}>Seleccione...</option>
+                        <option value="Femenino" {% if datosPersona.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
+                        <option value="Masculino" {% if datosPersona.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+                        <option value="No binario" {% if datosPersona.sexo == 'No binario' %}selected{% endif %}>No binario</option>
                     </select>
                 </div>
     
                 <!-- Género autopercibido de la víctima -->
                 <div class="col-md-4">
                     <label for="generoAutop" class="form-label">Género autopercibido de la víctima</label>
-                    <select class="form-select" id="generoAutop" required>
-                        <option selected disabled>Seleccione...</option>
-                        <option value="Mujer cis">Mujer cis</option>
-                        <option value="Mujer trans">Mujer trans</option>
-                        <option value="Varon trans">Varon trans</option>
-                        <option value="No binario">No binario</option>
-                        <option value="No especificado">No especificado</option>
+                    <select class="form-select" id="generoAutop" name="generoAutop" required disabled>
+                        <option disabled {% if datosPersona.genero is empty %}selected{% endif %}>Seleccione...</option>
+                        <option value="Mujer cis" {% if datosPersona.genero == 'Mujer cis' %}selected{% endif %}>Mujer cis</option>
+                        <option value="Mujer trans" {% if datosPersona.genero == 'Mujer trans' %}selected{% endif %}>Mujer trans</option>
+                        <option value="Varon trans" {% if datosPersona.genero == 'Varon trans' %}selected{% endif %}>Varon trans</option>
+                        <option value="No binario" {% if datosPersona.genero == 'No binario' %}selected{% endif %}>No binario</option>     
+                        <option value="No especificado" {% if datosPersona.genero == 'No especificado' %}selected{% endif %}>No especificado</option>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -157,10 +157,7 @@
                     </div>
      </div>
      
-     <!-- Botón de envío -->
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary">Crear</button>
-            </div>
+
         {{ form_widget(form) }}
     {{ form_end(form) }}
 

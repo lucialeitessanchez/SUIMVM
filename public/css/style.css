@@ -170,3 +170,11 @@ table tbody tr:hover {
   .accordion-body {
     background-color: #ffffff;
   }
+
+  .badge-caso {
+    background-color: #9b8ef7;
+    color: #000;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+  }
