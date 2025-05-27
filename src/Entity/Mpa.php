@@ -113,7 +113,7 @@ class Mpa
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
-    private ?Caso $caso = null;
+    private Caso $caso;
 
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -232,8 +232,8 @@ class Mpa
     public function getMpa15(): ?string { return $this->mpa_15; }
     public function setMpa15(?string $mpa_15): self { $this->mpa_15 = $mpa_15; return $this; }
 
-    public function getCaso(): ?Caso { return $this->caso; }
-    public function setCaso(?Caso $caso): self { $this->caso = $caso; return $this; }
+    public function getCaso(): Caso { return $this->caso; }
+    public function setCaso(Caso $caso): self { $this->caso = $caso; return $this; }
 
     public function getFechaCarga(): ?\DateTimeInterface {return $this->fechaCarga; }
     public function setFechaCarga(?\DateTimeInterface $fechaCarga): self{$this->fechaCarga = $fechaCarga; return $this; }

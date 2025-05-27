@@ -18,25 +18,23 @@
         {% endfor %}
   
 
-    {% set casoSeleccionado = form.caso.vars.data ?? null %}
-       
-            {% if not form.caso.vars.data %}
-                <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    Swal.fire({
-                    icon: "error",
-                    title: "Debe seleccionar un caso",
-                    text: "Antes de registrar CAJ, es necesario elegir un caso.",
-                    confirmButtonText: "Ir a casos"
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "{{ path('app_index') }}";
-                    }
-                    });
-                });
-                </script>
-            {% endif %}
-      {% if casoSeleccionado %} 
+        {% if sinCaso %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                icon: "error",
+                title: "Debe seleccionar un caso",
+                text: "Antes de registrar MPA, es necesario elegir un caso.",
+                confirmButtonText: "Ir a casos"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                window.location.href = "{{ path('app_caso_index') }}";
+                }
+            });
+            });
+        </script>
+        {% endif %}
+      {% if caso is defined %} 
       <section id="formSecretaria" class="container my-5">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                 <h2 class="mb-0">Sección Centro de Asistencia Judicial - CAJ</h2>

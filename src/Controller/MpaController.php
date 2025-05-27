@@ -34,12 +34,15 @@ final class MpaController extends AbstractController
 
         $caso = null;
         $sinCaso = false;
+        $parametros = [];
+
 
         if (!$idCaso) {
             $this->addFlash('error', 'Debe seleccionar un caso primero.');
             $sinCaso = true;
         } else {
             $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
+            $parametros['caso'] = $caso;
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
@@ -47,11 +50,6 @@ final class MpaController extends AbstractController
         }
 
         $mpa = new Mpa();
-
-        if ($caso) {
-            $mpa->setCaso($caso);
-        }
-
         $form = $this->createForm(MpaForm::class, $mpa);
         $form->handleRequest($request);
 
@@ -62,13 +60,9 @@ final class MpaController extends AbstractController
             $this->addFlash('success', 'MPA guardado correctamente.');
             return $this->redirectToRoute('app_mpa_index');
         }
-
-        return $this->render('mpa/new.html.twig', [
-            'form' => $form,
-            'mpa' => $mpa,
-            'caso' => $caso,
-            'sinCaso' => $sinCaso,
-        ]);
+        $parametros['form'] = $form->createView();
+        $parametros['sinCaso'] = $sinCaso;
+        return $this->render('mpa/new.html.twig', $parametros);
     }
 
 

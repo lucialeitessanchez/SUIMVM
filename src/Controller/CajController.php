@@ -23,27 +23,30 @@ class CajController extends AbstractController
       //  $caso=new Caso();
       
       //  $caso = $em->getRepository(Caso::class)->find(1);
+      $idCaso = $session->get('caso_id');
 
-        $idCaso = $session->get('caso_id');
+      $caj = new Caj();
+      $caso = null;
+      $sinCaso = false;
+      $parametros = [];
 
-        if (!$idCaso) {
-            $this->addFlash('error', 'Debe seleccionar un caso primero.');
-            return $this->redirectToRoute('app_caso_index');
-        }
-    
-        $caso = $em->getRepository(Caso::class)->find($idCaso);
-    
-        if (!$caso) {
-            throw $this->createNotFoundException("Caso no encontrado.");
-        }
-
-        $caj = new Caj();
-        $caj->setCaso($caso);
+      if (!$idCaso) {
+          $this->addFlash('error', 'Debe seleccionar un caso primero.');
+          $sinCaso = true;
+      } else {
+          $caso = $em->getRepository(Caso::class)->find($idCaso);
+          $parametros['caso'] = $caso;
+          if (!$caso) {
+              $this->addFlash('error', 'El caso seleccionado no existe.');
+              $sinCaso = true;
+          }
+      }
 
         $form = $this->createForm(CajType::class, $caj);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $caj->setCaso($caso);
             $caj->setUsuarioCarga('prueba');
             $caj->setFechaCarga(new \DateTime());
@@ -54,11 +57,9 @@ class CajController extends AbstractController
 
             return $this->redirectToRoute('caj_new'); // puedes redirigir a otra ruta si lo deseas
         }
-       
-        return $this->render('caj/new.html.twig', [
-            'form' => $form->createView(),
-            'caso' => $caso,
-        ]);
+       $parametros['form'] = $form->createView();
+       $parametros['sinCaso'] = $sinCaso;
+        return $this->render('caj/new.html.twig', $parametros);
     }
 
    
