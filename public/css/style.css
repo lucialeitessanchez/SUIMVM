@@ -164,11 +164,19 @@ table tbody tr:hover {
   /* Fondo violeta claro cuando está expandido */
   .accordion-button:not(.collapsed) {
     background-color: #d5cfff;
+    border-color: #d5cfff;
+    box-shadow: 0 0 0 0.25rem rgba(213, 207, 255, 0.5); /* Opcional: resalta más el borde */
   }
 
   /* Aseguramos que el contenido (body) sea blanco */
   .accordion-body {
     background-color: #ffffff;
+  }
+
+  /* Cuando tiene el foco (evita el borde azul que pone Bootstrap) */
+  .accordion-button:focus {
+    border-color: #d5cfff;
+    box-shadow: 0 0 0 0.25rem rgba(213, 207, 255, 0.5); /* opcional */
   }
 
   .badge-caso {
@@ -178,3 +186,5 @@ table tbody tr:hover {
     font-weight: bold;
     padding: 0.5rem 1rem;
   }
+
+ 

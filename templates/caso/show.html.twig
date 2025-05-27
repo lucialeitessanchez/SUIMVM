@@ -3,7 +3,38 @@
 
 {% block body %}
 <section class="container my-5">
-    <h2 class="text-left mb-4">Identificación de la víctima</h2>
+
+ <div class="d-flex justify-content-between align-items-end mb-3">
+        <h2 class="text-left">Identificación de la víctima</h2>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page"  href="#">
+                    <i class="bi bi-file-earmark-text"></i> CAJ
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-folder2-open"></i> SMGyD
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-chat-left-text"></i> MPA
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-chat-left-text"></i> MJyS
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-chat-left-text"></i> SDNAyF
+                </a>
+            </li>
+        </ul>
+    </div>
+    
     <hr>
     {% for flashMessage in app.session.flashBag.get('aviso') %}
             <div class="alert alert-success">                                
@@ -54,7 +85,7 @@
               
                 <div class="col-md-2">
                      <label class="form-label" for="nacionalidad">Nacionalidad</label>
-                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}" required>
+                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}" required disabled>
                             <option selected disabled>Seleccione...</option>
                     </select>
                 </div>
@@ -147,13 +178,13 @@
                 <!-- Departamento -->
                     <div class="col-md-4">
                         <label for="departamento" class="form-label">Departamento</label>
-                        <input type="text" class="form-control" id="departamento" readonly="true">
+                        <input type="text" class="form-control" id="departamento" readonly="true" disabled>
                     </div>
                 
                     <!-- Microregión -->
                     <div class="col-md-4">
                         <label for="microregion" class="form-label">Microregión</label>
-                        <input type="text" class="form-control" id="microregion" readonly>
+                        <input type="text" class="form-control" id="microregion" readonly disabled>
                     </div>
      </div>
      
@@ -172,6 +203,9 @@
         <script>
     window.localidadInfoTemplate = '{{ path('localidad_info', { id: 'PLACEHOLDER' }) }}';
     window.verificarDniUrlTemplate = "{{ path('persona_verificar_dni', { nrodoc: 'PLACEHOLDER' }) }}";
+    
+    
+    
 </script>
           <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
           <script src="{{ asset('js/persona.js') }}"></script>
