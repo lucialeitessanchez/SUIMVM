@@ -28,41 +28,48 @@ final class MpaController extends AbstractController
     }
 
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
-{
-    $idCaso = $session->get('caso_id');
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    {
+        $idCaso = $session->get('caso_id');
 
-    if (!$idCaso) {
-        $this->addFlash('error', 'Debe seleccionar un caso primero.'); 
+        $caso = null;
+        $sinCaso = false;
+
+        if (!$idCaso) {
+            $this->addFlash('error', 'Debe seleccionar un caso primero.');
+            $sinCaso = true;
+        } else {
+            $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
+            if (!$caso) {
+                $this->addFlash('error', 'El caso seleccionado no existe.');
+                $sinCaso = true;
+            }
+        }
+
+        $mpa = new Mpa();
+
+        if ($caso) {
+            $mpa->setCaso($caso);
+        }
+
+        $form = $this->createForm(MpaForm::class, $mpa);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($mpa);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'MPA guardado correctamente.');
+            return $this->redirectToRoute('app_mpa_index');
+        }
+
+        return $this->render('mpa/new.html.twig', [
+            'form' => $form,
+            'mpa' => $mpa,
+            'caso' => $caso,
+            'sinCaso' => $sinCaso,
+        ]);
     }
-
-    $caso = null;
-    if ($idCaso)
-        $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
-
-    if (!$caso) {
-        throw $this->createNotFoundException("Caso no encontrado.");
-    }
-
-    $mpa = new Mpa();
-    $mpa->setCaso($caso);
-
-    $form = $this->createForm(MpaForm::class, $mpa);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        $entityManager->persist($mpa);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_mpa_index');
-    }
-
-    return $this->render('mpa/new.html.twig', [
-        'mpa' => $mpa,
-        'form' => $form,
-        'caso' => $caso,
-    ]);
-}
 
 
     #[Route('/{id_mpa}/show', name: 'app_mpa_show', methods: ['GET'], requirements:['id_mpa'=>'\d+'])]

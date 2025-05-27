@@ -2,35 +2,24 @@
 {% block title %}Registro MPA{% endblock %}
 
 {% block body %}
-
-  {% for label, messages in app.flashes %}
-    {% for message in messages %}
-      <div class="alert alert-{{ label == 'error' ? 'danger' : 'success' }}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endfor %}
-
-  {% set casoSeleccionado = form.caso.vars.data ?? null %}
-
-  {% if not form.caso.vars.data %}
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        Swal.fire({
-          icon: "error",
-          title: "Debe seleccionar un caso",
-          text: "Antes de registrar MPA, es necesario elegir un caso.",
-          confirmButtonText: "Ir a casos"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = "{{ path('app_index') }}";
-          }
-        });
+{% if sinCaso %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Swal.fire({
+        icon: "error",
+        title: "Debe seleccionar un caso",
+        text: "Antes de registrar MPA, es necesario elegir un caso.",
+        confirmButtonText: "Ir a casos"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{ path('app_caso_index') }}";
+        }
       });
-    </script>
-  {% endif %}
+    });
+  </script>
+{% endif %}
 
-  {% if casoSeleccionado %} 
+  {% if caso %} 
 <section id="formSecretaria" class="container my-5">
         <div class="d-flex align-items-center justify-content-between mb-4">
           <h2 class="mb-0">Sección Ministerio Público de la Acusación</h2>
