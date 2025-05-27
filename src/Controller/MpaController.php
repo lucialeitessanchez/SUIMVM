@@ -34,7 +34,6 @@ public function new(Request $request, EntityManagerInterface $entityManager, Ses
 
     if (!$idCaso) {
         $this->addFlash('error', 'Debe seleccionar un caso primero.');
-        return $this->redirectToRoute('app_caso_index');
     }
 
     $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
