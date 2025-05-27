@@ -53,6 +53,12 @@ class Procuracion
     private ?int $proc_13 = null;
 
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $fechaCarga = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $usuarioCarga = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,4 +194,27 @@ class Procuracion
         $this->proc_12 = $proc_12;
         return $this;
     }
+
+    public function getFechaCarga(): ?\DateTimeInterface
+    {
+        return $this->fechaCarga;
+    }
+
+    public function setFechaCarga(?\DateTimeInterface $fechaCarga): self
+    {
+        $this->fechaCarga = $fechaCarga;
+        return $this;
+    }
+
+    public function getUsuarioCarga(): ?string
+    {
+        return $this->usuarioCarga;
+    }
+
+    public function setUsuarioCarga(?string $usuarioCarga): self
+    {
+        $this->usuarioCarga = $usuarioCarga;
+        return $this;
+    }
+
 }

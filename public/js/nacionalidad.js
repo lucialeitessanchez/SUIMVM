@@ -15,10 +15,16 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
         const select = document.getElementById('nacionalidad');
+        const nacionalidadSeleccionada = select.getAttribute('data-nacionalidad');
         nacionalidades.forEach(nacionalidad => {
             const option = document.createElement('option');
             option.value = nacionalidad;
             option.text = nacionalidad;
+
+            if (nacionalidad === nacionalidadSeleccionada) {
+                option.selected = true;
+            }
+
             select.appendChild(option);
         });
     });

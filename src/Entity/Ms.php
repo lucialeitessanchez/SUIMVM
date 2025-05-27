@@ -85,11 +85,17 @@ class Ms
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
     private Caso $caso;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $fechaCarga = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $usuarioCarga = null;
+
     // Getters y Setters
 
     public function getIdMs(): ?int
     {
-        return $this->iidMs;
+        return $this->idMs;
     }
     public function getMs11(): ?string 
     { 
@@ -211,9 +217,9 @@ class Ms
     }
     public function getMs43a(): ?string 
     { 
-        return $this->ms43a; 
+        return $this->ms43a;  
     }
-    public function setMs43a(string $ms15): self 
+    public function setMs43a(?string $ms43a): self 
     { 
         $this->ms43a = $ms43a; 
         return $this; 
@@ -281,4 +287,27 @@ class Ms
         $this->caso = $caso; 
         return $this; 
     }
+
+        public function getFechaCarga(): ?\DateTimeInterface
+    {
+        return $this->fechaCarga;
+    }
+
+    public function setFechaCarga(?\DateTimeInterface $fechaCarga): self
+    {
+        $this->fechaCarga = $fechaCarga;
+        return $this;
+    }
+
+    public function getUsuarioCarga(): ?string
+    {
+        return $this->usuarioCarga;
+    }
+
+    public function setUsuarioCarga(?string $usuarioCarga): self
+    {
+        $this->usuarioCarga = $usuarioCarga;
+        return $this;
+    }
+
 }
