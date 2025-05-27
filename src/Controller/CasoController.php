@@ -98,16 +98,7 @@ class CasoController extends AbstractController
     }
     
     
-    #[Route('/listado', name: 'caso_listar')]
-    public function listar(CasoRepository $casoRepository): Response
-    {
-        $casos = $casoRepository->findAll();
-    
-        return $this->render('casoList.html.twig', [
-            'casos' => $casos,
-        ]);
-    }
-    
+        
     #[Route('/{id}/ver', name: 'caso_ver')]
     public function ver(Caso $caso, PersonaService $personaService, FormFactoryInterface $formFactory): Response
     {

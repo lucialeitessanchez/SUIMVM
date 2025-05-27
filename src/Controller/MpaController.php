@@ -33,10 +33,12 @@ public function new(Request $request, EntityManagerInterface $entityManager, Ses
     $idCaso = $session->get('caso_id');
 
     if (!$idCaso) {
-        $this->addFlash('error', 'Debe seleccionar un caso primero.');
+        $this->addFlash('error', 'Debe seleccionar un caso primero.'); 
     }
 
-    $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
+    $caso = null;
+    if ($idCaso)
+        $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
 
     if (!$caso) {
         throw $this->createNotFoundException("Caso no encontrado.");
@@ -63,7 +65,7 @@ public function new(Request $request, EntityManagerInterface $entityManager, Ses
 }
 
 
-    #[Route('/{id_mpa}', name: 'app_mpa_show', methods: ['GET'])]
+    #[Route('/{id_mpa}/show', name: 'app_mpa_show', methods: ['GET'], requirements:['id_mpa'=>'\d+'])]
     public function show(Mpa $mpa): Response
     {
         return $this->render('mpa/show.html.twig', [
