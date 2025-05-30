@@ -17,8 +17,8 @@ class Mpa
     #[ORM\Column(type: 'text')]
     private ?string $mpa_1 = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_2 = null;
+    #[ORM\Column(type: 'boolean',nullable:true)]
+    private ?bool $mpa_2 = null;
 
     #[ORM\Column(type: 'string')]
     private ?string $mpa_3 = null; // ← Este es el campo ENUM, lo tratamos como string
@@ -60,8 +60,8 @@ class Mpa
     #[ORM\Column(type: 'text')]
     private ?string $mpa_7a = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_8 = null;
+    #[ORM\Column(type: 'boolean',nullable:true)]
+    private ?bool $mpa_8 = null;
 
     #[ORM\Column(type: 'string', length: 100)]
     private ?string $mpa_9a = null;
@@ -72,17 +72,17 @@ class Mpa
     #[ORM\Column(type: 'string', length: 150)]
     private ?string $mpa_9c = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_9d = null;
+    #[ORM\Column(type: 'boolean',nullable:true)]
+    private ?bool $mpa_9d = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_9e = null;
+    #[ORM\Column(type: 'boolean',nullable:true)]
+    private ?bool $mpa_9e = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_9f = null;
+    #[ORM\Column(type: 'boolean',nullable:true)]
+    private ?bool $mpa_9f = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_9g = null;
+    #[ORM\Column(type: 'boolean',nullable:true)]
+    private ?bool $mpa_9g = null;
 
     #[ORM\Column(type: 'string')]
     private ?string $mpa_9h = null;
@@ -90,8 +90,8 @@ class Mpa
     #[ORM\Column(type: 'text')]
     private ?string $mpa_9ha = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_10 = null;
+    #[ORM\Column(type: 'boolean',nullable:true)]
+    private ?bool $mpa_10 = null;
 
     #[ORM\Column(type: 'string')]
     private ?string $mpa_11 = null;
@@ -108,8 +108,8 @@ class Mpa
     #[ORM\Column(type: 'text')]
     private ?string $mpa_14 = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_15 = null;
+    #[ORM\Column(type: 'boolean',nullable:true)]
+    private ?bool $mpa_15 = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
@@ -139,8 +139,8 @@ class Mpa
         return $this;
     }
 
-    public function getMpa2(): ?string { return $this->mpa_2; }
-    public function setMpa2(?string $mpa_2): self { $this->mpa_2 = $mpa_2; return $this; }
+    public function getMpa2(): ?bool { return $this->mpa_2; }
+    public function setMpa2(?bool $mpa_2): self { $this->mpa_2 = $mpa_2; return $this; }
 
     public function getMpa3(): ?string { return $this->mpa_3; }
     public function setMpa3(?string $mpa_3): self { $this->mpa_3 = $mpa_3; return $this; }
@@ -181,8 +181,8 @@ class Mpa
     public function getMpa7a(): ?string { return $this->mpa_7a; }
     public function setMpa7a(?string $mpa_7a): self { $this->mpa_7a = $mpa_7a; return $this; }
     
-    public function getMpa8(): ?string { return $this->mpa_8; }
-    public function setMpa8(?string $mpa_8): self { $this->mpa_8 = $mpa_8; return $this; }
+    public function getMpa8(): ?bool { return $this->mpa_8; }
+    public function setMpa8(?bool $mpa_8): self { $this->mpa_8 = $mpa_8; return $this; }
 
     public function getMpa9a(): ?string { return $this->mpa_9a; }
     public function setMpa9a(?string $mpa_9a): self { $this->mpa_9a = $mpa_9a; return $this; }
@@ -193,26 +193,26 @@ class Mpa
     public function getMpa9c(): ?string { return $this->mpa_9c; }
     public function setMpa9c(?string $mpa_9c): self { $this->mpa_9c = $mpa_9c; return $this; }
 
-    public function getMpa9d(): ?string { return $this->mpa_9d; }
-    public function setMpa9d(?string $mpa_9d): self { $this->mpa_9d = $mpa_9d; return $this; }
+    public function getMpa9d(): ?bool { return $this->mpa_9d; }
+    public function setMpa9d(?bool $mpa_9d): self { $this->mpa_9d = $mpa_9d; return $this; }
 
-    public function getMpa9e(): ?string { return $this->mpa_9e; }
-    public function setMpa9e(?string $mpa_9e): self { $this->mpa_9e = $mpa_9e; return $this; }
+    public function getMpa9e(): ?bool { return $this->mpa_9e; }
+    public function setMpa9e(?bool $mpa_9e): self { $this->mpa_9e = $mpa_9e; return $this; }
 
-    public function getMpa9f(): ?string { return $this->mpa_9f; }
-    public function setMpa9f(?string $mpa_9f): self { $this->mpa_9f = $mpa_9f; return $this; }
+    public function getMpa9f(): ?bool { return $this->mpa_9f; }
+    public function setMpa9f(?bool $mpa_9f): self { $this->mpa_9f = $mpa_9f; return $this; }
 
-    public function getMpa9g(): ?string { return $this->mpa_9g; }
-    public function setMpa9g(?string $mpa_9g): self { $this->mpa_9g = $mpa_9g; return $this; }
+    public function getMpa9g(): ?bool { return $this->mpa_9g; }
+    public function setMpa9g(?bool $mpa_9g): self { $this->mpa_9g = $mpa_9g; return $this; }
 
-    public function getMpa9h(): ?string { return $this->mpa_9h; }
-    public function setMpa9h(?string $mpa_9h): self { $this->mpa_9h = $mpa_9h; return $this; }
+    public function getMpa9h(): ?bool { return $this->mpa_9h; }
+    public function setMpa9h(?bool $mpa_9h): self { $this->mpa_9h = $mpa_9h; return $this; }
 
     public function getMpa9ha(): ?string { return $this->mpa_9ha; }
     public function setMpa9ha(?string $mpa_9ha): self { $this->mpa_9ha = $mpa_9ha; return $this; }
 
-    public function getMpa10(): ?string { return $this->mpa_10; }
-    public function setMpa10(?string $mpa_10): self { $this->mpa_10 = $mpa_10; return $this; }
+    public function getMpa10(): ?bool { return $this->mpa_10; }
+    public function setMpa10(?bool $mpa_10): self { $this->mpa_10 = $mpa_10; return $this; }
 
     public function getMpa11(): ?string { return $this->mpa_11; }
     public function setMpa11(?string $mpa_11): self { $this->mpa_11 = $mpa_11; return $this; }
@@ -229,8 +229,8 @@ class Mpa
     public function getMpa14(): ?string { return $this->mpa_14; }
     public function setMpa14(?string $mpa_14): self { $this->mpa_14 = $mpa_14; return $this; }
 
-    public function getMpa15(): ?string { return $this->mpa_15; }
-    public function setMpa15(?string $mpa_15): self { $this->mpa_15 = $mpa_15; return $this; }
+    public function getMpa15(): ?bool { return $this->mpa_15; }
+    public function setMpa15(?bool $mpa_15): self { $this->mpa_15 = $mpa_15; return $this; }
 
     public function getCaso(): Caso { return $this->caso; }
     public function setCaso(Caso $caso): self { $this->caso = $caso; return $this; }

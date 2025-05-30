@@ -8,18 +8,77 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class MpaForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('mpa_1')
-            ->add('mpa_2')
-            ->add('mpa_3')
-            ->add('mpa_3a')
-            ->add('mpa_3a1')
-            ->add('mpa_3b')
+            
+            ->add('mpa_1', ChoiceType::class, [
+                'label' => 'Tipo de muerte',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'Suicidio' => 'Suicidio',
+                    'Muerte dudosa' => 'Muerte dudosa',
+                    'Femicidio'=>'Femicidio',
+                    'Travesticidio'=>'Travesticidio',
+                    'Transfemicidio' => 'Transfemicidio',
+                    'Tentativa de femicidio' => 'Tentativa de femicidio',
+                ],
+                'required' => true,
+            ])
+            ->add('mpa_2', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('mpa_3', ChoiceType::class, [
+                'label' => 'Tipo de femicidio',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'Intimo' => 'Intimo',
+                    'Familiar' => 'Familiar',
+                    'Sexual'=>'Sexualo',
+                    'En contexto de criminalidad organizada'=>'En contexto de criminalidad organizada',
+                    'Otras muertes relacionadas a violencia de genero' => 'Otras muertes relacionadas a violencia de genero',
+                    'Conflictos interpersonales' => 'Conflictos interpersonales',
+                    'En ocasion de robo'=>'En ocasión de robo',
+                    'En investigacion'=>'En investigación',
+                ],
+                'required' => true,
+            ])
+          
+       
+            ->add('mpa_3a', ChoiceType::class, [
+                'label' => 'Tipo de incidente',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'Tiroteo' => 'Tiroteo',
+                    'Ataque dirigido' => 'Ataque dirigido',
+                    'Incendio'=>'Incencio',
+                    'Error de identidad'=>'Error de identidad',
+                    'Error de domicilio' => 'Error de domicilio',
+                ],
+                'required' => true,
+            ])
+          // ->add('mpa_3a1')
+            ->add('mpa_3b', ChoiceType::class, [
+                'label' => 'Circunstancia del ataque',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'Conflicto territorial' => 'Tiroteo',
+                    'Control de narcotrafico' => 'Ataque dirigido',
+                    'Error de identidad'=>'Incencio',
+                    'Error de domicilio' => 'Error de domicilio',
+                ],
+                'required' => true,
+            ])
+            
+          
             ->add('mpa_3b1')
             ->add('mpa_4')
             ->add('mpa_5')

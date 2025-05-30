@@ -186,5 +186,21 @@ table tbody tr:hover {
     font-weight: bold;
     padding: 0.5rem 1rem;
   }
+ 
+  #criminalidad_extra_fields {
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+  }
+
+  #criminalidad_extra_fields.show {
+    opacity: 1;
+    max-height: 300px; /* suficiente para que entre el contenido */
+  }
+
+  #criminalidad_extra_fields.hide {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+  }
+
 
  

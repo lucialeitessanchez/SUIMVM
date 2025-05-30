@@ -45,9 +45,36 @@
         </h2>
         <div id="collapse1" class="accordion-collapse collapse show">
           <div class="accordion-body" >
-            {{ form_row(form.mpa_1) }}
-            {{ form_row(form.mpa_2) }}
-            {{ form_row(form.mpa_3, {'attr': {'class': 'form-select nomenclador-TIPO_LUGAR'}}) }}
+          <div class="row mb-3">
+            <div class="col-md-4">
+                  {{ form_label(form.mpa_1,null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.mpa_1) }}
+                  {{ form_widget(form.mpa_1,{'attr': {'class': 'form-select'}})  }}
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+              <label for="mpa_2" class="form-label" style="text-align: center; width: auto;">¿Fue femicidio?</label>
+              <div class="form-check form-switch d-flex justify-content-center">
+                {{ form_row(form.mpa_2, {'label_attr': {'class': 'form-label'}}) }}
+              </div>
+            </div>
+              <div class="col-md-4">
+                {{ form_label(form.mpa_3,null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_errors(form.mpa_3) }}
+                {{ form_widget(form.mpa_3,{'attr': {'class': 'form-select'}}) }}
+             </div>
+          </div>
+           <div class="row mb-3" id="criminalidad_extra_fields" >
+            <div class="col-md-6">
+                  {{ form_label(form.mpa_3a,null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.mpa_3a) }}
+                {{ form_widget(form.mpa_3a, {'attr': {'class': 'form-select'}}) }}
+            </div>
+              <div class="col-md-6">
+                  {{ form_label(form.mpa_3b,null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.mpa_3b) }}
+                 {{ form_widget(form.mpa_3b, {'attr': {'class': 'form-select'}}) }}
+              </div>
+            </div>
             {{ form_row(form.mpa_4) }}
             {{ form_row(form.mpa_5, {'attr': {'class': 'form-select nomenclador-TIPO_VIOLENCIA'}}) }}
             {{ form_row(form.mpa_6) }}
@@ -109,4 +136,9 @@
     </section>
   {% endif %}
 </div>
+{% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+        <script src="{{ asset('js/mpa.js') }}"></script>
 {% endblock %}
