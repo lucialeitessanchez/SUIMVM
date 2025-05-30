@@ -70,17 +70,33 @@ class MpaForm extends AbstractType
                 'label' => 'Circunstancia del ataque',
                 'placeholder' => 'Seleccione...',
                 'choices' => [
-                    'Conflicto territorial' => 'Tiroteo',
-                    'Control de narcotrafico' => 'Ataque dirigido',
-                    'Error de identidad'=>'Incencio',
+                    'Conflicto territorial' => 'Conflicto territorial',
+                    'Control de narcotrafico' => 'Control de narcotrafico',
+                    'Error de identidad'=>'Error de identidad',
                     'Error de domicilio' => 'Error de domicilio',
                 ],
                 'required' => true,
             ])
-            
+         //   ->add('mpa_3b1')
           
-            ->add('mpa_3b1')
-            ->add('mpa_4')
+            ->add('mpa_4', ChoiceType::class, [
+                'label' => 'Otros detalles del contexto',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'Tortura' => 'Tortura',
+                    'Existencia de violencia sexual' => 'Existencia de violencia sexual',
+                    'Privacion ilegitima de la libertad'=>'Privacion ilegitima de la libertad',
+                    'Violencia en contexto de grupo de hombres' => 'violencia en contexto de grupo de hombres',
+                    'signos de violencia simbolica'=>'signos de violencia simbolica',
+                    'traslado al extranjero o ciudad lejana'=>'traslado al extranjero o ciudad lejana',
+                    'incomunicacion de la victima respecto a su entorno'=>'incomunicacion de la victima respecto a su entorno',
+                    'suministro de estupefacientes'=>'suministro de estupefacientes',
+                    'homicidio sin cuerpo / cuerpo desechado'=>'homicidio sin cuerpo / cuerpo desechado',
+                    'violencia excesiva'=>'violencia excesiva',
+                    'mas de un procedimiento homicida'=>'mas de un procedimiento homicida',
+                ],
+                'required' => true,
+            ])
             ->add('mpa_5')
             ->add('mpa_6')
             ->add('mpa_6a')
