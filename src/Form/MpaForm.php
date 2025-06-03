@@ -10,7 +10,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 class MpaForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -97,14 +99,41 @@ class MpaForm extends AbstractType
                 ],
                 'required' => true,
             ])
-            ->add('mpa_5')
+           
+              ->add('mpa_5', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Fecha de encuentro del cuerpo', 
+                ])
             ->add('mpa_6')
-            ->add('mpa_6a')
-            ->add('mpa_6b')
-            ->add('mpa_6c')
-            ->add('mpa_7')
-            ->add('mpa_7a')
-            ->add('mpa_8')
+         //   ->add('mpa_6a')
+           ->add('mpa_6b', TimeType::class, [
+                'widget' => 'single_text',
+                'label' => 'Hora',
+                'input' => 'datetime', // o 'string' si prefieres un string en lugar de un objeto DateTime
+                'with_seconds' => false, // opcional, si no quieres los segundos
+            ])
+          //  ->add('mpa_6c')
+            ->add('mpa_7', ChoiceType::class, [
+                'label' => 'Tipo de lugar',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                    'op1' => 'op1',
+                
+                ],
+                'required' => true,
+            ])
+          
+            ->add('mpa_7a', TextareaType::class, [
+                   'label' => 'Otra informacion relevante',
+                   'required'=>false,
+                    ])           
+            ->add('mpa_8', CheckboxType::class, [//contexto de otros delitos
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+
             ->add('mpa_9a')
             ->add('mpa_9b')
             ->add('mpa_9c')

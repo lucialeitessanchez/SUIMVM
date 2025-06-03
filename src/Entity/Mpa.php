@@ -48,7 +48,7 @@ class Mpa
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $mpa_6a = null;
 
-    #[ORM\Column(type: 'time', nullable: true)]
+   #[ORM\Column(type: 'time', nullable: true)]
     private ?\DateTimeInterface $mpa_6b = null;
 
     #[ORM\Column(type: 'string', length: 100)]
