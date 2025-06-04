@@ -210,9 +210,13 @@ class CajType extends AbstractType
                 'required'=> false,
                  ])
             ->add('caso', EntityType::class, [
-                'class' => Caso::class,
-                'choice_label' => 'id_Caso', // ajusta según tu entidad
-            ]);
+                    'class' => Caso::class,
+                    'choice_label' => 'id_caso',
+                    'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
+                    'row_attr' => [
+                        'style' => 'display:none;', // Oculta también el label y errores
+                    ]
+                    ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -45,8 +45,8 @@ class Mpa
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $mpa_6 = null;
 
-    #[ORM\Column(type: 'date', nullable: true)]
-    private ?\DateTimeInterface $mpa_6a = null;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $mpa_6a = null;
 
    #[ORM\Column(type: 'time', nullable: true)]
     private ?\DateTimeInterface $mpa_6b = null;
@@ -84,8 +84,8 @@ class Mpa
     #[ORM\Column(type: 'boolean',nullable:true)]
     private ?bool $mpa_9g = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $mpa_9h = null;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $mpa_9h = null;
 
     #[ORM\Column(type: 'text')]
     private ?string $mpa_9ha = null;
@@ -166,8 +166,8 @@ class Mpa
     public function getMpa6(): ?\DateTimeInterface { return $this->mpa_6; }
     public function setMpa6(?\DateTimeInterface $mpa_6): self { $this->mpa_6 = $mpa_6; return $this; }
 
-    public function getMpa6a(): ?\DateTimeInterface { return $this->mpa_6a; }
-    public function setMpa6a(?\DateTimeInterface $mpa_6a): self { $this->mpa_6a = $mpa_6a; return $this; }
+    public function getMpa6a(): ?string { return $this->mpa_6a; }
+    public function setMpa6a(?string $mpa_6a): self { $this->mpa_6a = $mpa_6a; return $this; }
 
     public function getMpa6b(): ?\DateTimeInterface { return $this->mpa_6b; }
     public function setMpa6b(?\DateTimeInterface $mpa_6b): self { $this->mpa_6b = $mpa_6b; return $this; }

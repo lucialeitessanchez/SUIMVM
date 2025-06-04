@@ -13,6 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 class MpaForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -53,8 +56,6 @@ class MpaForm extends AbstractType
                 ],
                 'required' => true,
             ])
-          
-       
             ->add('mpa_3a', ChoiceType::class, [
                 'label' => 'Tipo de incidente',
                 'placeholder' => 'Seleccione...',
@@ -80,7 +81,6 @@ class MpaForm extends AbstractType
                 'required' => true,
             ])
          //   ->add('mpa_3b1')
-          
             ->add('mpa_4', ChoiceType::class, [
                 'label' => 'Otros detalles del contexto',
                 'placeholder' => 'Seleccione...',
@@ -99,13 +99,19 @@ class MpaForm extends AbstractType
                 ],
                 'required' => true,
             ])
-           
               ->add('mpa_5', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Fecha de encuentro del cuerpo', 
                 ])
-            ->add('mpa_6')
-         //   ->add('mpa_6a')
+            ->add('mpa_6', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Fecha de fallecimiento', 
+                ])
+            ->add('mpa_6a', TextType::class, [
+                 'label' => 'Dia de la semana',
+                 'required' => false,
+                 'attr' => ['readonly' => true],
+                ])
            ->add('mpa_6b', TimeType::class, [
                 'widget' => 'single_text',
                 'label' => 'Hora',
@@ -117,12 +123,20 @@ class MpaForm extends AbstractType
                 'label' => 'Tipo de lugar',
                 'placeholder' => 'Seleccione...',
                 'choices' => [
-                    'op1' => 'op1',
-                
+                    'Cárcel' => 'Cárcel',
+                    'Dependencia policial'=>'Dependencia policial',
+                    'Vivienda compartida de victima y agresor'=>'Vivienda compartida de victima y agresor',
+                    'Vivienda de la victima'=>'Vivienda de la victima',
+                    'Vivienda de la agresor'=>'Vivienda de la agresor',
+                    'Otro domicilio particular'=>'Otro domicilio particular',
+                    'Local publico'=>'Local pulico',
+                    'Via publica'=>'Via publica',
+                    'Local vinculado a economias ilegales o clandestinas'=>'Local vinculado a economias ilegales o clandestinas',
+                    'Reparticion estatal'=>'Reparticion estatal',
+                    'Lugar de trabajo' => 'Lugar de trabajo'                
                 ],
                 'required' => true,
             ])
-          
             ->add('mpa_7a', TextareaType::class, [
                    'label' => 'Otra informacion relevante',
                    'required'=>false,
@@ -133,26 +147,120 @@ class MpaForm extends AbstractType
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])
-
-            ->add('mpa_9a')
-            ->add('mpa_9b')
-            ->add('mpa_9c')
-            ->add('mpa_9d')
-            ->add('mpa_9e')
-            ->add('mpa_9f')
-            ->add('mpa_9g')
-            ->add('mpa_9h')
-            ->add('mpa_9ha')
-            ->add('mpa_10')
-            ->add('mpa_11')
-            ->add('mpa_12')
-            ->add('mpa_13')
-            ->add('mpa_13a')
-            ->add('mpa_14')
-            ->add('mpa_15')
+            ->add('mpa_9a', TextType::class, [
+                'label' => 'Nombre y Apellido',
+                'required'=>false,
+                 ])     
+            ->add('mpa_9b',IntegerType::class, [
+                    'label' => 'Edad',
+                    'required' => false,
+                ])
+            ->add('mpa_9c', TextType::class, [
+                    'label' => 'Vinculo con la victima',
+                    'required'=>false,
+                ])   
+            ->add('mpa_9d', CheckboxType::class, [//miembro fuerza seguridad
+                    'label' => 'No / Sí',
+                    'required' => false,
+                    'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                    'label_attr' => ['class' => 'form-check-label'],
+                ])
+            ->add('mpa_9e', CheckboxType::class, [//posee armas de fuego
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+                ])
+            ->add('mpa_9f', CheckboxType::class, [//antecedentes de violencia
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+                ])
+             ->add('mpa_9g', CheckboxType::class, [//antecedentes por delitos contra inseguridad fisica
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+                ])
+             ->add('mpa_9h', CheckboxType::class, [//antecedentes por otros delitos 
+                    'label' => 'No / Sí',
+                    'required' => false,
+                    'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                    'label_attr' => ['class' => 'form-check-label'],
+                 ])
+             ->add('mpa_9ha', TextType::class, [
+                    'label' => 'Cual antecedente',
+                    'required'=>false,
+                 ])  
+            ->add('mpa_10', CheckboxType::class, [//antecedentes por otros delitos 
+                    'label' => 'No / Sí',
+                    'required' => false,
+                    'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                    'label_attr' => ['class' => 'form-check-label'],
+                 ])
+            ->add('mpa_11', ChoiceType::class, [
+                    'label' => 'Destinatario principal del ataque',
+                    'placeholder' => 'Seleccione...',
+                    'choices' => [
+                        'Victima' => 'Victima',
+                        'Familia de la victima' => 'Familia de la victima',
+                        ],
+                    'required' => true,
+                ])    
+            ->add('mpa_12', ChoiceType::class, [
+                    'label' => 'Mecánica del hecho',
+                    'placeholder' => 'Seleccione...',
+                    'choices' => [
+                       'Arma de fuego' => 'Arma de fuego',
+                        'Arma blanca' => 'Arma blanca',
+                        'Ahorcamiento' =>'Ahorcamiento',
+                        'Asfixia'=>'Asfixia',
+                        'Golpes con objetos'=>'Golpes con objetos',
+                        'Golpes con objetos contundentes'=>'Golpes con objetos contundentes',
+                        'Golpes de puño'=>'Golpes de puño',
+                        'Quemaduras'=>'Quemaduras',
+                        'Otros medios'=>'Otros medios',
+                        'Sin determinar'=>'Sin determinar',
+                        ],
+                    'required' => true,
+                ])                
+                ->add('mpa_13', ChoiceType::class, [
+                    'label' => 'Otras expresiones de violencia',
+                    'placeholder' => 'Seleccione...',
+                    'choices' => [
+                       'Tortura' => 'Tortura',
+                        'Existencia de violencia sexual' => 'Existencia de violencia sexual',
+                        'Privacion ilegitima de la libertad' =>'Privacion ilegitima de la libertad',
+                        'Violencia en contexto de grupo de hombres'=>'Violencia en contexto de grupo de hombres',
+                        'Signos de violencia simbolica'=>'Signos de violencia simbolica',
+                        'Traslado al extranjero o a ciudad lejana'=>'Traslado al extranjero o a ciudad lejana',
+                        'Incomunicacion de la victima '=>'Incomunicacion de la victima ',
+                       ],
+                    'required' => true,
+                  ])  
+                ->add('mpa_13a', TextareaType::class, [
+                    'label' => 'Que tipo de violencia excesiva',
+                    'required'=>false,
+                     ])           
+                ->add('mpa_14', TextareaType::class, [
+                        'label' => 'Conducta del agresor posterior a la comsion del femicidio',
+                        'required'=>false,
+                     ])      
+           
+                ->add('mpa_15', CheckboxType::class, [//existencia hechos previos
+                        'label' => 'No / Sí',
+                        'required' => false,
+                        'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                        'label_attr' => ['class' => 'form-check-label'],
+                     ])
             ->add('caso', EntityType::class, [
                 'class' => Caso::class,
                 'choice_label' => 'id_caso',
+                'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
+                'row_attr' => [
+                    'style' => 'display:none;', // Oculta también el label y errores
+                ]
             ])
         ;
     }

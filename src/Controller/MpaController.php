@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Caso;
 use App\Entity\Mpa;
+use App\Entity\MpaTipoViolencia;
 use App\Form\MpaForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,14 +58,30 @@ final class MpaController extends AbstractController
             $entityManager->persist($mpa);
             $entityManager->flush();
 
+            // Obtener el array desde el campo hidden
+        $tiposViolenciaJson = $request->request->get('tiposViolencia');
+       
+        $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
+
+        // Guardar los tipos de violencia
+        if (is_array($tiposViolenciaArray)) {
+            foreach ($tiposViolenciaArray as $texto) {
+                $tipo = new MpaTipoViolencia();
+                $tipo->setMpa($mpa);
+                $tipo->setDescripcionViolencia($texto);
+                $entityManager->persist($tipo);
+                $entityManager->flush(); // Este flush guarda los MpaTipoViolencia
+            }
+               
+        }
             $this->addFlash('success', 'MPA guardado correctamente.');
-            return $this->redirectToRoute('app_mpa_index');
+            return $this->redirectToRoute('app_mpa_new');
         }
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
         return $this->render('mpa/new.html.twig', $parametros);
     }
-
+    
 
     #[Route('/{id_mpa}/show', name: 'app_mpa_show', methods: ['GET'], requirements:['id_mpa'=>'\d+'])]
     public function show(Mpa $mpa): Response

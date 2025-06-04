@@ -22,6 +22,7 @@ class CasoType extends AbstractType
           /*  ->add('nombre', TextType::class, [
                 'label' => 'Nombre',
             ])*/
+            
             ->add('fechaCarga', DateType::class, [
                 'label' => 'Fecha de Ingreso',
                 'widget' => 'single_text',
@@ -91,6 +92,8 @@ class CasoType extends AbstractType
                     return $repositorio->createQueryBuilder('l')->orderBy('l.localidad', 'ASC');
                 }
             ));
+
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void
