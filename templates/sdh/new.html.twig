@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Registro SDH{% endblock %}
+
+{% block body %}
+
+            {% if sinCaso %}
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    icon: "error",
+                    title: "Debe seleccionar un caso",
+                    text: "Antes de registrar MPA, es necesario elegir un caso.",
+                    confirmButtonText: "Ir a casos"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    window.location.href = "{{ path('app_caso_index') }}";
+                    }
+                });
+                });
+            </script>
+            {% endif %}
+         {% if caso is defined  %}  
+        <section id="formSecretaria" class="container my-5">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                <h2 class="mb-0">Sección Ministerio Público de la Acusación</h2>
+
+                <span class="ms-3">
+                    Ud. está trabajando con el caso Nro:
+                    <span class="badge badge-caso">{{ caso.idCaso }}</span>
+                </span>
+                    {#<div class="form-group ms-4">
+                    <label>Ud. está trabajando con el caso Nro:</label>
+                    <input type="text" readonly class="form-control-plaintext" value="{{ caso.idCaso }}">
+                    </div>#}
+                </div>
+        {% if app.request.get('mensaje') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ app.request.get('mensaje') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button class="btn btn-primary">Guardar</button>
+        <a href="{{ path('sdh_new') }}" class="btn btn-secondary">Cancelar</a>
+    {{ form_end(form) }}
+     </section>
+      {% endif %}
+{% endblock %}
