@@ -74,8 +74,10 @@ class CasoController extends AbstractController
 
             $id=$caso->getIdCaso();
         // ✅ Mensaje flash
-            $this->addFlash('aviso', 'El caso fue guardado exitosamente con el número '.$id);
-            return $this->redirectToRoute('caso_new');
+           // $this->addFlash('aviso', 'El caso fue guardado exitosamente con el número '.$id);
+            return $this->redirectToRoute('caso_new',[
+                'mensaje' => 'El caso fue guardado exitosamente con el número '.$id
+            ]);
         }
     
         return $this->render('casoAlta.html.twig', [

@@ -53,9 +53,11 @@ class CajController extends AbstractController
             $em->persist($caj);
             $em->flush();
 
-            $this->addFlash('aviso', 'Datos guardados correctamente.');
+           // $this->addFlash('aviso', 'Datos guardados correctamente.');
 
-            return $this->redirectToRoute('caj_new'); // puedes redirigir a otra ruta si lo deseas
+            return $this->redirectToRoute('caj_new',[
+                'mensaje' => 'Se guardo correctamente la información '
+            ]); // puedes redirigir a otra ruta si lo deseas
         }
        $parametros['form'] = $form->createView();
        $parametros['sinCaso'] = $sinCaso;

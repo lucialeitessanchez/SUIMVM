@@ -33,18 +33,13 @@
               <input type="text" readonly class="form-control-plaintext" value="{{ caso.idCaso }}">
             </div>#}
         </div>
-        {% for flashMessage in app.session.flashBag.get('aviso') %}
-            <div class="alert alert-success">                                
-                {{ flashMessage|raw|nl2br }}
+        {% if app.request.get('mensaje') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ app.request.get('mensaje') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        {% endfor %}
-
-        {% for flashMessage in app.session.flashBag.get('error') %}
-            <div class="alert alert-danger">
-
-                {{ flashMessage|nl2br }}
-            </div>
-        {% endfor %}
+        {% endif %}
+        
     {{ form_start(form) }}
 
     {# Acordeón del formulario #}
@@ -281,18 +276,21 @@
                                        <div id="mpa_15a_badges" class="d-flex flex-wrap gap-2 mt-2"></div>
                                         </div>
 
-                                        <input type="text" name="tiposViolencia" id="tiposViolencia">
+                                        <input type="hidden" name="tiposViolencia" id="tiposViolencia">
                                 </div>
                           </div> {#body#}
                     </div> {#collapse#}
           </div>{#item 3 #}
     </div>{#acordeon form #}
-    <div class="row">
-        <div class="col-md-6 " align="right"><button type="submit" class="btn btn-primary">Guardar</button></div>
-        <div class="col-md-6">
-        <a href="{{ path('app_mpa_index') }}" class="btn btn-secondary ">Cancelar</a></div>
-    </div>
-    
+   
+<br>
+<div class="btn-group" role="group" >
+  <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
+  <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+  
+</div>
+
+
 
     {{ form_end(form) }}
     </section>

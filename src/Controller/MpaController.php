@@ -55,6 +55,10 @@ final class MpaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //seteo usuario carga
+            $mpa->setUsuarioCarga("prueba");
+            if (!$sinCaso)
+                $mpa->setCaso($caso);
             $entityManager->persist($mpa);
             $entityManager->flush();
 
@@ -74,8 +78,10 @@ final class MpaController extends AbstractController
             }
                
         }
-            $this->addFlash('success', 'MPA guardado correctamente.');
-            return $this->redirectToRoute('app_mpa_new');
+           // $this->addFlash('success', 'MPA guardado correctamente.');
+            return $this->redirectToRoute('app_mpa_new',[
+                'mensaje' => 'Se guardo correctamente la información'
+            ]);
         }
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;

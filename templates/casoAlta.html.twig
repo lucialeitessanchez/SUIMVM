@@ -5,18 +5,12 @@
 <section class="container my-5">
     <h2 class="text-left mb-4">Identificación de la víctima</h2>
     <hr>
-    {% for flashMessage in app.session.flashBag.get('aviso') %}
-            <div class="alert alert-success">                                
-                {{ flashMessage|raw|nl2br }}
+       {% if app.request.get('mensaje') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ app.request.get('mensaje') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        {% endfor %}
-
-        {% for flashMessage in app.session.flashBag.get('error') %}
-            <div class="alert alert-danger">
-
-                {{ flashMessage|nl2br }}
-            </div>
-        {% endfor %}
+        {% endif %}
     {{ form_start(form) }}
     <div class="row mb-3">
                 <!-- Fecha de carga -->
@@ -93,11 +87,13 @@
                     <label for="franjaEtaria" class="form-label">Franja etaria</label>
                     <select class="form-select" id="franjaEtaria" name="franjaEtaria" disabled>
                         <option disabled selected>Según edad seleccionada</option>
-                        <option value="0-15 años">0-15 años</option>
-                        <option value="16-30 años">16-30 años</option>
-                        <option value="31-50 años">31-50 años</option>
-                        <option value="51-70 años">51-70 años</option>
-                        <option value="71 años o más">71 años o más</option>
+                        <option value="0-12 años">0-12 años</option>
+                        <option value="13-17 años">13-17 años</option>
+                        <option value="18-29 años">18-29 años</option>
+                        <option value="30-39 años">30-39 años</option>
+                        <option value="40-49 años">40-49 años</option>
+                        <option value="50-59 años">30-39 años</option>
+                        <option value="60 años o más">60 años o más</option>
                     </select>
                 </div>
     </div>
