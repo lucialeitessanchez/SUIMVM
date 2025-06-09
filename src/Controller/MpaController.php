@@ -63,20 +63,20 @@ final class MpaController extends AbstractController
             $entityManager->flush();
 
             // Obtener el array desde el campo hidden
-        $tiposViolenciaJson = $request->request->get('tiposViolencia');
-       
-        $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
+            $tiposViolenciaJson = $request->request->get('tiposViolencia');
+        
+            $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
 
-        // Guardar los tipos de violencia
-        if (is_array($tiposViolenciaArray)) {
-            foreach ($tiposViolenciaArray as $texto) {
-                $tipo = new MpaTipoViolencia();
-                $tipo->setMpa($mpa);
-                $tipo->setDescripcionViolencia($texto);
-                $entityManager->persist($tipo);
-                $entityManager->flush(); // Este flush guarda los MpaTipoViolencia
-            }
-               
+            // Guardar los tipos de violencia
+            if (is_array($tiposViolenciaArray)) {
+                foreach ($tiposViolenciaArray as $texto) {
+                    $tipo = new MpaTipoViolencia();
+                    $tipo->setMpa($mpa);
+                    $tipo->setDescripcionViolencia($texto);
+                    $entityManager->persist($tipo);
+                    $entityManager->flush(); // Este flush guarda los MpaTipoViolencia
+                }
+                
         }
            // $this->addFlash('success', 'MPA guardado correctamente.');
             return $this->redirectToRoute('app_mpa_new',[

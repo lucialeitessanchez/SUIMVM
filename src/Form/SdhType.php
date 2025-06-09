@@ -3,6 +3,7 @@ namespace App\Form;
 
 use App\Entity\SDH;
 use App\Entity\Nomenclador;
+use App\Entity\Caso;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -44,7 +45,7 @@ class SdhType extends AbstractType
             ->add('sdh_1_2_id_nomenclador', EntityType::class, array(
                 'required' => false,
                 'label' => 'Tipo de trata detectada',
-                'multiple' => false,
+                'multiple' => true,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
@@ -122,7 +123,7 @@ class SdhType extends AbstractType
             ])
             ->add('sdh_2_2_id_nomenclador', EntityType::class, array(
                 'required' => false,
-                'label' => 'Tipo de trata detectada',
+                'label' => 'Tipo protección ofrecida',
                 'multiple' => false,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
@@ -241,6 +242,14 @@ class SdhType extends AbstractType
                 'required' => false,
                 'label'=>'Lecciones aprendidas y recomendaciones para casos futuros',
                 ])
+            ->add('caso_id_caso', EntityType::class, [
+                    'class' => Caso::class,
+                    'choice_label' => 'id_caso',
+                    'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
+                    'row_attr' => [
+                        'style' => 'display:none;', // Oculta también el label y errores
+                    ]
+                    ]);    
         ;
     }
 
