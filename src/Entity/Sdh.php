@@ -10,9 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Sdh
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(name: "id_sdh", type: "integer")]
     private int $id_sdh;
+  
 
     #[ORM\Column(type: "boolean",nullable:true)]
     private ?bool $sdh_1_1 = null;
@@ -23,10 +24,6 @@ class Sdh
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $sdh_1_10 = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private Nomenclador $sdh_1_2_id_nomenclador;
-
     #[ORM\Column(type: "string")]
     private ?string $sdh_1_3;
 
@@ -34,11 +31,11 @@ class Sdh
     private ?string $sdh_1_4 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: "sdh_1_5_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
     private Nomenclador $sdh_1_5_id_nomenclador;
-
+      
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: "sdh_1_6_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
     private Nomenclador $sdh_1_6_id_nomenclador;
 
     #[ORM\Column(type: "boolean", nullable: true)]
@@ -51,7 +48,7 @@ class Sdh
     private ?bool $sdh_2_1 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: "sdh_2_2_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
     private Nomenclador $sdh_2_2_id_nomenclador;
 
     #[ORM\Column(type: "string", nullable: true)]
@@ -67,11 +64,11 @@ class Sdh
     private ?string $sdh_3_2 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: "sdh_3_3_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
     private Nomenclador $sdh_3_3_id_nomenclador;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: "sdh_3_4_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
     private Nomenclador $sdh_3_4_id_nomenclador;
 
     #[ORM\Column(type: "boolean", nullable: true)]
@@ -96,8 +93,8 @@ class Sdh
     private ?string $sdh_5_2b = null;
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private Caso $caso_id_caso;
+    #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
+    private ?Caso $caso;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $fechaCarga = null;
@@ -116,10 +113,7 @@ class Sdh
 
     public function getSdh110(): ?\DateTimeInterface { return $this->sdh_1_10; }
     public function setSdh110(?\DateTimeInterface $value): self { $this->sdh_1_10 = $value; return $this; }
-
-    public function getSdh12IdNomenclador(): Nomenclador { return $this->sdh_1_2_id_nomenclador; }
-    public function setSdh12IdNomenclador(Nomenclador $value): self { $this->sdh_1_2_id_nomenclador = $value; return $this; }
-
+  
     public function getSdh13(): string { return $this->sdh_1_3; }
     public function setSdh13(string $value): self { $this->sdh_1_3 = $value; return $this; }
 
@@ -183,8 +177,8 @@ class Sdh
     public function getSdh52b(): ?string { return $this->sdh_5_2b; }
     public function setSdh52b(?string $value): self { $this->sdh_5_2b = $value; return $this; }
 
-    public function getCasoIdCaso(): Caso { return $this->caso_id_caso; }
-    public function setCasoIdCaso(Caso $value): self { $this->caso_id_caso = $value; return $this; }
+    public function getCasoIdCaso(): Caso { return $this->caso; }
+    public function setCasoIdCaso(Caso $value): self { $this->caso = $value; return $this; }
 
     public function getFechaCarga(): ?\DateTimeInterface {return $this->fechaCarga; }
     public function setFechaCarga(?\DateTimeInterface $fechaCarga): self {$this->fechaCarga = $fechaCarga; return $this; }

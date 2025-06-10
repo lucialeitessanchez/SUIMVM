@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const element = document.getElementById('sdh_sdh_1_2_id_nomenclador');
+    const element = document.getElementById('sdh_id_nomenclador');
 
     const choices = new Choices(element, {
       removeItemButton: true,

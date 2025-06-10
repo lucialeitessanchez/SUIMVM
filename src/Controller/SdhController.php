@@ -47,15 +47,20 @@ class SdhController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+          
             //seteo usuario carga
             $sdh->setUsuarioCarga("prueba");
             $sdh->setFechaCarga(new \DateTime());
             if (!$sinCaso)
                     $sdh->setCasoIdCaso($caso); 
+                    
+            $em->persist($sdh);
+            $em->flush();       
+
+            $valoresSeleccionadosArray = $form->get('id_nomenclador')->getData();
+            var_dump($valoresSeleccionadosArray);
+          //  $valoresSeleccionadosArray = $request->request->get('sdh_id_nomenclador'); // Collection o array
             
-            $valoresSeleccionadosArray = $data->getSdh12IdNomenclador(); // Collection o array
-            if (is_array($valoresSeleccionadosArray)) {
                 foreach ($valoresSeleccionadosArray as $valor) {
                     // hacer algo con cada $valor
                     $tipo = new SdhTipoTrata();
@@ -63,33 +68,16 @@ class SdhController extends AbstractController
                     $tipo->setSdh($sdh);
                     $tipo->setNomenclador($nomenclador);
                     $em->persist($tipo);
-                    $em->flush(); // Este flush guarda los MpaTipoViolencia
+                    $em->flush(); // Este flush guarda los TipoTrata
                 }
-            }
-            $em->persist($sdh);
-            $em->flush();
-
-                // Obtener el array desde el campo hidden
-        $tiposTrataJson = $request->request->get('tiposTrata');
-       
-        $tiposTratarray = json_decode($tiposTrataJson, true);
-
-        // Guardar los tipos de violencia
-        if (is_array($tiposTratarray)) {
-            foreach ($tiposTratarray as $int) {
-                $tipo = new SdhTipoTrata();
-                $tipo->setSdh($sdh);
-                $tipo->setNomenclador($int);
-                $em->persist($tipo);
-                $em->flush(); // Este flush guarda los SdhTipoTrata
-            }
-        
+            
+            
             return $this->redirectToRoute('sdh_new', [ 'mensaje' => 'Registro guardado']);
         }
-    }
+   
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
         return $this->render('sdh/new.html.twig', $parametros);
-        
     }
+    
 }

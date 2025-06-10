@@ -46,4 +46,9 @@ class Nomenclador
         $this->valor_nomenclador = $valor_nomenclador;
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return (string) $this->id_nomenclador;
+    }
 }
