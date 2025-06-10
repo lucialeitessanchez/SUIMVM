@@ -50,6 +50,19 @@ class User implements UserInterface
     }
 
 
+    public function getUid(): ?string
+    {
+        return $this->uid;
+    }
+
+    
+    public function setUid(string $uid): self
+    {
+        $this->uid = $uid;
+        return $this;
+    }
+    
+
     public function getNombreCompleto(): string
     {
         return trim($this->nombre . ' ' . $this->apellido);
@@ -70,12 +83,6 @@ class User implements UserInterface
     {
         $this->apellido = $apellido;
         return $this;
-    }
-
-
-    public function getUid(): ?string
-    {
-        return $this->uid;
     }
 
     /**

@@ -24,8 +24,8 @@ class DefaultController extends AbstractController {
     #[Route('/secure/test', name: 'secure_test')]
     public function testSecure(): Response
     {
-    
-        return new Response("Estás logueado como: " . $this->getUser()->getUserIdentifier() . "y tu: " );
+        $usuario = $this->getUser();
+        return $this->render('index.html.twig', array('' => $usuario));
     }
 
     #[Route('/', name: 'app_default', methods: ['GET'])]
@@ -39,17 +39,20 @@ class DefaultController extends AbstractController {
         return $this->render('index.html.twig', array('' => $usuario));
     }
 
-    /**
-     * @Route("/secure/logout")
-    */
-    public function logout()
+    #[Route('/logout', name: 'logout')]
+    public function logout(): Response
     {
+        return $this->render('default/logout.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
     }
+
+
 
     #[Route('/failure', name: 'failure', methods: ['GET'])]
     public function failure()
     {
-        return new Response("No Estás logueado como: ");
+        return new Response("No Estás logueado ");
     }
 
 }

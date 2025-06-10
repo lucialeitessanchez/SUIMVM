@@ -40,7 +40,7 @@ class AppCustomAuthenticator extends AbstractAuthenticator
         $user = $this->cas->Authenticate();
         return new SelfValidatingPassport(new UserBadge($user));
     }
-    
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         /** @var \App\Security\User $user */
@@ -49,6 +49,7 @@ class AppCustomAuthenticator extends AbstractAuthenticator
         // Asignar atributos CAS si están disponibles
         $attributes = $this->cas->getAttributes();
 
+        $user->setUid($attributes['uid'] ?? null);
         $user->setCuil($attributes['cuil'] ?? null);
         $user->setNombre($attributes['givenName'] ?? null);
         $user->setApellido($attributes['sn'] ?? null);
