@@ -17,14 +17,16 @@ class User implements UserInterface
     private $apellido;
     private $cuil;
     private $password;
+    private $uid;
 
 
-    function __construct( $id, $password, $roles ) 
+    function __construct( $id, $password, $roles) 
     {
         $this->id = $id;
+        $this->username = $id;
         $this->password = $password;
         $this->roles = $roles;
-        
+
     }
 
 
@@ -58,6 +60,23 @@ class User implements UserInterface
         return $this;
     }
 
+    public function setNombre(string $nombre): self
+    {
+        $this->nombre = $nombre;
+        return $this;
+    }
+
+    public function setApellido(string $apellido): self
+    {
+        $this->apellido = $apellido;
+        return $this;
+    }
+
+
+    public function getUid(): ?string
+    {
+        return $this->uid;
+    }
 
     /**
      * @see UserInterface

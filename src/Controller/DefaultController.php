@@ -24,7 +24,8 @@ class DefaultController extends AbstractController {
     #[Route('/secure/test', name: 'secure_test')]
     public function testSecure(): Response
     {
-        return new Response("Estás logueado como: " . $this->getUser()->getUserIdentifier());
+    
+        return new Response("Estás logueado como: " . $this->getUser()->getUserIdentifier() . "y tu: " );
     }
 
     #[Route('/', name: 'app_default', methods: ['GET'])]
@@ -43,6 +44,12 @@ class DefaultController extends AbstractController {
     */
     public function logout()
     {
+    }
+
+    #[Route('/failure', name: 'failure', methods: ['GET'])]
+    public function failure()
+    {
+        return new Response("No Estás logueado como: ");
     }
 
 }
