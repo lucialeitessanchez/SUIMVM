@@ -9,8 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-
-#[Route(path: '/')]
 class DefaultController extends AbstractController {
 
     #[Route('/index', name: 'app_index', methods: ['GET'])]
@@ -23,6 +21,13 @@ class DefaultController extends AbstractController {
         return $this->render('index.html.twig', array('' => $usuario));
     }
 
+    #[Route('/secure/test', name: 'secure_test')]
+    public function testSecure(): Response
+    {
+        $usuario = $this->getUser();
+        return $this->render('index.html.twig', array('' => $usuario));
+    }
+
     #[Route('/', name: 'app_default', methods: ['GET'])]
     public function default(EntityManagerInterface $entityManager): Response {
         //$biens = $entityManager
@@ -32,6 +37,22 @@ class DefaultController extends AbstractController {
 
         // return $this->render('index.html.twig');
         return $this->render('index.html.twig', array('' => $usuario));
+    }
+
+    #[Route('/logout', name: 'logout')]
+    public function logout(): Response
+    {
+        return $this->render('default/logout.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+
+
+
+    #[Route('/failure', name: 'failure', methods: ['GET'])]
+    public function failure()
+    {
+        return new Response("No Estás logueado ");
     }
 
 }
