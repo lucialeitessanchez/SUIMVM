@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Sdh;
 use App\Entity\Caso;
+use App\Entity\Nomenclador;
 use App\Entity\SdhTipoTrata;
 use App\Form\SdhType;
 use App\Repository\CasoRepository;
@@ -38,7 +39,7 @@ class SdhController extends AbstractController
         }
 
         $sdh = new Sdh();
-       // $sdh->setCasoIdCaso($caso);
+       
         $sdh->setFechaCarga(new \DateTime());
        // $sdh->setUsuarioCarga($this->getUser()?->getUserIdentifier());
 
@@ -46,11 +47,25 @@ class SdhController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
             //seteo usuario carga
             $sdh->setUsuarioCarga("prueba");
             $sdh->setFechaCarga(new \DateTime());
             if (!$sinCaso)
-                $sdh->setCasoIdCaso($caso);
+                    $sdh->setCasoIdCaso($caso); 
+            
+            $valoresSeleccionadosArray = $data->getSdh12IdNomenclador(); // Collection o array
+            if (is_array($valoresSeleccionadosArray)) {
+                foreach ($valoresSeleccionadosArray as $valor) {
+                    // hacer algo con cada $valor
+                    $tipo = new SdhTipoTrata();
+                    $nomenclador=$em->getRepository(Nomenclador::class)->find($valor);
+                    $tipo->setSdh($sdh);
+                    $tipo->setNomenclador($nomenclador);
+                    $em->persist($tipo);
+                    $em->flush(); // Este flush guarda los MpaTipoViolencia
+                }
+            }
             $em->persist($sdh);
             $em->flush();
 

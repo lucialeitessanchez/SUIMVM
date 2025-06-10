@@ -224,22 +224,24 @@
                     </h2>
                     <div id="collapse5" class="accordion-collapse collapse">
                         <div class="accordion-body">
-                            <div class="row-mb-3">
-                                <div class="col-md-4">
-                                    <label for="sdh_5_1a" class="form-label">¿Se lograron reducir los riesgos para la víctima mediante las intervenciones?</label>
+                            <div class="row mb-3"> {#se obstaculos (si/no) #}
+                                <div class="col-md-6">
+                                    <label for="sdh_5_1a" class="form-label">¿Se detectaron obstáculos en la implementación de medidas de protección?</label>
                                     <div class="form-check form-switch">
                                         {{ form_row(form.sdh_5_1a, {'label_attr': {'class': 'form-label'}}) }}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6"> {#Especificar obstaculos#}
                                         {{ form_label(form.sdh_5_1b, null, {'label_attr': {'class': 'form-label'}}) }}
                                         {{ form_errors(form.sdh_5_1b) }}
                                         {{ form_widget(form.sdh_5_1b,{'attr': {'class': 'form-control'}})  }}
                                 </div> 
                             </div>
-                            <div class="row-mb-3">
+                            <div class="row mb-3">
                                 <div class="col-md-6"> 
-                                      {{ form_widget(form.sdh_5_2a) }}
+                                    {{ form_label(form.sdh_5_2a) }} {# se lograron reducir riesgos?#}
+                                    {{ form_errors(form.sdh_5_2b) }}
+                                    {{ form_widget(form.sdh_5_2a) }}
                                       <div id="etiqueta-rango" class="mt-2 fw-bold ">Seleccione una opción</div>
                                 </div>
                                 <div class="col-md-6">
