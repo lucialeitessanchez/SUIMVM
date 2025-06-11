@@ -129,7 +129,7 @@ class MpaForm extends AbstractType
                     'Vivienda de la victima'=>'Vivienda de la victima',
                     'Vivienda de la agresor'=>'Vivienda de la agresor',
                     'Otro domicilio particular'=>'Otro domicilio particular',
-                    'Local publico'=>'Local pulico',
+                    'Local publico'=>'Local publico',
                     'Via publica'=>'Via publica',
                     'Local vinculado a economias ilegales o clandestinas'=>'Local vinculado a economias ilegales o clandestinas',
                     'Reparticion estatal'=>'Reparticion estatal',

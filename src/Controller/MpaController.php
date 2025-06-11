@@ -79,9 +79,8 @@ final class MpaController extends AbstractController
                 
         }
            // $this->addFlash('success', 'MPA guardado correctamente.');
-            return $this->redirectToRoute('app_mpa_new',[
-                'mensaje' => 'Se guardo correctamente la información'
-            ]);
+           $this->addFlash('success_js', 'Seccion MPA guardada correctamente');   
+           return $this->redirectToRoute('app_caso_index');
         }
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;

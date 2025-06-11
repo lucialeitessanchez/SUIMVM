@@ -29,12 +29,7 @@
                     <span class="badge badge-caso">{{ caso.idCaso }}</span>
                 </span>
                 </div>
-        {% if app.request.get('mensaje') %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ app.request.get('mensaje') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endif %}
+  
         {# Acordeón del formulario #}
               {{ form_start(form) }}
         <div class="accordion" id="accordionFormularioSdh">
@@ -274,4 +269,5 @@
 
     {{ parent() }}
         <script src="{{ asset('js/sdh.js') }}"></script>
+        
 {% endblock %}

@@ -58,7 +58,7 @@ class SdhController extends AbstractController
             $em->flush();       
 
             $valoresSeleccionadosArray = $form->get('id_nomenclador')->getData();
-            var_dump($valoresSeleccionadosArray);
+           // var_dump($valoresSeleccionadosArray);
           //  $valoresSeleccionadosArray = $request->request->get('sdh_id_nomenclador'); // Collection o array
             
                 foreach ($valoresSeleccionadosArray as $valor) {
@@ -71,8 +71,8 @@ class SdhController extends AbstractController
                     $em->flush(); // Este flush guarda los TipoTrata
                 }
             
-            
-            return $this->redirectToRoute('sdh_new', [ 'mensaje' => 'Registro guardado']);
+            $this->addFlash('success_js', 'Seccion SDH guardada correctamente');   
+            return $this->redirectToRoute('app_caso_index');
         }
    
         $parametros['form'] = $form->createView();

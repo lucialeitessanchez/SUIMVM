@@ -69,4 +69,23 @@
     const guardarCasoUrl = "{{ path('guardar_caso_sesion') }}";
     </script>
     <script src="{{ asset('js/casoSesion.js') }}"></script>
+    {% for message in app.flashes('success_js') %}
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    //title: 'Éxito',
+                    text: '{{ message|e('js') }}',
+                    confirmButtonColor: '#3085d6',
+                      width: '350px', // ⬅️ más angosto
+                      height:'350px',
+                        customClass: {
+                            popup: 'swal-custom-popup',
+                            title: 'swal-custom-title',
+                            content: 'swal-custom-content',
+                            confirmButton: 'swal-custom-button',
+                        }
+                    });
+                
+            </script>
+     {% endfor %}
 {% endblock %}
