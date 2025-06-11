@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Caj;
 use App\Entity\Caso;
+use App\Repository\CajRepository;
+use App\Repository\CasoRepository;
 use App\Form\CajType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +14,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\CasoTabsDataProvider;
 
 #[Route('/caj')]
 class CajController extends AbstractController
@@ -19,10 +22,6 @@ class CajController extends AbstractController
     #[Route('/new', name: 'caj_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $em, SessionInterface $session): Response
     {
-        /*seteo el caso hasta mañana ver lo de lucia*/
-      //  $caso=new Caso();
-      
-      //  $caso = $em->getRepository(Caso::class)->find(1);
       $idCaso = $session->get('caso_id');
 
       $caj = new Caj();
@@ -63,6 +62,38 @@ class CajController extends AbstractController
         return $this->render('caj/new.html.twig', $parametros);
     }
 
-   
+    #[Route('/{idCaso}/ver_caj', name: 'caj_ver')]
+    public function ver(CasoRepository $casoRepository,
+    CajRepository $cajRepository,int $idCaso, 
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    {
+          // Buscar el caso           
+          $caso = $casoRepository->find($idCaso);
+            if (!$caso) {
+                throw $this->createNotFoundException('Caso no encontrado');
+            }
+
+            //busco si hay datos asociados para mostrar la pestaña desde el servicio
+            $tabsData = $tabsProvider->getData($caso);
+
+            $caj = $cajRepository->findOneBy(['caso' => $caso]);
+            if (!$caj) {
+                throw $this->createNotFoundException('No hay datos de CAJ para este caso');
+            }
+
+             // Creamos el form pero sin intención de editar
+                $form = $formFactory->create(CajType::class, $caj, [
+                    'disabled' => true, // importante: desactiva todos los campos
+                ]);
+        
+            return $this->render('caj/show.html.twig', [
+                    'form' => $form,
+                    'caso' => $caso,
+                    'caj' => $tabsData['caj'],
+                    'sdh' => $tabsData['sdh'],
+                    'mpa' => $tabsData['mpa'],
+                    'pestaña_activa' => 'caj',
+                ]);
+            }
 
 }

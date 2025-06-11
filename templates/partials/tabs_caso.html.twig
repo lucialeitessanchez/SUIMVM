@@ -1,0 +1,70 @@
+  
+  <div class="circle-tabs d-flex justify-content-end flex-wrap gap-3 mt-3 mb-0" style="padding-right:9rem;">
+
+    <a href="{{ path('caso_ver', { id: caso.idCaso }) }}"
+       class="circle-tab {% if pestaña_activa == 'caso' %}active{% endif %}"
+       title="Caso">
+      <i class="bi bi-person-lines-fill"></i>
+    </a>
+
+    {% if caj is not empty %}
+      <a href="{{ path('caj_ver', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
+         title="CAJ">
+        <i class="bi bi-file-earmark-text"></i>
+      </a>
+    {% endif %}
+
+    {% if sdh is not empty %}
+      <a href="{{ path('app_sdh_show', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
+         title="SDH">
+        <i class="bi bi-person-badge"></i>
+      </a>
+    {% endif %}
+
+    {% if mpa is not empty %}
+      <a href="{{ path('app_mpa_show', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'mpa' %}active{% endif %}"
+         title="MPA">
+        <i class="bi bi-folder2-open"></i>
+      </a>
+     
+    {% endif %}
+
+  </div>
+
+
+    
+
+<style>
+.circle-tabs {
+  gap: 0.75rem;
+}
+
+.circle-tab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.3s, transform 0.2s;
+  border: 2px solid transparent;
+}
+
+.circle-tab:hover {
+  background-color: #e0f0ff;
+  transform: scale(1.05);
+}
+
+.circle-tab.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+</style>

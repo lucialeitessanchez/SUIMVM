@@ -5,13 +5,17 @@ namespace App\Controller;
 use App\Entity\Caso;
 use App\Entity\Mpa;
 use App\Entity\MpaTipoViolencia;
+use App\Repository\MpaRepository;
+use App\Repository\CasoRepository;
 use App\Form\MpaForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\CasoTabsDataProvider;
 
 #[Route('/mpa')]
 final class MpaController extends AbstractController
@@ -88,12 +92,39 @@ final class MpaController extends AbstractController
     }
     
 
-    #[Route('/{id_mpa}/show', name: 'app_mpa_show', methods: ['GET'], requirements:['id_mpa'=>'\d+'])]
-    public function show(Mpa $mpa): Response
+    #[Route('/{idCaso}/show', name: 'app_mpa_show', methods: ['GET'], requirements:['id_mpa'=>'\d+'])]
+    public function show(CasoRepository $casoRepository,
+   MpaRepository $mpaRepository,int $idCaso, 
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
     {
-        return $this->render('mpa/show.html.twig', [
-            'mpa' => $mpa,
+         // Buscar el caso           
+         $caso = $casoRepository->find($idCaso);
+         if (!$caso) {
+             throw $this->createNotFoundException('Caso no encontrado');
+         }
+
+          //busco si hay datos asociados para mostrar la pestaña desde el servicio
+          $tabsData = $tabsProvider->getData($caso);
+
+          $mpa = $mpaRepository->findOneBy(['caso' => $caso]);
+          if (!$mpaRepository) {
+              throw $this->createNotFoundException('No hay datos de CAJ para este caso');
+          }
+
+           // Creamos el form pero sin intención de editar
+              $form = $formFactory->create(MpaForm::class, $mpa, [
+                  'disabled' => true, // importante: desactiva todos los campos
+              ]);
+
+          return $this->render('mpa/show.html.twig', [
+            'form' =>$form,
+            'caso' => $caso,
+            'caj' => $tabsData['caj'],
+            'sdh' => $tabsData['sdh'],
+            'mpa' => $tabsData['mpa'],
+            'pestaña_activa'=>'mpa',
         ]);
+      
     }
 
     #[Route('/{id_mpa}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]

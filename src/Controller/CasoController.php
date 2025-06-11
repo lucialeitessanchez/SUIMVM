@@ -8,6 +8,9 @@ use App\Entity\Organismo;
 use App\Entity\OrganismoOrigen;
 use App\Form\CasoType;
 use App\Repository\CasoRepository;
+use App\Repository\CajRepository;
+use App\Repository\MpaRepository;
+use App\Repository\SdhRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,6 +20,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\PersonaService;
+use App\Service\CasoTabsDataProvider;
 
 #[Route('/caso')]
 class CasoController extends AbstractController
@@ -101,7 +105,8 @@ class CasoController extends AbstractController
     
         
     #[Route('/{id}/ver', name: 'caso_ver')]
-    public function ver(Caso $caso, PersonaService $personaService, FormFactoryInterface $formFactory): Response
+    public function ver(Caso $caso, PersonaService $personaService, FormFactoryInterface $formFactory,
+    CasoTabsDataProvider $tabsProvider): Response
     {
         // Creamos el form pero sin intención de editar
         $form = $formFactory->create(CasoType::class, $caso, [
@@ -115,12 +120,19 @@ class CasoController extends AbstractController
         $departamento = $localidad?->getDepartamento();
         $microregion = $localidad?->getMicroregion();
 
+        //busco si hay datos asociados para mostrar la pestaña desde el servicio
+        $tabsData = $tabsProvider->getData($caso);
+
         return $this->render('caso/show.html.twig', [
             'form' => $form,
             'caso' => $caso,
             'datosPersona'=>$datosPersona,
             'departamento'=>$departamento,
             'microregion'=>$microregion,
+            'caj' => $tabsData['caj'],
+            'sdh' => $tabsData['sdh'],
+            'mpa' => $tabsData['mpa'],
+            'pestaña_activa'=>'caso',
         ]);
     }
     

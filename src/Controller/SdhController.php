@@ -7,13 +7,15 @@ use App\Entity\Nomenclador;
 use App\Entity\SdhTipoTrata;
 use App\Form\SdhType;
 use App\Repository\CasoRepository;
+use App\Repository\SdhRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
+use Symfony\Component\Form\FormFactoryInterface;
+use App\Service\CasoTabsDataProvider;
 #[Route('/sdh')]
 class SdhController extends AbstractController
 {
@@ -78,6 +80,41 @@ class SdhController extends AbstractController
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
         return $this->render('sdh/new.html.twig', $parametros);
+    }
+
+    #[Route('/{idCaso}/show', name: 'app_sdh_show', methods: ['GET'])]
+    public function show(CasoRepository $casoRepository,
+   SdhRepository $sdhRepository,int $idCaso, 
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    {
+         // Buscar el caso           
+         $caso = $casoRepository->find($idCaso);
+         if (!$caso) {
+             throw $this->createNotFoundException('Caso no encontrado');
+         }
+
+          //busco si hay datos asociados para mostrar la pestaña desde el servicio
+          $tabsData = $tabsProvider->getData($caso);
+
+          $sdh = $sdhRepository->findOneBy(['caso' => $caso]);
+          if (!$sdhRepository) {
+              throw $this->createNotFoundException('No hay datos de CAJ para este caso');
+          }
+
+           // Creamos el form pero sin intención de editar
+              $form = $formFactory->create(SdhType::class, $sdh, [
+                  'disabled' => true, // importante: desactiva todos los campos
+              ]);
+
+          return $this->render('sdh/show.html.twig', [
+            'form' =>$form,
+            'caso' => $caso,
+            'caj' => $tabsData['caj'],
+            'sdh' => $tabsData['sdh'],
+            'mpa' => $tabsData['mpa'],
+            'pestaña_activa'=>'sdh',
+        ]);
+      
     }
     
 }
