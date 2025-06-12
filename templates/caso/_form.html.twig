@@ -1,37 +1,15 @@
-{% extends 'base.html.twig' %}
-{% block title %}Vista de Datos - Identificación de la victima{% endblock %}
-
-{% block body %}
-
-  {% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}
-
+{{ form_start(form) }}
 <section class="container my-3">
+<div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0">Identificación de la víctima</h2>
 
- <div class="d-flex justify-content-between align-items-end mb-3">
-        <h2 class="text-left">Identificación de la víctima</h2>
-     
-            <span class="ms-3">
-                Ud. está trabajando con el caso Nro:
-                <span class="badge badge-caso">{{ caso.idCaso }}</span>
-            </span>
-</div>
-   
-
-</div>
-    <hr>
-    {% for flashMessage in app.session.flashBag.get('aviso') %}
-            <div class="alert alert-success">                                
-                {{ flashMessage|raw|nl2br }}
-            </div>
-        {% endfor %}
-
-        {% for flashMessage in app.session.flashBag.get('error') %}
-            <div class="alert alert-danger">
-
-                {{ flashMessage|nl2br }}
-            </div>
-        {% endfor %}
-    {{ form_start(form) }}
+          <span class="ms-3">
+            Ud. está trabajando con el caso Nro:
+            <span class="badge badge-caso">{{ caso.idCaso }}</span>
+          </span>
+            
+        </div>
+        <hr>
     <div class="row mb-3">
                 <!-- Fecha de carga -->
                 <div class="col-md-4">
@@ -69,7 +47,8 @@
                 <div class="col-md-2">
                      <label class="form-label" for="nacionalidad">Nacionalidad</label>
                     <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}" required disabled>
-                            <option selected disabled>Seleccione...</option>
+                          <option disabled {% if not datosPersona.nacionalidad %}selected{% endif %}>Seleccione...</option>
+                          
                     </select>
                 </div>
     </div>
@@ -164,26 +143,23 @@
                         <input type="text" class="form-control" id="microregion" readonly disabled>
                     </div>
      </div>
-     
+     <br>
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+                </div>
+        </div>
 
         {{ form_widget(form) }}
-    {{ form_end(form) }}
+   {{ form_end(form) }}
 
 </section>
 
-{% endblock %} 
-{% block javascripts %}
 
-    {{ parent() }}
-        <script src="{{ asset('js/franjaEtaria.js') }}"></script>
-        <script src="{{ asset('js/nacionalidad.js') }}"></script>
-        <script>
-    window.localidadInfoTemplate = '{{ path('localidad_info', { id: 'PLACEHOLDER' }) }}';
-    window.verificarDniUrlTemplate = "{{ path('persona_verificar_dni', { nrodoc: 'PLACEHOLDER' }) }}";
-    
-    
-    
-</script>
-          <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
-          <script src="{{ asset('js/persona.js') }}"></script>
-{% endblock %}
+ 
+
+
+
+

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Caso;
 use App\Entity\Mpa;
+use PhpParser\Lexer\TokenEmulator\ReadonlyTokenEmulator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -119,6 +120,12 @@ class MpaForm extends AbstractType
                 'with_seconds' => false, // opcional, si no quieres los segundos
             ])
           //  ->add('mpa_6c')
+            ->add('mpa_6c', TextType::class, [
+                'label' => 'Franja horaria',
+                'required' => false,
+                'attr' => ['readonly' => true],
+                
+            ])
             ->add('mpa_7', ChoiceType::class, [
                 'label' => 'Tipo de lugar',
                 'placeholder' => 'Seleccione...',
@@ -235,10 +242,16 @@ class MpaForm extends AbstractType
                         'Violencia en contexto de grupo de hombres'=>'Violencia en contexto de grupo de hombres',
                         'Signos de violencia simbolica'=>'Signos de violencia simbolica',
                         'Traslado al extranjero o a ciudad lejana'=>'Traslado al extranjero o a ciudad lejana',
-                        'Incomunicacion de la victima '=>'Incomunicacion de la victima ',
+                        'Incomunicacion de la victima'=>'Incomunicacion de la victima',
+                        'Suministro de estupefacientes'=>'Suministro de estupefacientes',
+                        'Homicidios sin cuerpo'=>'Homicidios sin cuerpo',
+                        'Cuerpo desechado'=>'Cuerpo desechado',
+                        'Violencia excesiva'=>'Violencia excesiva',
+                        'Más de un procedemiento homicida'=>'Más de un procedemiento homicida'
                        ],
                     'required' => true,
                   ])  
+                 
                 ->add('mpa_13a', TextareaType::class, [
                     'label' => 'Que tipo de violencia excesiva',
                     'required'=>false,

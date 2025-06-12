@@ -1,4 +1,281 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    <section id="formSecretaria" class="container my-3">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0">Sección Ministerio Público de la Acusación</h2>
+
+          <span class="ms-3">
+            Ud. está trabajando con el caso Nro:
+            <span class="badge badge-caso">{{ caso.idCaso }}</span>
+          </span>
+            {#<div class="form-group ms-4">
+              <label>Ud. está trabajando con el caso Nro:</label>
+              <input type="text" readonly class="form-control-plaintext" value="{{ caso.idCaso }}">
+            </div>#}
+        </div>
+        {% if app.request.get('mensaje') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ app.request.get('mensaje') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        
+    {{ form_start(form) }}
+
+    {# Acordeón del formulario #}
+    <div class="accordion" id="accordionFormularioViolencia" >
+          <div class="accordion-item">
+                <h2 class="accordion-header" id="heading1">
+                  <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" >
+                    1. Información del hecho
+                  </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse show ">
+                          <div class="accordion-body" >
+                              <div class="row mb-3">
+                                    <div class="col-md-4">
+                                          {{ form_label(form.mpa_1,null, {'label_attr': {'class': 'form-label'}}) }}
+                                          {{ form_errors(form.mpa_1) }}
+                                          {{ form_widget(form.mpa_1,{'attr': {'class': 'form-select'}})  }}
+                                    </div>
+                                    <div class="col-md-4" style="text-align: center;">
+                                      <label for="mpa_2" class="form-label" style="text-align: center; width: auto;">¿Fue femicidio?</label>
+                                      <div class="form-check form-switch d-flex justify-content-center">
+                                        {{ form_row(form.mpa_2, {'label_attr': {'class': 'form-label'}}) }}
+                                      </div>
+                                    </div>
+                                      <div class="col-md-4">
+                                        {{ form_label(form.mpa_3,null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_errors(form.mpa_3) }}
+                                        {{ form_widget(form.mpa_3,{'attr': {'class': 'form-select'}}) }}
+                                    </div>
+                              </div>
+                              <div class="row mb-3" id="criminalidad_extra_fields" >
+                                  <div class="col-md-6">
+                                        {{ form_label(form.mpa_3a,null, {'label_attr': {'class': 'form-label'}}) }}
+                                        {{ form_errors(form.mpa_3a) }}
+                                      {{ form_widget(form.mpa_3a, {'attr': {'class': 'form-select'}}) }}
+                                  </div>
+                                  <div class="col-md-6">
+                                      {{ form_label(form.mpa_3b,null, {'label_attr': {'class': 'form-label'}}) }}
+                                      {{ form_errors(form.mpa_3b) }}
+                                    {{ form_widget(form.mpa_3b, {'attr': {'class': 'form-select'}}) }}
+                                  </div>
+                              </div>
+                                     <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            {{ form_label(form.mpa_4,null, {'label_attr': {'class': 'form-label'}}) }}
+                                            {{ form_errors(form.mpa_4) }}
+                                          {{ form_widget(form.mpa_4, {'attr': {'class': 'form-select'}}) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form_label(form.mpa_5,null, {'label_attr': {'class': 'form-label'}}) }}
+                                            {{ form_errors(form.mpa_5) }}
+                                          {{ form_widget(form.mpa_5, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
+                                      </div>
+                                      <div class="row mb-3">
+                                              <div class="col-md-4">
+                                                    <label for="mpa_6" class="form-label" style="text-align: center; width: auto;">Fecha de fallecimiento</label>
+                                                  {{ form_errors(form.mpa_6) }}
+                                                  {{ form_widget(form.mpa_6, {'attr': {'class': 'form-control'}}) }}
+                                              
+                                              </div>
+                                              <div class="col-md-2">
+                                                {{ form_label(form.mpa_6a,null, {'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_errors(form.mpa_6a) }}
+                                                {{ form_widget(form.mpa_6a, {'attr': {'class': 'form-control'}}) }}
+                                              </div>
+                                              <div class="col-md-2">
+                                                {{ form_label(form.mpa_6b,null, {'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_errors(form.mpa_6b) }}
+                                                {{ form_widget(form.mpa_6b, {'attr': {'class': 'form-control'}}) }}
+                                              </div>
+                                              <div class="col-md-4">
+                                                <label for="franjaHoraria" class="form-label">Franja horaria</label>
+                                                <select class="form-select" id="franjaHoraria" name="franjaHoraria" disabled>
+                                                    <option value="">Seleccioná una franja</option>
+                                                      <option value="Mañana">Mañana</option>
+                                                      <option value="Tarde">Tarde</option>
+                                                      <option value="Noche">Noche</option>
+                                                </select>
+                                              </div>
+                                      </div>
+                                      <div class="row mb-3">
+                                          <div class="col-md-4"> 
+                                                {{ form_label(form.mpa_7,null, {'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_errors(form.mpa_7) }}
+                                                {{ form_widget(form.mpa_7, {'attr': {'class': 'form-select'}}) }}
+                                          </div>
+                                          <div class="col-md-4"> 
+                                                {{ form_label(form.mpa_7a,null, {'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_errors(form.mpa_7a) }}
+                                                {{ form_widget(form.mpa_7a, {'attr': {'class': 'form-control'}}) }}
+                                          </div>
+                                          <div class="col-md-4" style="text-align: left;">
+                                                <label for="mpa_8" class="form-label" style="text-align: left; width: auto;">En contexto de otros delitos?</label>
+                                                <div class="form-check form-switch d-flex justify-content-left">
+                                                  {{ form_row(form.mpa_8, {'label_attr': {'class': 'form-label'}}) }}
+                                                </div>
+                                          </div>
+                                        </div>
+                                      
+                      </div>{#del accordion body 1#}
+                </div> {#del collapse 1#}                          
+            </div> {#item 1#}
+
+          <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading2">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" >
+                        2. Información del imputado
+                      </button>
+                    </h2>
+                     <div id="collapse2" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    {{ form_label(form.mpa_9a,null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.mpa_9a) }}
+                    {{ form_widget(form.mpa_9a, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(form.mpa_9b,null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.mpa_9b) }}
+                    {{ form_widget(form.mpa_9b, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(form.mpa_9c,null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.mpa_9c) }}
+                    {{ form_widget(form.mpa_9c, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                  <div class="col-md-4" style="text-align: left;">
+                      <label for="mpa_9d" class="form-label" style="text-align: left; width: auto;">¿Es miembro de la fuerza de seguridad?</label>
+                      <div class="form-check form-switch d-flex justify-content-left">
+                          {{ form_row(form.mpa_9d, {'label_attr': {'class': 'form-label'}}) }}
+                      </div>
+                  </div>
+                  <div class="col-md-4" style="text-align: left;">
+                      <label for="mpa_9e" class="form-label" style="text-align: left; width: auto;">¿Posee armas de fuego?</label>
+                      <div class="form-check form-switch d-flex justify-content-left">
+                          {{ form_row(form.mpa_9e, {'label_attr': {'class': 'form-label'}}) }}
+                      </div>
+                  </div>
+                  <div class="col-md-4" style="text-align: left;">
+                      <label for="mpa_9f" class="form-label" style="text-align: left; width: auto;">¿Tiene antecedentes de violencia hacia otras mujeres?</label>
+                      <div class="form-check form-switch d-flex justify-content-left">
+                          {{ form_row(form.mpa_9f, {'label_attr': {'class': 'form-label'}}) }}
+                      </div>
+                  </div>
+            </div> 
+             <div class="row mb-3">
+                  <div class="col-md-4" style="text-align: left;">
+                      <label for="mpa_9g" class="form-label" style="text-align: left; width: auto;">¿Tiene antecedentes por delitos contra la inseguridad fisica?</label>
+                      <div class="form-check form-switch d-flex justify-content-left">
+                          {{ form_row(form.mpa_9g, {'label_attr': {'class': 'form-label'}}) }}
+                      </div>
+                  </div>
+                  <div class="col-md-4" style="text-align: left;">
+                      <label for="mpa_9h" class="form-label" style="text-align: left; width: auto;">¿Tiene antecedentes por otros delitos?</label>
+                      <div class="form-check form-switch d-flex justify-content-left">
+                          {{ form_row(form.mpa_9h, {'label_attr': {'class': 'form-label'}}) }}
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                            {{ form_label(form.mpa_9ha,null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_errors(form.mpa_9ha) }}
+                            {{ form_widget(form.mpa_9ha, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+                </div>  
+           </div>{#del accordion body 2#}
+         </div> {#del collapse 2#}                          
+        </div> {#item 2#}
+{#item 3--------------------------------------------------------#}
+          <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading3">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" >
+                        3. Detalles adicionales del hecho
+                      </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-4" style="text-align: left;">
+                                        <label for="mpa_10" class="form-label" style="text-align: left; width: auto;">¿Crimen vinculado?</label>
+                                        <div class="form-check form-switch d-flex justify-content-left">
+                                            {{ form_row(form.mpa_10, {'label_attr': {'class': 'form-label'}}) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4"> 
+                                            {{ form_label(form.mpa_11,null, {'label_attr': {'class': 'form-label'}}) }}
+                                            {{ form_errors(form.mpa_11) }}
+                                            {{ form_widget(form.mpa_11, {'attr': {'class': 'form-select'}}) }}
+                                    </div>
+                                    <div class="col-md-4"> 
+                                            {{ form_label(form.mpa_12,null, {'label_attr': {'class': 'form-label'}}) }}
+                                            {{ form_errors(form.mpa_12) }}
+                                            {{ form_widget(form.mpa_12, {'attr': {'class': 'form-select'}}) }}
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                      <div class="col-md-4"> 
+                                              {{ form_label(form.mpa_13,null, {'label_attr': {'class': 'form-label'}}) }}
+                                              {{ form_errors(form.mpa_13) }}
+                                              {{ form_widget(form.mpa_13, {'attr': {'class': 'form-select'}}) }}
+                                      </div>
+                                      <div class="col-md-4">
+                                                {{ form_label(form.mpa_13a,null, {'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_errors(form.mpa_13a) }}
+                                                {{ form_widget(form.mpa_13a, {'attr': {'class': 'form-control'}}) }}
+                                      </div>
+                                      <div class="col-md-4">
+                                                {{ form_label(form.mpa_14,null, {'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_errors(form.mpa_14) }}
+                                                {{ form_widget(form.mpa_14, {'attr': {'class': 'form-control'}}) }}
+                                      </div>
+                                </div>
+                                <div class="row mb-3">
+                                        <div class="row mb-3">
+                                          <div class="col-md-6" >
+                                              <label for="mpa_15" class="form-label" style="text-align: left; width: auto;">¿Existencia de hechos de violencia de genero/domestica previos?</label>
+                                              <div class="form-check form-switch d-flex justify-content-left">
+                                                  {{ form_row(form.mpa_15, {'label_attr': {'class': 'form-label'}}) }}
+                                              </div>
+                                        </div>
+                                        <div class="col md-2">
+                                              <label class="form-label" for="mpa_15a_input">Tipo de violencia</label>
+                                               <div class="input-group">
+                                                  <input type="text" class="form-control" id="mpa_15a_input" placeholder="Ej: Física">
+                                                  <button type="button" id="add_violencia_btn" class="btn btn-success" title="Agregar tipo de violencia">
+                                                                    <i class="bi bi-plus-circle"></i>
+                                                  </button>
+                                               </div>
+                                        </div>
+                                        <div class="col md-2">
+                                       <div id="mpa_15a_badges" class="d-flex flex-wrap gap-2 mt-2"></div>
+                                        </div>
+
+                                        <input type="hidden" name="tiposViolencia" id="tiposViolencia">
+                                </div>
+                          </div> {#body#}
+                    </div> {#collapse#}
+          </div>{#item 3 #}
+    </div>{#acordeon form #}
+   
+<br>
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+                </div>
+        </div>
+   
+    </section>
+ </div>   
+
+
+    {{ form_end(form) }}
+
+
+

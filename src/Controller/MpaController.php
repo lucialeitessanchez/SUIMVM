@@ -94,7 +94,7 @@ final class MpaController extends AbstractController
 
     #[Route('/{idCaso}/show', name: 'app_mpa_show', methods: ['GET'], requirements:['id_mpa'=>'\d+'])]
     public function show(CasoRepository $casoRepository,
-   MpaRepository $mpaRepository,int $idCaso, 
+    MpaRepository $mpaRepository,int $idCaso, 
     CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
     {
          // Buscar el caso           
@@ -127,9 +127,26 @@ final class MpaController extends AbstractController
       
     }
 
-    #[Route('/{id_mpa}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Mpa $mpa, EntityManagerInterface $entityManager): Response
+    #[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, int $idCaso,
+    CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
+    EntityManagerInterface $entityManager): Response
     {
+
+         // Buscar el caso           
+         $caso = $casoRepository->find($idCaso);
+         if (!$caso) {
+             throw $this->createNotFoundException('Caso no encontrado');
+         }
+
+          //busco si hay datos asociados para mostrar la pestaña desde el servicio
+          $tabsData = $tabsProvider->getData($caso);
+
+          $mpa = $entityManager->getRepository(Mpa::class)->findOneBy(['caso' => $caso]);
+          if (!$mpa) {
+              throw $this->createNotFoundException('No hay datos de CAJ para este caso');
+          }
+
         $form = $this->createForm(MpaForm::class, $mpa);
         $form->handleRequest($request);
 
@@ -138,11 +155,15 @@ final class MpaController extends AbstractController
 
             return $this->redirectToRoute('app_mpa_index', [], Response::HTTP_SEE_OTHER);
         }
+        $parametros['form'] = $form->createView();
+        $parametros['mpa'] = $mpa;
+        $parametros['caso'] = $caso;
+        $parametros['caj'] = $tabsData['caj'];
+        $parametros['sdh'] = $tabsData['sdh'];
+        $parametros['pestaña_activa'] = 'mpa';
 
-        return $this->render('mpa/edit.html.twig', [
-            'mpa' => $mpa,
-            'form' => $form,
-        ]);
+        return $this->render('mpa/edit.html.twig', $parametros);
+        
     }
 
     #[Route('/{id_mpa}', name: 'app_mpa_delete', methods: ['POST'])]

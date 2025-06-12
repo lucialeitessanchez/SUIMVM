@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Caso - Editando datos{% endblock %}
+
+{% block body %}
+{% include 'partials/tabs_caso_edit.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
+    
+
+    {{ include('caso/_form.html.twig', {'button_label': 'Actualizar'}) }}
+
+
+    
+{% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+        <script src="{{ asset('js/franjaEtaria.js') }}"></script>
+        <script src="{{ asset('js/nacionalidad.js') }}"></script>
+        <script>
+    window.localidadInfoTemplate = '{{ path('localidad_info', { id: 'PLACEHOLDER' }) }}';
+    window.verificarDniUrlTemplate = "{{ path('persona_verificar_dni', { nrodoc: 'PLACEHOLDER' }) }}";
+</script>
+          <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
+          <script src="{{ asset('js/persona.js') }}"></script>
+{% endblock %}

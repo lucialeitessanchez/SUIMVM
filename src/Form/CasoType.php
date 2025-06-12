@@ -80,6 +80,11 @@ class CasoType extends AbstractType
                 'label' => 'Barrio del hecho',
                 'required' => false,
             ])
+            ->add('franjaEtaria', TextType::class, [
+                'label' => 'Franja Etaria',
+                'required' => false,
+               
+            ])
             
             ->add('localidad', EntityType::class, array(
                 'required' => true,

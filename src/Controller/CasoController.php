@@ -58,14 +58,23 @@ class CasoController extends AbstractController
             $apellido = $request->request->get('apellido');
             $nombre = $request->request->get('nombre');
             $dni = $request->request->get('nrodoc');
+            $franjaEtaria=$request->request->get('franjaEtaria');
+            $nacionalidad=$request->request->get('nacionalidad');
+            $sexo=$request->request->get('sexo');
+            $generoAud=$request->request->get('generoAutop');
 
             // Crear y asociar la persona
             $persona = new Persona();
             $persona->setApellido($apellido);
             $persona->setNombre($nombre);
             $persona->setNrodoc($dni);
+            $persona->setNacionalidad($nacionalidad);
+            $persona->setSexo($sexo);
+            $persona->setGeneroAutop($generoAud);
+            
 
             $caso->setPersonaIdPersona($persona);
+            $caso->setFranjaEtaria($franjaEtaria);
             // Setear el organismo en el caso
             $caso->setOrganismoOrigenIdOrigen($organismoOrigen);
 
@@ -101,8 +110,7 @@ class CasoController extends AbstractController
     
         return new JsonResponse(['success' => false, 'error' => 'ID no válido'], 400);
     }
-    
-    
+   
         
     #[Route('/{id}/ver', name: 'caso_ver')]
     public function ver(Caso $caso, PersonaService $personaService, FormFactoryInterface $formFactory,
@@ -119,6 +127,7 @@ class CasoController extends AbstractController
         $localidad = $caso->getLocalidad();
         $departamento = $localidad?->getDepartamento();
         $microregion = $localidad?->getMicroregion();
+        $nacionalidad = $persona?->getNacionalidad();
 
         //busco si hay datos asociados para mostrar la pestaña desde el servicio
         $tabsData = $tabsProvider->getData($caso);
@@ -129,11 +138,67 @@ class CasoController extends AbstractController
             'datosPersona'=>$datosPersona,
             'departamento'=>$departamento,
             'microregion'=>$microregion,
+            'nacionalidad'=>$nacionalidad,
             'caj' => $tabsData['caj'],
             'sdh' => $tabsData['sdh'],
             'mpa' => $tabsData['mpa'],
             'pestaña_activa'=>'caso',
         ]);
     }
+    
+
+    #[Route('/{idCaso}/edit', name: 'app_caso_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, int $idCaso,
+    PersonaService $personaService,CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
+    EntityManagerInterface $entityManager): Response
+    {
+
+         // Buscar el caso           
+         $caso = $casoRepository->find($idCaso);
+         if (!$caso) {
+             throw $this->createNotFoundException('Caso no encontrado');
+         }
+
+          //busco si hay datos asociados para mostrar la pestaña desde el servicio
+          $tabsData = $tabsProvider->getData($caso);
+/*
+          $caso = $entityManager->getRepository(Caso::class)->findOneBy(['caso' => $caso]);
+          if (!$caso) {
+              throw $this->createNotFoundException('No hay datos de para este caso');
+          }*/
+
+            $persona= $caso->getPersonaIdPersona();
+            $datosPersona = $personaService->getDatosPersona($persona);
+
+            $localidad = $caso->getLocalidad();
+            $departamento = $localidad?->getDepartamento();
+            $microregion = $localidad?->getMicroregion();
+            
+
+            $form = $this->createForm(CasoType::class, $caso);
+            $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash('success_js', 'Datos actualizados correctamente');   
+            return $this->redirectToRoute('app_caso_index');
+        }
+        $parametros['form'] = $form->createView();
+        $parametros['mpa'] = $tabsData['mpa'];
+        $parametros['caso'] = $caso;
+        $parametros['datosPersona']= $datosPersona;
+        $parametros['datosPersona']=$datosPersona;
+        $parametros['departamento']=$departamento;
+        $parametros['microregion']=$microregion;
+        
+        $parametros['caj'] = $tabsData['caj'];
+        $parametros['sdh'] = $tabsData['sdh'];
+        $parametros['pestaña_activa'] = 'caso';
+
+        return $this->render('caso/edit.html.twig', $parametros);
+        
+    }
+
     
 }

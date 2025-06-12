@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %}Ver MPA{% endblock %}
+{% block title %}Vista de datos - MPA{% endblock %}
 
 {% block body %}
 {% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
 
 <section id="formSecretaria" class="container my-3">
-        <div class="d-flex align-items-center justify-content-between mb-4">
+  <div class="d-flex align-items-center justify-content-between mb-4">
           <h2 class="mb-0">Sección Ministerio Público de la Acusación</h2>
 
           <span class="ms-3">
@@ -96,13 +96,9 @@
                                                 {{ form_widget(form.mpa_6b, {'attr': {'class': 'form-control'}}) }}
                                               </div>
                                               <div class="col-md-4">
-                                                <label for="franjaHoraria" class="form-label">Franja horaria</label>
-                                                <select class="form-select" id="franjaHoraria" name="franjaHoraria" disabled>
-                                                    <option value="">Seleccioná una franja</option>
-                                                      <option value="Mañana">Mañana</option>
-                                                      <option value="Tarde">Tarde</option>
-                                                      <option value="Noche">Noche</option>
-                                                </select>
+                                                {{ form_label(form.mpa_6c,null, {'label_attr': {'class': 'form-label'}}) }}
+                                                {{ form_errors(form.mpa_6c) }}
+                                                {{ form_widget(form.mpa_6c, {'attr': {'class': 'form-control'}}) }}
                                               </div>
                                       </div>
                                       <div class="row mb-3">
@@ -268,20 +264,19 @@
     </div>{#acordeon form #}
    
 <br>
-{#}
-    <div class="col-md-12 d-flex justify-content-end">
-            <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
-            <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
-            &nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
-            </div>
-    </div>
-#}
+    {#}
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+                </div>
+        </div>
+    #}
 
     {{ form_end(form) }}
     </section>
-
-</div>
+  </div>
 {% endblock %}
 {% block javascripts %}
 

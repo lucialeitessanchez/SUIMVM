@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Caso;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Dom\Text;
 
 #[ORM\Entity]
 class Mpa

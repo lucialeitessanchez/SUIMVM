@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Mpa{% endblock %}
+{% block title %}MPA - Editando datos{% endblock %}
 
 {% block body %}
-    <h1>Edit Mpa</h1>
+{% include 'partials/tabs_caso_edit.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
+    
 
     {{ include('mpa/_form.html.twig', {'button_label': 'Update'}) }}
+    
+{% endblock %}
+{% block javascripts %}
 
-    <a href="{{ path('app_mpa_index') }}">back to list</a>
-
-    {{ include('mpa/_delete_form.html.twig') }}
+    {{ parent() }}
+        <script src="{{ asset('js/caj.js') }}"></script>
 {% endblock %}

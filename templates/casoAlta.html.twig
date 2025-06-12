@@ -5,12 +5,7 @@
 <section class="container my-5">
     <h2 class="text-left mb-4">Identificación de la víctima</h2>
     <hr>
-       {% if app.request.get('mensaje') %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ app.request.get('mensaje') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endif %}
+       
     {{ form_start(form) }}
     <div class="row mb-3">
                 <!-- Fecha de carga -->
@@ -57,10 +52,10 @@
                 <!-- Sexo asignado en el DNI -->
                 <div class="col-md-4">
                     <label class="form-label">Sexo asignado en el DNI</label>
-                    <select class="form-select" id="sexo" required>
+                    <select class="form-select" id="sexo" name="sexo" required>
                         <option selected disabled>Seleccione...</option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Masculino">Masculino</option>
+                        <option value="F">Femenino</option>
+                        <option value="M">Masculino</option>
                         <option value="No binario">No binario</option>
                     </select>
                 </div>
@@ -68,7 +63,7 @@
                 <!-- Género autopercibido de la víctima -->
                 <div class="col-md-4">
                     <label for="generoAutop" class="form-label">Género autopercibido de la víctima</label>
-                    <select class="form-select" id="generoAutop" required>
+                    <select class="form-select" id="generoAutop" name="generoAutop" required>
                         <option selected disabled>Seleccione...</option>
                         <option value="Mujer cis">Mujer cis</option>
                         <option value="Mujer trans">Mujer trans</option>
@@ -84,17 +79,9 @@
                     {{ form_widget(form.edad,{'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="col-md-2">
-                    <label for="franjaEtaria" class="form-label">Franja etaria</label>
-                    <select class="form-select" id="franjaEtaria" name="franjaEtaria" disabled>
-                        <option disabled selected>Según edad seleccionada</option>
-                        <option value="0-12 años">0-12 años</option>
-                        <option value="13-17 años">13-17 años</option>
-                        <option value="18-29 años">18-29 años</option>
-                        <option value="30-39 años">30-39 años</option>
-                        <option value="40-49 años">40-49 años</option>
-                        <option value="50-59 años">30-39 años</option>
-                        <option value="60 años o más">60 años o más</option>
-                    </select>
+                    {{ form_label(form.franjaEtaria, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.franjaEtaria) }}
+                    {{ form_widget(form.franjaEtaria,{'attr': {'class': 'form-control'}}) }}
                 </div>
     </div>
     <div class="row mb-3">
