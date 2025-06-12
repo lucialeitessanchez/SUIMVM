@@ -262,3 +262,9 @@ table tbody tr:hover {
   position: relative;
   padding-right: 2.5rem; /* espacio para la flecha */
 }
+
+.circle-tab.active{
+background-color:#9b8ef7!important ;
+border:none!important;
+--filter: brightness(90%);
+}
