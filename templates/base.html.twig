@@ -26,6 +26,8 @@
 <body>
 
     {# Navbar común a todas las páginas #}
+    
+
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <img src="https://www.santafe.gob.ar/assets/standard/images/gob-santafe.png" class="navbar-brand" alt="Logo">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -61,6 +63,16 @@
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_mpa_new') }}">MPA</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a></li>
             </ul>
+
+            <div class="ms-auto d-flex align-items-center text-white">
+                {% if app.user %}
+                {{ app.user.getId() }} - 
+                    <i class="bi bi-person-circle me-2"> </i>
+                    <a href="#" class="btn btn-sm btn-outline-light ms-3">Cerrar sesión</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="btn btn-sm btn-outline-light">Iniciar sesión</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 
