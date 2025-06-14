@@ -6,14 +6,16 @@ use App\Entity\Caso;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Dom\Text;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection; 
 
 #[ORM\Entity]
 class Mpa
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id_mpa = null;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'id_mpa', type: 'integer')]
+    private ?int $id = null;
 
     #[ORM\Column(type: 'text')]
     private ?string $mpa_1 = null;
@@ -116,18 +118,31 @@ class Mpa
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
     private Caso $caso;
 
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $fechaCarga = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $usuarioCarga = null;
 
-    // Getters y setters 
-    public function getIdMpa(): ?int
+   // Si querés, podés agregar la relación inversa OneToMany para facilitar acceso desde Mpa a sus MpaTipoViolencia
+
+    #[ORM\OneToMany(mappedBy: 'mpa', targetEntity: MpaTipoViolencia::class)]
+    private Collection $tiposViolencia;
+
+    public function __construct()
     {
-        return $this->id_mpa;
+        $this->tiposViolencia = new ArrayCollection();
     }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTiposViolencia(): Collection
+    {
+        return $this->tiposViolencia;
+    }   
 
     public function getMpa1(): ?string
     {

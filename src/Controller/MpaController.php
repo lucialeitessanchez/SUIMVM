@@ -107,8 +107,9 @@ final class MpaController extends AbstractController
           $tabsData = $tabsProvider->getData($caso);
 
           $mpa = $mpaRepository->findOneBy(['caso' => $caso]);
+        
           if (!$mpaRepository) {
-              throw $this->createNotFoundException('No hay datos de CAJ para este caso');
+              throw $this->createNotFoundException('No hay datos de mpa para este caso');
           }
 
            // Creamos el form pero sin intención de editar
@@ -153,7 +154,9 @@ final class MpaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_mpa_index', [], Response::HTTP_SEE_OTHER);
+            //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success_js', 'Datos guardados correctamente');   
+           return $this->redirectToRoute('app_caso_index');
         }
         $parametros['form'] = $form->createView();
         $parametros['mpa'] = $mpa;

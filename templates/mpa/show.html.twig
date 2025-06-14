@@ -246,14 +246,30 @@
                                         <div class="col md-2">
                                               <label class="form-label" for="mpa_15a_input">Tipo de violencia</label>
                                                <div class="input-group">
-                                                  <input type="text" class="form-control" id="mpa_15a_input" placeholder="Ej: Física">
+                                                  <input type="text" class="form-control" id="mpa_15a_input" placeholder="Ej: Física" disabled>
                                                   <button type="button" id="add_violencia_btn" class="btn btn-success" title="Agregar tipo de violencia">
                                                                     <i class="bi bi-plus-circle"></i>
                                                   </button>
                                                </div>
                                         </div>
                                         <div class="col md-2">
-                                       <div id="mpa_15a_badges" class="d-flex flex-wrap gap-2 mt-2"></div>
+                                       <div id="mpa_15a_badges" class="d-flex flex-wrap gap-2 mt-2">
+                                              {% for mpaItem in mpa %}
+                                                  <div class="mb-2">
+                                                         
+                                                          <div id="mpa_15a_badges" class="d-flex flex-wrap gap-2 mt-2">
+                                                              {% for violencia in mpaItem.tiposViolencia %}
+                                                                  <span class="badge bg-primary">
+                                                                      {{ violencia.descripcionViolencia }}
+                                                                  </span>
+                                                              {% else %}
+                                                                  <span class="text-muted">Sin especificar</span>
+                                                                  
+                                                              {% endfor %}
+                                                          </div>
+                                                  </div>
+                                              {% endfor %}
+                                       </div>
                                         </div>
 
                                         <input type="hidden" name="tiposViolencia" id="tiposViolencia">
@@ -264,7 +280,7 @@
     </div>{#acordeon form #}
    
 <br>
-    {#}
+    {#
         <div class="col-md-12 d-flex justify-content-end">
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
                 <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>

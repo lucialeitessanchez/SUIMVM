@@ -24,7 +24,9 @@ class CasoTabsDataProvider
         return [
             'caj' => $this->cajRepository->findBy(['caso' => $caso]),
             'sdh' => $this->sdhRepository->findBy(['caso' => $caso]),
-            'mpa' => $this->mpaRepository->findBy(['caso' => $caso]),
+            //'mpa' => $this->mpaRepository->findBy(['caso' => $caso]),
+            'mpa' => $this->mpaRepository->findByCasoWithTipoViolencia($caso),
+              
         ];
     }
 }
