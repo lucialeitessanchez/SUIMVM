@@ -4,24 +4,7 @@
 
 {% block body %}
  {% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
-{#}
-        {% if sinCaso %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                icon: "error",
-                title: "Debe seleccionar un caso",
-                text: "Antes de registrar MPA, es necesario elegir un caso.",
-                confirmButtonText: "Ir a casos"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                window.location.href = "{{ path('app_caso_index') }}";
-                }
-            });
-            });
-        </script>
-        {% endif %} #}
-      {# {% if caso is defined %}  #}
+
       <section id="formSecretaria" class="container my-3">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                 <h2 class="mb-0">Sección Centro de Asistencia Judicial - CAJ</h2>
@@ -87,6 +70,7 @@
                                 <div class="col-md-6">
                                     <label for="caj_2b" class="form-label">¿La víctima aceptó el patrocinio? </label>
                                     <div class="form-check form-switch">
+                                        {{ form_label(form.caj_2b)}}
                                         {{ form_widget(form.caj_2b, {
                                         'id': 'caj_2b',
                                         'attr': {'class': 'form-check-input'}

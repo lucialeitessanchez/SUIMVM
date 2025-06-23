@@ -32,11 +32,11 @@ class Sdh
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "sdh_1_5_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
-    private Nomenclador $sdh_1_5_id_nomenclador;
+    private ?Nomenclador $sdh_1_5_id_nomenclador = null;
       
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "sdh_1_6_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
-    private Nomenclador $sdh_1_6_id_nomenclador;
+    private ?Nomenclador $sdh_1_6_id_nomenclador = null;
 
     #[ORM\Column(type: "boolean", nullable: true)]
     private ?bool $sdh_1_7 = null;
@@ -49,7 +49,7 @@ class Sdh
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "sdh_2_2_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
-    private Nomenclador $sdh_2_2_id_nomenclador;
+    private ?Nomenclador $sdh_2_2_id_nomenclador=null;
 
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $sdh_2_3 = null;
@@ -65,11 +65,11 @@ class Sdh
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "sdh_3_3_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
-    private Nomenclador $sdh_3_3_id_nomenclador;
+    private ?Nomenclador $sdh_3_3_id_nomenclador = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "sdh_3_4_id_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
-    private Nomenclador $sdh_3_4_id_nomenclador;
+    private ?Nomenclador $sdh_3_4_id_nomenclador = null;
 
     #[ORM\Column(type: "boolean", nullable: true)]
     private ?bool $sdh_4_1 = null;
@@ -120,11 +120,11 @@ class Sdh
     public function getSdh14(): ?string { return $this->sdh_1_4; }
     public function setSdh14(?string $value): self { $this->sdh_1_4 = $value; return $this; }
 
-    public function getSdh15IdNomenclador(): Nomenclador { return $this->sdh_1_5_id_nomenclador; }
-    public function setSdh15IdNomenclador(Nomenclador $value): self { $this->sdh_1_5_id_nomenclador = $value; return $this; }
+    public function getSdh15IdNomenclador(): ?Nomenclador { return $this->sdh_1_5_id_nomenclador; }
+    public function setSdh15IdNomenclador(?Nomenclador $value): self { $this->sdh_1_5_id_nomenclador = $value; return $this; }
 
-    public function getSdh16IdNomenclador(): Nomenclador { return $this->sdh_1_6_id_nomenclador; }
-    public function setSdh16IdNomenclador(Nomenclador $value): self { $this->sdh_1_6_id_nomenclador = $value; return $this; }
+    public function getSdh16IdNomenclador(): ?Nomenclador { return $this->sdh_1_6_id_nomenclador; }
+    public function setSdh16IdNomenclador(?Nomenclador $value): self { $this->sdh_1_6_id_nomenclador = $value; return $this; }
 
     public function getSdh17(): ?bool { return $this->sdh_1_7; }
     public function setSdh17(?bool $value): self { $this->sdh_1_7 = $value; return $this; }
@@ -135,8 +135,8 @@ class Sdh
     public function getSdh21(): ?bool { return $this->sdh_2_1; }
     public function setSdh21(?bool $value): self { $this->sdh_2_1 = $value; return $this; }
 
-    public function getSdh22IdNomenclador(): Nomenclador { return $this->sdh_2_2_id_nomenclador; }
-    public function setSdh22IdNomenclador(Nomenclador $value): self { $this->sdh_2_2_id_nomenclador = $value; return $this; }
+    public function getSdh22IdNomenclador(): ?Nomenclador { return $this->sdh_2_2_id_nomenclador; }
+    public function setSdh22IdNomenclador(?Nomenclador $value): self { $this->sdh_2_2_id_nomenclador = $value; return $this; }
 
     public function getSdh23(): ?string { return $this->sdh_2_3; }
     public function setSdh23(?string $value): self { $this->sdh_2_3 = $value; return $this; }
@@ -150,11 +150,11 @@ class Sdh
     public function getSdh32(): ?string { return $this->sdh_3_2; }
     public function setSdh32(?string $value): self { $this->sdh_3_2 = $value; return $this; }
 
-    public function getSdh33IdNomenclador(): Nomenclador { return $this->sdh_3_3_id_nomenclador; }
-    public function setSdh33IdNomenclador(Nomenclador $value): self { $this->sdh_3_3_id_nomenclador = $value; return $this; }
+    public function getSdh33IdNomenclador(): ?Nomenclador { return $this->sdh_3_3_id_nomenclador; }
+    public function setSdh33IdNomenclador(?Nomenclador $value): self { $this->sdh_3_3_id_nomenclador = $value; return $this; }
 
-    public function getSdh34IdNomenclador(): Nomenclador { return $this->sdh_3_4_id_nomenclador; }
-    public function setSdh34IdNomenclador(Nomenclador $value): self { $this->sdh_3_4_id_nomenclador = $value; return $this; }
+    public function getSdh34IdNomenclador(): ?Nomenclador { return $this->sdh_3_4_id_nomenclador; }
+    public function setSdh34IdNomenclador(?Nomenclador $value): self { $this->sdh_3_4_id_nomenclador = $value; return $this; }
 
     public function getSdh41(): ?bool { return $this->sdh_4_1; }
     public function setSdh41(?bool $value): self { $this->sdh_4_1 = $value; return $this; }

@@ -1,11 +1,4 @@
-{% extends 'base.html.twig' %}
-{% block title %}Vista de datos - SDH{% endblock %}
-
-{% block body %}
-
-        {% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
-   
-        <section id="formSecretaria" class="container my-3">
+ <section id="formSecretaria" class="container my-3">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                 <h2 class="mb-0">Sección Secretaría de Derechos Humanos</h2>
 
@@ -14,9 +7,7 @@
                     <span class="badge badge-caso">{{ caso.idCaso }}</span>
                 </span>
                 </div>
-  
-        {# Acordeón del formulario #}
-              {{ form_start(form) }}
+{{ form_start(form) }}
         <div class="accordion" id="accordionFormularioSdh">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading1">
@@ -236,17 +227,14 @@
                 <br>
                 
         </div>
-  
-        {{ form_widget(form) }}
-
-       
+        <br>
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+                </div>
+        </div>
     {{ form_end(form) }}
-     </section>
+</section>
     
-{% endblock %}
-{% block javascripts %}
-
-    {{ parent() }}
-       {# <script src="{{ asset('js/sdh.js') }}"></script>#}
-        <script src="{{ asset('js/rango.js') }}"></script>
-{% endblock %}

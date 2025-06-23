@@ -260,6 +260,6 @@ class Mpa
 
     public function __toString(): string
 {
-    return (string) $this->id_mpa;
+    return (string) $this->id;
 }
 }

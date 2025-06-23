@@ -98,14 +98,14 @@ class SdhController extends AbstractController
 
           $sdh = $sdhRepository->findOneBy(['caso' => $caso]);
           if (!$sdhRepository) {
-              throw $this->createNotFoundException('No hay datos de CAJ para este caso');
+              throw $this->createNotFoundException('No hay datos de SDH para este caso');
           }
 
            // Creamos el form pero sin intención de editar
               $form = $formFactory->create(SdhType::class, $sdh, [
                   'disabled' => true, // importante: desactiva todos los campos
               ]);
-
+              dump($tabsData['sdh']);
           return $this->render('sdh/show.html.twig', [
             'form' =>$form,
             'caso' => $caso,
@@ -114,7 +114,48 @@ class SdhController extends AbstractController
             'mpa' => $tabsData['mpa'],
             'pestaña_activa'=>'sdh',
         ]);
-      
+            
+    }
+
+    #[Route('/{idCaso}/edit', name: 'app_sdh_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, int $idCaso,
+    CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
+    EntityManagerInterface $entityManager): Response
+    {
+
+         // Buscar el caso           
+         $caso = $casoRepository->find($idCaso);
+         if (!$caso) {
+             throw $this->createNotFoundException('Caso no encontrado');
+         }
+
+          //busco si hay datos asociados para mostrar la pestaña desde el servicio
+          $tabsData = $tabsProvider->getData($caso);
+
+          $sdh = $entityManager->getRepository(Sdh::class)->findOneBy(['caso' => $caso]);
+          if (!$sdh) {
+              throw $this->createNotFoundException('No hay datos de SDH para este caso');
+          }
+
+        $form = $this->createForm(SdhType::class, $sdh);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success_js', 'Datos guardados correctamente');   
+           return $this->redirectToRoute('app_caso_index');
+        }
+        $parametros['form'] = $form->createView();
+        $parametros['mpa'] = $tabsData['mpa'];
+        $parametros['caso'] = $caso;
+        $parametros['caj'] = $tabsData['caj'];
+        $parametros['sdh'] = $sdh;
+        $parametros['pestaña_activa'] = 'sdh';
+
+        return $this->render('sdh/edit.html.twig', $parametros);
+        
     }
     
 }

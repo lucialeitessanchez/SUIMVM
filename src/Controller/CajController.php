@@ -96,4 +96,46 @@ class CajController extends AbstractController
                 ]);
             }
 
+            #[Route('/{idCaso}/edit', name: 'app_sdh_edit', methods: ['GET', 'POST'])]
+            public function edit(Request $request, int $idCaso,
+            CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
+            EntityManagerInterface $entityManager): Response
+            {
+
+                // Buscar el caso           
+                $caso = $casoRepository->find($idCaso);
+                if (!$caso) {
+                    throw $this->createNotFoundException('Caso no encontrado');
+                }
+
+                //busco si hay datos asociados para mostrar la pestaña desde el servicio
+                $tabsData = $tabsProvider->getData($caso);
+
+                $caj = $entityManager->getRepository(Caj::class)->findOneBy(['caso' => $caso]);
+                if (!$caj) {
+                    throw $this->createNotFoundException('No hay datos de CAJ para este caso');
+                }
+
+                $form = $this->createForm(CajType::class, $caj);
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $entityManager->flush();
+
+                    //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);
+                    $this->addFlash('success_js', 'Datos guardados correctamente');   
+                return $this->redirectToRoute('app_caso_index');
+                }
+                $parametros['form'] = $form->createView();
+                $parametros['mpa'] = $tabsData['mpa'];
+                $parametros['caso'] = $caso;
+                $parametros['caj'] = $caj;
+                $parametros['sdh'] = $tabsData['sdh'];
+                $parametros['pestaña_activa'] = 'caj';
+
+                return $this->render('caj/edit.html.twig', $parametros);
+                
+            }
+    
+
 }
