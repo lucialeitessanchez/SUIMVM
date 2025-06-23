@@ -12,41 +12,46 @@
       <a href="{{ path('app_caj_edit', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
          title="CAJ">
-        <i class="bi bi-file-earmark-text"></i>
+        <span class="circle-letter"><h5>CAJ</h5></span>
       </a>
       {% else %}
-      <a href="{{ path('caj_new', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
-         title="CAJ">
-        <i class="bi bi-plus-circle"></i>
+          <a href="{{ path('caj_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'caj' %}active{% endif %}"
+            title="CAJ">
+              <span class="circle-letter"><h5>CAJ</h5></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
     
-    {% endif %}
+      {% endif %}
 
     {% if sdh is not empty %}
       <a href="{{ path('app_sdh_edit', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
-         
          title="SDH">
-        <i class="bi bi-person-badge" ></i>
+        <span class="circle-letter"><h5>SDH</h5></span>
       </a>
-      {% else %}
-      <a href="{{ path('sdh_new', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
-         title="SDH">
-        <i class="bi bi-plus-circle"></i>
+     {% else %}
+          <a href="{{ path('sdh_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'sdh' %}active{% endif %}"
+            title="CAJ">
+              <span class="circle-letter"><h5>SDH</h5></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
     {% endif %}
 
     {% if mpa is not empty %}
       <a href="{{ path('app_mpa_edit', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'mpa' %}active{% endif %}"
          title="MPA">
-        <i class="bi bi-folder2-open"></i>
+        <span class="circle-letter"><h5>MPA</h5></span>
       </a>
      {% else %}
-      <a href="{{ path('app_mpa_new', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
-         title="SDH">
-        <i class="bi bi-plus-circle"></i>
+          <a href="{{ path('app_mpa_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'mpa' %}active{% endif %}"
+            title="CAJ">
+              <span class="circle-letter"><h5>MPA</h5></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
     {% endif %}
 
   </div>
@@ -83,5 +88,14 @@
   background-color: #007bff;
   color: white;
   border-color: #0056b3;
+}
+.small-icon-overlay {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 0.9rem;
+    color: #007bff;
+    background-color: white;
+    border-radius: 50%;
 }
 </style>
