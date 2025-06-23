@@ -9,7 +9,7 @@
     </a>
 
     {% if caj is not empty %}
-      <a href="{{ path('caj_ver', { idCaso: caso.idCaso }) }}"
+      <a href="{{ path('app_caj_edit', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
          title="CAJ">
         <i class="bi bi-file-earmark-text"></i>
@@ -31,7 +31,7 @@
       </a>
       {% else %}
       <a href="{{ path('sdh_new', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
+         class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
          title="SDH">
         <i class="bi bi-plus-circle"></i>
     {% endif %}

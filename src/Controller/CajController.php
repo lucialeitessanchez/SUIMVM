@@ -96,7 +96,7 @@ class CajController extends AbstractController
                 ]);
             }
 
-            #[Route('/{idCaso}/edit', name: 'app_sdh_edit', methods: ['GET', 'POST'])]
+            #[Route('/{idCaso}/edit', name: 'app_caj_edit', methods: ['GET', 'POST'])]
             public function edit(Request $request, int $idCaso,
             CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
             EntityManagerInterface $entityManager): Response
