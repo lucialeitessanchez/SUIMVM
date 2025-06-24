@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -27,6 +28,14 @@ class Sdh
     #[ORM\Column(type: "string")]
     private ?string $sdh_1_3;
 
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: "sdh_tipoTrata", // nombre de la tabla intermedia
+        joinColumns: [new ORM\JoinColumn(name: "sdh_id", referencedColumnName: "id_sdh")],
+        inverseJoinColumns: [new ORM\JoinColumn(name: "nomenclador_id", referencedColumnName: "id_nomenclador")]
+    )]
+    private Collection $sdh_1_2_id_nomenclador;
+   
     #[ORM\Column(type: "string", nullable: true)]
     private ?string $sdh_1_4 = null;
 
@@ -108,12 +117,38 @@ class Sdh
     public function getSdh11(): ?bool { return $this->sdh_1_1; }
     public function setSdh11(?bool $value): self { $this->sdh_1_1 = $value; return $this; }
 
+
     public function getSdh19(): ?string { return $this->sdh_1_9; }
     public function setSdh19(?string $value): self { $this->sdh_1_9 = $value; return $this; }
 
     public function getSdh110(): ?\DateTimeInterface { return $this->sdh_1_10; }
     public function setSdh110(?\DateTimeInterface $value): self { $this->sdh_1_10 = $value; return $this; }
   
+    public function __construct()
+    {
+        $this->sdh_1_2_id_nomenclador = new ArrayCollection();
+    }
+
+    public function getSdh12IdNomenclador(): Collection
+    {
+        return $this->sdh_1_2_id_nomenclador;
+    }
+
+    public function addSdh12IdNomenclador(Nomenclador $nomenclador): self
+    {
+        if (!$this->sdh_1_2_id_nomenclador->contains($nomenclador)) {
+            $this->sdh_1_2_id_nomenclador->add($nomenclador);
+        }
+
+        return $this;
+    }
+
+    public function removeSdh12IdNomenclador(Nomenclador $nomenclador): self
+    {
+        $this->sdh_1_2_id_nomenclador->removeElement($nomenclador);
+        return $this;
+    }
+
     public function getSdh13(): string { return $this->sdh_1_3; }
     public function setSdh13(string $value): self { $this->sdh_1_3 = $value; return $this; }
 

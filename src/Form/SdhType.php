@@ -42,9 +42,8 @@ class SdhType extends AbstractType
                 'label' => 'Fecha de intervención de la Secretaria en la causa', 
                 'required' => false,
             ])
-            ->add('id_nomenclador', EntityType::class, array(
+            ->add('sdh_1_2_id_nomenclador', EntityType::class, array(
                 'required' => false,
-                'mapped' => false, // ⬅️ esto indica que no se guarda en la entidad Sdh
                 'label' => 'Tipo de trata detectada',
                 'multiple' => true,
                 'choice_label' => 'valor_nomenclador',
@@ -168,7 +167,7 @@ class SdhType extends AbstractType
                 'placeholder' => 'Seleccione...',
                 'choices' => [
                       'Menos de 1 dia' => 'Menos de 1 dia',
-                      '1 a 7 dias' => 'Menos de 1 dia',
+                      '1 a 7 dias' => '1 a 7 dias',
                       'Mas de 1 semana' => 'Mas de 1 semana',                       
                       'Mas de 1 mes'=>'Mas de 1 mes',
                   ],

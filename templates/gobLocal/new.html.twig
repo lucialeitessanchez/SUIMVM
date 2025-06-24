@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Area local{% endblock %}
+
+{% block body %}
+
+    {{ include('gobLocal/_form.html.twig', {'button_label': 'Guardar'}) }}
+    
+{% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+     <script src="{{ asset('js/gobLocales.js') }}"></script>    
+{% endblock %}
