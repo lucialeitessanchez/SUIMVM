@@ -19,7 +19,9 @@ security:
             custom_authenticators:
                 - stg.cas_authenticator
             logout:
-                path: /secure/logout
+                path: logout
+                target: https://cas.servidor.gob.ar/logout?service=https://tuapp.gob.ar/
+
         main:
             lazy: true
         
@@ -35,6 +37,14 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/cas_login, roles: PUBLIC_ACCESS }
+        - { path: ^/failure, roles: PUBLIC_ACCESS }
+        - { path: ^/logout, roles: PUBLIC_ACCESS }
+        - { path: ^/desconectado, roles: PUBLIC_ACCESS }
+        - { path: '^/webdav', roles: [PUBLIC_ACCESS] }
+        # - { path: ^/secure/, roles: [ IS_AUTHENTICATED_FULLY , ROLE_MIGYD_ADMIN ] }
+        - { path: ^/secure/, roles: [ IS_AUTHENTICATED_FULLY ] }
+
 
 when@test:
     security:

@@ -60,12 +60,9 @@
     </div>
     </section>
 
-    
-
-</body>
-</html>
 {% endblock %}
 {% block javascripts %}
+  {{ parent() }}
     <script>
     const guardarCasoUrl = "{{ path('guardar_caso_sesion') }}";
     </script>

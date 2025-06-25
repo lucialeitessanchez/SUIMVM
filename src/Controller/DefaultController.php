@@ -18,7 +18,7 @@ class DefaultController extends AbstractController {
         //  ->getRepository(Bien::class)
         //  ->findAll();
 
-        return $this->render('index.html.twig', array('' => $usuario));
+        return $this->render('index.html.twig', array('usuario' => $usuario));
     }
 
     #[Route('/secure/test', name: 'secure_test')]
@@ -36,16 +36,10 @@ class DefaultController extends AbstractController {
         $usuario = $this->getUser();
 
         // return $this->render('index.html.twig');
-        return $this->render('index.html.twig', array('' => $usuario));
+        return $this->render('index.html.twig', array('usuario' => $usuario));
     }
 
-    #[Route('/logout', name: 'logout')]
-    public function logout(): Response
-    {
-        return $this->render('default/logout.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
-    }
+
 
 
 
