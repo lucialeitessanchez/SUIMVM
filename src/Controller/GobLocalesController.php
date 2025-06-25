@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\GobLocales;
+
 use App\Entity\Caso;
+use App\Entity\GobLocales;
 use App\Repository\CasoRepository;
 use App\Form\GobLocalesType;
 use App\Repository\GobLocalesRepository;
@@ -77,6 +78,7 @@ class GobLocalesController extends AbstractController
         GobLocalesRepository $gobLocalesRepository,
         CasoRepository $casoRepository,
         CasoTabsDataProvider $tabsProvider,
+        
         EntityManagerInterface $em
     ): Response {
         $caso = $casoRepository->find($idCaso);

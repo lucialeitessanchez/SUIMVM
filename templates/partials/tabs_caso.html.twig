@@ -12,7 +12,8 @@
       <a href="{{ path('caj_ver', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
          title="CAJ">
-        <i class="bi bi-file-earmark-text"></i>
+        <span class="circle-letter"><h5>CAJ</h5></span>
+              
       </a>
     {% endif %}
 
@@ -21,7 +22,8 @@
          class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
          
          title="SDH">
-        <i class="bi bi-person-badge" ></i>
+        <span class="circle-letter"><h5>SDH</h5></span>
+              
       </a>
     {% endif %}
 
@@ -29,16 +31,18 @@
       <a href="{{ path('app_mpa_show', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'mpa' %}active{% endif %}"
          title="MPA">
-        <i class="bi bi-folder2-open"></i>
+        <span class="circle-letter"><h5>MPA</h5></span>
+            
       </a>
      
     {% endif %}
 
     {% if gl is not empty %}
-      <a href="{{ path('gob_locales_new', { idCaso: caso.idCaso }) }}"
+      <a href="{{ path('gob_locales_show', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'gl' %}active{% endif %}"
          title="AREAS LOCALES">
-        <i class="bi bi-folder2-open"></i>
+        <span class="circle-letter"><h5>AL</h5></span>
+             
       </a>
      
     {% endif %}
