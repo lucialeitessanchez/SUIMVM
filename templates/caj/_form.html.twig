@@ -1,34 +1,4 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Nuevo CAJ{% endblock %}
-
-{% block body %}
-     
-        {% if app.request.get('mensaje') %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ app.request.get('mensaje') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endif %}
-
-        {% if sinCaso %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                icon: "error",
-                title: "Debe seleccionar un caso",
-                text: "Antes de registrar MPA, es necesario elegir un caso.",
-                confirmButtonText: "Ir a casos"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                window.location.href = "{{ path('app_caso_index') }}";
-                }
-            });
-            });
-        </script>
-        {% endif %}
-      {% if caso is defined %} 
-      <section id="formSecretaria" class="container my-5">
+      <section id="formSecretaria" class="container my-3">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                 <h2 class="mb-0">Sección Centro de Asistencia Judicial - CAJ</h2>
                  <span class="ms-3">
@@ -93,7 +63,6 @@
                                 <div class="col-md-6">
                                     <label for="caj_2b" class="form-label">¿La víctima aceptó el patrocinio? </label>
                                     <div class="form-check form-switch">
-                                        {{ form_label(form.caj_2b)}}
                                         {{ form_widget(form.caj_2b, {
                                         'id': 'caj_2b',
                                         'attr': {'class': 'form-check-input'}
@@ -148,8 +117,8 @@
                                 </div>
                                  <div class="col-md-6">
                                         {{ form_label(form.caj_3j, null, {'label_attr': {'class': 'form-label'}}) }}
-                                       {{ form_errors(form.caj_3j) }}
-                                           {{ form_widget(form.caj_3j,{'attr': {'class': 'form-select'}})  }}
+                                        {{ form_errors(form.caj_3j) }}
+                                        {{ form_widget(form.caj_3j,{'attr': {'class': 'form-select'}})  }}
                                  </div>
                             </div>
                             <div class="row mb-3">    
@@ -252,19 +221,12 @@
 
         </div> {#div del acordeon formulario#}
 <br>
-     <div class="col-md-12 d-flex justify-content-end">
-        <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
-            <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
-            &nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+                </div>
         </div>
-    </div>
+        {{ form_end(form) }}
 </section>
-{{ form_end(form) }}
- {% endif %}
-{% endblock %}
-{% block javascripts %}
-
-    {{ parent() }}
-        <script src="{{ asset('js/caj.js') }}"></script>
-{% endblock %}

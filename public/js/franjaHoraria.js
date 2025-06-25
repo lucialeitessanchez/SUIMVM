@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const horaInput = document.getElementById('mpa_form_mpa_6b');
-    const franjaHorariaSelect = document.getElementById('franjaHoraria');
+    const franjaHorariaSelect = document.getElementById('mpa_form_mpa_6c');
 
     if (!horaInput || !franjaHorariaSelect) return;
 
@@ -18,9 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if ((hora >= 20 && hora <= 23)) {
             franja = 'Noche';
         }
-
-        Array.from(franjaHorariaSelect.options).forEach(option => {
-            option.selected = option.value === franja;
-        });
+        document.getElementById('mpa_form_mpa_6c').value =franja;
+       
     });
 });

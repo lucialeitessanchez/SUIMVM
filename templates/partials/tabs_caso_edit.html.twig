@@ -1,0 +1,115 @@
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <div class="circle-tabs d-flex justify-content-end flex-wrap gap-3 mt-3 mb-0" style="padding-right:9rem; ">
+
+    <a href="{{ path('app_caso_edit', { idCaso: caso.idCaso }) }}"
+       class="circle-tab {% if pestaña_activa == 'caso' %}active{% endif %}"
+       
+       title="Caso">
+      <i class="bi bi-person-lines-fill"></i>
+    </a>
+
+    {% if caj is not empty %}
+      <a href="{{ path('app_caj_edit', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
+         title="CAJ">
+        <span class="circle-letter"><h5>CAJ</h5></span>
+      </a>
+      {% else %}
+          <a href="{{ path('caj_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'caj' %}active{% endif %}"
+            title="CAJ">
+              <span class="circle-letter"><h5>CAJ</h5></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
+    
+      {% endif %}
+
+    {% if sdh is not empty %}
+      <a href="{{ path('app_sdh_edit', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
+         title="SDH">
+        <span class="circle-letter"><h5>SDH</h5></span>
+      </a>
+     {% else %}
+          <a href="{{ path('sdh_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'sdh' %}active{% endif %}"
+            title="SDH">
+              <span class="circle-letter"><h5>SDH</h5></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
+    {% endif %}
+
+    {% if mpa is not empty %}
+      <a href="{{ path('app_mpa_edit', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'mpa' %}active{% endif %}"
+         title="MPA">
+        <span class="circle-letter"><h5>MPA</h5></span>
+      </a>
+     {% else %}
+          <a href="{{ path('app_mpa_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'mpa' %}active{% endif %}"
+            title="MPA">
+              <span class="circle-letter"><h5>MPA</h5></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
+    {% endif %}
+    {% if gl is not empty %}
+          <a href="{{ path('gob_locales_edit', { idCaso: caso.idCaso }) }}"
+            class="circle-tab {% if pestaña_activa == 'gl' %}active{% endif %}"
+            title="AREAS LOCALES">
+            <i class="bi bi-folder2-open"></i>
+          </a>
+        
+     {% else %}
+          <a href="{{ path('gob_locales_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'gl' %}active{% endif %}"
+            title="AREAS LOCALES">
+              <span class="circle-letter"><h5>AL</h5></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
+    {% endif %}
+  </div>
+
+
+    
+
+<style>
+.circle-tabs {
+  gap: 0.75rem;
+}
+
+.circle-tab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.3s, transform 0.2s;
+  border: 2px solid transparent;
+}
+
+.circle-tab:hover {
+  background-color: #e0f0ff;
+  transform: scale(1.05);
+}
+
+.circle-tab.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+.small-icon-overlay {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 0.9rem;
+    color: #007bff;
+    background-color: white;
+    border-radius: 50%;
+}
+</style>

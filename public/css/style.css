@@ -262,3 +262,26 @@ table tbody tr:hover {
   position: relative;
   padding-right: 2.5rem; /* espacio para la flecha */
 }
+
+.circle-tab.active{
+background-color:#9b8ef7!important ;
+border:none!important;
+--filter: brightness(90%);
+}
+.table-wrapper {
+  max-height:400px;
+  overflow-y: auto;
+  display: block;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background-color: white; /* o el color de fondo que quieras */
+  z-index: 1;
+}
+.circle-tab.sin-datos {
+  background-color: #e0f7fa; /* o algo que resalte */
+  color: #007bff;
+}
+

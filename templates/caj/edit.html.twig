@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Caso - Editando datos{% endblock %}
+
+{% block body %}
+{% include 'partials/tabs_caso_edit.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
+
+    {{ include('caj/_form.html.twig', {'button_label': 'Actualizar'}) }}
+   
+{% endblock %}
+{% block javascripts %}
+
+      {{ parent() }}
+        <script src="{{ asset('js/caj.js') }}"></script>
+{% endblock %}

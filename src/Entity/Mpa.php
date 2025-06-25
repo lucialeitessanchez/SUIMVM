@@ -3,16 +3,20 @@
 namespace App\Entity;
 
 use App\Entity\Caso;
+use App\Entity\Nomenclador;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Dom\Text;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection; 
 
 #[ORM\Entity]
 class Mpa
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id_mpa = null;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'id_mpa', type: 'integer')]
+    private ?int $id = null;
 
     #[ORM\Column(type: 'text')]
     private ?string $mpa_1 = null;
@@ -115,18 +119,58 @@ class Mpa
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
     private Caso $caso;
 
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $fechaCarga = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $usuarioCarga = null;
 
-    // Getters y setters 
-    public function getIdMpa(): ?int
+   // Si querés, podés agregar la relación inversa OneToMany para facilitar acceso desde Mpa a sus MpaTipoViolencia
+
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: "mpa_tipoViolencia",
+        joinColumns: [new ORM\JoinColumn(name: "mpa_id", referencedColumnName: "id_mpa")],
+        inverseJoinColumns: [new ORM\JoinColumn(name: "nomenclador_id", referencedColumnName: "id_nomenclador")]
+    )]
+    private Collection $tiposViolencias;
+
+    public function __construct()
     {
-        return $this->id_mpa;
+        $this->tiposViolencias = new ArrayCollection();
     }
+    // Getter
+    public function getTiposViolencias(): Collection
+    {
+        return $this->tiposViolencias;
+    }
+
+// Add
+public function addTipoViolencia(Nomenclador $nomenclador): self
+    {
+        if (!$this->tiposViolencias->contains($nomenclador)) {
+            $this->tiposViolencias->add($nomenclador);
+        }
+
+        return $this;
+    }
+
+// Remove
+public function removeTipoViolencia(Nomenclador $nomenclador): self
+    {
+        $this->tiposViolencias->removeElement($nomenclador);
+        return $this;
+    }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+    public function setTiposViolencias(Collection $tiposViolencias): self
+    {
+        $this->tiposViolencias = $tiposViolencias;
+        return $this;
+    }
+
 
     public function getMpa1(): ?string
     {
@@ -244,6 +288,6 @@ class Mpa
 
     public function __toString(): string
 {
-    return (string) $this->id_mpa;
+    return (string) $this->id;
 }
 }

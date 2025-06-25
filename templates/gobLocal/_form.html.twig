@@ -1,0 +1,114 @@
+{% block body %}
+{% if sinCaso %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Swal.fire({
+        icon: "error",
+        title: "Debe seleccionar un caso",
+        text: "Antes de registrar MPA, es necesario elegir un caso.",
+        confirmButtonText: "Ir a casos"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{ path('app_caso_index') }}";
+        }
+      });
+    });
+  </script>
+{% endif %}
+ {% if caso is defined  %}  
+    <section id="formSecretaria" class="container my-5">
+          
+      <div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0">Sección Areas locales</h2>
+
+          <span class="ms-3">
+            Ud. está trabajando con el caso Nro:
+            <span class="badge badge-caso">{{ caso.idCaso }}</span>
+          </span>
+            
+        </div>
+      
+    {{ form_start(form) }}
+
+    <div class="row mb-3">
+        <div class="col-md-6" >
+                <label for="gobloc11" class="form-label" style="text-align: left; width: auto;">¿Existen registros de intervenciones previas realizadas por el equipo local respecto a la víctima en el contexto femicida? </label>
+                <div class="form-check form-switch d-flex justify-content-left">
+                    {{ form_row(form.gobloc11, {'label_attr': {'class': 'form-label'}}) }}
+                </div>
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.gobloc12) }}
+            {{ form_widget(form.gobloc12, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.gobloc12) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+            {{ form_label(form.gobloc13) }}
+            {{ form_widget(form.gobloc13, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.gobloc13) }}
+        </div>
+
+        <div class="col-md-4 mb-3">
+            {{ form_label(form.gobloc14) }}
+            {{ form_widget(form.gobloc14, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.gobloc14) }}
+        </div>
+
+        <div class="col-md-4 mb-3">
+            {{ form_label(form.gobloc15) }}
+            {{ form_widget(form.gobloc15, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.gobloc15) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+        <label for="gobloc16" class="form-label" style="text-align: left; width: auto;">¿Las medidas de proteccion se coordinaron con otras instituciones? </label>
+                <div class="form-check form-switch d-flex justify-content-left">
+                    {{ form_row(form.gobloc16, {'label_attr': {'class': 'form-label'}}) }}
+                </div>
+        </div>
+        <div class="col-md-4">
+            {{ form_label(form.gobloc16a) }}
+            {{ form_widget(form.gobloc16a, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.gobloc16a) }}
+        </div>
+        <div class="col-md-4">
+           <div class="mb-3">
+            {{ form_label(form.gobloc17) }}
+            <div class="form-check">
+                {{ form_widget(form.gobloc17) }}
+            </div>
+        </div>
+    </div>
+  <div class="row mb-4"><div class="col-md-12"></div></div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            {{ form_label(form.gobloc18) }}
+            {{ form_widget(form.gobloc18, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.gobloc18) }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form_label(form.gobloc19) }}
+            {{ form_widget(form.gobloc19, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.gobloc19) }}
+        </div>
+    </div>
+          
+    <br>
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+                </div>
+        </div>
+   
+    {{ form_end(form) }}
+</section>
+{% endif %}
+</div>
+
+{% endblock %}

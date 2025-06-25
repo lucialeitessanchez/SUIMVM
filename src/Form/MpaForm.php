@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Caso;
 use App\Entity\Mpa;
+use App\Entity\Nomenclador;
+use PhpParser\Lexer\TokenEmulator\ReadonlyTokenEmulator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class MpaForm extends AbstractType
 {
@@ -88,14 +91,14 @@ class MpaForm extends AbstractType
                     'Tortura' => 'Tortura',
                     'Existencia de violencia sexual' => 'Existencia de violencia sexual',
                     'Privacion ilegitima de la libertad'=>'Privacion ilegitima de la libertad',
-                    'Violencia en contexto de grupo de hombres' => 'violencia en contexto de grupo de hombres',
-                    'signos de violencia simbolica'=>'signos de violencia simbolica',
-                    'traslado al extranjero o ciudad lejana'=>'traslado al extranjero o ciudad lejana',
-                    'incomunicacion de la victima respecto a su entorno'=>'incomunicacion de la victima respecto a su entorno',
-                    'suministro de estupefacientes'=>'suministro de estupefacientes',
-                    'homicidio sin cuerpo / cuerpo desechado'=>'homicidio sin cuerpo / cuerpo desechado',
-                    'violencia excesiva'=>'violencia excesiva',
-                    'mas de un procedimiento homicida'=>'mas de un procedimiento homicida',
+                    'Violencia en contexto de grupo de hombres' => 'Violencia en contexto de grupo de hombres',
+                    'Signos de violencia simbolica'=>'Signos de violencia simbolica',
+                    'Traslado al extranjero o ciudad lejana'=>'Traslado al extranjero o ciudad lejana',
+                    'Incomunicacion de la victima respecto a su entorno'=>'Incomunicacion de la victima respecto a su entorno',
+                    'Suministro de estupefacientes'=>'Suministro de estupefacientes',
+                    'Homicidio sin cuerpo / cuerpo desechado'=>'Homicidio sin cuerpo / cuerpo desechado',
+                    'Violencia excesiva'=>'Violencia excesiva',
+                    'Mas de un procedimiento homicida'=>'Mas de un procedimiento homicida',
                 ],
                 'required' => true,
             ])
@@ -119,6 +122,12 @@ class MpaForm extends AbstractType
                 'with_seconds' => false, // opcional, si no quieres los segundos
             ])
           //  ->add('mpa_6c')
+            ->add('mpa_6c', TextType::class, [
+                'label' => 'Franja horaria',
+                'required' => false,
+                'attr' => ['readonly' => true],
+                
+            ])
             ->add('mpa_7', ChoiceType::class, [
                 'label' => 'Tipo de lugar',
                 'placeholder' => 'Seleccione...',
@@ -129,7 +138,7 @@ class MpaForm extends AbstractType
                     'Vivienda de la victima'=>'Vivienda de la victima',
                     'Vivienda de la agresor'=>'Vivienda de la agresor',
                     'Otro domicilio particular'=>'Otro domicilio particular',
-                    'Local publico'=>'Local pulico',
+                    'Local publico'=>'Local publico',
                     'Via publica'=>'Via publica',
                     'Local vinculado a economias ilegales o clandestinas'=>'Local vinculado a economias ilegales o clandestinas',
                     'Reparticion estatal'=>'Reparticion estatal',
@@ -212,16 +221,16 @@ class MpaForm extends AbstractType
                     'label' => 'Mecánica del hecho',
                     'placeholder' => 'Seleccione...',
                     'choices' => [
-                       'Arma de fuego' => 'Arma de fuego',
-                        'Arma blanca' => 'Arma blanca',
-                        'Ahorcamiento' =>'Ahorcamiento',
-                        'Asfixia'=>'Asfixia',
-                        'Golpes con objetos'=>'Golpes con objetos',
-                        'Golpes con objetos contundentes'=>'Golpes con objetos contundentes',
-                        'Golpes de puño'=>'Golpes de puño',
-                        'Quemaduras'=>'Quemaduras',
-                        'Otros medios'=>'Otros medios',
-                        'Sin determinar'=>'Sin determinar',
+                       'Arma de fuego' => 'arma de fuego',
+                        'Arma blanca' => 'arma blanca',
+                        'Ahorcamiento' =>'ahorcamiento',
+                        'Asfixia'=>'asfixia',
+                        'Golpes con objetos'=>'golpes con objetos',
+                        'Golpes con objetos contundentes'=>'golpes con objetos contundentes',
+                        'Golpes de puño'=>'golpes de puño',
+                        'Quemaduras'=>'quemaduras',
+                        'Otros medios'=>'otros medios',
+                        'Sin determinar'=>'sin determinar',
                         ],
                     'required' => true,
                 ])                
@@ -235,10 +244,16 @@ class MpaForm extends AbstractType
                         'Violencia en contexto de grupo de hombres'=>'Violencia en contexto de grupo de hombres',
                         'Signos de violencia simbolica'=>'Signos de violencia simbolica',
                         'Traslado al extranjero o a ciudad lejana'=>'Traslado al extranjero o a ciudad lejana',
-                        'Incomunicacion de la victima '=>'Incomunicacion de la victima ',
+                        'Incomunicacion de la victima'=>'Incomunicacion de la victima',
+                        'Suministro de estupefacientes'=>'Suministro de estupefacientes',
+                        'Homicidios sin cuerpo'=>'Homicidios sin cuerpo',
+                        'Cuerpo desechado'=>'Cuerpo desechado',
+                        'Violencia excesiva'=>'Violencia excesiva',
+                        'Más de un procedemiento homicida'=>'Más de un procedemiento homicida'
                        ],
                     'required' => true,
                   ])  
+                 
                 ->add('mpa_13a', TextareaType::class, [
                     'label' => 'Que tipo de violencia excesiva',
                     'required'=>false,
@@ -254,15 +269,31 @@ class MpaForm extends AbstractType
                         'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                         'label_attr' => ['class' => 'form-check-label'],
                      ])
-            ->add('caso', EntityType::class, [
-                'class' => Caso::class,
-                'choice_label' => 'id_caso',
-                'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
-                'row_attr' => [
-                    'style' => 'display:none;', // Oculta también el label y errores
-                ]
-            ])
-        ;
+
+                ->add('tiposViolencias', EntityType::class, [
+                        'class' => Nomenclador::class,
+                        'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
+                        'multiple' => true,
+                        //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
+                        'required' => false,
+                        'by_reference' => false,
+                        'label' => 'Tipos de violencia',
+                        'query_builder' => function ($repo) {
+                            return $repo->createQueryBuilder('n')
+                                ->where('n.nomenclador = :clave')
+                                ->setParameter('clave', 'TIPO_VIOLENCIA')
+                                ->orderBy('n.valor_nomenclador', 'ASC');
+                        },
+                        ])     
+                ->add('caso', EntityType::class, [
+                    'class' => Caso::class,
+                    'choice_label' => 'id_caso',
+                    'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
+                    'row_attr' => [
+                        'style' => 'display:none;', // Oculta también el label y errores
+                    ]
+                ])
+                ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

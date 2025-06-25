@@ -1,12 +1,15 @@
-{% extends 'base.html.twig' %}
-{% block title %}Nuevo CASO{% endblock %}
+{{ form_start(form) }}
+<section class="container my-3">
+<div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0">Identificación de la víctima</h2>
 
-{% block body %}
-<section class="container my-5">
-    <h2 class="text-left mb-4">Identificación de la víctima</h2>
-    <hr>
-       
-    {{ form_start(form) }}
+          <span class="ms-3">
+            Ud. está trabajando con el caso Nro:
+            <span class="badge badge-caso">{{ caso.idCaso }}</span>
+          </span>
+            
+        </div>
+        <hr>
     <div class="row mb-3">
                 <!-- Fecha de carga -->
                 <div class="col-md-4">
@@ -30,21 +33,22 @@
     <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre de la víctima" required>
+                    <input type="text" class="form-control" name="nombre" id="nombre" value = "{{datosPersona.nombre}}" placeholder="Nombre de la víctima" required disabled>
                 </div>
                 <div class="col-md-4">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido de la víctima" required>
+                        <input type="text" class="form-control" name="apellido" id="apellido" value = "{{datosPersona.apellido}}" placeholder="Apellido de la víctima" required disabled>
                 </div>
                 <div class="col-md-2">
                     <label for="dni" class="form-label">DNI</label>
-                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" placeholder="Número de DNI" required>
+                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" value = "{{datosPersona.nrodoc}}" placeholder="Número de DNI" required disabled>
                 </div>
               
                 <div class="col-md-2">
                      <label class="form-label" for="nacionalidad">Nacionalidad</label>
-                    <select class="form-select" id="nacionalidad" name="nacionalidad" required>
-                            <option selected disabled>Seleccione...</option>
+                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}" required disabled>
+                          <option disabled {% if not datosPersona.nacionalidad %}selected{% endif %}>Seleccione...</option>
+                          
                     </select>
                 </div>
     </div>
@@ -52,24 +56,24 @@
                 <!-- Sexo asignado en el DNI -->
                 <div class="col-md-4">
                     <label class="form-label">Sexo asignado en el DNI</label>
-                    <select class="form-select" id="sexo" name="sexo" required>
-                        <option selected disabled>Seleccione...</option>
-                        <option value="F">Femenino</option>
-                        <option value="M">Masculino</option>
-                        <option value="No binario">No binario</option>
+                    <select class="form-select" id="sexo" name="sexo" required disabled>
+                        <option disabled {% if datosPersona.sexo is empty %}selected{% endif %}>Seleccione...</option>
+                        <option value="Femenino" {% if datosPersona.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
+                        <option value="Masculino" {% if datosPersona.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+                        <option value="No binario" {% if datosPersona.sexo == 'No binario' %}selected{% endif %}>No binario</option>
                     </select>
                 </div>
     
                 <!-- Género autopercibido de la víctima -->
                 <div class="col-md-4">
                     <label for="generoAutop" class="form-label">Género autopercibido de la víctima</label>
-                    <select class="form-select" id="generoAutop" name="generoAutop" required>
-                        <option selected disabled>Seleccione...</option>
-                        <option value="Mujer cis">Mujer cis</option>
-                        <option value="Mujer trans">Mujer trans</option>
-                        <option value="Varon trans">Varon trans</option>
-                        <option value="No binario">No binario</option>
-                        <option value="No especificado">No especificado</option>
+                    <select class="form-select" id="generoAutop" name="generoAutop" required disabled>
+                        <option disabled {% if datosPersona.genero is empty %}selected{% endif %}>Seleccione...</option>
+                        <option value="Mujer cis" {% if datosPersona.genero == 'Mujer cis' %}selected{% endif %}>Mujer cis</option>
+                        <option value="Mujer trans" {% if datosPersona.genero == 'Mujer trans' %}selected{% endif %}>Mujer trans</option>
+                        <option value="Varon trans" {% if datosPersona.genero == 'Varon trans' %}selected{% endif %}>Varon trans</option>
+                        <option value="No binario" {% if datosPersona.genero == 'No binario' %}selected{% endif %}>No binario</option>     
+                        <option value="No especificado" {% if datosPersona.genero == 'No especificado' %}selected{% endif %}>No especificado</option>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -130,35 +134,32 @@
                 <!-- Departamento -->
                     <div class="col-md-4">
                         <label for="departamento" class="form-label">Departamento</label>
-                        <input type="text" class="form-control" id="departamento" readonly="true">
+                        <input type="text" class="form-control" id="departamento" readonly="true" disabled>
                     </div>
                 
                     <!-- Microregión -->
                     <div class="col-md-4">
                         <label for="microregion" class="form-label">Microregión</label>
-                        <input type="text" class="form-control" id="microregion" readonly>
+                        <input type="text" class="form-control" id="microregion" readonly disabled>
                     </div>
      </div>
-     
-     <!-- Botón de envío -->
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary">Crear</button>
-            </div>
+     <br>
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+                </div>
+        </div>
+
         {{ form_widget(form) }}
-    {{ form_end(form) }}
+   {{ form_end(form) }}
 
 </section>
 
-{% endblock %} 
-{% block javascripts %}
 
-    {{ parent() }}
-        <script src="{{ asset('js/franjaEtaria.js') }}"></script>
-        <script src="{{ asset('js/nacionalidad.js') }}"></script>
-        <script>
-    window.localidadInfoTemplate = '{{ path('localidad_info', { id: 'PLACEHOLDER' }) }}';
-    window.verificarDniUrlTemplate = "{{ path('persona_verificar_dni', { nrodoc: 'PLACEHOLDER' }) }}";
-</script>
-          <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
-          <script src="{{ asset('js/persona.js') }}"></script>
-{% endblock %}
+ 
+
+
+
+

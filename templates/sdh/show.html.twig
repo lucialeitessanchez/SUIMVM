@@ -1,26 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %}Registro SDH{% endblock %}
+{% block title %}Vista de datos - SDH{% endblock %}
 
 {% block body %}
 
-            {% if sinCaso %}
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                Swal.fire({
-                    icon: "error",
-                    title: "Debe seleccionar un caso",
-                    text: "Antes de registrar MPA, es necesario elegir un caso.",
-                    confirmButtonText: "Ir a casos"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                    window.location.href = "{{ path('app_caso_index') }}";
-                    }
-                });
-                });
-            </script>
-            {% endif %}
-         {% if caso is defined  %}  
-        <section id="formSecretaria" class="container my-5">
+        {% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
+   
+        <section id="formSecretaria" class="container my-3">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                 <h2 class="mb-0">Sección Secretaría de Derechos Humanos</h2>
 
@@ -254,20 +239,14 @@
   
         {{ form_widget(form) }}
 
-       <div class="col-md-12 d-flex justify-content-end">
-            <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
-            <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
-            &nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
-            </div>
-        </div>
+       
     {{ form_end(form) }}
      </section>
-      {% endif %}
+    
 {% endblock %}
 {% block javascripts %}
 
     {{ parent() }}
-        <script src="{{ asset('js/sdh.js') }}"></script>
+        
         <script src="{{ asset('js/rango.js') }}"></script>
 {% endblock %}

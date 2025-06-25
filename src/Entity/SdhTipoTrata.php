@@ -5,20 +5,21 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(name: "sdh_tipoTrata")]
+#[ORM\Entity()]
+#[ORM\Table(name: "sdh_tipoTrata")]
 class SdhTipoTrata
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $idsdh_tipoTrata = null;
-
+       
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'nomenclador_id_nomenclador', referencedColumnName: 'id_nomenclador', nullable: false)]
     private ?Nomenclador $nomenclador = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'sdh_id_sdh ', referencedColumnName: 'id_sdh', nullable: false)]
     private ?Sdh $sdh = null;
 
     public function getIdsdhTipoTrata(): ?int
