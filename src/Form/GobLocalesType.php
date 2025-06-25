@@ -52,28 +52,35 @@ class GobLocalesType extends AbstractType
                 'placeholder' => 'Seleccione...',
                 'required' => false,
             ])
-            ->add('gobloc14', ChoiceType::class, [
-                'label' => 'Tipo de apoyo brindado',
+            ->add('gobloc14', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
                 'multiple' => true,
-                'choices' => [
-                    'Pedido de alojamiento en casa de protección' => 'Pedido de alojamiento en casa de protección',
-                    "Derivacion a otros organismos"=>"Derivacion a otros organismos",
-                    "Asesoria legal"=>"Asesoria legal",
-                    "Acompañamiento economico-social"=>"Acompañamiento economico-social"
-                    // Agregá más si hay
-                ],
-                'placeholder' => 'Seleccione...',
+                //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
                 'required' => false,
+                'by_reference' => false,
+                'label' => 'TIPO APOYO',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'TIPO_APOYO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
             ])
-            ->add('gobloc15', ChoiceType::class, [
-                'label' => 'Medidas de protecion implementadas por el equipo local',
-                'choices' => [
-                    'Botón de emergencia' => 'Botón de emergencia',
-                    'Prohibición de acercamiento' => 'Prohibición de acercamiento',
-                    'Exorto de exclusion del hogar'=>'Exorto de exclusion del hogar'
-                ],
-                'placeholder' => 'Seleccione...',
+             ->add('gobloc15', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
+                'multiple' => true,
+                //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
                 'required' => false,
+                'by_reference' => false,
+                'label' => 'Medidas de proteccion implementadas por el equipo local',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'MEDIDA_PROTECCION')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
             ])
             ->add('gobloc16', CheckboxType::class, [
                 'label' => 'No / Sí',
@@ -81,18 +88,20 @@ class GobLocalesType extends AbstractType
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])
-            ->add('gobloc16a', ChoiceType::class, [
-                'label' => 'Instituciones con las que coordino el equipo la implementacion de las medidas',
-                'multiple'=>true,
-                'choices' => [
-                    'MPA' => 'MPA',
-                    'Emergencia 911' => 'Emergencia 911',
-                    'Juzgado de familia' => 'Juzgado de familia',
-                    'CAJ'=>'CAJ',
-                    // Más opciones si tenés
-                ],
-                'placeholder' => 'Seleccione...',
+            ->add('gobloc16a', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
+                'multiple' => true,
+                //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
                 'required' => false,
+                'by_reference' => false,
+                'label' => 'Instituciones con las que coordino el equipo local la implementacion de las medidas de proteccion de la victima en el contexto femicida ',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'GOBLOC_1_6a')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
             ])
            
             ->add('gobloc17', ChoiceType::class, [
@@ -109,29 +118,35 @@ class GobLocalesType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => 'form-check'], // se puede personalizar más en el Twig
             ])
-            ->add('gobloc18', ChoiceType::class, [
-                'label' => 'Medidas de atencion integral gestionadas por el equipo local',
-                'choices' => [
-                    'Atención psicológica' => 'Atención psicológica',
-                    'Subsidio económico' => 'Subsidio económico',
-                    'Asesoramiento legal'=>'Asesoramiento legal',
-                    'Acompañamiento social'=>'Acompañamiento social',
-                    // Más si hay
-                ],
-                'placeholder' => 'Seleccione...',
+            ->add('gobloc18', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
+                'multiple' => true,
+                //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
                 'required' => false,
+                'by_reference' => false,
+                'label' => 'Medidas de atencion integral gestionadas por el equipo local respecto a la victima en contexto femicida',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'MEDIDA_INTEGRAL')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
             ])
-            ->add('gobloc19', ChoiceType::class, [
-                'label' => 'Instituciones participes en la implementacion',
-                'choices' => [
-                    'Secretaría DDHH' => 'Secretaría DDHH',
-                    'Centros territoriales de denuncia' => 'Centros territoriales de denuncia',
-                    'Efectores de salud'=>'Efectores de salud',
-                    'Comisaria de la mujer'=>'Comisaria de la mujer'
-                    // Más si hay
-                ],
-                'placeholder' => 'Seleccione...',
+           ->add('gobloc19', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
+                'multiple' => true,
+                //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
                 'required' => false,
+                'by_reference' => false,
+                'label' => 'Medidas de atencion integral gestionadas por el equipo local respecto a la victima en contexto femicida',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'GOBLOC_19')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
             ])
          
             ->add('caso', EntityType::class, [

@@ -92,13 +92,15 @@ class CajController extends AbstractController
                     'caj' => $tabsData['caj'],
                     'sdh' => $tabsData['sdh'],
                     'mpa' => $tabsData['mpa'],
+                     'gl' => $tabsData['gl'],
                     'pestaña_activa' => 'caj',
                 ]);
             }
 
             #[Route('/{idCaso}/edit', name: 'app_caj_edit', methods: ['GET', 'POST'])]
             public function edit(Request $request, int $idCaso,
-            CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
+            CasoRepository $casoRepository, CajRepository $cajRepository,
+            CasoTabsDataProvider $tabsProvider,
             EntityManagerInterface $entityManager): Response
             {
 
@@ -110,7 +112,6 @@ class CajController extends AbstractController
 
                 //busco si hay datos asociados para mostrar la pestaña desde el servicio
                 $tabsData = $tabsProvider->getData($caso);
-
                 $caj = $entityManager->getRepository(Caj::class)->findOneBy(['caso' => $caso]);
                 if (!$caj) {
                     throw $this->createNotFoundException('No hay datos de CAJ para este caso');
@@ -131,6 +132,7 @@ class CajController extends AbstractController
                 $parametros['caso'] = $caso;
                 $parametros['caj'] = $caj;
                 $parametros['sdh'] = $tabsData['sdh'];
+                $parametros['gl'] = $tabsData['gl'];  
                 $parametros['pestaña_activa'] = 'caj';
 
                 return $this->render('caj/edit.html.twig', $parametros);

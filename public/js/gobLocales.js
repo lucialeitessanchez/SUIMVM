@@ -1,25 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const element = document.getElementById('gob_locales_gobloc14');
-    const element2 = document.getElementById('gob_locales_gobloc12');
-
-    const choices = new Choices(element, {
-      removeItemButton: true,
-      placeholderValue: 'Seleccione',
-      searchEnabled: true,
-      shouldSort: false,
-      itemSelectText: '',
-      renderSelectedChoices: 'always',
-      removeItems: true,
-      duplicateItemsAllowed: false,
-  });
-  const choices2 = new Choices(element2, {
-    removeItemButton: true,
-    placeholderValue: 'Seleccione',
-    searchEnabled: true,
-    shouldSort: false,
-    itemSelectText: '',
-    renderSelectedChoices: 'always',
-    removeItems: true,
-    duplicateItemsAllowed: false,
+    ['gob_locales_gobloc12','gob_locales_gobloc14', 'gob_locales_gobloc15', 'gob_locales_gobloc16a',
+      'gob_locales_gobloc15','gob_locales_gobloc18','gob_locales_gobloc19'].forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+        new Choices(element, {
+            removeItemButton: true,
+            placeholderValue: 'Seleccione',
+            searchEnabled: true,
+            shouldSort: false,
+            itemSelectText: '',
+            renderSelectedChoices: 'always',
+            removeItems: true,
+            duplicateItemsAllowed: false,
+        });
+    }
 });
+   
 })

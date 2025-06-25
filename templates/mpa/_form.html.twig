@@ -238,20 +238,13 @@
                                                   {{ form_row(form.mpa_15, {'label_attr': {'class': 'form-label'}}) }}
                                               </div>
                                         </div>
-                                        <div class="col md-2">
-                                              <label class="form-label" for="mpa_15a_input">Tipo de violencia</label>
-                                               <div class="input-group">
-                                                  <input type="text" class="form-control" id="mpa_15a_input" placeholder="Ej: Física">
-                                                  <button type="button" id="add_violencia_btn" class="btn btn-success" title="Agregar tipo de violencia">
-                                                                    <i class="bi bi-plus-circle"></i>
-                                                  </button>
-                                               </div>
-                                        </div>
-                                        <div class="col md-2">
-                                       <div id="mpa_15a_badges" class="d-flex flex-wrap gap-2 mt-2"></div>
+                                        <div class="col md-6">
+                                              {{ form_label(form.tiposViolencias,null, {'label_attr': {'class': 'form-label'}}) }}
+                                              {{ form_errors(form.tiposViolencias) }}
+                                              {{ form_widget(form.tiposViolencias, {'attr': {'class': 'form-select'}}) }}
                                         </div>
 
-                                        <input type="hidden" name="tiposViolencia" id="tiposViolencia">
+                                        
                                 </div>
                           </div> {#body#}
                     </div> {#collapse#}

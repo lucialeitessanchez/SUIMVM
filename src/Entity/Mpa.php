@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Caso;
+use App\Entity\Nomenclador;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Dom\Text;
@@ -126,23 +127,50 @@ class Mpa
 
    // Si querés, podés agregar la relación inversa OneToMany para facilitar acceso desde Mpa a sus MpaTipoViolencia
 
-    #[ORM\OneToMany(mappedBy: 'mpa', targetEntity: MpaTipoViolencia::class)]
-    private Collection $tiposViolencia;
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: "mpa_tipoViolencia",
+        joinColumns: [new ORM\JoinColumn(name: "mpa_id", referencedColumnName: "id_mpa")],
+        inverseJoinColumns: [new ORM\JoinColumn(name: "nomenclador_id", referencedColumnName: "id_nomenclador")]
+    )]
+    private Collection $tiposViolencias;
 
     public function __construct()
     {
-        $this->tiposViolencia = new ArrayCollection();
+        $this->tiposViolencias = new ArrayCollection();
+    }
+    // Getter
+    public function getTiposViolencias(): Collection
+    {
+        return $this->tiposViolencias;
     }
 
+// Add
+public function addTipoViolencia(Nomenclador $nomenclador): self
+    {
+        if (!$this->tiposViolencias->contains($nomenclador)) {
+            $this->tiposViolencias->add($nomenclador);
+        }
+
+        return $this;
+    }
+
+// Remove
+public function removeTipoViolencia(Nomenclador $nomenclador): self
+    {
+        $this->tiposViolencias->removeElement($nomenclador);
+        return $this;
+    }
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function getTiposViolencia(): Collection
+    public function setTiposViolencias(Collection $tiposViolencias): self
     {
-        return $this->tiposViolencia;
-    }   
+        $this->tiposViolencias = $tiposViolencias;
+        return $this;
+    }
+
 
     public function getMpa1(): ?string
     {

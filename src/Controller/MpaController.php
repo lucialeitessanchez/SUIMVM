@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Caso;
 use App\Entity\Mpa;
 use App\Entity\MpaTipoViolencia;
+
 use App\Repository\MpaRepository;
 use App\Repository\CasoRepository;
 use App\Form\MpaForm;
@@ -55,6 +56,8 @@ final class MpaController extends AbstractController
         }
 
         $mpa = new Mpa();
+         // Agregamos al menos un campo vacío
+        
         $form = $this->createForm(MpaForm::class, $mpa);
         $form->handleRequest($request);
 
@@ -123,6 +126,7 @@ final class MpaController extends AbstractController
             'caj' => $tabsData['caj'],
             'sdh' => $tabsData['sdh'],
             'mpa' => $tabsData['mpa'],
+            'gl' => $tabsData['gl'],
             'pestaña_activa'=>'mpa',
         ]);
       
@@ -163,6 +167,7 @@ final class MpaController extends AbstractController
         $parametros['caso'] = $caso;
         $parametros['caj'] = $tabsData['caj'];
         $parametros['sdh'] = $tabsData['sdh'];
+        $parametros['gl'] = $tabsData['gl'];  
         $parametros['pestaña_activa'] = 'mpa';
 
         return $this->render('mpa/edit.html.twig', $parametros);

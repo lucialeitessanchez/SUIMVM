@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Service\CasoTabsDataProvider;
 
 #[Route('/gob_locales')]
 class GobLocalesController extends AbstractController
@@ -22,6 +23,7 @@ class GobLocalesController extends AbstractController
         int $idCaso,
         GobLocalesRepository $gobLocalesRepository,
         CasoRepository $casoRepository,
+        CasoTabsDataProvider $tabsProvider,
         EntityManagerInterface $entityManager,SessionInterface $session
     ): Response {
 
@@ -41,7 +43,7 @@ class GobLocalesController extends AbstractController
                 $sinCaso = true;
             }
         }
-
+        $tabsData = $tabsProvider->getData($caso);
         $gobLocales = $gobLocalesRepository->findOneBy(['idCaso' => $idCaso]);
 
         if (!$gobLocales) {
@@ -53,9 +55,18 @@ class GobLocalesController extends AbstractController
             'disabled' => true,
         ]);
 
-        return $this->render('gob_locales/form.html.twig', [
+        return $this->render('gobLocal/_form.html.twig', [
             'form' => $form->createView(),
             'caso' => $caso,
+        ]);
+         return $this->render('gob_locales/show.html.twig', [
+            'form' =>$form,
+            'caso' => $caso,
+            'caj' => $tabsData['caj'],
+            'sdh' => $tabsData['sdh'],
+            'mpa' => $tabsData['mpa'],
+            'gl' => $gl,        
+            'pestaña_activa'=>'gl',
         ]);
     }
 
@@ -65,14 +76,15 @@ class GobLocalesController extends AbstractController
         Request $request,
         GobLocalesRepository $gobLocalesRepository,
         CasoRepository $casoRepository,
+        CasoTabsDataProvider $tabsProvider,
         EntityManagerInterface $em
     ): Response {
         $caso = $casoRepository->find($idCaso);
         if (!$caso) {
             throw $this->createNotFoundException('Caso no encontrado');
         }
-
-        $gobLocales = $gobLocalesRepository->findOneBy(['idCaso' => $idCaso]);
+        $tabsData = $tabsProvider->getData($caso);
+        $gobLocales = $em->getRepository(GobLocales::class)->findOneBy(['caso' => $caso]);
 
         if (!$gobLocales) {
             return $this->redirectToRoute('gob_locales_new', ['idCaso' => $idCaso]);
@@ -86,11 +98,16 @@ class GobLocalesController extends AbstractController
             $this->addFlash('success', 'Datos actualizados correctamente.');
             return $this->redirectToRoute('gob_locales_show', ['idCaso' => $idCaso]);
         }
+        
+            $parametros['form'] = $form->createView();
+            $parametros['mpa'] = $tabsData['mpa'];
+            $parametros['caso'] = $caso;
+            $parametros['caj'] = $tabsData['caj'];
+            $parametros['sdh'] = $tabsData['sdh'];
+            $parametros['gl'] = $gobLocales;           
+            $parametros['pestaña_activa'] = 'gl';
 
-        return $this->render('gob_locales/form.html.twig', [
-            'form' => $form->createView(),
-            'caso' => $caso,
-        ]);
+        return $this->render('gobLocal/edit.html.twig', $parametros);
     }
 
     #[Route('/new', name: 'gob_locales_new', methods: ['GET', 'POST'])]
@@ -118,7 +135,7 @@ class GobLocalesController extends AbstractController
         }
 
         $gobLocales = new GobLocales();
-       // $gobLocales->setCaso($idCaso);
+       
         $gobLocales->setFechaCarga(new \DateTimeImmutable());
         $gobLocales->setUsuarioCarga($this->getUser()?->getUserIdentifier() ?? 'sistema');
 

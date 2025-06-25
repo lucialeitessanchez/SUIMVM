@@ -92,7 +92,7 @@ class Caj
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
-    private ?Caso $caso;
+    private Caso $caso;
 
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]

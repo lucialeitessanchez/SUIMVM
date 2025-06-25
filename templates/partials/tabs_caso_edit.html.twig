@@ -33,7 +33,7 @@
      {% else %}
           <a href="{{ path('sdh_new', { idCaso: caso.idCaso }) }}"
             class="circle-tab position-relative {% if pestaña_activa == 'sdh' %}active{% endif %}"
-            title="CAJ">
+            title="SDH">
               <span class="circle-letter"><h5>SDH</h5></span>
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
@@ -48,12 +48,26 @@
      {% else %}
           <a href="{{ path('app_mpa_new', { idCaso: caso.idCaso }) }}"
             class="circle-tab position-relative {% if pestaña_activa == 'mpa' %}active{% endif %}"
-            title="CAJ">
+            title="MPA">
               <span class="circle-letter"><h5>MPA</h5></span>
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
     {% endif %}
-
+    {% if gl is not empty %}
+          <a href="{{ path('gob_locales_edit', { idCaso: caso.idCaso }) }}"
+            class="circle-tab {% if pestaña_activa == 'gl' %}active{% endif %}"
+            title="AREAS LOCALES">
+            <i class="bi bi-folder2-open"></i>
+          </a>
+        
+     {% else %}
+          <a href="{{ path('gob_locales_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'gl' %}active{% endif %}"
+            title="AREAS LOCALES">
+              <span class="circle-letter"><h5>AL</h5></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
+    {% endif %}
   </div>
 
 

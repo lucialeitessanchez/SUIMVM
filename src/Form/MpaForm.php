@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Caso;
 use App\Entity\Mpa;
+use App\Entity\Nomenclador;
 use PhpParser\Lexer\TokenEmulator\ReadonlyTokenEmulator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class MpaForm extends AbstractType
 {
@@ -267,15 +269,31 @@ class MpaForm extends AbstractType
                         'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                         'label_attr' => ['class' => 'form-check-label'],
                      ])
-            ->add('caso', EntityType::class, [
-                'class' => Caso::class,
-                'choice_label' => 'id_caso',
-                'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
-                'row_attr' => [
-                    'style' => 'display:none;', // Oculta también el label y errores
-                ]
-            ])
-        ;
+
+                ->add('tiposViolencias', EntityType::class, [
+                        'class' => Nomenclador::class,
+                        'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
+                        'multiple' => true,
+                        //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
+                        'required' => false,
+                        'by_reference' => false,
+                        'label' => 'Tipos de violencia',
+                        'query_builder' => function ($repo) {
+                            return $repo->createQueryBuilder('n')
+                                ->where('n.nomenclador = :clave')
+                                ->setParameter('clave', 'TIPO_VIOLENCIA')
+                                ->orderBy('n.valor_nomenclador', 'ASC');
+                        },
+                        ])     
+                ->add('caso', EntityType::class, [
+                    'class' => Caso::class,
+                    'choice_label' => 'id_caso',
+                    'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
+                    'row_attr' => [
+                        'style' => 'display:none;', // Oculta también el label y errores
+                    ]
+                ])
+                ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
