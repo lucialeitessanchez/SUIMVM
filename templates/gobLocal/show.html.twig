@@ -5,7 +5,7 @@
 {% block body %}
 {% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
 
-    {{ include('gobLocal/_form.html.twig', {'button_label': 'Actualizar'}) }}
+    {{ include('gobLocal/_form.html.twig', {'modo': 'show'}) }}
    
 {% endblock %}
 {% block javascripts %}

@@ -30,10 +30,11 @@
     </div>
     <div class="row mb-3">
         <div class="col-md-4 mb-3">
-            {{ form_label(form.gobloc13) }}
-            {{ form_widget(form.gobloc13, {'attr': {'class': 'form-select'}}) }}
-            {{ form_errors(form.gobloc13) }}
-        </div>
+             {{ form_label(form.gobloc13) }}
+             {{ form_widget(form.gobloc13) }}
+             <span class="etiqueta-rango text-muted mt-2 fw-bold">Seleccione una opción</span>
+                   
+      </div>
 
         <div class="col-md-4 mb-3">
             {{ form_label(form.gobloc14) }}
@@ -83,6 +84,7 @@
     </div>
           
     <br>
+     {% if modo != 'show' %}
         <div class="col-md-12 d-flex justify-content-end">
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
                 <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
@@ -90,7 +92,7 @@
                 <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
                 </div>
         </div>
-   
+   {% endif %}
     {{ form_end(form) }}
 </section>
 {% endif %}

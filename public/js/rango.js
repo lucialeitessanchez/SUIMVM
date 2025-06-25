@@ -1,30 +1,38 @@
 document.addEventListener('DOMContentLoaded', function () {
- // Rango
- const slider = document.querySelector('input[type="range"][name$="[sdh_5_2a]"]');
- const etiquetaEl = document.getElementById('etiqueta-rango');
+    const etiquetasPorCampo = {
+        'sdh_5_2a': {
+            etiquetas: ['No', 'Parcialmente', 'Sí'],
+            clases: ['range-no', 'range-parcial', 'range-si']
+        },
+        'gobloc13': {
+            etiquetas: ['Bajo', 'Medio', 'Alto', 'Crítico'],
+            clases: ['range-bajo', 'range-medio', 'range-alto', 'range-critico']
+        }
+    };
 
- const etiquetas = ['No', 'Parcialmente', 'Sí'];
- const clases = ['range-no', 'range-parcial', 'range-si'];
+    Object.entries(etiquetasPorCampo).forEach(([campo, config]) => {
+        const sliders = document.querySelectorAll(`input[type="range"][name$="[${campo}]"]`);
+        
+        sliders.forEach(slider => {
+            const wrapper = slider.closest('.rango-wrapper');
+            const etiquetaEl = wrapper ? wrapper.querySelector('.etiqueta-rango') : null;
 
- function actualizarRango(valor) {
-     if (etiquetaEl) {
-         etiquetaEl.innerText = etiquetas[valor] || 'Seleccione una opción';
-     }
+            function actualizarRango(valor) {
+                if (etiquetaEl) {
+                    etiquetaEl.innerText = config.etiquetas[valor] || 'Seleccione una opción';
+                }
 
-     // Quitar clases anteriores
-     slider.classList.remove(...clases);
+                slider.classList.remove(...config.clases);
+                const clase = config.clases[valor];
+                if (clase) {
+                    slider.classList.add(clase);
+                }
+            }
 
-     // Agregar la clase correspondiente
-     const clase = clases[valor];
-     if (clase) {
-         slider.classList.add(clase);
-     }
- }
-
- if (slider) {
-     actualizarRango(slider.value); // inicial
-     slider.addEventListener('input', function () {
-         actualizarRango(this.value);
-     });
- }
-})
+            actualizarRango(slider.value);
+            slider.addEventListener('input', function () {
+                actualizarRango(this.value);
+            });
+        });
+    });
+});

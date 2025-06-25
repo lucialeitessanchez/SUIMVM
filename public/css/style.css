@@ -149,11 +149,24 @@ table tbody tr:hover {
 /* Estado 2: Sí */
 .range-si::-webkit-slider-thumb,
 .range-si::-moz-range-thumb {
-  background-color: #28a745; /* verde */
+  background-color: #81f09b; /* verde */
 }
 .range-si::-webkit-slider-runnable-track,
 .range-si::-moz-range-track {
   background-color: #d4edda;
+}
+
+.range-bajo {
+    accent-color: green;
+}
+.range-medio {
+    accent-color: orange;
+}
+.range-alto {
+    accent-color: darkorange;
+}
+.range-critico {
+    accent-color: red;
 }
 
   /* Fondo blanco por defecto */

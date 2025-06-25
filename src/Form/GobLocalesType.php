@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
 class GobLocalesType extends AbstractType
 {
@@ -41,15 +42,16 @@ class GobLocalesType extends AbstractType
                 },
             ])
             
-            ->add('gobloc13', ChoiceType::class, [
-                'label' => 'Nivel de riesgo determinado por el equipo',
-                'choices' => [
-                    'Bajo' => 'Bajo',
-                    'Medio' => 'Medio',
-                    'Alto' => 'Alto',
-                    'Crítico' => 'Crítico',
+     
+            ->add('gobloc13', RangeType::class, [
+                'label' =>'Nivel de riesgo determinado por el equipo',
+                'attr' => [
+                    'min' => 0,
+                    'max' => 3,
+                    'step' => 1,
+                    'class' => 'form-range', // Bootstrap 5
+                  
                 ],
-                'placeholder' => 'Seleccione...',
                 'required' => false,
             ])
             ->add('gobloc14', EntityType::class, [

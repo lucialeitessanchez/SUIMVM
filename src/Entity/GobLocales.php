@@ -25,8 +25,8 @@ class GobLocales
     )]
     private Collection $gobloc12;
 
-    #[ORM\Column(name: 'gobloc_1_3', type: 'string', nullable: true)]
-    private ?string $gobloc13 = null;
+    #[ORM\Column(name: 'gobloc_1_3', type: 'integer', nullable: true)]
+    private ?int $gobloc13 = null;
 
    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
     #[ORM\JoinTable(
