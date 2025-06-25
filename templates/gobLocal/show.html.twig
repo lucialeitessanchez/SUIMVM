@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vista de datos - AL{% endblock %}
+
+{% block body %}
+{% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
+
+    {{ include('gobLocal/_form.html.twig', {'button_label': 'Actualizar'}) }}
+   
+{% endblock %}
+{% block javascripts %}
+
+      {{ parent() }}
+        <script src="{{ asset('js/gobLocales.js') }}"></script>    
+{% endblock %}

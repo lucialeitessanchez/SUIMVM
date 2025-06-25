@@ -3,7 +3,7 @@
 {% block title %}MPA - Editando datos{% endblock %}
 
 {% block body %}
-{% include 'partials/tabs_caso_edit.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
+{% include 'partials/tabs_caso_edit.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'gl':gl } %}    
     
 
     {{ include('mpa/_form.html.twig', {'button_label': 'Actualizar'}) }}

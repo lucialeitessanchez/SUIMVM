@@ -57,7 +57,7 @@ class GobLocalesController extends AbstractController
         ]);
 
     
-         return $this->render('gob_locales/show.html.twig', [
+         return $this->render('gobLocal/show.html.twig', [
             'form' =>$form,
             'caso' => $caso,
             'caj' => $tabsData['caj'],
@@ -94,8 +94,8 @@ class GobLocalesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            $this->addFlash('success', 'Datos actualizados correctamente.');
-            return $this->redirectToRoute('gob_locales_show', ['idCaso' => $idCaso]);
+            $this->addFlash('success_js', 'Seccion AL guardada correctamente');   
+            return $this->redirectToRoute('app_caso_index');
         }
         
             $parametros['form'] = $form->createView();
