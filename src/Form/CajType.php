@@ -208,16 +208,7 @@ class CajType extends AbstractType
             ->add('caj_4c', TextareaType::class, [
                 'label' => 'Observaciones y recomendaciones para mejorar futuras intervenciones',
                 'required'=> false,
-                 ])
-                 ->add('caso', EntityType::class, [
-                    'class' => Caso::class,
-                    'choice_label' => 'id_caso',
-                    'mapped' => false, // 🔧 Esto es clave
-                    'attr'=>[ 'style' => 'display:none;'],
-                    'row_attr' => [
-                        'style' => 'display:none;',
-                    ]
-                ]);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
