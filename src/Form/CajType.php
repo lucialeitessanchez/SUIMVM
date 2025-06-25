@@ -209,14 +209,15 @@ class CajType extends AbstractType
                 'label' => 'Observaciones y recomendaciones para mejorar futuras intervenciones',
                 'required'=> false,
                  ])
-            ->add('caso', EntityType::class, [
+                 ->add('caso', EntityType::class, [
                     'class' => Caso::class,
                     'choice_label' => 'id_caso',
-                    'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
+                    'mapped' => false, // 🔧 Esto es clave
+                    'attr'=>[ 'style' => 'display:none;'],
                     'row_attr' => [
-                        'style' => 'display:none;', // Oculta también el label y errores
+                        'style' => 'display:none;',
                     ]
-                    ]);
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
