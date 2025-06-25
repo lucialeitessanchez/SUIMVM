@@ -64,14 +64,14 @@
             </ul>
 
             <div class="ms-auto d-flex align-items-center text-white">
-                {% if app.user %}
+            {% if app.user %}
                 {{ app.user.getId() }} - 
-                    <i class="bi bi-person-circle me-2"> </i>
+                <i class="bi bi-person-circle me-2"></i>
                     <a href="#" class="btn btn-sm btn-outline-light ms-3">Cerrar sesión</a>
-                {% else %}
-                    <a href="{{ path('app_login') }}" class="btn btn-sm btn-outline-light">Iniciar sesión</a>
-                {% endif %}
-            </div>
+            {% else %}
+                <a href="{{ path('secure_test') }}" class="btn btn-sm btn-outline-light">Iniciar sesión</a>
+            {% endif %}
+        </div>
         </div>
     </nav>
 
