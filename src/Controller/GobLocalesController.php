@@ -45,7 +45,7 @@ class GobLocalesController extends AbstractController
             }
         }
         $tabsData = $tabsProvider->getData($caso);
-        $gobLocales = $gobLocalesRepository->findOneBy(['idCaso' => $idCaso]);
+        $gobLocales = $gobLocalesRepository->findOneBy(['caso' => $caso]);
 
         if (!$gobLocales) {
             $this->addFlash('warning', 'No hay datos cargados de GobLocales para este caso');
@@ -56,17 +56,14 @@ class GobLocalesController extends AbstractController
             'disabled' => true,
         ]);
 
-        return $this->render('gobLocal/_form.html.twig', [
-            'form' => $form->createView(),
-            'caso' => $caso,
-        ]);
+    
          return $this->render('gob_locales/show.html.twig', [
             'form' =>$form,
             'caso' => $caso,
             'caj' => $tabsData['caj'],
             'sdh' => $tabsData['sdh'],
             'mpa' => $tabsData['mpa'],
-            'gl' => $gl,        
+            'gl' => $gobLocales,        
             'pestaña_activa'=>'gl',
         ]);
     }
