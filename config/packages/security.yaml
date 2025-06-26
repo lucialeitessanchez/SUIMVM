@@ -13,7 +13,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         secure:
-            pattern: ^/(secure)/
+            pattern: ^/
             lazy: true
             provider: user_provider
             custom_authenticators:
