@@ -73,6 +73,9 @@ class Caso
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $edadAgresor = null;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $vinculo = null;
+
     #[ORM\OneToMany(mappedBy: "caso", targetEntity: Mpa::class)]
     private Collection $mpas;
    
@@ -283,6 +286,17 @@ public function getEdadAgresor(): ?int
 public function setEdadAgresor(?int $edadAgresor): self
 {
     $this->edadAgresor = $edadAgresor;
+    return $this;
+}
+
+public function getVinculo(): ?string
+{
+    return $this->vinculo;
+}
+
+public function setVinculo(?string $vinculo): self
+{
+    $this->vinculo = $vinculo;
     return $this;
 }
 

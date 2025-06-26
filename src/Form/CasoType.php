@@ -111,7 +111,14 @@ class CasoType extends AbstractType
             ->add('edadAgresor',IntegerType::class, [
                 'label' => 'Edad',
                 'required' => false,
-            ]);
+            ])
+            
+            ->add('vinculo', TextType::class, [
+                'label' => 'Vinculo con la victima',
+                'required' => false,
+               
+            ])
+            ;
 
             
     }
