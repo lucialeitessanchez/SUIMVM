@@ -65,9 +65,18 @@
 
             <div class="ms-auto d-flex align-items-center text-white">
             {% if app.user %}
-                {{ app.user.getId() }} - 
-                <i class="bi bi-person-circle me-2"></i>
-                    <a href="#" class="btn btn-sm btn-outline-light ms-3">Cerrar sesión</a>
+                
+                <div class="ms-auto d-flex align-items-center text-white">
+                {% if app.token.attributes.jpegPhoto is defined %}
+                    <img src="data:image/jpeg;base64,{{ app.token.attributes.jpegPhoto }}" alt="Foto de perfil" class="rounded-circle me-2" width="40" height="40">
+                {% else %}
+                    <i class="bi bi-person-circle me-2"></i>
+                {% endif %}
+                <span>
+                    {{ app.token.attributes.givenName ?? 'Usuario' }} {{ app.token.attributes.sn ?? '' }}
+                </span>
+                <a href="https://tsso.santafe.gob.ar/logout?service=https://10.3.17.203/" class="btn btn-sm btn-outline-light ms-3">Cerrar sesión</a>
+                </div>
             {% else %}
                 <a href="{{ path('secure_test') }}" class="btn btn-sm btn-outline-light">Iniciar sesión</a>
             {% endif %}
