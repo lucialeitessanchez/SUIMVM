@@ -156,18 +156,30 @@ table tbody tr:hover {
   background-color: #d4edda;
 }
 
-.range-bajo {
-    accent-color: green;
-}
-.range-medio {
-    accent-color: orange;
-}
-.range-alto {
-    accent-color: darkorange;
-}
-.range-critico {
-    accent-color: red;
-}
+.range-bajo::-webkit-slider-thumb { background-color: green; }
+.range-bajo::-webkit-slider-runnable-track { background-color: #d4edda; }
+
+.range-medio::-webkit-slider-thumb { background-color: orange; }
+.range-medio::-webkit-slider-runnable-track { background-color: #fff3cd; }
+
+.range-alto::-webkit-slider-thumb { background-color: darkorange; }
+.range-alto::-webkit-slider-runnable-track { background-color: #ffe5b4; }
+
+.range-critico::-webkit-slider-thumb { background-color: red; }
+.range-critico::-webkit-slider-runnable-track { background-color: #f8d7da; }
+
+/* Para Firefox */
+.range-bajo::-moz-range-thumb { background-color: green; }
+.range-bajo::-moz-range-track { background-color: #d4edda; }
+
+.range-medio::-moz-range-thumb { background-color: orange; }
+.range-medio::-moz-range-track { background-color: #fff3cd; }
+
+.range-alto::-moz-range-thumb { background-color: darkorange; }
+.range-alto::-moz-range-track { background-color: #ffe5b4; }
+
+.range-critico::-moz-range-thumb { background-color: red; }
+.range-critico::-moz-range-track { background-color: #f8d7da; }
 
   /* Fondo blanco por defecto */
   .accordion-button {

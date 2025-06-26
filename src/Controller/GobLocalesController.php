@@ -151,6 +151,7 @@ class GobLocalesController extends AbstractController
 
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
+        $parametros['modo'] = 'edit';
         return $this->render('gobLocal/new.html.twig', $parametros);
 }
 }
