@@ -4,7 +4,7 @@ cas:
     port: 443 # opcional
     service_base_url: http://10.3.17.203/  # Url base del sistema que utiliza el bundle
     user: cuil # Si se quiere acceder por cuil sino uid. Por defecto se utiliza cuil
-    logout_redirect: home  # opcional
+    logout_redirect: index  # opcional
     login_failure: failure # opcional - Debe definirse en el área pública
     debug: true # opcional - Se recomienda false en producción
     version: "3.0" # opcional
