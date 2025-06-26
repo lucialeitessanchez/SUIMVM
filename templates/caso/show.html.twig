@@ -68,8 +68,8 @@
                     <label class="form-label">Sexo asignado en el DNI</label>
                     <select class="form-select" id="sexo" name="sexo" required disabled>
                         <option disabled {% if datosPersona.sexo is empty %}selected{% endif %}>Seleccione...</option>
-                        <option value="Femenino" {% if datosPersona.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
-                        <option value="Masculino" {% if datosPersona.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+                        <option value="F" {% if datosPersona.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
+                        <option value="M" {% if datosPersona.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
                         <option value="No binario" {% if datosPersona.sexo == 'No binario' %}selected{% endif %}>No binario</option>
                     </select>
                 </div>
@@ -153,6 +153,28 @@
                         <input type="text" class="form-control" id="microregion" readonly disabled>
                     </div>
      </div>
+     <br>
+     <div class="row mb-3">
+            <div class="col-md-12"><h5>Datos del agresor</h5></div>
+            <hr>
+      </div>
+     <div class="row mb-3">
+            <div class="col-md-4">
+                    {{ form_label(form.apenomAgresor, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.apenomAgresor, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.apenomAgresor) }}
+            </div>
+            <div class="col-md-4">
+                    {{ form_label(form.nrodocAgresor, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.nrodocAgresor, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.nrodocAgresor) }}
+            </div>
+            <div class="col-md-4">
+                    {{ form_label(form.edadAgresor, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.edadAgresor, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.edadAgresor) }}
+            </div>
+      </div>
      
 
         {{ form_widget(form) }}

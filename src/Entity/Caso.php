@@ -64,6 +64,15 @@ class Caso
     #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_origen", nullable: false)]
     private OrganismoOrigen $organismo_origen_id_origen;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $apenomAgresor = null;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $nrodocAgresor = null;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $edadAgresor = null;
+
     #[ORM\OneToMany(mappedBy: "caso", targetEntity: Mpa::class)]
     private Collection $mpas;
    
@@ -244,11 +253,38 @@ public function setOrganismoOrigenIdOrigen(OrganismoOrigen $organismo_origen_id_
     return $this;
 }
 
-public function __toString(): string
+public function getApenomAgresor(): ?string
 {
-    return (string) $this->id_caso;
+    return $this->apenomAgresor;
 }
 
+public function setApenomAgresor(?string $apenomAgresor): self
+{
+    $this->apenomAgresor = $apenomAgresor;
+    return $this;
+}
+
+public function getNrodocAgresor(): ?int
+{
+    return $this->nrodocAgresor;
+}
+
+public function setNrodocAgresor(?int $nrodocAgresor): self
+{
+    $this->nrodocAgresor = $nrodocAgresor;
+    return $this;
+}
+
+public function getEdadAgresor(): ?int
+{
+    return $this->edadAgresor;
+}
+
+public function setEdadAgresor(?int $edadAgresor): self
+{
+    $this->edadAgresor = $edadAgresor;
+    return $this;
+}
 
 public function getUsuarioCarga(): ?string
 {
@@ -261,4 +297,8 @@ public function setUsuarioCarga(?string $usuarioCarga): self
     return $this;
 }
 
+public function __toString(): string
+{
+    return (string) $this->id_caso;
+}
 }

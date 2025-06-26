@@ -33,20 +33,20 @@
     <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="nombre" value = "{{datosPersona.nombre}}" placeholder="Nombre de la víctima" required disabled>
+                    <input type="text" class="form-control" name="nombre" id="nombre" value = "{{datosPersona.nombre}}" placeholder="Nombre de la víctima" >
                 </div>
                 <div class="col-md-4">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" name="apellido" id="apellido" value = "{{datosPersona.apellido}}" placeholder="Apellido de la víctima" required disabled>
+                        <input type="text" class="form-control" name="apellido" id="apellido" value = "{{datosPersona.apellido}}" placeholder="Apellido de la víctima">
                 </div>
                 <div class="col-md-2">
                     <label for="dni" class="form-label">DNI</label>
-                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" value = "{{datosPersona.nrodoc}}" placeholder="Número de DNI" required disabled>
+                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" value = "{{datosPersona.nrodoc}}" placeholder="Número de DNI" >
                 </div>
               
                 <div class="col-md-2">
                      <label class="form-label" for="nacionalidad">Nacionalidad</label>
-                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}" required disabled>
+                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}">
                           <option disabled {% if not datosPersona.nacionalidad %}selected{% endif %}>Seleccione...</option>
                           
                     </select>
@@ -56,10 +56,10 @@
                 <!-- Sexo asignado en el DNI -->
                 <div class="col-md-4">
                     <label class="form-label">Sexo asignado en el DNI</label>
-                    <select class="form-select" id="sexo" name="sexo" required disabled>
+                    <select class="form-select" id="sexo" name="sexo">
                         <option disabled {% if datosPersona.sexo is empty %}selected{% endif %}>Seleccione...</option>
-                        <option value="Femenino" {% if datosPersona.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
-                        <option value="Masculino" {% if datosPersona.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+                        <option value="F" {% if datosPersona.sexo == 'F' %}selected{% endif %}>Femenino</option>
+                        <option value="M" {% if datosPersona.sexo == 'M' %}selected{% endif %}>Masculino</option>
                         <option value="No binario" {% if datosPersona.sexo == 'No binario' %}selected{% endif %}>No binario</option>
                     </select>
                 </div>
@@ -67,7 +67,7 @@
                 <!-- Género autopercibido de la víctima -->
                 <div class="col-md-4">
                     <label for="generoAutop" class="form-label">Género autopercibido de la víctima</label>
-                    <select class="form-select" id="generoAutop" name="generoAutop" required disabled>
+                    <select class="form-select" id="generoAutop" name="generoAutop">
                         <option disabled {% if datosPersona.genero is empty %}selected{% endif %}>Seleccione...</option>
                         <option value="Mujer cis" {% if datosPersona.genero == 'Mujer cis' %}selected{% endif %}>Mujer cis</option>
                         <option value="Mujer trans" {% if datosPersona.genero == 'Mujer trans' %}selected{% endif %}>Mujer trans</option>
@@ -144,6 +144,27 @@
                     </div>
      </div>
      <br>
+     <div class="row mb-3">
+            <div class="col-md-12"><h5>Datos del agresor</h5></div>
+            <hr>
+      </div>
+     <div class="row mb-3">
+            <div class="col-md-4">
+                    {{ form_label(form.apenomAgresor, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.apenomAgresor, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.apenomAgresor) }}
+            </div>
+            <div class="col-md-4">
+                    {{ form_label(form.nrodocAgresor, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.nrodocAgresor, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.nrodocAgresor) }}
+            </div>
+            <div class="col-md-4">
+                    {{ form_label(form.edadAgresor, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.edadAgresor, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.edadAgresor) }}
+            </div>
+      </div>
         <div class="col-md-12 d-flex justify-content-end">
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
                 <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>

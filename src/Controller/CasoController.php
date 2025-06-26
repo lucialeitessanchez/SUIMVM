@@ -180,6 +180,24 @@ class CasoController extends AbstractController
             $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Obtener datos sueltos desde la request
+            $apellido = $request->request->get('apellido');
+            $nombre = $request->request->get('nombre');
+            $dni = $request->request->get('nrodoc');
+            $franjaEtaria=$request->request->get('franjaEtaria');
+            $nacionalidad=$request->request->get('nacionalidad');
+            $sexo=$request->request->get('sexo');
+            $generoAud=$request->request->get('generoAutop');
+
+            // Crear y asociar la persona
+
+            $persona->setApellido($apellido);
+            $persona->setNombre($nombre);
+            $persona->setNrodoc($dni);
+            $persona->setNacionalidad($nacionalidad);
+            $persona->setSexo($sexo);
+            $persona->setGeneroAutop($generoAud);
+
             $entityManager->flush();
 
             $this->addFlash('success_js', 'Datos actualizados correctamente');   

@@ -31,6 +31,7 @@ class CasoType extends AbstractType
             ->add('fechaHecho', DateType::class, [
                 'label' => 'Fecha del hecho',
                 'widget' => 'single_text',
+                'required' => false,
                 
             ])
             ->add('fechaAnoticiamiento', DateType::class, [
@@ -65,7 +66,7 @@ class CasoType extends AbstractType
                     'Femicidio íntimo o familiar' =>  'Femicidio íntimo o familiar',
                     'Muerte en contexto de criminalidad organizada' => 'Muerte en contexto de criminalidad organizada',
                 ],
-                'required' => true,
+                'required' => false,
             ])
             //'Muerte violenta por intervención de un tercero','Suicidio','Muerte dudosa', 'Femicidio íntimo o familiar','Muerte en contexto de criminalidad organizada'
             ->add('lugarHecho', TextType::class, [
@@ -96,7 +97,21 @@ class CasoType extends AbstractType
                 'query_builder' => function ($repositorio) {
                     return $repositorio->createQueryBuilder('l')->orderBy('l.localidad', 'ASC');
                 }
-            ));
+            ))
+
+            ->add('apenomAgresor', TextType::class, [
+                'label' => 'Apellido y nombre',
+                'required' => false,
+               
+            ])
+            ->add('nrodocAgresor',IntegerType::class, [
+                'label' => 'Dni',
+                'required' => false,
+            ])
+            ->add('edadAgresor',IntegerType::class, [
+                'label' => 'Edad',
+                'required' => false,
+            ]);
 
             
     }

@@ -32,6 +32,7 @@ class CajType extends AbstractType
             ->add('caj_1b', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Fecha de la consulta', 
+                'required' => false,
                 ])
               
             ->add('caj_1c', EntityType::class, array(
@@ -108,6 +109,7 @@ class CajType extends AbstractType
                 'class' => EquipoReferencia::class,
                 'label' => '¿Cómo llegó el caso al CAJ?',
                 'choice_label' => 'equipo', // ajusta según tu entidad
+                'required' => false,
             ])
             ->add('caj_3j', ChoiceType::class, [
                 'label' => 'Tipo de caso',
@@ -120,7 +122,7 @@ class CajType extends AbstractType
                     'Transfemicidio' => 'Transfemicidio',
                     'Tentativa de femicidio' => 'Tentativa de femicidio',
                 ],
-                'required' => true,
+                'required' => false,
             ])
             ->add('caj_3a', CheckboxType::class, [
                 'label' => 'No / Sí',

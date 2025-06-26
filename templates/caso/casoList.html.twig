@@ -12,6 +12,7 @@
         <tr>
             <th>Caso</th>
             <th>Fecha del hecho</th>
+            <th colspan="2">Datos de la victima</th>
             <th>Localidad</th>
             <th>Institución de carga</th>
             <th>Opciones</th>
@@ -23,6 +24,8 @@
             <tr>
                 <td id="casoId">{{ caso.idCaso }}</td>
                 <td>{{ caso.fechaCarga ? caso.fechaCarga|date('d-m-Y') : '' }}</td>
+                <td>{{ caso.personaIdPersona.apellido }}</td>
+                <td>{{ caso.personaIdPersona.nombre }}</td>
                 <td>{{ caso.localidad }}</td>
                 <td>{{ caso.organismoOrigenIdOrigen }}</td>
                 <td>

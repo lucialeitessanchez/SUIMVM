@@ -36,7 +36,7 @@ class MpaForm extends AbstractType
                     'Transfemicidio' => 'Transfemicidio',
                     'Tentativa de femicidio' => 'Tentativa de femicidio',
                 ],
-                'required' => true,
+                'required' => false,
             ])
             ->add('mpa_2', CheckboxType::class, [
                 'label' => 'No / Sí',
@@ -57,7 +57,7 @@ class MpaForm extends AbstractType
                     'En ocasion de robo'=>'En ocasión de robo',
                     'En investigacion'=>'En investigación',
                 ],
-                'required' => true,
+                'required' => false,
             ])
             ->add('mpa_3a', ChoiceType::class, [
                 'label' => 'Tipo de incidente',
@@ -69,7 +69,7 @@ class MpaForm extends AbstractType
                     'Error de identidad'=>'Error de identidad',
                     'Error de domicilio' => 'Error de domicilio',
                 ],
-                'required' => true,
+                'required' => false,
             ])
           // ->add('mpa_3a1')
             ->add('mpa_3b', ChoiceType::class, [
@@ -81,7 +81,7 @@ class MpaForm extends AbstractType
                     'Error de identidad'=>'Error de identidad',
                     'Error de domicilio' => 'Error de domicilio',
                 ],
-                'required' => true,
+                'required' => false,
             ])
          //   ->add('mpa_3b1')
             ->add('mpa_4', ChoiceType::class, [
@@ -100,15 +100,17 @@ class MpaForm extends AbstractType
                     'Violencia excesiva'=>'Violencia excesiva',
                     'Mas de un procedimiento homicida'=>'Mas de un procedimiento homicida',
                 ],
-                'required' => true,
+                'required' => false,
             ])
               ->add('mpa_5', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Fecha de encuentro del cuerpo', 
+                'required' => false,
                 ])
             ->add('mpa_6', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Fecha de fallecimiento', 
+                'required' => false,
                 ])
             ->add('mpa_6a', TextType::class, [
                  'label' => 'Dia de la semana',
@@ -120,6 +122,7 @@ class MpaForm extends AbstractType
                 'label' => 'Hora',
                 'input' => 'datetime', // o 'string' si prefieres un string en lugar de un objeto DateTime
                 'with_seconds' => false, // opcional, si no quieres los segundos
+                'required' => false,
             ])
           //  ->add('mpa_6c')
             ->add('mpa_6c', TextType::class, [
@@ -144,7 +147,7 @@ class MpaForm extends AbstractType
                     'Reparticion estatal'=>'Reparticion estatal',
                     'Lugar de trabajo' => 'Lugar de trabajo'                
                 ],
-                'required' => true,
+                'required' => false,
             ])
             ->add('mpa_7a', TextareaType::class, [
                    'label' => 'Otra informacion relevante',
@@ -215,7 +218,7 @@ class MpaForm extends AbstractType
                         'Victima' => 'Victima',
                         'Familia de la victima' => 'Familia de la victima',
                         ],
-                    'required' => true,
+                    'required' => false,
                 ])    
             ->add('mpa_12', ChoiceType::class, [
                     'label' => 'Mecánica del hecho',
@@ -232,7 +235,7 @@ class MpaForm extends AbstractType
                         'Otros medios'=>'otros medios',
                         'Sin determinar'=>'sin determinar',
                         ],
-                    'required' => true,
+                    'required' => false,
                 ])                
                 ->add('mpa_13', ChoiceType::class, [
                     'label' => 'Otras expresiones de violencia',
@@ -251,7 +254,7 @@ class MpaForm extends AbstractType
                         'Violencia excesiva'=>'Violencia excesiva',
                         'Más de un procedemiento homicida'=>'Más de un procedemiento homicida'
                        ],
-                    'required' => true,
+                    'required' => false,
                   ])  
                  
                 ->add('mpa_13a', TextareaType::class, [
