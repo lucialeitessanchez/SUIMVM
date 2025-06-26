@@ -61,7 +61,7 @@ class GobLocalesType extends AbstractType
                 //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
                 'required' => false,
                 'by_reference' => false,
-                'label' => 'TIPO APOYO',
+                'label' => 'Tipo de apoyo brindado ',
                 'query_builder' => function ($repo) {
                     return $repo->createQueryBuilder('n')
                         ->where('n.nomenclador = :clave')
