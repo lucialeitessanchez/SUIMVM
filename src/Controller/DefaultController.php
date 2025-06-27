@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends AbstractController {
 
@@ -40,6 +41,10 @@ class DefaultController extends AbstractController {
     }
 
 
+    #[Route('/secure/logout', name: 'app_logout')]
+    public function logout()
+    {
+    }
 
 
 

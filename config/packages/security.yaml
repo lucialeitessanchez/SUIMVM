@@ -19,8 +19,7 @@ security:
             custom_authenticators:
                 - stg.cas_authenticator
             logout:
-                path: logout
-                target: https://cas.servidor.gob.ar/logout?service=https://tuapp.gob.ar/
+                path: /secure/logout
 
         main:
             lazy: true

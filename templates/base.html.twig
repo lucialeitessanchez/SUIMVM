@@ -75,7 +75,7 @@
                 <span>
                     {{ app.token.attributes.givenName ?? 'Usuario' }} {{ app.token.attributes.sn ?? '' }}
                 </span>
-                <a href="https://tsso.santafe.gob.ar/logout?service=https://10.3.17.203/" class="btn btn-sm btn-outline-light ms-3">Cerrar sesión</a>
+                <a href="{{ path('app_logout') }}" class="btn btn-sm btn-outline-light ms-3">Cerrar sesión</a>
                 </div>
             {% else %}
                 <a href="{{ path('secure_test') }}" class="btn btn-sm btn-outline-light">Iniciar sesión</a>
