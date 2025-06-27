@@ -82,7 +82,7 @@ class CasoType extends AbstractType
                 'required' => false,
             ])
             ->add('franjaEtaria', TextType::class, [
-                'label' => 'Franja Etaria',
+                'label' => 'Franja Etarea',
                 'required' => false,
                
             ])

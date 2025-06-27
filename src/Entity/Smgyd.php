@@ -2,409 +2,266 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SmgydRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: SmgydRepository::class)]
-#[ORM\Table(name: 'smgyd')]
 class Smgyd
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private int $idSmgyd;
+    private ?int $id = null;
 
-    #[ORM\Column(type: 'string')]
-    private string $smgyd1;
-
-    #[ORM\Column(type: 'string')]
-    private string $smgyd2;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $smgyd3 = null;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $smgyd4 = null;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $smgyd5 = null;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $smgyd6 = null;
+    // Relaciones a Nomenclador
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    private ?Nomenclador $smgyd2 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: 'smgyd_7_id_nomenclador', referencedColumnName: 'id_nomenclador', nullable: true)]
-    private ?Nomenclador $smgyd7IdNomenclador = null;
+    private ?Nomenclador $smgyd3 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: 'smgyd_8_id_nomenclador', referencedColumnName: 'id_nomenclador', nullable: true)]
-    private ?Nomenclador $smgyd8IdNomenclador = null;
+    private ?Nomenclador $smgyd4 = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $smgyd9 = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    private ?Nomenclador $smgyd7 = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $smgyd10 = null;
+    //Relaciones oneToMany
+    #[ORM\ManyToMany(targetEntity: SmgydFamiliar::class, cascade: ['persist'])]
+    #[ORM\JoinTable(name: 'smgyd_familiares_smgyd')]
+    private Collection $familiares;
+
+    #[ORM\ManyToMany(targetEntity: SmgydOrganizacion::class, cascade: ['persist'])]
+    #[ORM\JoinTable(name: 'smgyd_organizaciones_smgyd')]
+    private Collection $organizaciones;
+
+    #[ORM\ManyToMany(targetEntity: SmgydProcesoJudicial::class, cascade: ['persist'])]
+    #[ORM\JoinTable(name: 'smgyd_procesos_smgyd')]
+    private Collection $procesosJudiciales;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $smgyd8 = null;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $smgyd8a = null;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $smgyd9 = null;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $smgyd9a = null;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    private ?Nomenclador $smgyd10 = null;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $smgyd11 = null;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $smgyd12 = null;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $smgyd13 = null;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $smgyd14 = null;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    private ?Nomenclador $smgyd15 = null;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    private ?Nomenclador $smgyd15a = null;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    private ?Nomenclador $smgyd15b = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $smgyd11 = null;
-
-    #[ORM\Column(type: 'string', length: 150, nullable: true)]
-    private ?string $smgyd12 = null;
+    private ?string $smgyd15c = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: 'smgyd_13_id_nomenclador', referencedColumnName: 'id_nomenclador', nullable: true)]
-    private ?Nomenclador $smgyd13IdNomenclador = null;
+    private ?Nomenclador $smgyd16 = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $smgyd16b = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $smgyd16c = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: 'smgyd_14_id_nomenclador', referencedColumnName: 'id_nomenclador', nullable: true)]
-    private ?Nomenclador $smgyd14IdNomenclador = null;
+    private ?Nomenclador $smgyd17 = null;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $smgyd18 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: 'smgyd_15_id_nomenclador', referencedColumnName: 'id_nomenclador', nullable: true)]
-    private ?Nomenclador $smgyd15IdNomenclador = null;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $smgyd16 = null;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $smgyd17 = null;
+    private ?Nomenclador $smgyd19 = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $smgyd18 = null;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $smgyd19 = null;
-
-    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $smgyd20 = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: 'smgyd_21_id_nomenclador', referencedColumnName: 'id_nomenclador', nullable: true)]
-    private ?Nomenclador $smgyd21IdNomenclador = null;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $smgyd22 = null;
-
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $smgyd23 = null;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $smgyd24 = null;
+    private ?string $smgyd21 = null;
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
-    #[ORM\JoinColumn(name: 'caso_id_caso', referencedColumnName: 'id_caso', nullable: true)]
-    private ?Caso $casoIdCaso = null;
-
+    #[ORM\JoinColumn(name: 'caso_id_caso', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    private ?Caso $caso = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $fechaCarga = null;
+    private ?\DateTimeInterface $fechacarga = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $usuarioCarga = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $usuariocarga = null;
 
-    // Getters and Setters
-
-    public function getIdSmgyd(): int
+    public function __construct()
     {
-        return $this->idSmgyd;
+        $this->familiares = new ArrayCollection();
+        $this->organizaciones = new ArrayCollection();
+        $this->procesosJudiciales = new ArrayCollection();
     }
 
-    public function getSmgyd1(): string
-    {
-        return $this->smgyd1;
-    }
+    // Generación de getters y setters
+    public function getId(): ?int { return $this->id; }
 
-    public function setSmgyd1(string $smgyd1): self
+    public function getSmgyd2(): ?Nomenclador { return $this->smgyd2; }
+    public function setSmgyd2(?Nomenclador $smgyd2): self { $this->smgyd2 = $smgyd2; return $this; }
+
+    public function getSmgyd3(): ?Nomenclador { return $this->smgyd3; }
+    public function setSmgyd3(?Nomenclador $smgyd3): self { $this->smgyd3 = $smgyd3; return $this; }
+
+    public function getSmgyd4(): ?Nomenclador { return $this->smgyd4; }
+    public function setSmgyd4(?Nomenclador $smgyd4): self { $this->smgyd4 = $smgyd4; return $this; }
+
+    public function getSmgyd7(): ?Nomenclador { return $this->smgyd7; }
+    public function setSmgyd7(?Nomenclador $smgyd7): self { $this->smgyd7 = $smgyd7; return $this; }
+
+    //Collection
+    public function getFamiliares(): Collection { return $this->familiares; }
+    public function addFamiliar(SmgydFamiliar $familiar): self 
+    { 
+            if (!$this->familiares->contains($familiar)) { 
+                $this->familiares[] = $familiar; 
+                $familiar->setSmgyd($this); 
+            } 
+            return $this; 
+    }
+    public function removeFamiliar(SmgydFamiliar $familiar): self
     {
-        $this->smgyd1 = $smgyd1;
+        if ($this->familiares->removeElement($familiar)) {
+            if ($familiar->getSmgyd() === $this) {
+                $familiar->setSmgyd(null);
+            }
+        }    
+        return $this;
+    }
+    public function getOrganizaciones(): Collection { return $this->organizaciones; }
+    public function addOrganizacion(SmgydOrganizacion $organizacion): self 
+    { 
+            if (!$this->organizaciones->contains($organizacion)) { 
+                $this->organizaciones[] = $organizacion; 
+                $organizacion->setSmgyd($this); 
+            } 
+            return $this; 
+    }
+    public function removeOrganizacion(SmgydOrganizacion $organizacion): self
+    {
+        if ($this->organizaciones->removeElement($organizacion)) {
+            if ($organizacion->getSmgyd() === $this) {
+                $organizacion->setSmgyd(null);
+            }
+        }    
         return $this;
     }
 
-    public function getSmgyd2(): string
-    {
-        return $this->smgyd2;
+    public function getProcesoJudicial(): Collection { return $this->procesosJudiciales; }
+    public function addProcesoJudicial(SmgydProcesoJudicial $procesoJudicial): self 
+    { 
+            if (!$this->procesosJudiciales->contains($procesoJudicial)) { 
+                $this->procesosJudiciales[] = $procesoJudicial; 
+                $procesoJudicial->setSmgyd($this); 
+            } 
+            return $this; 
     }
-
-    public function setSmgyd2(string $smgyd2): self
+    public function removeProcesoJudicial(SmgydProcesoJudicial $procesoJudicial): self
     {
-        $this->smgyd2 = $smgyd2;
+        if ($this->procesosJudiciales->removeElement($procesoJudicial)) {
+            if ($procesoJudicial->getSmgyd() === $this) {
+                $procesoJudicial->setSmgyd(null);
+            }
+        }    
         return $this;
     }
 
-    public function getSmgyd3(): ?string
-    {
-        return $this->smgyd3;
-    }
+    public function getSmgyd8(): ?bool { return $this->smgyd8; }
+    public function setSmgyd8(?bool $smgyd8): self { $this->smgyd8 = $smgyd8; return $this; }
 
-    public function setSmgyd3(?string $smgyd3): self
-    {
-        $this->smgyd3 = $smgyd3;
-        return $this;
-    }
+    public function getSmgyd8a(): ?string { return $this->smgyd8a; }
+    public function setSmgyd8a(?string $smgyd8a): self { $this->smgyd8a = $smgyd8a; return $this; }
 
-    public function getSmgyd4(): ?string
-    {
-        return $this->smgyd4;
-    }
+    public function getSmgyd9(): ?bool { return $this->smgyd9; }
+    public function setSmgyd9(?bool $smgyd9): self { $this->smgyd9 = $smgyd9; return $this; }
 
-    public function setSmgyd4(?string $smgyd4): self
-    {
-        $this->smgyd4 = $smgyd4;
-        return $this;
-    }
+    public function getSmgyd9a(): ?bool { return $this->smgyd9a; }
+    public function setSmgyd9a(?bool $smgyd9a): self { $this->smgyd9a = $smgyd9a; return $this; }
 
-    public function getSmgyd5(): ?string
-    {
-        return $this->smgyd5;
-    }
+    public function getSmgyd10(): ?Nomenclador { return $this->smgyd10; }
+    public function setSmgyd10(?Nomenclador $smgyd10): self { $this->smgyd10 = $smgyd10; return $this; }
 
-    public function setSmgyd5(?string $smgyd5): self
-    {
-        $this->smgyd5 = $smgyd5;
-        return $this;
-    }
+    public function getSmgyd11(): ?bool { return $this->smgyd11; }
+    public function setSmgyd11(?bool $smgyd11): self { $this->smgyd11 = $smgyd11; return $this; }
 
-    public function getSmgyd6(): ?string
-    {
-        return $this->smgyd6;
-    }
+    public function getSmgyd12(): ?bool { return $this->smgyd12; }
+    public function setSmgyd12(?bool $smgyd12): self { $this->smgyd12 = $smgyd12; return $this; }
 
-    public function setSmgyd6(?string $smgyd6): self
-    {
-        $this->smgyd6 = $smgyd6;
-        return $this;
-    }
+    public function getSmgyd13(): ?bool { return $this->smgyd13; }
+    public function setSmgyd13(?bool $smgyd13): self { $this->smgyd13 = $smgyd13; return $this; }
 
-    public function getSmgyd7IdNomenclador(): ?Nomenclador
-    {
-        return $this->smgyd7IdNomenclador;
-    }
+    public function getSmgyd14(): ?bool { return $this->smgyd14; }
+    public function setSmgyd14(?bool $smgyd14): self { $this->smgyd14 = $smgyd14; return $this; }
 
-    public function setSmgyd7IdNomenclador(?Nomenclador $smgyd7IdNomenclador): self
-    {
-        $this->smgyd7IdNomenclador = $smgyd7IdNomenclador;
-        return $this;
-    }
+    public function getSmgyd15(): ?Nomenclador { return $this->smgyd15; }
+    public function setSmgyd15(?Nomenclador $smgyd15): self { $this->smgyd15 = $smgyd15; return $this; }
 
-    public function getSmgyd8IdNomenclador(): ?Nomenclador
-    {
-        return $this->smgyd8IdNomenclador;
-    }
+    public function getSmgyd15a(): ?Nomenclador { return $this->smgyd15a; }
+    public function setSmgyd15a(?Nomenclador $smgyd15a): self { $this->smgyd15a = $smgyd15a; return $this; }
 
-    public function setSmgyd8IdNomenclador(?Nomenclador $smgyd8IdNomenclador): self
-    {
-        $this->smgyd8IdNomenclador = $smgyd8IdNomenclador;
-        return $this;
-    }
+    public function getSmgyd15b(): ?Nomenclador { return $this->smgyd15b; }
+    public function setSmgyd15b(?Nomenclador $smgyd15b): self { $this->smgyd15b = $smgyd15b; return $this; }
 
-    public function getSmgyd9(): ?string
-    {
-        return $this->smgyd9;
-    }
+    public function getSmgyd15c(): ?string { return $this->smgyd15c; }
+    public function setSmgyd15c(?string $smgyd15c): self { $this->smgyd15c = $smgyd15c; return $this; }
 
-    public function setSmgyd9(?string $smgyd9): self
-    {
-        $this->smgyd9 = $smgyd9;
-        return $this;
-    }
+    public function getSmgyd16(): ?Nomenclador { return $this->smgyd16; }
+    public function setSmgyd16(?Nomenclador $smgyd16): self { $this->smgyd16 = $smgyd16; return $this; }
 
-    public function getSmgyd10(): ?string
-    {
-        return $this->smgyd10;
-    }
+    public function getSmgyd16b(): ?string { return $this->smgyd16b; }
+    public function setSmgyd16b(?string $smgyd16b): self { $this->smgyd16b = $smgyd16b; return $this; }
 
-    public function setSmgyd10(?string $smgyd10): self
-    {
-        $this->smgyd10 = $smgyd10;
-        return $this;
-    }
+    public function getSmgyd16c(): ?string { return $this->smgyd16c; }
+    public function setSmgyd16c(?string $smgyd16c): self { $this->smgyd16c = $smgyd16c; return $this; }
 
-    public function getSmgyd11(): ?string
-    {
-        return $this->smgyd11;
-    }
+    public function getSmgyd17(): ?Nomenclador { return $this->smgyd17; }
+    public function setSmgyd17(?Nomenclador $smgyd17): self { $this->smgyd17 = $smgyd17; return $this; }
 
-    public function setSmgyd11(?string $smgyd11): self
-    {
-        $this->smgyd11 = $smgyd11;
-        return $this;
-    }
+    public function getSmgyd18(): ?bool { return $this->smgyd18; }
+    public function setSmgyd18(?bool $smgyd18): self { $this->smgyd18 = $smgyd18; return $this; }
 
-    public function getSmgyd12(): ?string
-    {
-        return $this->smgyd12;
-    }
+    public function getSmgyd19(): ?Nomenclador { return $this->smgyd19; }
+    public function setSmgyd19(?Nomenclador $smgyd19): self { $this->smgyd19 = $smgyd19; return $this; }
 
-    public function setSmgyd12(?string $smgyd12): self
-    {
-        $this->smgyd12 = $smgyd12;
-        return $this;
-    }
+    public function getSmgyd20(): ?string { return $this->smgyd20; }
+    public function setSmgyd20(?string $smgyd20): self { $this->smgyd20 = $smgyd20; return $this; }
 
-    public function getSmgyd13IdNomenclador(): ?Nomenclador
-    {
-        return $this->smgyd13IdNomenclador;
-    }
+    public function getSmgyd21(): ?string { return $this->smgyd21; }
+    public function setSmgyd21(?string $smgyd21): self { $this->smgyd21 = $smgyd21; return $this; }
 
-    public function setSmgyd13IdNomenclador(?Nomenclador $smgyd13IdNomenclador): self
-    {
-        $this->smgyd13IdNomenclador = $smgyd13IdNomenclador;
-        return $this;
-    }
+    public function getCaso(): ?Caso { return $this->caso; }
+    public function setCaso(?Caso $caso): self { $this->caso = $caso; return $this; }
 
-    public function getSmgyd14IdNomenclador(): ?Nomenclador
-    {
-        return $this->smgyd14IdNomenclador;
-    }
+    public function getFechacarga(): ?\DateTimeInterface { return $this->fechacarga; }
+    public function setFechacarga(?\DateTimeInterface $fechacarga): self { $this->fechacarga = $fechacarga; return $this; }
 
-    public function setSmgyd14IdNomenclador(?Nomenclador $smgyd14IdNomenclador): self
-    {
-        $this->smgyd14IdNomenclador = $smgyd14IdNomenclador;
-        return $this;
-    }
-
-    public function getSmgyd15IdNomenclador(): ?Nomenclador
-    {
-        return $this->smgyd15IdNomenclador;
-    }
-
-    public function setSmgyd15IdNomenclador(?Nomenclador $smgyd15IdNomenclador): self
-    {
-        $this->smgyd15IdNomenclador = $smgyd15IdNomenclador;
-        return $this;
-    }
-
-    public function getSmgyd16(): ?string
-    {
-        return $this->smgyd16;
-    }
-
-    public function setSmgyd16(?string $smgyd16): self
-    {
-        $this->smgyd16 = $smgyd16;
-        return $this;
-    }
-
-    public function getSmgyd17(): ?string
-    {
-        return $this->smgyd17;
-    }
-
-    public function setSmgyd17(?string $smgyd17): self
-    {
-        $this->smgyd17 = $smgyd17;
-        return $this;
-    }
-
-    public function getSmgyd18(): ?string
-    {
-        return $this->smgyd18;
-    }
-
-    public function setSmgyd18(?string $smgyd18): self
-    {
-        $this->smgyd18 = $smgyd18;
-        return $this;
-    }
-
-    public function getSmgyd19(): ?string
-    {
-        return $this->smgyd19;
-    }
-
-    public function setSmgyd19(?string $smgyd19): self
-    {
-        $this->smgyd19 = $smgyd19;
-        return $this;
-    }
-
-    public function getSmgyd20(): ?string
-    {
-        return $this->smgyd20;
-    }
-
-    public function setSmgyd20(?string $smgyd20): self
-    {
-        $this->smgyd20 = $smgyd20;
-        return $this;
-    }
-
-    public function getSmgyd21IdNomenclador(): ?Nomenclador
-    {
-        return $this->smgyd21IdNomenclador;
-    }
-
-    public function setSmgyd21IdNomenclador(?Nomenclador $smgyd21IdNomenclador): self
-    {
-        $this->smgyd21IdNomenclador = $smgyd21IdNomenclador;
-        return $this;
-    }
-
-    public function getSmgyd22(): ?string
-    {
-        return $this->smgyd22;
-    }
-
-    public function setSmgyd22(?string $smgyd22): self
-    {
-        $this->smgyd22 = $smgyd22;
-        return $this;
-    }
-
-    public function getSmgyd23(): ?string
-    {
-        return $this->smgyd23;
-    }
-
-    public function setSmgyd23(?string $smgyd23): self
-    {
-        $this->smgyd23 = $smgyd23;
-        return $this;
-    }
-
-    public function getSmgyd24(): ?string
-    {
-        return $this->smgyd24;
-    }
-
-    public function setSmgyd24(?string $smgyd24): self
-    {
-        $this->smgyd24 = $smgyd24;
-        return $this;
-    }
-
-    public function getCasoIdCaso(): ?Caso
-    {
-        return $this->casoIdCaso;
-    }
-
-    public function setCasoIdCaso(?Caso $casoIdCaso): self
-    {
-        $this->casoIdCaso = $casoIdCaso;
-        return $this;
-    }
-
-    public function getFechaCarga(): ?\DateTimeInterface
-    {
-        return $this->fechaCarga;
-    }
-
-    public function setFechaCarga(?\DateTimeInterface $fechaCarga): self
-    {
-        $this->fechaCarga = $fechaCarga;
-        return $this;
-    }
-
-    public function getUsuarioCarga(): ?string
-    {
-        return $this->usuarioCarga;
-    }
-
-    public function setUsuarioCarga(?string $usuarioCarga): self
-    {
-        $this->usuarioCarga = $usuarioCarga;
-        return $this;
-    }
-
+    public function getUsuariocarga(): ?string { return $this->usuariocarga; }
+    public function setUsuariocarga(?string $usuariocarga): self { $this->usuariocarga = $usuariocarga; return $this; }
 }
