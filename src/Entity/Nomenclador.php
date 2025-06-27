@@ -50,5 +50,6 @@ class Nomenclador
     public function __toString(): string
     {
         return (string) $this->id_nomenclador;
+        return $this->valor_nomenclador;
     }
 }

@@ -174,7 +174,7 @@ class Smgyd
         return $this;
     }
 
-    public function getProcesoJudicial(): Collection { return $this->procesosJudiciales; }
+    public function getProcesosJudiciales(): Collection { return $this->procesosJudiciales; }
     public function addProcesoJudicial(SmgydProcesoJudicial $procesoJudicial): self 
     { 
             if (!$this->procesosJudiciales->contains($procesoJudicial)) { 

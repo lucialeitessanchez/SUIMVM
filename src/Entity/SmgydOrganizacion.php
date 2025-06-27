@@ -60,7 +60,7 @@ class SmgydOrganizacion
     public function setSmgyd(?Smgyd $smgyd): self
     {
         $this->smgyd = $smgyd;
-
+        
         return $this;
     }
 }

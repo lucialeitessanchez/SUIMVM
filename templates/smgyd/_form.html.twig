@@ -1,0 +1,96 @@
+ {% if sinCaso %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Swal.fire({
+        icon: "error",
+        title: "Debe seleccionar un caso",
+        text: "Antes de registrar MPA, es necesario elegir un caso.",
+        confirmButtonText: "Ir a casos"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{ path('app_caso_index') }}";
+        }
+      });
+    });
+  </script>
+{% endif %}
+ {% if caso is defined  %}  
+    <section id="formSecretaria" class="container my-5">
+          
+      <div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0">Sección Areas locales</h2>
+
+          <span class="ms-3">
+            Ud. está trabajando con el caso Nro:
+            <span class="badge badge-caso">{{ caso.idCaso }}</span>
+          </span>
+            
+        </div>
+
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.smgyd2) }}
+        {{ form_row(form.smgyd3) }}
+        {{ form_row(form.smgyd4) }}
+        {{ form_row(form.smgyd7) }}
+        {{ form_row(form.smgyd8) }}
+        {{ form_row(form.smgyd8a) }}
+        {{ form_row(form.smgyd9) }}
+        {{ form_row(form.smgyd9a) }}
+        {{ form_row(form.smgyd10) }}
+        {{ form_row(form.smgyd11) }}
+        {{ form_row(form.smgyd12) }}
+        {{ form_row(form.smgyd13) }}
+        {{ form_row(form.smgyd14) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.smgyd15) }}
+        {{ form_row(form.smgyd15a) }}
+        {{ form_row(form.smgyd15b) }}
+        {{ form_row(form.smgyd15c) }}
+        {{ form_row(form.smgyd16) }}
+        {{ form_row(form.smgyd16b) }}
+        {{ form_row(form.smgyd16c) }}
+        {{ form_row(form.smgyd17) }}
+        {{ form_row(form.smgyd18) }}
+        {{ form_row(form.smgyd19) }}
+        {{ form_row(form.smgyd20) }}
+        {{ form_row(form.smgyd21) }}
+        {{ form_row(form.fechacarga) }}
+        {{ form_row(form.usuariocarga) }}
+    </div>
+</div>
+
+<hr>
+
+<h5>Familiares</h5>
+<div data-prototype="{{ form_widget(form.familiares.vars.prototype)|e('html_attr') }}">
+    {{ form_row(form.familiares) }}
+</div>
+
+<h5 class="mt-4">Organizaciones</h5>
+<div data-prototype="{{ form_widget(form.organizaciones.vars.prototype)|e('html_attr') }}">
+    {{ form_row(form.organizaciones) }}
+</div>
+
+<h5 class="mt-4">Procesos Judiciales</h5>
+<div data-prototype="{{ form_widget(form.procesosJudiciales.vars.prototype)|e('html_attr') }}">
+    {{ form_row(form.procesosJudiciales) }}
+</div>
+
+<hr>
+
+    {% if modo != 'show' %}
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary" style="background-color:black;color:white">Cancelar</button>
+                </div>
+        </div>
+   {% endif %}
+
+{{ form_end(form) }}
+{% endif %}
