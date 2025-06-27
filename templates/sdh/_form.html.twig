@@ -209,11 +209,11 @@
                                 </div> 
                             </div>
                             <div class="row mb-3">
-                                <div class="col-md-6"> 
+                                <div class="col-md-6 rango-wrapper"> 
                                     {{ form_label(form.sdh_5_2a) }} {# se lograron reducir riesgos?#}
                                     {{ form_errors(form.sdh_5_2b) }}
                                     {{ form_widget(form.sdh_5_2a) }}
-                                      <div id="etiqueta-rango" class="mt-2 fw-bold ">Seleccione una opción</div>
+                                      <div class="etiqueta-rango mt-2 fw-bold">Seleccione una opción</div>
                                 </div>
                                 <div class="col-md-6">
                                         {{ form_label(form.sdh_5_2b, null, {'label_attr': {'class': 'form-label'}}) }}

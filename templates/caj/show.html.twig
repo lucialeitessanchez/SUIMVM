@@ -211,9 +211,9 @@
                                   <div class="col-md-8"> {{ form_label(form.caj_4b) }}</div>     
                         </div>    
                         <div class="row mb-3">       
-                                <div class="col-md-6"> 
+                                <div class="col-md-6 rango-wrapper"> 
                                       {{ form_widget(form.caj_4b) }}
-                                      <div id="etiqueta-rango" class="mt-2 fw-bold ">Seleccione una opción</div>
+                                      <div class="etiqueta-rango mt-2 fw-bold">Seleccione una opción</div>
                                 </div>
                         </div>
                         <div class="row mb-3">   
@@ -245,4 +245,5 @@
 
     {{ parent() }}
         <script src="{{ asset('js/caj.js') }}"></script>
+        <script src="{{ asset('js/rango.js') }}"></script>
 {% endblock %}

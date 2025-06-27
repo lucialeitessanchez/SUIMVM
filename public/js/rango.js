@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
             etiquetas: ['No', 'Parcialmente', 'Sí'],
             clases: ['range-no', 'range-parcial', 'range-si']
         },
+        'caj_4b': {
+            etiquetas: ['No', 'Parcialmente', 'Sí'],
+            clases: ['range-no', 'range-parcial', 'range-si']
+        },
+        
         'gobloc13': {
             etiquetas: ['Bajo', 'Medio', 'Alto', 'Crítico'],
             clases: ['range-bajo', 'range-medio', 'range-alto', 'range-critico']
