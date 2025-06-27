@@ -36,6 +36,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/$, roles: PUBLIC_ACCESS }      # ⬅ Habilita acceso público a la raíz /
+        - { path: ^/index, roles: PUBLIC_ACCESS } 
         - { path: ^/cas_login, roles: PUBLIC_ACCESS }
         - { path: ^/failure, roles: PUBLIC_ACCESS }
         - { path: ^/logout, roles: PUBLIC_ACCESS }
