@@ -282,10 +282,20 @@ class SmgydType extends AbstractType
                 'required' => false,
                 'label'=>'Observaciones adicionales'
                 ])
-            ->add('usuariocarga', TextType::class, ['required' => false])
+            ->add('usuariocarga', TextType::class, [
+                'required' => false,
+                'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
+                'row_attr' => [
+                    'style' => 'display:none;', // Oculta también el label y errores
+                ]
+                ])
             ->add('fechacarga', DateTimeType::class, [
                 'widget' => 'single_text',
                 'required' => false,
+                'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
+                'row_attr' => [
+                    'style' => 'display:none;', // Oculta también el label y errores
+                ]
             ])
 
             // Relaciones OneToMany
@@ -309,7 +319,8 @@ class SmgydType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'label' => false,
-            ]);
+            ])
+         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -53,8 +53,8 @@ class Smgyd
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $smgyd9a = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    private ?Nomenclador $smgyd10 = null;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $smgyd10 = null;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $smgyd11 = null;
@@ -65,8 +65,8 @@ class Smgyd
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $smgyd13 = null;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
-    private ?bool $smgyd14 = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    private ?Nomenclador $smgyd14 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     private ?Nomenclador $smgyd15 = null;
@@ -209,8 +209,8 @@ class Smgyd
     public function getSmgyd9a(): ?bool { return $this->smgyd9a; }
     public function setSmgyd9a(?bool $smgyd9a): self { $this->smgyd9a = $smgyd9a; return $this; }
 
-    public function getSmgyd10(): ?Nomenclador { return $this->smgyd10; }
-    public function setSmgyd10(?Nomenclador $smgyd10): self { $this->smgyd10 = $smgyd10; return $this; }
+    public function getSmgyd10(): ?string { return $this->smgyd10; }
+    public function setSmgyd10(?string $smgyd10): self { $this->smgyd10 = $smgyd10; return $this; }
 
     public function getSmgyd11(): ?bool { return $this->smgyd11; }
     public function setSmgyd11(?bool $smgyd11): self { $this->smgyd11 = $smgyd11; return $this; }
@@ -221,8 +221,8 @@ class Smgyd
     public function getSmgyd13(): ?bool { return $this->smgyd13; }
     public function setSmgyd13(?bool $smgyd13): self { $this->smgyd13 = $smgyd13; return $this; }
 
-    public function getSmgyd14(): ?bool { return $this->smgyd14; }
-    public function setSmgyd14(?bool $smgyd14): self { $this->smgyd14 = $smgyd14; return $this; }
+    public function getSmgyd14(): ?Nomenclador { return $this->smgyd14; }
+    public function setSmgyd14( ?Nomenclador $smgyd14): self { $this->smgyd14 = $smgyd14; return $this; }
 
     public function getSmgyd15(): ?Nomenclador { return $this->smgyd15; }
     public function setSmgyd15(?Nomenclador $smgyd15): self { $this->smgyd15 = $smgyd15; return $this; }

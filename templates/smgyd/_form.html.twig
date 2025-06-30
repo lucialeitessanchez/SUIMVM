@@ -214,27 +214,29 @@
           <div class="row mb-3">   
               <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiar">Agregar Organizacion</button></div>
           </div>
+        <div class="row mb-3">
+               <div class='col md-4'>
+                    {{ form_row(form.smgyd17) }}
+               </div>
+               <div class='col md-4'>
+                    <label class='form-label'>¿Corresponde RENNyA para hijos/as de la victima?</label>
+                    {{ form_row(form.smgyd18) }}
+               </div>
+                    <div class='col md-4'>
+                    {{ form_row(form.smgyd19, {'attr': {'class': 'form-select'}}) }}
+               </div>
+        </div>
+        <div class="row mb-3">
+            <div class='col md-6'>
+                  {{ form_row(form.smgyd20,{'attr': {'class': 'form-control'}}) }}
             </div>
+            <div class='col md-6'>
+                {{ form_row(form.smgyd21,{'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+         
       </div>
     </div>
-</div>{#div item#}    
-        <div class="col-md-6">         
-           
-            
-            {{ form_row(form.smgyd17) }}
-            {{ form_row(form.smgyd18) }}
-            {{ form_row(form.smgyd19) }}
-            {{ form_row(form.smgyd20) }}
-            {{ form_row(form.smgyd21) }}
-            {{ form_row(form.fechacarga) }}
-            {{ form_row(form.usuariocarga) }}
-        </div>
-    </div>
-
-<hr>
-
-<hr>
-
     {% if modo != 'show' %}
         <div class="col-md-12 d-flex justify-content-end">
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
@@ -244,6 +246,10 @@
                 </div>
         </div>
    {% endif %}
+   <br>
+</div>{#div item#}    
+
+    
 </div> 
 {{ form_end(form) }}
 </section>
