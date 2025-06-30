@@ -4,7 +4,7 @@
       Swal.fire({
         icon: "error",
         title: "Debe seleccionar un caso",
-        text: "Antes de registrar MPA, es necesario elegir un caso.",
+        text: "Antes de registrar SMGyD, es necesario elegir un caso.",
         confirmButtonText: "Ir a casos"
       }).then((result) => {
         if (result.isConfirmed) {
@@ -15,10 +15,10 @@
   </script>
 {% endif %}
  {% if caso is defined  %}  
-    <section id="formSecretaria" class="container my-5">
+    <section id="formSecretaria" class="container my-3">
           
       <div class="d-flex align-items-center justify-content-between mb-4">
-          <h2 class="mb-0">Sección Areas locales</h2>
+          <h2 class="mb-0">Sección SMGyD</h2>
 
           <span class="ms-3">
             Ud. está trabajando con el caso Nro:
@@ -28,57 +28,210 @@
         </div>
 
 {{ form_start(form) }}
+<div class="accordion" id="accordionFormularioViolencia" >
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading1">
+    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" >
+       1. Acerca de la víctima
+    </button></h2>
+    <div id="collapse1" class="accordion-collapse collapse show ">
+      <div class="accordion-body" >
+            <div class="row mb-3">
+            <div class="col-md-4">
+                {{ form_label(form.smgyd2,null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_errors(form.smgyd2) }}
+                {{ form_widget(form.smgyd2,{'attr': {'class': 'form-select'}}) }}
+            </div>    
+            <div class="col-md-4">
+                {{ form_label(form.smgyd3,null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_errors(form.smgyd3) }}
+                {{ form_widget(form.smgyd3,{'attr': {'class': 'form-select'}}) }}
+            </div>    
+            <div class="col-md-4">    
+                {{ form_label(form.smgyd4,null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_errors(form.smgyd4) }}
+                {{ form_widget(form.smgyd4,{'attr': {'class': 'form-select'}}) }}
+            </div>    
+          </div>  
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <h6>Familiares a cargo</h6>
+                <div id="familiares-collection"
+                      data-prototype="{{ form_widget(form.familiares.vars.prototype)|e('html_attr') }}"
+                      data-index="{{ form.familiares|length }}">
+                      {% for familiarForm in form.familiares %}
+                      <div class="familiar-item mb-3">
+                            {% include 'smgyd/_familiar_row.html.twig' with {'form': familiarForm} %}
+                      </div>  
+                      {% endfor %}
+                </div>
+            </div>
+          </div>
+          <div class="row mb-3">   
+              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiar">Agregar Familiar</button></div>
+          </div>
+       
+      </div>
+      </div>
+      </div>{#item#}
 
-<div class="row">
-    <div class="col-md-6">
-        {{ form_row(form.smgyd2) }}
-        {{ form_row(form.smgyd3) }}
-        {{ form_row(form.smgyd4) }}
-        {{ form_row(form.smgyd7) }}
-        {{ form_row(form.smgyd8) }}
-        {{ form_row(form.smgyd8a) }}
-        {{ form_row(form.smgyd9) }}
-        {{ form_row(form.smgyd9a) }}
-        {{ form_row(form.smgyd10) }}
-        {{ form_row(form.smgyd11) }}
-        {{ form_row(form.smgyd12) }}
-        {{ form_row(form.smgyd13) }}
-        {{ form_row(form.smgyd14) }}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading2">
+      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" >
+        2. Antecedentes / Ruta critica: Estrategias de abordaje 
+      </button>
+    </h2>
+    <div id="collapse2" class="accordion-collapse collapse hide ">
+      <div class="accordion-body" >
+          <div class="row mb-3">   
+                  <div class='col md-4'>
+                    {{ form_row(form.smgyd7) }}
+                  </div>
+                  <div class='col md-4'>
+                    {{ form_row(form.smgyd8) }}
+                  </div>
+                  <div class='col md-4'>
+                    {{ form_row(form.smgyd8a, {'attr': {'class': 'form-select'}}) }}
+                  </div>
+          </div>
+          <div class="row mb-3">   
+              <div class='col md-4'>
+                <label class='form-label'>¿Existen medidas de proteccion previas?</label>
+                <div class="form-check form-switch">
+                        {{ form_row(form.smgyd9, {'label_attr': {'class': 'form-label'}}) }}
+                </div>
+              </div>
+              <div class='col md-4'>
+                <label class='form-label'>¿Fueron en relacion al mismo agresor?</label>
+                <div class="form-check form-switch">
+                        {{ form_row(form.smgyd9a, {'label_attr': {'class': 'form-label'}}) }}
+                </div>
+              </div>
+              <div class='col md-4'>
+                 {{ form_row(form.smgyd10) }}
+               </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <h6>Procesos judiciales</h6>
+                <div id="procesos-collection"
+                    data-prototype="{{ include('smgyd/_proceso_row.html.twig', { form: form.procesosJudiciales.vars.prototype })|e('html_attr') }}"
+                    data-index="{{ form.procesosJudiciales|length }}">
+                    {% for procesoForm in form.procesosJudiciales %}
+                        <div class="proceso-item mb-3">
+                            {% include 'smgyd/_proceso_row.html.twig' with {'form': procesoForm} %}
+                        </div>  
+                    {% endfor %}
+                    
+                </div>
+            </div>
+          </div>
+          <div class="row mb-3">   
+              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiar">Agregar Familiar</button></div>
+          </div>
+          <div class="row mb-3">   
+              <div class="col md-4">
+                    <label class='form-label'>¿La victima habia sido derivada por otros equipos provinciales a la SMGyD?</label>
+                      <div class="form-check form-switch">
+                              {{ form_row(form.smgyd11, {'label_attr': {'class': 'form-label'}}) }}
+                      </div>
+              </div>
+              <div class="col md-4">
+                    <label class='form-label'>¿Se conocen intervenciones previas de otros organismos?</label>
+                      <div class="form-check form-switch">
+                              {{ form_row(form.smgyd12, {'label_attr': {'class': 'form-label'}}) }}
+                      </div>
+              </div>
+              <div class="col md-4">
+                    <label class='form-label'>¿Alguna vez la victima recibio ayudas economicas provinciales por parte de los equipos de SMGyD?</label>
+                      <div class="form-check form-switch">
+                              {{ form_row(form.smgyd13, {'label_attr': {'class': 'form-label'}}) }}
+                      </div>
+              </div>
+          </div>
+          <div class="row mb-3">   
+              <div class="col md-4">
+                 {{ form_row(form.smgyd14, {'attr': {'class': 'form-select'}}) }}
+              </div>   
+        </div>
+      </div>
     </div>
-    <div class="col-md-6">
-        {{ form_row(form.smgyd15) }}
-        {{ form_row(form.smgyd15a) }}
-        {{ form_row(form.smgyd15b) }}
-        {{ form_row(form.smgyd15c) }}
-        {{ form_row(form.smgyd16) }}
-        {{ form_row(form.smgyd16b) }}
-        {{ form_row(form.smgyd16c) }}
-        {{ form_row(form.smgyd17) }}
-        {{ form_row(form.smgyd18) }}
-        {{ form_row(form.smgyd19) }}
-        {{ form_row(form.smgyd20) }}
-        {{ form_row(form.smgyd21) }}
-        {{ form_row(form.fechacarga) }}
-        {{ form_row(form.usuariocarga) }}
+</div> {#acordeon#}   
+
+<div class="accordion-item">
+    <h2 class="accordion-header" id="heading3">
+      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" >
+        3. Estrategias de abordaje posteriores al hecho
+      </button>
+    </h2>
+    <div id="collapse3" class="accordion-collapse collapse hide ">
+      <div class="accordion-body" >
+            <div class="row mb-3">   
+                  <div class='col md-4'>
+                    {{ form_row(form.smgyd15) }}
+                  </div>
+                  <div class='col md-4'>
+                    {{ form_row(form.smgyd15a) }}
+                  </div>
+                  <div class='col md-4'>
+                    {{ form_row(form.smgyd15b) }}
+                  </div>
+            </div>    
+            <div class="row mb-3">   
+                  <div class='col md-4'></div>
+                  <div class='col md-4'></div>
+                  <div class='col md-4'>
+                       {{ form_row(form.smgyd15c,{'attr': {'class': 'form-control'}}) }}
+                  </div>
+            </div>  
+            <div class="row mb-3">   
+                <div class='col md-4'>
+                    {{ form_row(form.smgyd16) }}
+                </div>
+                <div class='col md-4'>
+                    {{ form_row(form.equipos) }}
+                </div>
+                <div class='col md-4'>
+                    {{ form_row(form.smgyd16b,{'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class='col md-4'>
+                    {{ form_row(form.smgyd16c,{'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <div class="col-md-12">
+              <h6>Organizaciones sociales y sus referentes</h6>
+                <div id="procesos-collection"
+                    data-prototype="{{ include('smgyd/_organizacion_row.html.twig', { form: form.organizaciones.vars.prototype })|e('html_attr') }}"
+                    data-index="{{ form.organizaciones|length }}">
+                    {% for organizacionForm in form.organizaciones %}
+                        <div class="proceso-item mb-3">
+                            {% include 'smgyd/_organizacion_row.html.twig' with {'form': organizacionForm} %}
+                        </div>  
+                    {% endfor %}
+                </div>
+            </div>
+          <div class="row mb-3">   
+              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiar">Agregar Organizacion</button></div>
+          </div>
+            </div>
+      </div>
     </div>
-</div>
+</div>{#div item#}    
+        <div class="col-md-6">         
+           
+            
+            {{ form_row(form.smgyd17) }}
+            {{ form_row(form.smgyd18) }}
+            {{ form_row(form.smgyd19) }}
+            {{ form_row(form.smgyd20) }}
+            {{ form_row(form.smgyd21) }}
+            {{ form_row(form.fechacarga) }}
+            {{ form_row(form.usuariocarga) }}
+        </div>
+    </div>
 
 <hr>
-
-<h5>Familiares</h5>
-<div data-prototype="{{ form_widget(form.familiares.vars.prototype)|e('html_attr') }}">
-    {{ form_row(form.familiares) }}
-</div>
-
-<h5 class="mt-4">Organizaciones</h5>
-<div data-prototype="{{ form_widget(form.organizaciones.vars.prototype)|e('html_attr') }}">
-    {{ form_row(form.organizaciones) }}
-</div>
-
-<h5 class="mt-4">Procesos Judiciales</h5>
-<div data-prototype="{{ form_widget(form.procesosJudiciales.vars.prototype)|e('html_attr') }}">
-    {{ form_row(form.procesosJudiciales) }}
-</div>
 
 <hr>
 
@@ -91,6 +244,7 @@
                 </div>
         </div>
    {% endif %}
-
+</div> 
 {{ form_end(form) }}
+</section>
 {% endif %}

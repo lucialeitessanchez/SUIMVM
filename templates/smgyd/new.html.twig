@@ -9,6 +9,9 @@
 {% endblock %}
 {% block javascripts %}
 
-   
+    {{ parent() }}
+    <script src="{{ asset('js/smgyd_familiares.js') }}"></script>
+    <script src="{{ asset('js/smgyd_proceso.js') }}"></script>
+    <script src="{{ asset('js/smgyd_organizacion.js') }}"></script>
     
 {% endblock %}

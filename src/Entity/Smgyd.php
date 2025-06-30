@@ -25,9 +25,9 @@ class Smgyd
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     private ?Nomenclador $smgyd4 = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    private ?Nomenclador $smgyd7 = null;
-
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $smgyd7 = null;
+    
     //Relaciones oneToMany
     #[ORM\ManyToMany(targetEntity: SmgydFamiliar::class, cascade: ['persist'])]
     #[ORM\JoinTable(name: 'smgyd_familiares_smgyd')]
@@ -83,6 +83,9 @@ class Smgyd
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     private ?Nomenclador $smgyd16 = null;
 
+    #[ORM\ManyToMany(targetEntity: EquipoReferencia::class)]
+    private Collection $equipos;
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $smgyd16b = null;
 
@@ -119,6 +122,7 @@ class Smgyd
         $this->familiares = new ArrayCollection();
         $this->organizaciones = new ArrayCollection();
         $this->procesosJudiciales = new ArrayCollection();
+        $this->equipos = new ArrayCollection();
     }
 
     // Generación de getters y setters
@@ -133,8 +137,8 @@ class Smgyd
     public function getSmgyd4(): ?Nomenclador { return $this->smgyd4; }
     public function setSmgyd4(?Nomenclador $smgyd4): self { $this->smgyd4 = $smgyd4; return $this; }
 
-    public function getSmgyd7(): ?Nomenclador { return $this->smgyd7; }
-    public function setSmgyd7(?Nomenclador $smgyd7): self { $this->smgyd7 = $smgyd7; return $this; }
+    public function getSmgyd7(): ?String { return $this->smgyd7; }
+    public function setSmgyd7(?String $smgyd7): self { $this->smgyd7 = $smgyd7; return $this; }
 
     //Collection
     public function getFamiliares(): Collection { return $this->familiares; }
@@ -234,6 +238,26 @@ class Smgyd
 
     public function getSmgyd16(): ?Nomenclador { return $this->smgyd16; }
     public function setSmgyd16(?Nomenclador $smgyd16): self { $this->smgyd16 = $smgyd16; return $this; }
+
+    public function getEquipos(): Collection
+    {
+        return $this->equipos;
+    }
+    
+    public function addEquipo(EquipoReferencia $equipo): static
+    {
+        if (!$this->equipos->contains($equipo)) {
+            $this->equipos[] = $equipo;
+        }
+    
+        return $this;
+    }
+    
+    public function removeEquipo(EquipoReferencia $equipo): static
+    {
+        $this->equipos->removeElement($equipo);
+        return $this;
+    }
 
     public function getSmgyd16b(): ?string { return $this->smgyd16b; }
     public function setSmgyd16b(?string $smgyd16b): self { $this->smgyd16b = $smgyd16b; return $this; }

@@ -1,0 +1,15 @@
+<div class="row proceso-item mb-3 p-3 border rounded">
+   
+    <div class="col-md-4">
+        {{ form_row(form.fecha, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_row(form.organismo, {'attr': {'class': 'form-control'}}) }}
+    </div>
+        <div class="col-md-4">
+        {{ form_row(form.observaciones, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-12 text-end mt-2">
+        <button type="button" class="btn btn-danger btn-sm remove-proceso">Eliminar</button>
+    </div>
+</div>

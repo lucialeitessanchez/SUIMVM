@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Smgyd;
 use App\Entity\Caso;
+use App\Entity\SmgydFamiliar;
+use App\Entity\SmgydOrganizacion;
+use App\Entity\SmgydProcesoJudicial;
 use App\Form\SmgydType;
 use App\Repository\SmgydRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,6 +49,10 @@ class SmgydController extends AbstractController
 
 
         $smgyd = new Smgyd();
+        $smgyd->addFamiliar(new SmgydFamiliar());
+        $smgyd->addProcesoJudicial(new SmgydProcesoJudicial());
+        $smgyd->addOrganizacion(new SmgydOrganizacion());
+        
         $form = $this->createForm(SmgydType::class, $smgyd);
         $form->handleRequest($request);
 

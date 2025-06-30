@@ -26,6 +26,9 @@ class SmgydFamiliar
     #[ORM\JoinColumn(nullable: true)]
     private ?Nomenclador $vinculo = null;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $condicion = null;
+
     #[ORM\ManyToOne(targetEntity: Smgyd::class, inversedBy: 'familiares')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Smgyd $smgyd = null;
@@ -83,6 +86,17 @@ class SmgydFamiliar
         return $this;
     }
 
+    public function getCondicion(): ?string
+    {
+        return $this->condicion;
+    }
+
+    public function setCondicion(?string $condicion): self
+    {
+        $this->condicion = $condicion;
+
+        return $this;
+    }
     public function getSmgyd(): ?Smgyd
     {
         return $this->smgyd;

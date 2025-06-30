@@ -19,6 +19,7 @@ class SmgydFamiliarType extends AbstractType
             ->add('apenom', TextType::class, [
                 'label' => 'Apellido y nombre',
                 'required' => true,
+                'attr' => ['class' => 'form-control']
             ])
             ->add('nrodoc', TextType::class, [
                 'label' => 'Nro. de documento',
@@ -26,6 +27,11 @@ class SmgydFamiliarType extends AbstractType
             ])
             ->add('edad', IntegerType::class, [
                 'required' => false,
+            ])
+            ->add('condicion', TextType::class, [
+                'label' => 'Condición',
+                'required' => false,
+                'attr' => ['class' => 'form-control']
             ])
             ->add('vinculo', EntityType::class, [
                 'class' => Nomenclador::class,

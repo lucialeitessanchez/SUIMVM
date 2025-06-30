@@ -17,7 +17,7 @@ class SmgydOrganizacion
     private ?string $nombre = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $descripcion = null;
+    private ?string $referente = null;
 
     #[ORM\ManyToOne(targetEntity: Smgyd::class, inversedBy: 'organizaciones')]
     #[ORM\JoinColumn(nullable: false)]
@@ -40,14 +40,14 @@ class SmgydOrganizacion
         return $this;
     }
 
-    public function getDescripcion(): ?string
+    public function getReferente(): ?string
     {
-        return $this->descripcion;
+        return $this->referente;
     }
 
-    public function setDescripcion(?string $descripcion): self
+    public function setReferente(?string $referente): self
     {
-        $this->descripcion = $descripcion;
+        $this->referente = $referente;
 
         return $this;
     }
