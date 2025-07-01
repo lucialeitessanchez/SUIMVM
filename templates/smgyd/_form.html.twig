@@ -127,7 +127,7 @@
             </div>
           </div>
           <div class="row mb-3">   
-              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiar">Agregar Familiar</button></div>
+              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-proceso">Agregar Proceso</button></div>
           </div>
           <div class="row mb-3">   
               <div class="col md-4">
@@ -201,18 +201,18 @@
             <div class="row mb-3">
                     <div class="col-md-12">
               <h6>Organizaciones sociales y sus referentes</h6>
-                <div id="procesos-collection"
+                <div id="organizaciones-collection"
                     data-prototype="{{ include('smgyd/_organizacion_row.html.twig', { form: form.organizaciones.vars.prototype })|e('html_attr') }}"
                     data-index="{{ form.organizaciones|length }}">
                     {% for organizacionForm in form.organizaciones %}
-                        <div class="proceso-item mb-3">
+                        <div class="organizacion-item mb-3">
                             {% include 'smgyd/_organizacion_row.html.twig' with {'form': organizacionForm} %}
                         </div>  
                     {% endfor %}
                 </div>
             </div>
           <div class="row mb-3">   
-              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiar">Agregar Organizacion</button></div>
+              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-organizacion">Agregar Organizacion</button></div>
           </div>
         <div class="row mb-3">
                <div class='col md-4'>
@@ -237,7 +237,11 @@
          
       </div>
     </div>
-    {% if modo != 'show' %}
+</div>{#div item#}    
+  
+</div> 
+   <br>
+{% if modo != 'show' %}
         <div class="col-md-12 d-flex justify-content-end">
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
                 <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
@@ -246,11 +250,6 @@
                 </div>
         </div>
    {% endif %}
-   <br>
-</div>{#div item#}    
-
-    
-</div> 
 {{ form_end(form) }}
 </section>
 {% endif %}

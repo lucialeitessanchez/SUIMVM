@@ -205,7 +205,7 @@ class SmgydType extends AbstractType
             ->add('smgyd15c', TextType::class, [
                 'required' => false,
                 'label'=>'¿Cual?'                
-                ])
+            ])
             ->add('smgyd16', ChoiceType::class, [
                     'label' => 'Activacion del protocolo de femicidios',
                     'choices' => [
@@ -219,7 +219,7 @@ class SmgydType extends AbstractType
                     'placeholder' => false, // 👈️ evita que Symfony agregue una opción vacía
                     'label_attr' => ['class' => 'form-label'],
                     'attr' => ['class' => 'form-check'], // se puede personalizar más en el Twig
-                ])
+            ])
             ->add('equipos', EntityType::class, [
                     'class' => EquipoReferencia::class,
                     'choice_label' => 'equipo', // o el campo que quieras mostrar
@@ -313,6 +313,7 @@ class SmgydType extends AbstractType
                 'by_reference' => false,
                 'label' => false,
             ])
+
             ->add('procesosJudiciales', CollectionType::class, [
                 'entry_type' => SmgydProcesoJudicialType::class,
                 'allow_add' => true,

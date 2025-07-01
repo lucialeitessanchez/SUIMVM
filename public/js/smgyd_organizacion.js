@@ -18,10 +18,10 @@
             organizacionesHolder.dataset.index = indexOrganizaciones;
         });
 
-        procesosHolder.addEventListener('click', function (event) {
-            if (event.target.classList.contains('remove-proceso')) {
+        organizacionesHolder.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-organizacion')) {
                 event.preventDefault();
-                event.target.closest('.proceso-item').remove();
+                event.target.closest('.organizacion-item').remove();
             }
         });
     });

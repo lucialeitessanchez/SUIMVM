@@ -46,6 +46,15 @@
       </a>
      
     {% endif %}
+     {% if smgyd is not empty %}
+      <a href="{{ path('app_smgyd_show', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'smgyd' %}active{% endif %}"
+         title="SMGyD">
+        <span class="circle-letter"><h5>MPA</h5></span>
+            
+      </a>
+     
+    {% endif %}
   </div>
 
 

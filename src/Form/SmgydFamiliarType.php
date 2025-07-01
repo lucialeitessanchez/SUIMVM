@@ -18,7 +18,7 @@ class SmgydFamiliarType extends AbstractType
         $builder
             ->add('apenom', TextType::class, [
                 'label' => 'Apellido y nombre',
-                'required' => true,
+                'required' => false,
                 'attr' => ['class' => 'form-control']
             ])
             ->add('nrodoc', TextType::class, [
@@ -38,6 +38,12 @@ class SmgydFamiliarType extends AbstractType
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione...',
                 'required' => false,
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'TIPO_VINCULO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
             ]);
     }
 

@@ -23,7 +23,7 @@ class SmgydFamiliar
     private ?int $edad = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(name: "vinculo_id", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $vinculo = null;
 
     #[ORM\Column(type: 'string', length: 255)]

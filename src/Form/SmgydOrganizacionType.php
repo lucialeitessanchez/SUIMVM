@@ -16,7 +16,7 @@ class SmgydOrganizacionType extends AbstractType
         $builder
             ->add('nombre', TextType::class, [
                 'label' => 'Nombre de la organización',
-                'required' => true,
+                'required' => false,
             ])
             ->add('referente', TextareaType::class, [
                 'label' => 'Apellido y nombre de referente',

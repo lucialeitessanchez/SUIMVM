@@ -17,98 +17,100 @@ class Smgyd
 
     // Relaciones a Nomenclador
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_2", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $smgyd2 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_3", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $smgyd3 = null;
-
+    
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_4", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $smgyd4 = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(name: "smgyd_7",type: 'string', length: 255, nullable: true)]
     private ?string $smgyd7 = null;
     
     //Relaciones oneToMany
-    #[ORM\ManyToMany(targetEntity: SmgydFamiliar::class, cascade: ['persist'])]
-    #[ORM\JoinTable(name: 'smgyd_familiares_smgyd')]
+    #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydFamiliar::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $familiares;
 
-    #[ORM\ManyToMany(targetEntity: SmgydOrganizacion::class, cascade: ['persist'])]
-    #[ORM\JoinTable(name: 'smgyd_organizaciones_smgyd')]
+    #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydOrganizacion::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $organizaciones;
 
-    #[ORM\ManyToMany(targetEntity: SmgydProcesoJudicial::class, cascade: ['persist'])]
-    #[ORM\JoinTable(name: 'smgyd_procesos_smgyd')]
+    #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydProcesoJudicial::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $procesosJudiciales;
-
-    #[ORM\Column(type: 'boolean', nullable: true)]
+ 
+    #[ORM\Column(name: "smgyd_8", type: 'boolean', nullable: true)]
     private ?bool $smgyd8 = null;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(name:"smgyd_8a",type: 'text', nullable: true)]
     private ?string $smgyd8a = null;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[ORM\Column(name:"smgyd_9",type: 'boolean', nullable: true)]
     private ?bool $smgyd9 = null;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[ORM\Column(name:"smgyd_9a",type: 'boolean', nullable: true)]
     private ?bool $smgyd9a = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
+    #[ORM\Column(name:"smgyd_10",type: 'string', nullable: true)]
     private ?string $smgyd10 = null;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[ORM\Column(name:"smgyd_11",type: 'boolean', nullable: true)]
     private ?bool $smgyd11 = null;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[ORM\Column(name:"smgyd_12",type: 'boolean', nullable: true)]
     private ?bool $smgyd12 = null;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[ORM\Column(name:"smgyd_13",type: 'boolean', nullable: true)]
     private ?bool $smgyd13 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_14", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $smgyd14 = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    private ?Nomenclador $smgyd15 = null;
+    #[ORM\Column(name:"smgyd_15",type: 'string', nullable: true)]
+    private ?string $smgyd15 = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    private ?Nomenclador $smgyd15a = null;
+    #[ORM\Column(name:"smgyd_15a",type: 'string', nullable: true)]
+    private ?string $smgyd15a = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    private ?Nomenclador $smgyd15b = null;
+    #[ORM\Column(name:"smgyd_15b",type: 'string', nullable: true)]
+    private ?string $smgyd15b = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(name:"smgyd_15c",type: 'string', length: 255, nullable: true)]
     private ?string $smgyd15c = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    private ?Nomenclador $smgyd16 = null;
+    #[ORM\Column(name:"smgyd_16",type: 'string', nullable: true)]
+    private ?string $smgyd16 = null;
 
     #[ORM\ManyToMany(targetEntity: EquipoReferencia::class)]
     private Collection $equipos;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(name:"smgyd_16b",type: 'string', length: 255, nullable: true)]
     private ?string $smgyd16b = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(name:"smgyd_16c",type: 'string', length: 255, nullable: true)]
     private ?string $smgyd16c = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    private ?Nomenclador $smgyd17 = null;
+    #[ORM\Column(name:"smgyd_17",type: 'string', nullable: true)]
+    private ?string $smgyd17 = null;
 
-    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[ORM\Column(name:"smgyd_18",type: 'boolean', nullable: true)]
     private ?bool $smgyd18 = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_19", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $smgyd19 = null;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(name:"smgyd_20",type: 'text', nullable: true)]
     private ?string $smgyd20 = null;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(name:"smgyd_21",type: 'text', nullable: true)]
     private ?string $smgyd21 = null;
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
-    #[ORM\JoinColumn(name: 'caso_id_caso', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'caso_id_caso', referencedColumnName: 'id_caso', nullable: false, onDelete: 'CASCADE')]
     private ?Caso $caso = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -137,10 +139,15 @@ class Smgyd
     public function getSmgyd4(): ?Nomenclador { return $this->smgyd4; }
     public function setSmgyd4(?Nomenclador $smgyd4): self { $this->smgyd4 = $smgyd4; return $this; }
 
-    public function getSmgyd7(): ?String { return $this->smgyd7; }
-    public function setSmgyd7(?String $smgyd7): self { $this->smgyd7 = $smgyd7; return $this; }
+    public function getSmgyd7(): ?string { return $this->smgyd7; }
+    public function setSmgyd7(?string $smgyd7): self { $this->smgyd7 = $smgyd7; return $this; }
 
     //Collection
+    public function setProcesosJudiciales(Collection $procesos): self
+{
+    $this->procesosJudiciales = $procesos;
+    return $this;
+}
     public function getFamiliares(): Collection { return $this->familiares; }
     public function addFamiliar(SmgydFamiliar $familiar): self 
     { 
@@ -224,20 +231,20 @@ class Smgyd
     public function getSmgyd14(): ?Nomenclador { return $this->smgyd14; }
     public function setSmgyd14( ?Nomenclador $smgyd14): self { $this->smgyd14 = $smgyd14; return $this; }
 
-    public function getSmgyd15(): ?Nomenclador { return $this->smgyd15; }
-    public function setSmgyd15(?Nomenclador $smgyd15): self { $this->smgyd15 = $smgyd15; return $this; }
+    public function getSmgyd15(): ?string { return $this->smgyd15; }
+    public function setSmgyd15(?string $smgyd15): self { $this->smgyd15 = $smgyd15; return $this; }
 
-    public function getSmgyd15a(): ?Nomenclador { return $this->smgyd15a; }
-    public function setSmgyd15a(?Nomenclador $smgyd15a): self { $this->smgyd15a = $smgyd15a; return $this; }
+    public function getSmgyd15a(): ?string { return $this->smgyd15a; }
+    public function setSmgyd15a(?string $smgyd15a): self { $this->smgyd15a = $smgyd15a; return $this; }
 
-    public function getSmgyd15b(): ?Nomenclador { return $this->smgyd15b; }
-    public function setSmgyd15b(?Nomenclador $smgyd15b): self { $this->smgyd15b = $smgyd15b; return $this; }
+    public function getSmgyd15b(): ?string { return $this->smgyd15b; }
+    public function setSmgyd15b(?string $smgyd15b): self { $this->smgyd15b = $smgyd15b; return $this; }
 
     public function getSmgyd15c(): ?string { return $this->smgyd15c; }
     public function setSmgyd15c(?string $smgyd15c): self { $this->smgyd15c = $smgyd15c; return $this; }
 
-    public function getSmgyd16(): ?Nomenclador { return $this->smgyd16; }
-    public function setSmgyd16(?Nomenclador $smgyd16): self { $this->smgyd16 = $smgyd16; return $this; }
+    public function getSmgyd16(): ?string { return $this->smgyd16; }
+    public function setSmgyd16(?string $smgyd16): self { $this->smgyd16 = $smgyd16; return $this; }
 
     public function getEquipos(): Collection
     {
@@ -265,8 +272,8 @@ class Smgyd
     public function getSmgyd16c(): ?string { return $this->smgyd16c; }
     public function setSmgyd16c(?string $smgyd16c): self { $this->smgyd16c = $smgyd16c; return $this; }
 
-    public function getSmgyd17(): ?Nomenclador { return $this->smgyd17; }
-    public function setSmgyd17(?Nomenclador $smgyd17): self { $this->smgyd17 = $smgyd17; return $this; }
+    public function getSmgyd17(): ?string { return $this->smgyd17; }
+    public function setSmgyd17(?string $smgyd17): self { $this->smgyd17 = $smgyd17; return $this; }
 
     public function getSmgyd18(): ?bool { return $this->smgyd18; }
     public function setSmgyd18(?bool $smgyd18): self { $this->smgyd18 = $smgyd18; return $this; }

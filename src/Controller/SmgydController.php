@@ -57,10 +57,14 @@ class SmgydController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$sinCaso)
+            $smgyd->setCaso($caso); 
+
             $em->persist($smgyd);
             $em->flush();
 
-            return $this->redirectToRoute('app_smgyd_index');
+            $this->addFlash('success_js', 'Seccion SMGyD guardada correctamente');   
+            return $this->redirectToRoute('app_caso_index');
         }
 
         $parametros['form'] = $form->createView();
