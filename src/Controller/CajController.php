@@ -93,6 +93,7 @@ class CajController extends AbstractController
                     'sdh' => $tabsData['sdh'],
                     'mpa' => $tabsData['mpa'],
                      'gl' => $tabsData['gl'],
+                     'smgyd' => $tabsData['smgyd'],
                     'pestaña_activa' => 'caj',
                 ]);
             }
@@ -134,6 +135,7 @@ class CajController extends AbstractController
                 $parametros['caj'] = $caj;
                 $parametros['sdh'] = $tabsData['sdh'];
                 $parametros['gl'] = $tabsData['gl'];  
+                $parametros['smgyd'] = $tabsData['smgyd'];
                 $parametros['pestaña_activa'] = 'caj';
 
                 return $this->render('caj/edit.html.twig', $parametros);

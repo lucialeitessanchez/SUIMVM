@@ -100,7 +100,8 @@ class SdhController extends AbstractController
             'caj' => $tabsData['caj'],
             'sdh' => $tabsData['sdh'],
             'mpa' => $tabsData['mpa'],
-            'gl' => $tabsData['gl'],        
+            'gl' => $tabsData['gl'],   
+            'smgyd' => $tabsData['smgyd'],      
             'pestaña_activa'=>'sdh',
         ]);
             
@@ -141,7 +142,8 @@ class SdhController extends AbstractController
         $parametros['caso'] = $caso;
         $parametros['caj'] = $tabsData['caj'];
         $parametros['sdh'] = $sdh;
-        $parametros['gl'] = $tabsData['gl'];           
+        $parametros['gl'] = $tabsData['gl'];     
+        $parametros['smgyd'] = $tabsData['smgyd'];           
         $parametros['pestaña_activa'] = 'sdh';
 
         return $this->render('sdh/edit.html.twig', $parametros);

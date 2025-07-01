@@ -85,6 +85,11 @@ class Smgyd
     private ?string $smgyd16 = null;
 
     #[ORM\ManyToMany(targetEntity: EquipoReferencia::class)]
+    #[ORM\JoinTable(
+        name: 'smgyd_equipo',
+        joinColumns: [new ORM\JoinColumn(name: 'smgyd_id', referencedColumnName: 'id')],// nombre opcional de la tabla intermedia
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'equipo_referencia_id', referencedColumnName: 'id_equipo')]
+        )] 
     private Collection $equipos;
 
     #[ORM\Column(name:"smgyd_16b",type: 'string', length: 255, nullable: true)]
@@ -250,17 +255,17 @@ class Smgyd
     {
         return $this->equipos;
     }
-    
-    public function addEquipo(EquipoReferencia $equipo): static
+
+    public function addEquipo(EquipoReferencia $equipo): self
     {
         if (!$this->equipos->contains($equipo)) {
             $this->equipos[] = $equipo;
         }
-    
+
         return $this;
     }
-    
-    public function removeEquipo(EquipoReferencia $equipo): static
+
+    public function removeEquipo(EquipoReferencia $equipo): self
     {
         $this->equipos->removeElement($equipo);
         return $this;

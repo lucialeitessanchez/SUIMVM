@@ -125,8 +125,9 @@ final class MpaController extends AbstractController
             'caso' => $caso,
             'caj' => $tabsData['caj'],
             'sdh' => $tabsData['sdh'],
-            'mpa' => $tabsData['mpa'],
+            'mpa' => $mpa,
             'gl' => $tabsData['gl'],
+            'smgyd' => $tabsData['smgyd'],
             'pestaña_activa'=>'mpa',
         ]);
       
@@ -168,6 +169,7 @@ final class MpaController extends AbstractController
         $parametros['caj'] = $tabsData['caj'];
         $parametros['sdh'] = $tabsData['sdh'];
         $parametros['gl'] = $tabsData['gl'];  
+        $parametros['smgyd'] = $tabsData['smgyd'];  
         $parametros['pestaña_activa'] = 'mpa';
 
         return $this->render('mpa/edit.html.twig', $parametros);

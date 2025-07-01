@@ -143,6 +143,7 @@ class CasoController extends AbstractController
             'sdh' => $tabsData['sdh'],
             'mpa' => $tabsData['mpa'],
             'gl' => $tabsData['gl'],
+            'smgyd' => $tabsData['smgyd'],
             'pestaña_activa'=>'caso',
         ]);
     }
@@ -214,6 +215,7 @@ class CasoController extends AbstractController
         $parametros['caj'] = $tabsData['caj'];
         $parametros['sdh'] = $tabsData['sdh'];
         $parametros['gl'] = $tabsData['gl'];
+        $parametros['smgyd'] = $tabsData['smgyd'];
         $parametros['pestaña_activa'] = 'caso';
 
         return $this->render('caso/edit.html.twig', $parametros);

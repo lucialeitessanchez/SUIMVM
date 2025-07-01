@@ -63,7 +63,8 @@ class GobLocalesController extends AbstractController
             'caj' => $tabsData['caj'],
             'sdh' => $tabsData['sdh'],
             'mpa' => $tabsData['mpa'],
-            'gl' => $gobLocales,        
+            'gl' => $gobLocales,  
+            'smgyd' => $tabsData['smgyd'],      
             'pestaña_activa'=>'gl',
         ]);
     }
@@ -75,7 +76,6 @@ class GobLocalesController extends AbstractController
         GobLocalesRepository $gobLocalesRepository,
         CasoRepository $casoRepository,
         CasoTabsDataProvider $tabsProvider,
-        
         EntityManagerInterface $em
     ): Response {
         $caso = $casoRepository->find($idCaso);
@@ -103,7 +103,8 @@ class GobLocalesController extends AbstractController
             $parametros['caso'] = $caso;
             $parametros['caj'] = $tabsData['caj'];
             $parametros['sdh'] = $tabsData['sdh'];
-            $parametros['gl'] = $gobLocales;           
+            $parametros['gl'] = $gobLocales;
+            $parametros['smgyd'] = $tabsData['smgyd'];           
             $parametros['pestaña_activa'] = 'gl';
 
         return $this->render('gobLocal/edit.html.twig', $parametros);
