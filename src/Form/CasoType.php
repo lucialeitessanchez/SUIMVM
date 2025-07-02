@@ -98,26 +98,7 @@ class CasoType extends AbstractType
                     return $repositorio->createQueryBuilder('l')->orderBy('l.localidad', 'ASC');
                 }
             ))
-
-            ->add('apenomAgresor', TextType::class, [
-                'label' => 'Apellido y nombre',
-                'required' => false,
-               
-            ])
-            ->add('nrodocAgresor',IntegerType::class, [
-                'label' => 'Dni',
-                'required' => false,
-            ])
-            ->add('edadAgresor',IntegerType::class, [
-                'label' => 'Edad',
-                'required' => false,
-            ])
-            
-            ->add('vinculo', TextType::class, [
-                'label' => 'Vinculo con la victima',
-                'required' => false,
-               
-            ])
+       
             ;
 
             

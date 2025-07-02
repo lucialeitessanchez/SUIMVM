@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Caso;
 use App\Entity\Mpa;
 use App\Entity\MpaTipoViolencia;
-
+use App\Entity\Nomenclador;
 use App\Repository\MpaRepository;
 use App\Repository\CasoRepository;
 use App\Form\MpaForm;
@@ -114,7 +114,7 @@ final class MpaController extends AbstractController
           if (!$mpaRepository) {
               throw $this->createNotFoundException('No hay datos de mpa para este caso');
           }
-
+         
            // Creamos el form pero sin intención de editar
               $form = $formFactory->create(MpaForm::class, $mpa, [
                   'disabled' => true, // importante: desactiva todos los campos

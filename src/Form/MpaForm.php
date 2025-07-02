@@ -167,10 +167,22 @@ class MpaForm extends AbstractType
                     'label' => 'Edad',
                     'required' => false,
                 ])
-            ->add('mpa_9c', TextType::class, [
-                    'label' => 'Vinculo con la victima',
-                    'required'=>false,
-                ])   
+          
+            ->add('mpa_9c', EntityType::class, [
+                    'class' => Nomenclador::class,
+                    'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
+                    'multiple' => False,
+                    //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
+                    'required' => false,
+                    'by_reference' => false,
+                    'label' => 'Tipo de vinculo',
+                    'query_builder' => function ($repo) {
+                        return $repo->createQueryBuilder('n')
+                            ->where('n.nomenclador = :clave')
+                            ->setParameter('clave', 'TIPO_VINCULO')
+                            ->orderBy('n.valor_nomenclador', 'ASC');
+                    },
+            ])     
             ->add('mpa_9d', CheckboxType::class, [//miembro fuerza seguridad
                     'label' => 'No / Sí',
                     'required' => false,
@@ -287,7 +299,7 @@ class MpaForm extends AbstractType
                                 ->setParameter('clave', 'TIPO_VIOLENCIA')
                                 ->orderBy('n.valor_nomenclador', 'ASC');
                         },
-                        ])     
+                ])     
                 ->add('caso', EntityType::class, [
                     'class' => Caso::class,
                     'choice_label' => 'id_caso',

@@ -28,6 +28,31 @@ class Smgyd
     #[ORM\JoinColumn(name: "smgyd_4", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $smgyd4 = null;
 
+    #[ORM\Column(name: "smgyd_5a",type: 'string', length: 255, nullable: true)]
+    private ?string $smgyd5a = null;
+
+    #[ORM\Column(name: "smgyd_5b",type: 'string', length: 255, nullable: true)]
+    private ?string $smgyd5b = null;
+
+    #[ORM\Column(name: "smgyd_5c",type: 'integer', length: 255, nullable: true)]
+    private ?int $smgyd5c = null;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_5d", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $smgyd5d = null;
+
+    #[ORM\Column(name: "smgyd_5e",type: 'integer', length: 255, nullable: true)]
+    private ?int $smgyd5e = null;
+
+    #[ORM\Column(name: "smgyd_5f",type: 'boolean', length: 255, nullable: true)]
+    private ?bool $smgyd5f = null;
+
+    #[ORM\Column(name: "smgyd_5g",type: 'string', length: 255, nullable: true)]
+    private ?string $smgyd5g = null;
+
+    #[ORM\Column(name: "smgyd_5g1",type: 'text', length: 255, nullable: true)]
+    private ?string $smgyd5g1 = null;
+
     #[ORM\Column(name: "smgyd_7",type: 'string', length: 255, nullable: true)]
     private ?string $smgyd7 = null;
     
@@ -144,8 +169,10 @@ class Smgyd
     public function getSmgyd4(): ?Nomenclador { return $this->smgyd4; }
     public function setSmgyd4(?Nomenclador $smgyd4): self { $this->smgyd4 = $smgyd4; return $this; }
 
-    public function getSmgyd7(): ?string { return $this->smgyd7; }
-    public function setSmgyd7(?string $smgyd7): self { $this->smgyd7 = $smgyd7; return $this; }
+    public function getSmgyd5d(): ?Nomenclador { return $this->smgyd5d; }
+    public function setSmgyd5d(?Nomenclador $smgyd5d): self { $this->smgyd5d = $smgyd5d; return $this; }
+
+    
 
     //Collection
     public function setProcesosJudiciales(Collection $procesos): self
@@ -208,6 +235,29 @@ class Smgyd
         }    
         return $this;
     }
+    public function getSmgyd5a(): ?string { return $this->smgyd5a; }
+    public function setSmgyd5a(?string $smgyd5a): self { $this->smgyd5a = $smgyd5a; return $this; }
+
+    public function getSmgyd5b(): ?string { return $this->smgyd5b; }
+    public function setSmgyd5b(?string $smgyd5b): self { $this->smgyd5b = $smgyd5b; return $this; }
+
+    public function getSmgyd5c(): ?int { return $this->smgyd5c; }
+    public function setSmgyd5c(?int $smgyd5c): self { $this->smgyd5c = $smgyd5c; return $this; }
+
+    public function getSmgyd5e(): ?int { return $this->smgyd5e; }
+    public function setSmgyd5e(?int $smgyd5e): self { $this->smgyd5e = $smgyd5e; return $this; }
+
+    public function getSmgyd5f(): ?bool { return $this->smgyd5f; }
+    public function setSmgyd5f(?bool $smgyd5f): self { $this->smgyd5f = $smgyd5f; return $this; }
+
+    public function getSmgyd5g(): ?string { return $this->smgyd5g; }
+    public function setSmgyd5g(?string $smgyd5g): self { $this->smgyd5g = $smgyd5g; return $this; }
+
+    public function getSmgyd5g1(): ?string { return $this->smgyd5g1; }
+    public function setSmgyd5g1(?string $smgyd5g1): self { $this->smgyd5g1 = $smgyd5g1; return $this; }
+
+    public function getSmgyd7(): ?string { return $this->smgyd7; }
+    public function setSmgyd7(?string $smgyd7): self { $this->smgyd7 = $smgyd7; return $this; }
 
     public function getSmgyd8(): ?bool { return $this->smgyd8; }
     public function setSmgyd8(?bool $smgyd8): self { $this->smgyd8 = $smgyd8; return $this; }

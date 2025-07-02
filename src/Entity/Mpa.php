@@ -73,8 +73,9 @@ class Mpa
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $mpa_9b = null;
 
-    #[ORM\Column(type: 'string', length: 150)]
-    private ?string $mpa_9c = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "mpa_9c", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $mpa_9c = null;
 
     #[ORM\Column(type: 'boolean',nullable:true)]
     private ?bool $mpa_9d = null;
@@ -234,8 +235,8 @@ public function removeTipoViolencia(Nomenclador $nomenclador): self
     public function getMpa9b(): ?int { return $this->mpa_9b; }
     public function setMpa9b(?int $mpa_9b): self { $this->mpa_9b = $mpa_9b; return $this; }
 
-    public function getMpa9c(): ?string { return $this->mpa_9c; }
-    public function setMpa9c(?string $mpa_9c): self { $this->mpa_9c = $mpa_9c; return $this; }
+    public function getMpa9c(): ?Nomenclador { return $this->mpa_9c; }
+    public function setMpa9c(?Nomenclador $mpa_9c): self { $this->mpa_9c = $mpa_9c; return $this; }
 
     public function getMpa9d(): ?bool { return $this->mpa_9d; }
     public function setMpa9d(?bool $mpa_9d): self { $this->mpa_9d = $mpa_9d; return $this; }

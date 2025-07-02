@@ -52,7 +52,8 @@
                 {{ form_errors(form.smgyd4) }}
                 {{ form_widget(form.smgyd4,{'attr': {'class': 'form-select'}}) }}
             </div>    
-          </div>  
+          </div>
+            
           <div class="row mb-3">
               <div class="col-md-3">
                   <div class="d-flex justify-content-between align-items-center">
@@ -84,20 +85,88 @@
               </div>
             </div>
           </div>
-        
-          
-       
+    
+       </div>
+      </div> 
       </div>
-      </div>
-      </div>{#item#}
+    </div>{#item#} 
 
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading2">
-      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" >
-        2. Antecedentes / Ruta critica: Estrategias de abordaje 
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading2">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" >
+        2. Acerca del agresor
+      </button></h2>
+      <div id="collapse2" class="accordion-collapse collapse ">
+      <div class="accordion-body" >
+          <div class="row mb-3">
+                <div class="col-md-4">
+                        {{ form_label(form.smgyd5a, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.smgyd5a, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.smgyd5a) }}
+                </div>
+                <div class="col-md-3">
+                        {{ form_label(form.smgyd5b, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.smgyd5b, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.smgyd5b) }}
+                </div>
+                <div class="col-md-2">
+                        {{ form_label(form.smgyd5c, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.smgyd5c, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.smgyd5c) }}
+                </div>
+                <div class='col md-4'>
+                    {{ form_row(form.smgyd5d, {'attr': {'class': 'form-select'}}) }}
+                </div>  
+          </div>    
+          <div class="row mb-3">
+                <div class="col-md-4">
+                        {{ form_label(form.smgyd5e, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.smgyd5e, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_errors(form.smgyd5e) }}
+                </div>
+                <div class="col-md-3">
+                      <label for="smgyd5f" class="form-label" style="text-align: left; width: auto;">¿Hijos en comun? </label>
+                        <div class="form-check form-switch d-flex justify-content-left">
+                            {{ form_row(form.smgyd5f, {'label_attr': {'class': 'form-label'}}) }}
+                        </div>
+                </div>
+                <div class="col-md-5">
+                      <label for="smgyd5g" class="form-label" style="text-align: left; width: auto;">¿Se conoce si tiene antecedentes penale y/o de violencia? </label>
+                        <div class="form-check form-switch d-flex justify-content-left">
+                            {{ form_row(form.smgyd5g, {'label_attr': {'class': 'form-label'}}) }}
+                        </div>
+                </div>
+          </div> 
+          <div class="row mb-3">
+                <div class="col-md-4"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-5">
+                    {{ form_row(form.smgyd5g1, {'attr': {'class': 'form-control'}}) }}
+                </div>
+          </div>
+      </div>    
+      </div>
+    </div>{#item#}
+<div class="accordion-item">
+    <h2 class="accordion-header" id="heading3">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" >
+        3. Datos del hecho 
       </button>
     </h2>
-    <div id="collapse2" class="accordion-collapse collapse hide ">
+    <div id="collapse3" class="accordion-collapse collapse ">
+      <div class="accordion-body" >
+
+
+      </div>
+    </div>
+</div>{#item 3#}      
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading4">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" >
+        4. Antecedentes / Ruta critica: Estrategias de abordaje 
+      </button>
+    </h2>
+    <div id="collapse4" class="accordion-collapse collapse ">
       <div class="accordion-body" >
           <div class="row mb-3">   
                   <div class='col md-4'>
@@ -184,16 +253,18 @@
               </div>   
         </div>
       </div>
+
+    </div>
     </div>
 </div> {#acordeon#}   
 
 <div class="accordion-item">
-    <h2 class="accordion-header" id="heading3">
-      <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" >
-        3. Estrategias de abordaje posteriores al hecho
+    <h2 class="accordion-header" id="heading5">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" >
+        5. Estrategias de abordaje posteriores al hecho
       </button>
     </h2>
-    <div id="collapse3" class="accordion-collapse collapse hide ">
+    <div id="collapse5" class="accordion-collapse collapse ">
       <div class="accordion-body" >
             <div class="row mb-3">   
                   <div class='col md-4'>

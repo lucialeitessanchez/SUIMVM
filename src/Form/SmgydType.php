@@ -8,6 +8,7 @@ use App\Entity\Nomenclador;
 use App\Form\SmgydFamiliarType;
 use App\Form\SmgydOrganizacionType;
 use App\Form\SmgydProcesoJudicialType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -64,12 +65,55 @@ class SmgydType extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
             ])   
+
+            ->add('smgyd5d', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione...',
+                'required' => false,
+                'label'=>'Relacion con la victima',
+                    'query_builder' => function ($repo) {
+                        return $repo->createQueryBuilder('n')
+                            ->where('n.nomenclador = :clave')
+                            ->setParameter('clave', 'TIPO_VINCULO')
+                            ->orderBy('n.valor_nomenclador', 'ASC');
+                    },
+            ])
+            ->add('smgyd5e', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione...',
+                'required' => false,
+                'label'=>'Nivel educativo alcanzado',
+                    'query_builder' => function ($repo) {
+                        return $repo->createQueryBuilder('n')
+                            ->where('n.nomenclador = :clave')
+                            ->setParameter('clave', 'NIVEL_EDUCATIVO')
+                            ->orderBy('n.valor_nomenclador', 'ASC');
+                    },
+            ])
+            ->add('smgyd5f', CheckboxType::class, [ //existencia de medidas
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('smgyd5g', CheckboxType::class, [ //existencia de medidas
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('smgyd5g1', TextareaType::class, [
+                'label' => 'Especificar antecedentes',
+                'required' => false,
+            ])
             ->add('smgyd7', ChoiceType::class, [
                 'label' => '¿Antecedentes de violencia en la relación?',
                 'choices' => [
                     'Sí' => 'Si',
                     'No' => 'No',
-                    'No se especificado' => 'No especificado',
+                    'No especificado' => 'No especificado',
                 ],
                 'expanded' => true, // Muestra como botones radio
                 'multiple' => false, // Solo se puede elegir una
@@ -228,6 +272,18 @@ class SmgydType extends AbstractType
                     'required' => false,
                     'label' => 'Equipos intervinientes',
                     'attr' => ['class' => 'form-select', 'multiple' => true],
+            ])
+            ->add('smgyd5a', TextType::class, [
+                'required' => false,
+                'label'=>'Apellido y Nombre'                
+            ])
+            ->add('smgyd5b', TextType::class, [
+                'required' => false,
+                'label'=>'Documento'                
+            ])
+            ->add('smgyd5c', IntegerType::class, [
+                'required' => false,
+                'label'=>'Edad'                
             ])
 
             ->add('smgyd16b', TextType::class, [
