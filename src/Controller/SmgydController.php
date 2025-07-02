@@ -138,7 +138,15 @@ class SmgydController extends AbstractController
             return $this->redirectToRoute('app_smgyd_new', ['idCaso' => $idCaso]);
 
         }
-
+        if ($smgyd->getFamiliares()->isEmpty()) {
+            $smgyd->addFamiliar(new SmgydFamiliar());
+        }
+        if ($smgyd->getProcesosJudiciales()->isEmpty()) {
+            $smgyd->addProcesoJudicial(new SmgydProcesoJudicial());
+        }
+        if ($smgyd->getOrganizaciones()->isEmpty()) {
+            $smgyd->addOrganizacion(new SmgydOrganizacion());
+        }
         $form = $this->createForm(SmgydType::class, $smgyd);
         $form->handleRequest($request);
 

@@ -7,6 +7,7 @@ use App\Entity\Nomenclador;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,11 +29,16 @@ class SmgydFamiliarType extends AbstractType
             ->add('edad', IntegerType::class, [
                 'required' => false,
             ])
-            ->add('condicion', TextType::class, [
-                'label' => 'Condición',
+            ->add('condicion', ChoiceType::class, [
+                'label' => 'Condicion',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                      'Persona con discapacidad' => 'Persona con discapacidad',
+                      'Adulo mayor' => 'Adulto mayor',
+                      'Dependiente' => 'Dependiente',                       
+                  ],
                 'required' => false,
-                'attr' => ['class' => 'form-control']
-            ])
+              ])
             ->add('vinculo', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',

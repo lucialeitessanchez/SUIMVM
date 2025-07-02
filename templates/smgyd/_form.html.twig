@@ -54,22 +54,38 @@
             </div>    
           </div>  
           <div class="row mb-3">
+              <div class="col-md-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                      <h6 class="mb-0">Datos de hijes y personas a cargo</h6>
+                      <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" type="button"
+                                  data-bs-toggle="collapse" data-bs-target="#familiaresCollapse"
+                                  aria-expanded="true" aria-controls="familiaresCollapse"
+                                  title="Mostrar/Ocultar sección">
+                                  <i class="bi bi-pencil"></i>
+                      </button>
+              </div>
+          </div>
+          <div class="row mb-3">
             <div class="col-md-12">
-              <h6>Familiares a cargo</h6>
+              <div class="collapse mt-2 show" id="familiaresCollapse">
                 <div id="familiares-collection"
-                      data-prototype="{{ form_widget(form.familiares.vars.prototype)|e('html_attr') }}"
-                      data-index="{{ form.familiares|length }}">
-                      {% for familiarForm in form.familiares %}
-                      <div class="familiar-item mb-3">
+                    data-prototype="{{ include('smgyd/_familiar_row.html.twig', { 'form': form.familiares.vars.prototype })|e('html_attr') }}"
+                    data-index="{{ form.familiares|length }}">
+                    {% for familiarForm in form.familiares %}
+                        <div class="familiar-item mb-3">
                             {% include 'smgyd/_familiar_row.html.twig' with {'form': familiarForm} %}
-                      </div>  
-                      {% endfor %}
+                        </div>
+                    {% endfor %}
+             
                 </div>
+                  <div class="text-end">
+                    <button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiar">Agregar Familiar</button>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="row mb-3">   
-              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiar">Agregar Familiar</button></div>
-          </div>
+        
+          
        
       </div>
       </div>
@@ -112,23 +128,36 @@
                </div>
           </div>
           <div class="row mb-3">
+              <div class="col-md-2">
+                  <div class="d-flex justify-content-between align-items-center">
+                      <h6 class="mb-0">Procesos judiciales</h6>
+                      <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" type="button"
+                                  data-bs-toggle="collapse" data-bs-target="#procesosCollapse"
+                                  aria-expanded="true" aria-controls="procesosCollapse"
+                                  title="Mostrar/Ocultar sección">
+                                  <i class="bi bi-pencil"></i>
+                      </button>
+              </div>
+          </div>
+          <div class="row mb-4">
             <div class="col-md-12">
-              <h6>Procesos judiciales</h6>
-                <div id="procesos-collection"
-                    data-prototype="{{ include('smgyd/_proceso_row.html.twig', { form: form.procesosJudiciales.vars.prototype })|e('html_attr') }}"
-                    data-index="{{ form.procesosJudiciales|length }}">
-                    {% for procesoForm in form.procesosJudiciales %}
-                        <div class="proceso-item mb-3">
-                            {% include 'smgyd/_proceso_row.html.twig' with {'form': procesoForm} %}
-                        </div>  
-                    {% endfor %}
-                    
+                <div class="collapse mt-2 show " id="procesosCollapse">
+                      <div id="procesos-collection"
+                          data-prototype="{{ include('smgyd/_proceso_row.html.twig', { form: form.procesosJudiciales.vars.prototype })|e('html_attr') }}"
+                          data-index="{{ form.procesosJudiciales|length }}">
+                          {% for procesoForm in form.procesosJudiciales %}
+                              <div class="proceso-item mb-3">
+                                  {% include 'smgyd/_proceso_row.html.twig' with {'form': procesoForm} %}
+                              </div>  
+                          {% endfor %}
+                      </div>
+                      <div class="text-end">
+                              <button type="button" class="btn btn-primary btn-sm mt-2" id="add-proceso">Agregar Proceso</button>
+                      </div>
+                     
                 </div>
             </div>
-          </div>
-          <div class="row mb-3">   
-              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-proceso">Agregar Proceso</button></div>
-          </div>
+          </div>        
           <div class="row mb-3">   
               <div class="col md-4">
                     <label class='form-label'>¿La victima habia sido derivada por otros equipos provinciales a la SMGyD?</label>
@@ -199,21 +228,38 @@
                 </div>
             </div>
             <div class="row mb-3">
-                    <div class="col-md-12">
-              <h6>Organizaciones sociales y sus referentes</h6>
-                <div id="organizaciones-collection"
-                    data-prototype="{{ include('smgyd/_organizacion_row.html.twig', { form: form.organizaciones.vars.prototype })|e('html_attr') }}"
-                    data-index="{{ form.organizaciones|length }}">
-                    {% for organizacionForm in form.organizaciones %}
-                        <div class="organizacion-item mb-3">
-                            {% include 'smgyd/_organizacion_row.html.twig' with {'form': organizacionForm} %}
-                        </div>  
-                    {% endfor %}
-                </div>
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Organizaciones sociales y sus referentes</h6>
+                            <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#organizacionesCollapse"
+                                        aria-expanded="true" aria-controls="organizacionesCollapse"
+                                        title="Mostrar/Ocultar sección">
+                                        <i class="bi bi-pencil"></i>
+                            </button>
+                    </div>
             </div>
-          <div class="row mb-3">   
-              <div class="col md-12" style="text-align:right"><button type="button" class="btn btn-primary btn-sm mt-2" id="add-organizacion">Agregar Organizacion</button></div>
+            <div class="row mb-3">
+                    <div class="col-md-12">
+                      <div class="collapse mt-2 show collapse" id="organizacionesCollapse">
+                       
+                          <div id="organizaciones-collection"
+                              data-prototype="{{ include('smgyd/_organizacion_row.html.twig', { form: form.organizaciones.vars.prototype })|e('html_attr') }}"
+                              data-index="{{ form.organizaciones|length }}">
+                              {% for organizacionForm in form.organizaciones %}
+                                  <div class="organizacion-item mb-3">
+                                      {% include 'smgyd/_organizacion_row.html.twig' with {'form': organizacionForm} %}
+                                  </div>  
+                              {% endfor %}
+                          </div>    
+                          <div class="text-end">
+                                  <button type="button" class="btn btn-primary btn-sm mt-2" id="add-organizacion">Agregar Organizacion</button>
+                          </div>
+                          
+                      </div>
+                    </div>
           </div>
+     
         <div class="row mb-3">
                <div class='col md-4'>
                     {{ form_row(form.smgyd17) }}

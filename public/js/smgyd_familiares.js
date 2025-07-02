@@ -15,9 +15,7 @@
             // Creamos el div contenedor del nuevo formulario
             const newItem = document.createElement('div');
             newItem.classList.add('familiar-item', 'mb-3');
-            newItem.innerHTML = newForm + `
-                <button type="button" class="btn btn-danger btn-sm mt-2 remove-familiar">Eliminar</button>
-            `;
+            newItem.innerHTML = newForm ;
 
             collectionHolder.appendChild(newItem);
             index++;
