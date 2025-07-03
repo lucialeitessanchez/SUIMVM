@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,7 +26,6 @@ class SmgydType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            
             ->add('smgyd2', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',
@@ -108,6 +108,39 @@ class SmgydType extends AbstractType
                 'label' => 'Especificar antecedentes',
                 'required' => false,
             ])
+            ->add('smgyd22a', DateType::class, [
+                'label' => 'Fecha',
+                'widget' => 'single_text',
+                'required' => false,
+            ])
+            ->add('smgyd22b', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione...',
+                'required' => false,
+                'label'=>'Tipo de hecho',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'TIPO_HECHO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+            ]) 
+            ->add('smgyd22c', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione...',
+                'required' => false,
+                'label'=>'Situacion procesal del agresor',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'SITUACION_PROCESAL')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+            ]) 
+
+
             ->add('smgyd7', ChoiceType::class, [
                 'label' => '¿Antecedentes de violencia en la relación?',
                 'choices' => [

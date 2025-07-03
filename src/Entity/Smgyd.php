@@ -53,6 +53,17 @@ class Smgyd
     #[ORM\Column(name: "smgyd_5g1",type: 'text', length: 255, nullable: true)]
     private ?string $smgyd5g1 = null;
 
+    #[ORM\Column(name: "smgyd_22a",type: 'datetime', nullable: true)]
+    private \DateTimeInterface $smgyd22a;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_22b", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $smgyd22b = null;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_22c", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $smgyd22c = null;
+
     #[ORM\Column(name: "smgyd_7",type: 'string', length: 255, nullable: true)]
     private ?string $smgyd7 = null;
     
@@ -171,8 +182,12 @@ class Smgyd
 
     public function getSmgyd5d(): ?Nomenclador { return $this->smgyd5d; }
     public function setSmgyd5d(?Nomenclador $smgyd5d): self { $this->smgyd5d = $smgyd5d; return $this; }
+   
+    public function getSmgyd22b(): ?Nomenclador { return $this->smgyd22b; }
+    public function setSmgyd22b(?Nomenclador $smgyd22b): self { $this->smgyd22b = $smgyd22b; return $this; }
 
-    
+    public function getSmgyd22c(): ?Nomenclador { return $this->smgyd22c; }
+    public function setSmgyd22c(?Nomenclador $smgyd22c): self { $this->smgyd22c = $smgyd22c; return $this; }
 
     //Collection
     public function setProcesosJudiciales(Collection $procesos): self
@@ -256,6 +271,9 @@ class Smgyd
     public function getSmgyd5g1(): ?string { return $this->smgyd5g1; }
     public function setSmgyd5g1(?string $smgyd5g1): self { $this->smgyd5g1 = $smgyd5g1; return $this; }
 
+    public function getSmgyd22a(): ?\DateTimeInterface { return $this->smgyd22a; }
+    public function setSmgyd22a(?\DateTimeInterface $smgyd22a): self { $this->smgyd22a = $smgyd22a; return $this; }
+    
     public function getSmgyd7(): ?string { return $this->smgyd7; }
     public function setSmgyd7(?string $smgyd7): self { $this->smgyd7 = $smgyd7; return $this; }
 
