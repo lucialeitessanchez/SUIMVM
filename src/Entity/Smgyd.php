@@ -71,6 +71,9 @@ class Smgyd
     #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydFamiliar::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $familiares;
 
+    #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydFamiliarReferencia::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $familiaresReferencia;
+
     #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydOrganizacion::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $organizaciones;
 
@@ -166,6 +169,7 @@ class Smgyd
         $this->organizaciones = new ArrayCollection();
         $this->procesosJudiciales = new ArrayCollection();
         $this->equipos = new ArrayCollection();
+        $this->familiaresReferencia = new ArrayCollection();
     }
 
     // Generación de getters y setters
@@ -211,6 +215,31 @@ class Smgyd
                 $familiar->setSmgyd(null);
             }
         }    
+        return $this;
+    }
+    public function getFamiliaresReferencia(): Collection
+    {
+        return $this->familiaresReferencia;
+    }
+
+    public function addFamiliarReferencia(SmgydFamiliarReferencia $familiar): static
+    {
+        if (!$this->familiaresReferencia->contains($familiar)) {
+            $this->familiaresReferencia[] = $familiar;
+            $familiar->setSmgyd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFamiliarReferencia(SmgydFamiliarReferencia $familiar): static
+    {
+        if ($this->familiaresReferencia->removeElement($familiar)) {
+            if ($familiar->getSmgyd() === $this) {
+                $familiar->setSmgyd(null);
+            }
+        }
+
         return $this;
     }
     public function getOrganizaciones(): Collection { return $this->organizaciones; }

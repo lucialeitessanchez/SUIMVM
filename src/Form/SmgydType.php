@@ -6,6 +6,7 @@ use App\Entity\EquipoReferencia;
 use App\Entity\Smgyd;
 use App\Entity\Nomenclador;
 use App\Form\SmgydFamiliarType;
+use App\Form\SmgydFamiliarReferenciaType;
 use App\Form\SmgydOrganizacionType;
 use App\Form\SmgydProcesoJudicialType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -410,6 +411,14 @@ class SmgydType extends AbstractType
                 'by_reference' => false,
                 'label' => false,
             ])
+            ->add('familiaresReferencia', CollectionType::class, [
+                'entry_type' => SmgydFamiliarReferenciaType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
+
          ;
     }
 

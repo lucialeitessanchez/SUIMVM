@@ -1,0 +1,11 @@
+<h5>Familiares de referencia</h5>
+<div id="familiares-collection"
+     data-prototype="{{ form_widget(form.familiaresReferencia.vars.prototype)|e('html_attr') }}"
+     data-index="{{ form.familiaresReferencia|length }}">
+    {% for familiar in form.familiaresReferencia %}
+        <div class="mb-2">
+            {{ form_row(familiar) }}
+        </div>
+    {% endfor %}
+</div>
+<button type="button" id="add-familiar" class="btn btn-sm btn-success">Agregar familiar</button>
