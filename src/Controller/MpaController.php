@@ -95,42 +95,52 @@ final class MpaController extends AbstractController
     }
     
 
-    #[Route('/{idCaso}/show', name: 'app_mpa_show', methods: ['GET'], requirements:['id_mpa'=>'\d+'])]
-    public function show(CasoRepository $casoRepository,
-    MpaRepository $mpaRepository,int $idCaso, 
-    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
-    {
-         // Buscar el caso           
-         $caso = $casoRepository->find($idCaso);
-         if (!$caso) {
-             throw $this->createNotFoundException('Caso no encontrado');
-         }
-
-          //busco si hay datos asociados para mostrar la pestaña desde el servicio
-          $tabsData = $tabsProvider->getData($caso);
-
-          $mpa = $mpaRepository->findOneBy(['caso' => $caso]);
-        
-          if (!$mpaRepository) {
-              throw $this->createNotFoundException('No hay datos de mpa para este caso');
-          }
-         
-           // Creamos el form pero sin intención de editar
-              $form = $formFactory->create(MpaForm::class, $mpa, [
-                  'disabled' => true, // importante: desactiva todos los campos
-              ]);
-
-          return $this->render('mpa/show.html.twig', [
-            'form' =>$form,
+    #[Route('/{idCaso}/show', name: 'app_mpa_show')]
+    public function show(
+        CasoRepository $casoRepository,
+        MpaRepository $mpaRepository,
+        int $idCaso, 
+        CasoTabsDataProvider $tabsProvider,
+        FormFactoryInterface $formFactory,
+        EntityManagerInterface $entityManager // necesitas esto para chequear si está gestionado
+    ): Response {
+        // Buscar el caso
+        $caso = $casoRepository->find($idCaso);
+        if (!$caso) {
+            throw $this->createNotFoundException('Caso no encontrado');
+        }
+    
+        // Buscar datos asociados para mostrar las pestañas
+        $tabsData = $tabsProvider->getData($caso);
+    
+        // Buscar el MPA por caso
+        $mpa = $mpaRepository->findOneBy(['caso' => $caso]);
+        if (!$mpa) {
+            throw $this->createNotFoundException('No hay datos de mpa para este caso');
+        }
+    
+        // 🔧 Asegurar que mpa_9c (Nomenclador) esté gestionado
+        $original = $mpa->getMpa9c();
+        if ($original && !$entityManager->contains($original)) {
+            $reloaded = $entityManager->getRepository(\App\Entity\Nomenclador::class)->find($original->getId());
+            $mpa->setMpa9c($reloaded);
+        }
+    
+        // Crear el formulario en modo solo lectura
+        $form = $formFactory->create(MpaForm::class, $mpa, [
+            'disabled' => true,
+        ]);
+    
+        return $this->render('mpa/show.html.twig', [
+            'form' => $form,
             'caso' => $caso,
             'caj' => $tabsData['caj'],
             'sdh' => $tabsData['sdh'],
-            'mpa' => $mpa,
+            'mpa' => $tabsData['mpa'],
             'gl' => $tabsData['gl'],
             'smgyd' => $tabsData['smgyd'],
-            'pestaña_activa'=>'mpa',
+            'pestaña_activa' => 'mpa',
         ]);
-      
     }
 
     #[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]

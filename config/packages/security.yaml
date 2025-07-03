@@ -44,7 +44,7 @@ security:
         - { path: ^/desconectado, roles: PUBLIC_ACCESS }
         - { path: '^/webdav', roles: [PUBLIC_ACCESS] }
         # - { path: ^/secure/, roles: [ IS_AUTHENTICATED_FULLY , ROLE_MIGYD_ADMIN ] }
-        - { path: ^/secure/, roles: [ IS_AUTHENTICATED_FULLY ] }
+       
 
 
 when@test:

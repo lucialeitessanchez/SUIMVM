@@ -92,9 +92,9 @@ class CajController extends AbstractController
                     'caj' => $tabsData['caj'],
                     'sdh' => $tabsData['sdh'],
                     'mpa' => $tabsData['mpa'],
-                     'gl' => $tabsData['gl'],
-                     'smgyd' => $tabsData['smgyd'],
-                    'pestaña_activa' => 'caj',
+                    'gl' => $tabsData['gl'],
+                    'smgyd' => $tabsData['smgyd'],
+                'pestaña_activa' => 'caj',
                 ]);
             }
 
