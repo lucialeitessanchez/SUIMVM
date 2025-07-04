@@ -66,6 +66,7 @@
                     <select class="form-select" id="generoAutop" name="generoAutop" required>
                         <option selected disabled>Seleccione...</option>
                         <option value="Mujer cis">Mujer cis</option>
+                        <option value="Varon cis">Varon cis</option>
                         <option value="Mujer trans">Mujer trans</option>
                         <option value="Varon trans">Varon trans</option>
                         <option value="No binario">No binario</option>
@@ -110,9 +111,9 @@
                     {{ form_errors(form.domicilio) }}
         </div>
         <div class="col-md-4">
-                    {{ form_label(form.lugarHecho, null, {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.lugarHecho, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.lugarHecho) }}
+                    {{ form_label(form.lugarHechoNomenclador, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.lugarHechoNomenclador, {'attr': {'class': 'form-select'}}) }}
+                    {{ form_errors(form.lugarHechoNomenclador) }}
         </div>
  
         <div class="col-md-4">

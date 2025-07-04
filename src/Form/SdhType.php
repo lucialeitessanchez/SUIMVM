@@ -75,6 +75,7 @@ class SdhType extends AbstractType
                   ],
                 'required' => false,
               ])
+              /*
             ->add('sdh_1_5_id_nomenclador', EntityType::class, array(
                 'required' => false,
                 'label' => 'Instituciones que intervinieron en el caso de trata',
@@ -88,7 +89,24 @@ class SdhType extends AbstractType
                     ->setParameter('nomenclador', 'INSTITUCION_INTERVINIENTE')
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
-            ))
+            ))*/
+            ->add('institucionesIntervinientes', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'multiple' => true,
+                'required' => false,
+                'by_reference' => false,
+                'label' => 'Instituciones intervinientes',
+                'attr' => ['class' => 'form-select', 'multiple' => true],
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'INSTITUCION_INTERVINIENTE')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+            ])
+
+
             ->add('sdh_1_6_id_nomenclador', EntityType::class, array(
                 'required' => false,
                 'label' => 'Acciones de asistencia brindadas a la víctima',

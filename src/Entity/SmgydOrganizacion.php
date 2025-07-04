@@ -19,6 +19,12 @@ class SmgydOrganizacion
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $referente = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $celular = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $email = null;
+
     #[ORM\ManyToOne(targetEntity: Smgyd::class, inversedBy: 'organizaciones')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Smgyd $smgyd = null;
@@ -48,6 +54,30 @@ class SmgydOrganizacion
     public function setReferente(?string $referente): self
     {
         $this->referente = $referente;
+
+        return $this;
+    }
+
+    public function getCelular(): ?string
+    {
+        return $this->celular;
+    }
+
+    public function setCelular(?string $celular): self
+    {
+        $this->celular = $celular;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

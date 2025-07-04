@@ -101,6 +101,37 @@ class Sdh
     #[ORM\Column(type: "text", nullable: true)]
     private ?string $sdh_5_2b = null;
 
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+#[ORM\JoinTable(
+    name: 'sdh_institucion_interviniente',
+    joinColumns: [new ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh')],
+    inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+)]
+private Collection $institucionesIntervinientes;
+
+
+
+public function getInstitucionesIntervinientes(): Collection
+{
+    return $this->institucionesIntervinientes;
+}
+
+public function addInstitucionInterviniente(Nomenclador $institucion): self
+{
+    if (!$this->institucionesIntervinientes->contains($institucion)) {
+        $this->institucionesIntervinientes[] = $institucion;
+    }
+
+    return $this;
+}
+
+public function removeInstitucionInterviniente(Nomenclador $institucion): self
+{
+    $this->institucionesIntervinientes->removeElement($institucion);
+    return $this;
+}
+
+
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
     private ?Caso $caso;
@@ -127,6 +158,7 @@ class Sdh
     public function __construct()
     {
         $this->sdh_1_2_id_nomenclador = new ArrayCollection();
+        $this->institucionesIntervinientes = new ArrayCollection();
     }
 
     public function getSdh12IdNomenclador(): Collection
