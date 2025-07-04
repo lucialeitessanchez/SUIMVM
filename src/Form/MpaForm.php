@@ -162,20 +162,16 @@ class MpaForm extends AbstractType
             ->add('mpa_9a', TextType::class, [
                 'label' => 'Nombre y Apellido',
                 'required'=>false,
-                 ])     
+                    ])     
             ->add('mpa_9b',IntegerType::class, [
                     'label' => 'Edad',
                     'required' => false,
                 ])
-          
+        
                 ->add('mpa_9c', EntityType::class, [
                     'class' => Nomenclador::class,
-                    'choice_label' => 'valor_nomenclador',
-                    'multiple' => false,
-                    'required' => false,
-                    'by_reference' => false,
-                    'label' => 'Tipo de vínculo',
-                    'choices' => $options['nomencladores_vinculo'], // le pasás la lista desde el controlador
+                    'label' => 'Tipo vinculo',
+                    'placeholder' => 'Seleccione'
                 ])    
             ->add('mpa_9d', CheckboxType::class, [//miembro fuerza seguridad
                     'label' => 'No / Sí',
