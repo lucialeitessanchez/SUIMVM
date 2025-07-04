@@ -170,7 +170,7 @@ class MpaForm extends AbstractType
         
                 ->add('mpa_9c', EntityType::class, [
                     'class' => Nomenclador::class,
-                    'label' => 'Tipo vinculo',
+                    'label' => 'Vinculo con la victima',
                     'placeholder' => 'Seleccione'
                 ])    
             ->add('mpa_9d', CheckboxType::class, [//miembro fuerza seguridad
