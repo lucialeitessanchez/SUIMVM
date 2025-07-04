@@ -16,8 +16,12 @@ class SmgydFamiliarReferencia
     #[ORM\Column(length: 255)]
     private ?string $apenom = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $vinculo = null;
+    #[ORM\Column]
+    private ?int $edad = null;
+
+    ##[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "vinculo_id", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $vinculo = null;
 
     #[ORM\ManyToOne(inversedBy: 'familiaresReferencia')]
     #[ORM\JoinColumn(nullable: false)]
@@ -30,7 +34,7 @@ class SmgydFamiliarReferencia
 }
 
 
-public function setApenom(string $apenom): static
+public function setApenom(?string $apenom): self
 {
     $this->apenom = $apenom;
 
@@ -42,17 +46,30 @@ public function getApenom(): ?string
     return $this->apenom;
 }
 
-public function getVinculo(): ?string
-{
-    return $this->vinculo;
-}
+public function setEdad(?int $edad): self
+    {
+        $this->edad = $edad;
 
-public function setVinculo(string $vinculo): static
-{
-    $this->vinculo = $vinculo;
+        return $this;
+    }
 
-    return $this;
-}
+    public function getEdad(): ?int
+    {
+        return $this->edad;
+    }
+
+    public function getVinculo(): ?Nomenclador
+    {
+        return $this->vinculo;
+    }
+
+    public function setVinculo(?Nomenclador $vinculo): self
+    {
+        $this->vinculo = $vinculo;
+
+        return $this;
+    }
+
 
 public function getSmgyd(): ?Smgyd
 {

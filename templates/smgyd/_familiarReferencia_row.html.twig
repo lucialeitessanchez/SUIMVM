@@ -1,11 +1,23 @@
-<h5>Familiares de referencia</h5>
-<div id="familiares-collection"
-     data-prototype="{{ form_widget(form.familiaresReferencia.vars.prototype)|e('html_attr') }}"
-     data-index="{{ form.familiaresReferencia|length }}">
-    {% for familiar in form.familiaresReferencia %}
-        <div class="mb-2">
-            {{ form_row(familiar) }}
-        </div>
-    {% endfor %}
+<div class="row familiar-referencia-item mb-3 p-3 border rounded" >
+
+    <div class="col-md-5">
+        {{ form_label(form.apenom, 'Apellido y nombre') }}
+        {{ form_widget(form.apenom, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.apenom) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_label(form.edad) }}
+        {{ form_widget(form.edad, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.edad) }}
+    </div>
+    <div class="col-md-3">
+        {{ form_label(form.vinculo) }}
+        {{ form_widget(form.vinculo, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.vinculo) }}
+    </div>
+    <div class="col-md-1">
+    <br>
+        <button type="button" class="btn btn-danger btn-sm remove-familiar">Eliminar</button>
+    </div>
 </div>
-<button type="button" id="add-familiar" class="btn btn-sm btn-success">Agregar familiar</button>
+

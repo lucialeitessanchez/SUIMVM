@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const container = document.getElementById('familiaresReferencia');
-    const addButton = document.getElementById('add-familiaresReferencia');
+    const container = document.getElementById('familiaresReferencia-collection');
+    const addButton = document.getElementById('add-familiarReferencia');
 
     if (!container || !addButton) return;
 
@@ -13,16 +13,18 @@ document.addEventListener('DOMContentLoaded', function () {
         container.dataset.index = index;
 
         const div = document.createElement('div');
-        div.classList.add('mb-3');
+        div.classList.add('familiarReferencia-item', 'mb-3'); // importante para que el botón "Eliminar" sepa qué borrar
         div.innerHTML = newForm;
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.innerHTML = '<i class="bi bi-trash"></i> Eliminar';
-        deleteBtn.type = 'button';
-        deleteBtn.classList.add('btn', 'btn-danger', 'btn-sm', 'mt-2');
-        deleteBtn.addEventListener('click', () => div.remove());
-
-        div.appendChild(deleteBtn);
         container.appendChild(div);
+    });
+
+    // Escuchar clics en cualquier botón eliminar (incluye los que vienen del server y los nuevos)
+    document.addEventListener('click', function (e) {
+        if (e.target && e.target.closest('.remove-familiar')) {
+            e.preventDefault();
+            const item = e.target.closest('.familiar-referencia-item');
+            if (item) item.remove();
+        }
     });
 });
