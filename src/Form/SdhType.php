@@ -94,10 +94,10 @@ class SdhType extends AbstractType
             ])
 
 
-            ->add('sdh_1_6_id_nomenclador', EntityType::class, array(
+            ->add('accionesAsistencia', EntityType::class, array(
                 'required' => false,
                 'label' => 'Acciones de asistencia brindadas a la víctima',
-                'multiple' => false,
+                'multiple' => true,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
@@ -126,10 +126,10 @@ class SdhType extends AbstractType
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])
-            ->add('sdh_2_2_id_nomenclador', EntityType::class, array(
+            ->add('tipoProtecciones', EntityType::class, array(
                 'required' => false,
                 'label' => 'Tipo protección ofrecida',
-                'multiple' => false,
+                'multiple' => true,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
@@ -178,10 +178,10 @@ class SdhType extends AbstractType
                   ],
                 'required' => false,
               ])
-            ->add('sdh_3_3_id_nomenclador', EntityType::class, array(
+            ->add('medidasBusqueda', EntityType::class, array(
                 'required' => false,
                 'label' => 'Medidas adoptadas para la búsqueda de la víctima',
-                'multiple' => false,
+                'multiple' => true,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
@@ -192,10 +192,10 @@ class SdhType extends AbstractType
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
             ))
-            ->add('sdh_3_4_id_nomenclador', EntityType::class, array(
+            ->add('institucionesBusqueda', EntityType::class, array(
                 'required' => false,
                 'label' => 'Instituciones involucradas en la busqueda',
-                'multiple' => false,
+                'multiple' => true,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,

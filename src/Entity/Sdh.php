@@ -109,35 +109,55 @@ class Sdh
     )]
     private Collection $institucionesIntervinientes;
 
-
-
-public function getInstitucionesIntervinientes(): Collection
-{
-    return $this->institucionesIntervinientes;
-}
-
-public function addInstitucionInterviniente(Nomenclador $institucion): self
-{
-    if (!$this->institucionesIntervinientes->contains($institucion)) {
-        $this->institucionesIntervinientes[] = $institucion;
-    }
-
+    //----------------------------------
+public function getInstitucionesIntervinientes(): Collection { return $this->institucionesIntervinientes;}
+public function addInstitucionInterviniente(Nomenclador $institucion): self 
+{ if (!$this->institucionesIntervinientes->contains($institucion)) 
+    { $this->institucionesIntervinientes[] = $institucion; }
     return $this;
 }
-
 public function removeInstitucionInterviniente(Nomenclador $institucion): self
-{
-    $this->institucionesIntervinientes->removeElement($institucion);
+{   $this->institucionesIntervinientes->removeElement($institucion);
     return $this;
 }
 public function setInstitucionesIntervinientes(Collection $instituciones): self
-{
-    $this->institucionesIntervinientes = $instituciones;
+{   $this->institucionesIntervinientes = $instituciones;
     return $this;
 }
+//--------------------------------
 
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sdh_accion_asistencia',
+        joinColumns: [new ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $accionesAsistencia;
 
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sdh_tipo_proteccion',
+        joinColumns: [new ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $tipoProtecciones;
 
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sdh_medida_busqueda',
+        joinColumns: [new ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $medidasBusqueda;
+
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sdh_institucion_busqueda',
+        joinColumns: [new ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $institucionesBusqueda;
+//-------------------------------------------------
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
     private ?Caso $caso;
@@ -147,6 +167,16 @@ public function setInstitucionesIntervinientes(Collection $instituciones): self
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $usuarioCarga = null;
+
+    public function __construct()
+    {
+        $this->sdh_1_2_id_nomenclador = new ArrayCollection();
+        $this->institucionesIntervinientes = new ArrayCollection();
+        $this->accionesAsistencia = new ArrayCollection();
+        $this->tipoProtecciones = new ArrayCollection();
+        $this->medidasBusqueda = new ArrayCollection();
+        $this->institucionesBusqueda = new ArrayCollection();
+    }
 
     // Getters y Setters
     public function getIdSdh(): int { return $this->id_sdh; }
@@ -161,12 +191,6 @@ public function setInstitucionesIntervinientes(Collection $instituciones): self
     public function getSdh110(): ?\DateTimeInterface { return $this->sdh_1_10; }
     public function setSdh110(?\DateTimeInterface $value): self { $this->sdh_1_10 = $value; return $this; }
   
-    public function __construct()
-    {
-        $this->sdh_1_2_id_nomenclador = new ArrayCollection();
-        $this->institucionesIntervinientes = new ArrayCollection();
-    }
-
     public function getSdh12IdNomenclador(): Collection
     {
         return $this->sdh_1_2_id_nomenclador;
@@ -258,5 +282,71 @@ public function setInstitucionesIntervinientes(Collection $instituciones): self
 
     public function getUsuarioCarga(): ?string { return $this->usuarioCarga; }
     public function setUsuarioCarga(?string $usuarioCarga): self { $this->usuarioCarga = $usuarioCarga; return $this; }
+
+
+        //----------------------------------
+    public function getAccionesAsistencia(): Collection { return $this->accionesAsistencia;}
+    public function addAccionAsistencia(Nomenclador $accion): self 
+    { if (!$this->accionesAsistencia->contains($accion)) 
+        { $this->accionesAsistencia[] = $accion; }
+        return $this;
+    }
+    public function removeAccionAsistencia(Nomenclador $accion): self
+    {   $this->accionesAsistencia->removeElement($accion);
+        return $this;
+    }
+    public function setAccionesAsistencia(Collection $acciones): self
+    {   $this->accionesAsistencia = $acciones;
+        return $this;
+    }
+
+        //----------------------------------
+        public function getTipoProtecciones(): Collection { return $this->tipoProtecciones;}
+        public function addTipoProteccion(Nomenclador $tipoProteccion): self 
+        { if (!$this->tipoProtecciones->contains($tipoProteccion)) 
+            { $this->tipoProtecciones[] = $tipoProteccion; }
+            return $this;
+        }
+        public function removeTipoProteccion(Nomenclador $tipoProteccion): self
+        {   $this->tipoProtecciones->removeElement($tipoProteccion);
+            return $this;
+        }
+        public function setTipoProtecciones(Collection $tipoProtecciones): self
+        {   $this->tipoProtecciones = $tipoProtecciones;
+            return $this;
+        }
+        //--------------------------------
+
+        public function getMedidasBusqueda(): Collection { return $this->medidasBusqueda;}
+        public function addMedidaBusqueda(Nomenclador $medidaBusqueda): self 
+        { if (!$this->medidasBusqueda->contains($medidaBusqueda)) 
+            { $this->medidasBusqueda[] = $medidaBusqueda; }
+            return $this;
+        }
+        public function removeMedidaBusqueda(Nomenclador $medidaBusqueda): self
+        {   $this->medidasBusqueda->removeElement($medidaBusqueda);
+            return $this;
+        }
+        public function setMedidasBusqueda(Collection $medidasBusqueda): self
+        {   $this->medidasBusqueda = $medidasBusqueda;
+            return $this;
+        }
+        //--------------------------------
+
+        public function getInstitucionesBusqueda(): Collection { return $this->institucionesBusqueda;}
+        public function addInstitucionBusqueda(Nomenclador $institucionBusqueda): self 
+        { if (!$this->institucionesBusqueda->contains($institucionBusqueda)) 
+            { $this->institucionesBusqueda[] = $institucionBusqueda; }
+            return $this;
+        }
+        public function removeInstitucionBusqueda(Nomenclador $institucionBusqueda): self
+        {   $this->institucionesBusqueda->removeElement($institucionBusqueda);
+            return $this;
+        }
+        public function setInstitucionesBusqueda(Collection $institucionesBusqueda): self
+        {   $this->institucionesBusqueda = $institucionesBusqueda;
+            return $this;
+        }
+        //--------------------------------
 
 }
