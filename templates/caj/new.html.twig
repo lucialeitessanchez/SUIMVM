@@ -66,9 +66,9 @@
                                     {{ form_widget(form.caj_1c,{'attr': {'class': 'form-select'}})  }}
                             </div>
                             <div class="col-md-3">
-                                     {{ form_label(form.caj_1d, null, {'label_attr': {'class': 'form-label'}}) }}
-                                     {{ form_errors(form.caj_1d) }}
-                                     {{ form_widget(form.caj_1d,{'attr': {'class': 'form-select'}})  }}
+                                     {{ form_label(form.tipoAsistenciasBrindadas, null, {'label_attr': {'class': 'form-label'}}) }}
+                                     {{ form_errors(form.tipoAsistenciasBrindadas) }}
+                                     {{ form_widget(form.tipoAsistenciasBrindadas,{'attr': {'class': 'form-select'}})  }}
                             </div>
                         </div>
                       </div>{#del accordion body 1#}
@@ -160,9 +160,9 @@
                                          </div>
                                 </div>
                                 <div class="col-md-6">
-                                               {{ form_label(form.caj_3b, null, {'label_attr': {'class': 'form-label'}}) }}
-                                               {{ form_errors(form.caj_3b) }}
-                                               {{ form_widget(form.caj_3b,{'attr': {'class': 'form-select'}})  }}
+                                               {{ form_label(form.asistenciasProporcionadas, null, {'label_attr': {'class': 'form-label'}}) }}
+                                               {{ form_errors(form.asistenciasProporcionadas) }}
+                                               {{ form_widget(form.asistenciasProporcionadas,{'attr': {'class': 'form-select'}})  }}
                                  </div>
                                 <div class="col-md-12"><br></div>
                             </div>
@@ -268,5 +268,6 @@
     {{ parent() }}
         <script src="{{ asset('js/caj.js') }}"></script>
         <script src="{{ asset('js/rango.js') }}"></script>
+    
         
 {% endblock %}

@@ -70,10 +70,7 @@ class CasoType extends AbstractType
                 'required' => false,
             ])
             //'Muerte violenta por intervención de un tercero','Suicidio','Muerte dudosa', 'Femicidio íntimo o familiar','Muerte en contexto de criminalidad organizada'
-            ->add('lugarHecho', TextType::class, [
-                'label' => 'Lugar del hecho',
-                'required' => false,
-            ])
+           
             ->add('domicilio', TextType::class, [
                 'label' => 'Domicilio de la víctima',
                 'required' => false,

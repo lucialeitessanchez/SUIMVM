@@ -49,6 +49,7 @@ class CajType extends AbstractType
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
             ))
+            /*
             ->add('caj_1d', EntityType::class, array(
                 'required' => false,
                 'label' => 'Tipo de asistencia brindada',
@@ -62,7 +63,21 @@ class CajType extends AbstractType
                     ->setParameter('nomenclador', 'TIPO_TRATAMIENTO')
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
-            ))
+            ))*/
+            ->add('tipoAsistenciasBrindadas', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'multiple' => true,
+                'required' => false,
+                'by_reference' => false,
+                'label' => 'Tipo de asistencia brindada',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'TIPO_TRATAMIENTO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+            ])
             ->add('caj_2a', CheckboxType::class, [
                 'label' => 'No / Sí',
                 'required' => false,
@@ -130,7 +145,7 @@ class CajType extends AbstractType
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])
-            
+            /*
             ->add('caj_3b', EntityType::class, array(
                 'required' => false,
                 'label' => 'Tipo de asistencia proporcionada al grupo familiar',
@@ -144,7 +159,22 @@ class CajType extends AbstractType
                     ->setParameter('nomenclador', 'MEDIDA_PROTECCION')
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
-            ))
+            ))*/
+
+            ->add('asistenciasProporcionadas', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'multiple' => true,
+                'required' => false,
+                'by_reference' => false,
+                'label' => 'Tipo de asistencia proporcionada al grupo familiar',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'MEDIDA_PROTECCION')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+            ])
             ->add('caj_3c', CheckboxType::class, [
                 'label' => 'No / Sí',
                 'required' => false,

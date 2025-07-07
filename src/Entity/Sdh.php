@@ -19,14 +19,14 @@ class Sdh
     #[ORM\Column(type: "boolean",nullable:true)]
     private ?bool $sdh_1_1 = null;
 
-    #[ORM\Column(type: "string")]
-    private string $sdh_1_9;
+    #[ORM\Column(type: "string",nullable:true)]
+    private ?string $sdh_1_9 = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $sdh_1_10 = null;
 
-    #[ORM\Column(type: "string")]
-    private ?string $sdh_1_3;
+    #[ORM\Column(type: "string",nullable:true)]
+    private ?string $sdh_1_3 = null;
 
     #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
     #[ORM\JoinTable(
@@ -102,12 +102,12 @@ class Sdh
     private ?string $sdh_5_2b = null;
 
     #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
-#[ORM\JoinTable(
-    name: 'sdh_institucion_interviniente',
-    joinColumns: [new ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh')],
-    inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
-)]
-private Collection $institucionesIntervinientes;
+    #[ORM\JoinTable(
+        name: 'sdh_institucion_interviniente',
+        joinColumns: [new ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $institucionesIntervinientes;
 
 
 
@@ -130,6 +130,12 @@ public function removeInstitucionInterviniente(Nomenclador $institucion): self
     $this->institucionesIntervinientes->removeElement($institucion);
     return $this;
 }
+public function setInstitucionesIntervinientes(Collection $instituciones): self
+{
+    $this->institucionesIntervinientes = $instituciones;
+    return $this;
+}
+
 
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
@@ -181,8 +187,8 @@ public function removeInstitucionInterviniente(Nomenclador $institucion): self
         return $this;
     }
 
-    public function getSdh13(): string { return $this->sdh_1_3; }
-    public function setSdh13(string $value): self { $this->sdh_1_3 = $value; return $this; }
+    public function getSdh13(): ?string { return $this->sdh_1_3; }
+    public function setSdh13(?string $value): self { $this->sdh_1_3 = $value; return $this; }
 
     public function getSdh14(): ?string { return $this->sdh_1_4; }
     public function setSdh14(?string $value): self { $this->sdh_1_4 = $value; return $this; }

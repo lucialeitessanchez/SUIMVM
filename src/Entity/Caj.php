@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Entity\Caso;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
 #[ORM\Table(name: "caj")]
@@ -47,13 +48,32 @@ class Caj
     #[ORM\JoinColumn(name: "caj_1c", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $caj_1c = null;
 
-    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    /*#[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "caj_1d", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $caj_1d = null;
-
+*/
+/*
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "caj_3b", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $caj_3b = null;
+*/
+
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'caj_tipo_asistencia',
+        joinColumns: [new ORM\JoinColumn(name: 'caj_id', referencedColumnName: 'id_caj')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $tipoAsistenciasBrindadas;
+
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'caj_asistencia_proporcionada',
+        joinColumns: [new ORM\JoinColumn(name: 'caj_id', referencedColumnName: 'id_caj')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $asistenciasProporcionadas;
+
 
     #[ORM\Column(type: Types::BOOLEAN,nullable:true)]
     private ?bool $caj_3c = null;
@@ -326,7 +346,7 @@ class Caj
         $this->caj_1c = $caj_1c;
         return $this;
     }
-
+/*
     public function getCaj1d(): ?Nomenclador
     {
         return $this->caj_1d;
@@ -348,6 +368,61 @@ class Caj
         $this->caj_3b = $caj_3b;
         return $this;
     }
+*/
+public function getTipoAsistenciasBrindadas(): Collection
+{
+    return $this->tipoAsistenciasBrindadas;
+}
+
+public function addTipoAsistenciaBrindada(Nomenclador $tipoAsistencia): self
+{
+    if (!$this->tipoAsistenciasBrindadas->contains($tipoAsistencia)) {
+        $this->tipoAsistenciasBrindadas[] = $tipoAsistencia;
+    }
+
+    return $this;
+}
+
+public function removeTipoAsistenciaBrindada ($tipoAsistencia): self
+{
+    $this->tipoAsistenciasBrindadas->removeElement($tipoAsistencia);
+    return $this;
+}
+
+public function setTipoAsistenciasBrindadas(Collection $tipoAsistenciasBrindadas): self
+{
+    $this->tipoAsistenciasBrindadas = $tipoAsistenciasBrindadas;
+    return $this;
+}
+
+//-------------------------------------------
+public function getAsistenciasProporcionadas(): Collection
+{
+    return $this->asistenciasProporcionadas;
+}
+
+public function addAsistenciaProporcionada(Nomenclador $asistenciaProporcionada): self
+{
+    if (!$this->asistenciasProporcionadas->contains($asistenciaProporcionada)) {
+        $this->asistenciasProporcionadas[] = $asistenciaProporcionada;
+    }
+
+    return $this;
+}
+
+public function removeAsistenciaProporcionada ($asistenciaProporcionada): self
+{
+    $this->asistenciasProporcionadas->removeElement($asistenciaProporcionada);
+    return $this;
+}
+
+public function setAsistenciasProporcionadas(Collection $asistenciasProporcionadas): self
+{
+    $this->asistenciasProporcionadas = $asistenciasProporcionadas;
+    return $this;
+}
+
+//-------------------------------------
 
     public function getCaj3i(): ?EquipoReferencia
     {

@@ -84,7 +84,7 @@ class SdhType extends AbstractType
                 'required' => false,
                 'by_reference' => false,
                 'label' => 'Instituciones intervinientes',
-                'attr' => ['class' => 'form-select', 'multiple' => true],
+           
                 'query_builder' => function ($repo) {
                     return $repo->createQueryBuilder('n')
                         ->where('n.nomenclador = :clave')
