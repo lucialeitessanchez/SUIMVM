@@ -162,27 +162,17 @@ class MpaForm extends AbstractType
             ->add('mpa_9a', TextType::class, [
                 'label' => 'Nombre y Apellido',
                 'required'=>false,
-                 ])     
+                    ])     
             ->add('mpa_9b',IntegerType::class, [
                     'label' => 'Edad',
                     'required' => false,
                 ])
-          
-            ->add('mpa_9c', EntityType::class, [
+        
+                ->add('mpa_9c', EntityType::class, [
                     'class' => Nomenclador::class,
-                    'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
-                    'multiple' => False,
-                    //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
-                    'required' => false,
-                    'by_reference' => false,
-                    'label' => 'Tipo de vinculo',
-                    'query_builder' => function ($repo) {
-                        return $repo->createQueryBuilder('n')
-                            ->where('n.nomenclador = :clave')
-                            ->setParameter('clave', 'TIPO_VINCULO')
-                            ->orderBy('n.valor_nomenclador', 'ASC');
-                    },
-            ])     
+                    'label' => 'Tipo vinculo',
+                    'placeholder' => 'Seleccione'
+                ])    
             ->add('mpa_9d', CheckboxType::class, [//miembro fuerza seguridad
                     'label' => 'No / Sí',
                     'required' => false,
@@ -315,6 +305,7 @@ class MpaForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Mpa::class,
+            'nomencladores_vinculo' => [], // por defecto vacío
         ]);
     }
 }
