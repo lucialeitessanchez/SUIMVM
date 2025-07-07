@@ -26,7 +26,7 @@ class MpaForm extends AbstractType
         $builder
             
             ->add('mpa_1', ChoiceType::class, [
-                'label' => 'Tipo de muerte',
+                'label' => 'Tipo de hecho',
                 'placeholder' => 'Seleccione...',
                 'choices' => [
                     'Suicidio' => 'Suicidio',
@@ -222,9 +222,10 @@ class MpaForm extends AbstractType
                         ],
                     'required' => false,
                 ])    
-            ->add('mpa_12', ChoiceType::class, [
+           /* ->add('mecanicasDelHecho', ChoiceType::class, [
                     'label' => 'Mecánica del hecho',
                     'placeholder' => 'Seleccione...',
+                    'multiple'=>true,
                     'choices' => [
                        'Arma de fuego' => 'arma de fuego',
                         'Arma blanca' => 'arma blanca',
@@ -238,10 +239,25 @@ class MpaForm extends AbstractType
                         'Sin determinar'=>'sin determinar',
                         ],
                     'required' => false,
-                ])                
-                ->add('mpa_13', ChoiceType::class, [
+                ])     */
+                ->add('mecanicasDelHecho', EntityType::class, array(
+                    'required' => false,
+                    'label' => 'Mecanica del hecho',
+                    'multiple' => true,
+                    'choice_label' => 'valor_nomenclador',
+                    'placeholder' => 'Seleccione',
+                    'class' => Nomenclador::class,
+                    'query_builder' => function ($repositorio) {
+                        return $repositorio->createQueryBuilder('n')
+                        ->where('n.nomenclador = :nomenclador')
+                        ->setParameter('nomenclador', 'INSTITUCION_INTERVINIENTE')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                    }
+                ))           
+              /*  ->add('otrasViolencias', ChoiceType::class, [
                     'label' => 'Otras expresiones de violencia',
                     'placeholder' => 'Seleccione...',
+                    'multiple'=>true,
                     'choices' => [
                        'Tortura' => 'Tortura',
                         'Existencia de violencia sexual' => 'Existencia de violencia sexual',
@@ -257,14 +273,28 @@ class MpaForm extends AbstractType
                         'Más de un procedemiento homicida'=>'Más de un procedemiento homicida'
                        ],
                     'required' => false,
-                  ])  
+                  ])  */
+                  ->add('otrasViolencias', EntityType::class, array(
+                    'required' => false,
+                    'label' => 'Otras expresiones de violencia',
+                    'multiple' => true,
+                    'choice_label' => 'valor_nomenclador',
+                    'placeholder' => 'Seleccione',
+                    'class' => Nomenclador::class,
+                    'query_builder' => function ($repositorio) {
+                        return $repositorio->createQueryBuilder('n')
+                        ->where('n.nomenclador = :nomenclador')
+                        ->setParameter('nomenclador', 'INSTITUCION_INTERVINIENTE')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                    }
+                ))
                  
                 ->add('mpa_13a', TextareaType::class, [
                     'label' => 'Que tipo de violencia excesiva',
                     'required'=>false,
                      ])           
                 ->add('mpa_14', TextareaType::class, [
-                        'label' => 'Conducta del agresor posterior a la comsion del femicidio',
+                        'label' => 'Conducta del agresor posterior al femicidio',
                         'required'=>false,
                      ])      
            

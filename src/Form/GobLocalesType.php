@@ -41,7 +41,6 @@ class GobLocalesType extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
             ])
-            
      
             ->add('gobloc13', RangeType::class, [
                 'label' =>'Nivel de riesgo determinado por el equipo',

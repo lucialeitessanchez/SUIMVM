@@ -136,42 +136,81 @@ class Mpa
     )]
     private Collection $tiposViolencias;
 
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'mpa_mecanica_hecho',
+        joinColumns: [new ORM\JoinColumn(name: 'mpa_id', referencedColumnName: 'id_mpa')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $mecanicasDelHecho;
+
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'mpa_otra_violencia',
+        joinColumns: [new ORM\JoinColumn(name: 'mpa_id', referencedColumnName: 'id_mpa')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $otrasViolencias;
+
     public function __construct()
     {
         $this->tiposViolencias = new ArrayCollection();
+        $this->mecanicasDelHecho = new ArrayCollection();
+        $this->otrasViolencias = new ArrayCollection();
     }
     // Getter
-    public function getTiposViolencias(): Collection
-    {
-        return $this->tiposViolencias;
-    }
-
-// Add
-public function addTipoViolencia(Nomenclador $nomenclador): self
-    {
-        if (!$this->tiposViolencias->contains($nomenclador)) {
-            $this->tiposViolencias->add($nomenclador);
+    public function getTiposViolencias(): Collection { return $this->tiposViolencias; }
+    // Add
+    public function addTipoViolencia(Nomenclador $nomenclador): self
+        { if (!$this->tiposViolencias->contains($nomenclador)) 
+            { $this->tiposViolencias->add($nomenclador); }
+            return $this;
         }
+    // Remove
+    public function removeTipoViolencia(Nomenclador $nomenclador): self
+        {   $this->tiposViolencias->removeElement($nomenclador);
+            return $this;
+        }
+    public function setTiposViolencias(Collection $tiposViolencias): self
+    { $this->tiposViolencias = $tiposViolencias; return $this; }
+//-----------------------------------------------------
+  // Getter
+  public function getMecanicasDelHecho(): Collection { return $this->mecanicasDelHecho; }
+  // Add
+  public function addMecanicaDelHecho(Nomenclador $mecanica): self
+      { if (!$this->mecanicasDelHecho->contains($mecanica)) 
+          { $this->mecanicasDelHecho->add($mecanica); }
+          return $this;
+      }
+  // Remove
+  public function removeMecanicaDelHecho(Nomenclador $mecanica): self
+      {   $this->mecanicasDelHecho->removeElement($mecanica);
+          return $this;
+      }
+  public function setMecanicasDelHecho(Collection $mecanicasDelHecho): self
+  { $this->mecanicasDelHecho = $mecanicasDelHecho; return $this; }
+//-----------------------------------------------------
+ // Getter
+ public function getOtrasViolencias(): Collection { return $this->otrasViolencias; }
+ // Add
+ public function addOtrasViolencias(Nomenclador $otraViolencia): self
+     { if (!$this->otrasViolencias->contains($otraViolencia)) 
+         { $this->otrasViolencias->add($otraViolencia); }
+         return $this;
+     }
+ // Remove
+ public function removeOtrasViolencias(Nomenclador $otraViolencia): self
+     {   $this->otrasViolencias->removeElement($otraViolencia);
+         return $this;
+     }
+ public function setOtrasViolencias(Collection $otrasViolencias): self
+ { $this->otrasViolencias = $otrasViolencias; return $this; }
+//-----------------------------------------------------
 
-        return $this;
-    }
-
-// Remove
-public function removeTipoViolencia(Nomenclador $nomenclador): self
-    {
-        $this->tiposViolencias->removeElement($nomenclador);
-        return $this;
-    }
     public function getId(): ?int
     {
         return $this->id;
     }
-    public function setTiposViolencias(Collection $tiposViolencias): self
-    {
-        $this->tiposViolencias = $tiposViolencias;
-        return $this;
-    }
-
 
     public function getMpa1(): ?string
     {
