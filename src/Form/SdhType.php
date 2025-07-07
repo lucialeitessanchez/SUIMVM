@@ -75,21 +75,8 @@ class SdhType extends AbstractType
                   ],
                 'required' => false,
               ])
-              /*
-            ->add('sdh_1_5_id_nomenclador', EntityType::class, array(
-                'required' => false,
-                'label' => 'Instituciones que intervinieron en el caso de trata',
-                'multiple' => false,
-                'choice_label' => 'valor_nomenclador',
-                'placeholder' => 'Seleccione',
-                'class' => Nomenclador::class,
-                'query_builder' => function ($repositorio) {
-                    return $repositorio->createQueryBuilder('n')
-                    ->where('n.nomenclador = :nomenclador')
-                    ->setParameter('nomenclador', 'INSTITUCION_INTERVINIENTE')
-                    ->orderBy('n.valor_nomenclador', 'ASC');
-                }
-            ))*/
+              
+     
             ->add('institucionesIntervinientes', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',
