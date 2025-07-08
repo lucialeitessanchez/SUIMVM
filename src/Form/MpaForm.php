@@ -25,19 +25,20 @@ class MpaForm extends AbstractType
     {
         $builder
             
-            ->add('mpa_1', ChoiceType::class, [
-                'label' => 'Tipo de hecho',
-                'placeholder' => 'Seleccione...',
-                'choices' => [
-                    'Suicidio' => 'Suicidio',
-                    'Muerte dudosa' => 'Muerte dudosa',
-                    'Femicidio'=>'Femicidio',
-                    'Travesticidio'=>'Travesticidio',
-                    'Transfemicidio' => 'Transfemicidio',
-                    'Tentativa de femicidio' => 'Tentativa de femicidio',
-                ],
-                'required' => false,
-            ])
+            ->add('mpa_1', EntityType::class, array(
+                    'required' => false,
+                    'label' => 'Tipo hecho',
+                    'multiple' => false,
+                    'choice_label' => 'valor_nomenclador',
+                    'placeholder' => 'Seleccione',
+                    'class' => Nomenclador::class,
+                    'query_builder' => function ($repositorio) {
+                        return $repositorio->createQueryBuilder('n')
+                        ->where('n.nomenclador = :nomenclador')
+                        ->setParameter('nomenclador', 'TIPO_HECHO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                    }
+                ))           
             ->add('mpa_2', CheckboxType::class, [
                 'label' => 'No / Sí',
                 'required' => false,
@@ -131,23 +132,18 @@ class MpaForm extends AbstractType
                 'attr' => ['readonly' => true],
                 
             ])
-            ->add('mpa_7', ChoiceType::class, [
-                'label' => 'Tipo de lugar',
+            ->add('mpa_7', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione...',
-                'choices' => [
-                    'Cárcel' => 'Cárcel',
-                    'Dependencia policial'=>'Dependencia policial',
-                    'Vivienda compartida de victima y agresor'=>'Vivienda compartida de victima y agresor',
-                    'Vivienda de la victima'=>'Vivienda de la victima',
-                    'Vivienda de la agresor'=>'Vivienda de la agresor',
-                    'Otro domicilio particular'=>'Otro domicilio particular',
-                    'Local publico'=>'Local publico',
-                    'Via publica'=>'Via publica',
-                    'Local vinculado a economias ilegales o clandestinas'=>'Local vinculado a economias ilegales o clandestinas',
-                    'Reparticion estatal'=>'Reparticion estatal',
-                    'Lugar de trabajo' => 'Lugar de trabajo'                
-                ],
                 'required' => false,
+                'label'=>'Lugar del hecho',
+                    'query_builder' => function ($repo) {
+                        return $repo->createQueryBuilder('n')
+                            ->where('n.nomenclador = :clave')
+                            ->setParameter('clave', 'TIPO_LUGAR')
+                            ->orderBy('n.valor_nomenclador', 'ASC');
+                    },
             ])
             ->add('mpa_7a', TextareaType::class, [
                    'label' => 'Otra informacion relevante',
@@ -171,8 +167,14 @@ class MpaForm extends AbstractType
                 ->add('mpa_9c', EntityType::class, [
                     'class' => Nomenclador::class,
                     'label' => 'Tipo vinculo',
-                    'placeholder' => 'Seleccione'
-                ])    
+                    'placeholder' => 'Seleccione',
+                    'query_builder' => function ($repo) {
+                        return $repo->createQueryBuilder('n')
+                            ->where('n.nomenclador = :clave')
+                            ->setParameter('clave', 'TIPO_VINCULO')
+                            ->orderBy('n.valor_nomenclador', 'ASC');
+                    },
+            ])   
             ->add('mpa_9d', CheckboxType::class, [//miembro fuerza seguridad
                     'label' => 'No / Sí',
                     'required' => false,
@@ -250,7 +252,7 @@ class MpaForm extends AbstractType
                     'query_builder' => function ($repositorio) {
                         return $repositorio->createQueryBuilder('n')
                         ->where('n.nomenclador = :nomenclador')
-                        ->setParameter('nomenclador', 'INSTITUCION_INTERVINIENTE')
+                        ->setParameter('nomenclador', 'MECANICA_HECHO')
                         ->orderBy('n.valor_nomenclador', 'ASC');
                     }
                 ))           
@@ -284,7 +286,7 @@ class MpaForm extends AbstractType
                     'query_builder' => function ($repositorio) {
                         return $repositorio->createQueryBuilder('n')
                         ->where('n.nomenclador = :nomenclador')
-                        ->setParameter('nomenclador', 'INSTITUCION_INTERVINIENTE')
+                        ->setParameter('nomenclador', 'OTRA_VIOLENCIA')
                         ->orderBy('n.valor_nomenclador', 'ASC');
                     }
                 ))

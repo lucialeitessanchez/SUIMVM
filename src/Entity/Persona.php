@@ -28,6 +28,10 @@ class Persona
     #[ORM\Column(type: 'string', length: 45,nullable:true)]
     private ?string $generoAutop=null;
 
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "orientacion_sexual_id", referencedColumnName: "id", nullable: true)]
+    private ?Nomenclador $orientacion_sexual = null;
+
     #[ORM\Column(type: 'string', length: 45, nullable:true)]
     private ?string $nacionalidad = null;
 
@@ -35,8 +39,7 @@ class Persona
     {
         return $this->idPersona;
     }
-
-    
+ 
 
     public function getNombre(): ?string
     {
@@ -90,6 +93,18 @@ class Persona
     public function setGeneroAutop(?string $generoAutop): self
     {
         $this->generoAutop = $generoAutop;
+        return $this;
+    }
+
+   public function getOrientacionSexual(): ?Nomenclador
+    {
+        return $this->orientacion_sexual;
+    }
+
+    public function setOrientacionSexual(?Nomenclador $orientacionSexual): self
+    {
+        $this->orientacion_sexual = $orientacionSexual;
+
         return $this;
     }
 

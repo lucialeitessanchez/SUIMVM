@@ -57,18 +57,21 @@ class CasoType extends AbstractType
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])
-            ->add('tipoMuerte', ChoiceType::class, [
-                'label' => 'Tipo de muerte',
-                'placeholder' => 'Seleccione...',
-                'choices' => [
-                    'Muerte violenta por intervención de un tercero' => 'Muerte violenta por intervención de un tercero',
-                    'Suicidio' => 'Suicidio',
-                    'Muerte dudosa' => 'Muerte dudosa',
-                    'Femicidio íntimo o familiar' =>  'Femicidio íntimo o familiar',
-                    'Muerte en contexto de criminalidad organizada' => 'Muerte en contexto de criminalidad organizada',
-                ],
-                'required' => false,
-            ])
+        
+            ->add('tipoMuerte', EntityType::class, array(
+                    'required' => false,
+                    'label' => 'Tipo hecho',
+                    'multiple' => false,
+                    'choice_label' => 'valor_nomenclador',
+                    'placeholder' => 'Seleccione',
+                    'class' => Nomenclador::class,
+                    'query_builder' => function ($repositorio) {
+                        return $repositorio->createQueryBuilder('n')
+                        ->where('n.nomenclador = :nomenclador')
+                        ->setParameter('nomenclador', 'TIPO_HECHO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                    }
+                ))   
             //'Muerte violenta por intervención de un tercero','Suicidio','Muerte dudosa', 'Femicidio íntimo o familiar','Muerte en contexto de criminalidad organizada'
            
             ->add('domicilio', TextType::class, [
@@ -97,7 +100,21 @@ class CasoType extends AbstractType
                             ->orderBy('n.valor_nomenclador', 'ASC');
                     },
             ])
-            
+            ->add('orientacionSexual', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione...',
+                'required' => false,
+                'label' => 'Orientación sexual',
+                'property_path' => 'personaIdPersona.orientacionSexual', // <--- clave
+                 'query_builder' => function ($repositorio) {
+                        return $repositorio->createQueryBuilder('n')
+                        ->where('n.nomenclador = :nomenclador')
+                        ->setParameter('nomenclador', 'ORIENTACION_SEXUAL')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                    }
+            ])
+             
             ->add('localidad', EntityType::class, array(
                 'required' => true,
                 'label' => 'Localidad del hecho',

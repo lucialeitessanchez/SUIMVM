@@ -73,8 +73,14 @@
                         <option value="No especificado">No especificado</option>
                     </select>
                 </div>
+                <div class="col-md-4">
+                     {{ form_label(form.orientacionSexual, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.orientacionSexual) }}
+                    {{ form_widget(form.orientacionSexual,{'attr': {'class': 'form-select'}}) }}
+                </div>
+                </div>
+    <div class="row mb-3">
                 <div class="col-md-2">
-
                     {{ form_label(form.edad, null, {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_errors(form.edad) }}
                     {{ form_widget(form.edad,{'attr': {'class': 'form-control'}}) }}

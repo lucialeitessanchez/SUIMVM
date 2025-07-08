@@ -24,23 +24,22 @@ class Mpa
     #[ORM\Column(type: 'boolean',nullable:true)]
     private ?bool $mpa_2 = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string',nullable:true)]
     private ?string $mpa_3 = null; // ← Este es el campo ENUM, lo tratamos como string
 
-
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string',nullable:true)]
     private ?string $mpa_3a = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text',nullable:true)]
     private ?string $mpa_3a1 = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string',nullable:true)]
     private ?string $mpa_3b = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text',nullable:true)]
     private ?string $mpa_3b1 = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string',nullable:true)]
     private ?string $mpa_4 = null;
 
     #[ORM\Column(type: 'date', nullable: true)]
@@ -55,19 +54,19 @@ class Mpa
    #[ORM\Column(type: 'time', nullable: true)]
     private ?\DateTimeInterface $mpa_6b = null;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $mpa_6c = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $mpa_7 = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $mpa_7a = null;
 
     #[ORM\Column(type: 'boolean',nullable:true)]
     private ?bool $mpa_8 = null;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $mpa_9a = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -89,28 +88,28 @@ class Mpa
     #[ORM\Column(type: 'boolean',nullable:true)]
     private ?bool $mpa_9g = null;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $mpa_9h = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $mpa_9ha = null;
 
     #[ORM\Column(type: 'boolean',nullable:true)]
     private ?bool $mpa_10 = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $mpa_11 = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $mpa_12 = null;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $mpa_13 = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $mpa_13a = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private ?string $mpa_14 = null;
 
     #[ORM\Column(type: 'boolean',nullable:true)]

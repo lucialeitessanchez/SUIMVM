@@ -126,19 +126,21 @@ class CajType extends AbstractType
                 'choice_label' => 'equipo', // ajusta según tu entidad
                 'required' => false,
             ])
-            ->add('caj_3j', ChoiceType::class, [
-                'label' => 'Tipo de caso',
-                'placeholder' => 'Seleccione...',
-                'choices' => [
-                    'Suicidio' => 'Suicidio',
-                    'Muerte dudosa' => 'Muerte dudosa',
-                    'Femicidio'=>'Femicidio',
-                    'Travesticidio'=>'Travesticidio',
-                    'Transfemicidio' => 'Transfemicidio',
-                    'Tentativa de femicidio' => 'Tentativa de femicidio',
-                ],
-                'required' => false,
-            ])
+  
+            ->add('caj_3j', EntityType::class, array(
+                    'required' => false,
+                    'label' => 'Tipo hecho',
+                    'multiple' => false,
+                    'choice_label' => 'valor_nomenclador',
+                    'placeholder' => 'Seleccione',
+                    'class' => Nomenclador::class,
+                    'query_builder' => function ($repositorio) {
+                        return $repositorio->createQueryBuilder('n')
+                        ->where('n.nomenclador = :nomenclador')
+                        ->setParameter('nomenclador', 'TIPO_HECHO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                    }
+                ))   
             ->add('caj_3a', CheckboxType::class, [
                 'label' => 'No / Sí',
                 'required' => false,
