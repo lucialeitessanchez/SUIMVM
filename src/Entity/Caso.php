@@ -18,8 +18,8 @@ class Caso
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $fecha_carga;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTimeInterface $fecha_hecho;
+    #[ORM\Column(type: 'datetime', nullable:true)]
+    private ?\DateTimeInterface $fecha_hecho=null;
 
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $fecha_anoticiamiento;
@@ -109,7 +109,7 @@ public function getFechaHecho(): \DateTimeInterface
     return $this->fecha_hecho;
 }
 
-public function setFechaHecho(\DateTimeInterface $fecha_hecho): self
+public function setFechaHecho(?\DateTimeInterface $fecha_hecho): self
 {
     $this->fecha_hecho = $fecha_hecho;
     return $this;

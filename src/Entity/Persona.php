@@ -29,7 +29,7 @@ class Persona
     private ?string $generoAutop=null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
-    #[ORM\JoinColumn(name: "orientacion_sexual_id", referencedColumnName: "id", nullable: true)]
+    #[ORM\JoinColumn(name: "orientacion_sexual_id", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $orientacion_sexual = null;
 
     #[ORM\Column(type: 'string', length: 45, nullable:true)]

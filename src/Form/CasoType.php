@@ -126,6 +126,17 @@ class CasoType extends AbstractType
                     return $repositorio->createQueryBuilder('l')->orderBy('l.localidad', 'ASC');
                 }
             ))
+/*
+            ->add('localidad', ChoiceType::class, [
+    'required' => true,
+    'label' => 'Localidad del hecho',
+    'placeholder' => 'Seleccione...',
+    'choices' => [],
+    'attr' => [
+        'class' => 'select2-localidad',
+        // no se pone data-url aquí
+    ],
+])*/
        
             ;
 

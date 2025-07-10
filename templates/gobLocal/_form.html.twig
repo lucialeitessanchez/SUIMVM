@@ -1,20 +1,5 @@
 {% block body %}
-{% if sinCaso %}
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      Swal.fire({
-        icon: "error",
-        title: "Debe seleccionar un caso",
-        text: "Antes de registrar Areas locales, es necesario elegir un caso.",
-        confirmButtonText: "Ir a casos"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "{{ path('app_caso_index') }}";
-        }
-      });
-    });
-  </script>
-{% endif %}
+
  {% if caso is defined  %}  
     <section id="formSecretaria" class="container my-5">
           
@@ -104,7 +89,7 @@
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
                 <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
                 &nbsp;&nbsp;&nbsp;
-                <a href="{{ path('app_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
                 </div>
         </div>
    {% endif %}

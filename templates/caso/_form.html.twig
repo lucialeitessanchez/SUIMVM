@@ -76,8 +76,14 @@
                         <option value="No especificado" {% if datosPersona.genero == 'No especificado' %}selected{% endif %}>No especificado</option>
                     </select>
                 </div>
+                <div class="col-md-4">
+                     {{ form_label(form.orientacionSexual, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.orientacionSexual) }}
+                    {{ form_widget(form.orientacionSexual,{'attr': {'class': 'form-select'}}) }}
+                </div>
+                </div>
+    <div class="row mb-3">
                 <div class="col-md-2">
-
                     {{ form_label(form.edad, null, {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_errors(form.edad) }}
                     {{ form_widget(form.edad,{'attr': {'class': 'form-control'}}) }}
@@ -149,7 +155,7 @@
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
                 <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
                 &nbsp;&nbsp;&nbsp;
-                <a href="{{ path('app_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
                 </div>
         </div>
 

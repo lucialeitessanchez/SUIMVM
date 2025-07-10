@@ -135,17 +135,19 @@ class GobLocalesController extends AbstractController
         }
 
         $gobLocales = new GobLocales();
-       
+   
         $gobLocales->setFechaCarga(new \DateTimeImmutable());
         $gobLocales->setUsuarioCarga($this->getUser()?->getUserIdentifier() ?? 'sistema');
-
+        $gobLocales->setCaso($caso);
         $form = $this->createForm(GobLocalesType::class, $gobLocales);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $em->persist($gobLocales);
             $em->flush();
-
+          // dd($idCaso);
+          //  dd($gobLocales->getCaso()->getIdCaso());
            $this->addFlash('success_js', 'Seccion Area Local guardada correctamente');   
            return $this->redirectToRoute('app_caso_index');
         }

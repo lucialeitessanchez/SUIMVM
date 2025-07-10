@@ -128,12 +128,10 @@
                     {{ form_errors(form.barrio) }}
         </div>
      </div>
-     <div class="row mb-3">
-                <div class="col-md-4">
-                    {{ form_label(form.localidad, null, {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_errors(form.localidad) }}
-                    {{ form_widget(form.localidad,{'attr': {'class': 'form-select'}})  }}
-                </div>
+       <div class="row mb-3">
+     <div class="col-md-4">
+                {{ form_row(form.localidad, {'attr': {'class': 'form-select'}}) }}
+      </div>        
                 <!-- Departamento -->
                     <div class="col-md-4">
                         <label for="departamento" class="form-label">Departamento</label>
@@ -155,7 +153,7 @@
             </div>
         {{ form_widget(form) }}
     {{ form_end(form) }}
-
+<select id="caso_localidad" data-url="{{ path('buscar_localidades') }}"></select>
 </section>
 
 {% endblock %} 
@@ -167,7 +165,10 @@
         <script>
     window.localidadInfoTemplate = '{{ path('localidad_info', { id: 'PLACEHOLDER' }) }}';
     window.verificarDniUrlTemplate = "{{ path('persona_verificar_dni', { nrodoc: 'PLACEHOLDER' }) }}";
+    
 </script>
           <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
           <script src="{{ asset('js/persona.js') }}"></script>
+      
+         
 {% endblock %}

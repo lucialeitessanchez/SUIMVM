@@ -4,10 +4,12 @@
 namespace App\Controller;
 
 use App\Entity\Localidad;
+use App\Repository\LocalidadRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/localidad')]
 class LocalidadController extends AbstractController
@@ -29,4 +31,26 @@ class LocalidadController extends AbstractController
             'microregion'=>$microregion,
         ]);
     }
+
+
+     #[Route('/buscar-localidades', name: 'buscar_localidades')]
+    public function buscarLocalidades(Request $request, LocalidadRepository $repo): JsonResponse
+        {
+            $term = $request->query->get('term'); // lo que escribe el usuario
+
+            $localidades = $repo->createQueryBuilder('l')
+                ->where('l.localidad LIKE :term')
+                ->setParameter('term', '%' . $term . '%')
+                ->orderBy('l.localidad', 'ASC')
+                ->setMaxResults(20)
+                ->getQuery()
+                ->getResult();
+
+            $data = array_map(fn($loc) => [
+                'id' => $loc->getIdLocalidad(),
+                'text' => $loc->getLocalidad()
+            ], $localidades);
+
+            return new JsonResponse(['results' => $data]);
+        }
 }

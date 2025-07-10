@@ -54,7 +54,7 @@ class SmgydController extends AbstractController
         $smgyd = new Smgyd();
         $smgyd->addFamiliar(new SmgydFamiliar());
         $smgyd->addProcesoJudicial(new SmgydProcesoJudicial());
-        $smgyd->addFamiliarReferencia(new SmgydFamiliarReferencia);
+        $smgyd->addFamiliarReferencia(new SmgydFamiliarReferencia());
         $smgyd->addOrganizacion(new SmgydOrganizacion());
         
         $form = $this->createForm(SmgydType::class, $smgyd);
@@ -65,6 +65,11 @@ class SmgydController extends AbstractController
             $smgyd->setCaso($caso); 
 
             $em->persist($smgyd);
+            foreach ($smgyd->getFamiliaresReferencia() as $fr) {
+                if ($fr->getSmgyd() === null) {
+                    dump('FAMILIAR SIN SMGYD', $fr);
+                }
+            }
             $em->flush();
 
             $this->addFlash('success_js', 'Seccion SMGyD guardada correctamente');   
@@ -148,6 +153,9 @@ class SmgydController extends AbstractController
         }
         if ($smgyd->getOrganizaciones()->isEmpty()) {
             $smgyd->addOrganizacion(new SmgydOrganizacion());
+        }
+        if ($smgyd->getFamiliaresReferencia()->isEmpty()) {
+            $smgyd->addFamiliarReferencia(new SmgydFamiliarReferencia());
         }
         $form = $this->createForm(SmgydType::class, $smgyd);
         $form->handleRequest($request);

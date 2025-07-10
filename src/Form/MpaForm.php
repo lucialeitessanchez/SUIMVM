@@ -51,12 +51,12 @@ class MpaForm extends AbstractType
                 'choices' => [
                     'Intimo' => 'Intimo',
                     'Familiar' => 'Familiar',
-                    'Sexual'=>'Sexualo',
+                    'Sexual'=>'Sexual',
                     'En contexto de criminalidad organizada'=>'En contexto de criminalidad organizada',
                     'Otras muertes relacionadas a violencia de genero' => 'Otras muertes relacionadas a violencia de genero',
                     'Conflictos interpersonales' => 'Conflictos interpersonales',
-                    'En ocasion de robo'=>'En ocasión de robo',
-                    'En investigacion'=>'En investigación',
+                    'En ocasion de robo'=>'En ocasion de robo',
+                    'En investigacion'=>'En investigacion',
                 ],
                 'required' => false,
             ])
@@ -168,6 +168,7 @@ class MpaForm extends AbstractType
                     'class' => Nomenclador::class,
                     'label' => 'Tipo vinculo',
                     'placeholder' => 'Seleccione',
+                    'required'=>false,
                     'query_builder' => function ($repo) {
                         return $repo->createQueryBuilder('n')
                             ->where('n.nomenclador = :clave')

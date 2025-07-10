@@ -18,8 +18,9 @@ class Mpa
     #[ORM\Column(name: 'id_mpa', type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $mpa_1 = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "mpa_1", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $mpa_1 = null;
 
     #[ORM\Column(type: 'boolean',nullable:true)]
     private ?bool $mpa_2 = null;
@@ -57,8 +58,9 @@ class Mpa
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $mpa_6c = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $mpa_7 = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "mpa_7", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $mpa_7 = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $mpa_7a = null;
@@ -100,8 +102,9 @@ class Mpa
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $mpa_11 = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $mpa_12 = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "mpa_12", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $mpa_12 = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $mpa_13 = null;
@@ -211,12 +214,12 @@ class Mpa
         return $this->id;
     }
 
-    public function getMpa1(): ?string
+    public function getMpa1(): ?Nomenclador
     {
         return $this->mpa_1;
     }
 
-    public function setMpa1(?string $mpa_1): self
+    public function setMpa1(?Nomenclador $mpa_1): self
     {
         $this->mpa_1 = $mpa_1;
         return $this;
@@ -258,8 +261,8 @@ class Mpa
     public function getMpa6c(): ?string { return $this->mpa_6c; }
     public function setMpa6c(?string $mpa_6c): self { $this->mpa_6c = $mpa_6c; return $this; }
 
-    public function getMpa7(): ?string { return $this->mpa_7; }
-    public function setMpa7(?string $mpa_7): self { $this->mpa_7 = $mpa_7; return $this; }
+    public function getMpa7(): ?Nomenclador { return $this->mpa_7; }
+    public function setMpa7(?Nomenclador $mpa_7): self { $this->mpa_7 = $mpa_7; return $this; }
 
     public function getMpa7a(): ?string { return $this->mpa_7a; }
     public function setMpa7a(?string $mpa_7a): self { $this->mpa_7a = $mpa_7a; return $this; }
@@ -300,8 +303,8 @@ class Mpa
     public function getMpa11(): ?string { return $this->mpa_11; }
     public function setMpa11(?string $mpa_11): self { $this->mpa_11 = $mpa_11; return $this; }
 
-    public function getMpa12(): ?string { return $this->mpa_12; }
-    public function setMpa12(?string $mpa_12): self { $this->mpa_12 = $mpa_12; return $this; }
+    public function getMpa12(): ?Nomenclador { return $this->mpa_12; }
+    public function setMpa12(?Nomenclador $mpa_12): self { $this->mpa_12 = $mpa_12; return $this; }
 
     public function getMpa13(): ?string { return $this->mpa_13; }
     public function setMpa13(?string $mpa_13): self { $this->mpa_13 = $mpa_13; return $this; }

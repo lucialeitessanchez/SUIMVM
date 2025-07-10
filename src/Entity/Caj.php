@@ -106,9 +106,11 @@ class Caj
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $caj_4c = null;
+ 
 
-    #[ORM\Column(type: Types::STRING,nullable:true)]
-    private ?string $caj_3j = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "caj_3j", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $caj_3j = null;
 
     #[ORM\ManyToOne(targetEntity: Caso::class)]
     #[ORM\JoinColumn(name: "caso_id_caso", referencedColumnName: "id_caso", nullable: false)]
@@ -291,12 +293,12 @@ class Caj
         return $this;
     }
 
-    public function getCaj3j(): ?string
+    public function getCaj3j(): ?Nomenclador
     {
         return $this->caj_3j;
     }
 
-    public function setCaj3j(?string $caj_3j): self
+    public function setCaj3j(?Nomenclador $caj_3j): self
     {
         $this->caj_3j = $caj_3j;
         return $this;

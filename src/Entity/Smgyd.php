@@ -227,21 +227,21 @@ class Smgyd
         $this->familiaresReferencia = $familiaresReferencia;
         return $this;
     }
-    public function addFamiliarReferencia(SmgydFamiliarReferencia $familiar): static
+    public function addFamiliarReferencia(SmgydFamiliarReferencia $familiarReferencia): static
     {
-        if (!$this->familiaresReferencia->contains($familiar)) {
-            $this->familiaresReferencia[] = $familiar;
-            $familiar->setSmgyd($this);
+        if (!$this->familiaresReferencia->contains($familiarReferencia)) {
+            $this->familiaresReferencia[] = $familiarReferencia;
+            $familiarReferencia->setSmgyd($this);
         }
 
         return $this;
     }
 
-    public function removeFamiliarReferencia(SmgydFamiliarReferencia $familiar): static
+    public function removeFamiliarReferencia(SmgydFamiliarReferencia $familiarReferencia): static
     {
-        if ($this->familiaresReferencia->removeElement($familiar)) {
-            if ($familiar->getSmgyd() === $this) {
-                $familiar->setSmgyd(null);
+        if ($this->familiaresReferencia->removeElement($familiarReferencia)) {
+            if ($familiarReferencia->getSmgyd() === $this) {
+                $familiarReferencia->setSmgyd(null);
             }
         }
 

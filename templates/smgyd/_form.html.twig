@@ -310,36 +310,42 @@
             </div>
             {# Familiares referencia------------------------------#}
             <div class="row mb-3">
-                    <div class="col-md-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Familiares de referencia</h6>
-                            <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#familiaresReferenciaCollapse"
-                                        aria-expanded="true" aria-controls="familiaresReferenciaCollapse"
-                                        title="Mostrar/Ocultar sección">
-                                        <i class="bi bi-arrows-fullscreen"></i>
-                            </button>
+                <div class="col-md-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Familiares de referencia</h6>
+                        <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#familiaresReferenciaCollapse"
+                                aria-expanded="true" aria-controls="familiaresReferenciaCollapse"
+                                title="Mostrar/Ocultar sección">
+                            <i class="bi bi-arrows-fullscreen"></i>
+                        </button>
                     </div>
-            </div>            
+                </div>
+            </div>
             <div class="row mb-3">
-                    <div class="col-md-12">
-                      <div class="collapse mt-2 show collapse" id="familiaresReferenciaCollapse">
-                          <div id="familiaresReferencia-collection"
-                              data-prototype="{{ include('smgyd/_familiarReferencia_row.html.twig', { form: form.familiaresReferencia.vars.prototype })|e('html_attr') }}"
-                              data-index="{{ form.familiaresReferencia|length }}">
-                              {% for familiaresReferenciaForm in form.familiaresReferencia %}
-                                  <div class="familiarReferencia-item mb-3">
-                                      {% include 'smgyd/_familiarReferencia_row.html.twig' with {'form': familiaresReferenciaForm} %}
-                                  </div>  
-                              {% endfor %}
-                          </div>    
-                          <div class="text-end">
-                                  <button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiarReferencia">Agregar Familiar referencia</button>
-                          </div>
-                      </div>
+                <div class="col-md-12">
+                    <div class="collapse mt-2 show" id="familiaresReferenciaCollapse">
+
+                        <div id="familiaresReferencia-collection"
+                            data-prototype="{{ include('smgyd/_familiarReferencia_row.html.twig', { form: form.familiaresReferencia.vars.prototype })|e('html_attr') }}"
+                            data-index="{{ form.familiaresReferencia|length }}">
+                            
+                            {% for familiarForm in form.familiaresReferencia %}
+                                <div class="familiar-item mb-3">
+                                    {% include 'smgyd/_familiarReferencia_row.html.twig' with {'form': familiarForm} %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-end">
+                            <button type="button" class="btn btn-primary btn-sm mt-2" id="add-familiarReferencia">
+                                Agregar Familiar Ref
+                            </button>
+                        </div>
+
                     </div>
-          </div>
-          
+                </div>
+            </div>
             {# Organizaciones----------------------#}
             <div class="row mb-3">
                     <div class="col-md-4">
@@ -408,8 +414,8 @@
         <div class="col-md-12 d-flex justify-content-end">
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
                 <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
-                &nbsp;&nbsp;&nbsp;
-                <a href="{{ path('app_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+               &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
                 </div>
         </div>
    {% endif %}
