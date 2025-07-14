@@ -67,7 +67,7 @@ class MpaForm extends AbstractType
                     'Tiroteo' => 'Tiroteo',
                     'Ataque dirigido' => 'Ataque dirigido',
                     'Incendio'=>'Incencio',
-                    'Error de identidad'=>'Error de identidad',
+                    'Error de indentidad'=>'Error de indentidad',
                     'Error de domicilio' => 'Error de domicilio',
                 ],
                 'required' => false,

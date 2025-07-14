@@ -31,12 +31,15 @@ class CasoController extends AbstractController
         $casos = $entityManager
         ->getRepository(Caso::class)
         ->findAll();
-
-    return $this->render('/caso/casoList.html.twig', [
-        'casos' => $casos,
-    ]);
+    if ($casos){
+            return $this->render('/caso/casoList.html.twig', [
+           'casos' => $casos,
+            ]);}
+    else {
+        return $this->render('/index.html.twig');}
     }
 
+    //-----------------------------------
     #[Route('/nuevo', name: 'caso_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
