@@ -54,6 +54,19 @@ class Smgyd
     #[ORM\Column(name: "smgyd_5g1",type: 'text', length: 255, nullable: true)]
     private ?string $smgyd5g1 = null;
 
+    #[ORM\Column(name: "smgyd_5h",type: 'boolean', nullable: true)]
+    private ?bool $smgyd5h = null;
+
+    #[ORM\Column(name: "smgyd_5h1",type: 'text', length: 255, nullable: true)]
+    private ?string $smgyd5h1 = null;
+
+    #[ORM\Column(name: "smgyd_5h2",type: 'integer', nullable: true)]
+    private ?int $smgyd5h2 = null;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_5h3", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $smgyd5h3 = null;
+
     #[ORM\Column(name: "smgyd_22a",type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $smgyd22a = null;
 
@@ -187,6 +200,9 @@ class Smgyd
 
     public function getSmgyd5d(): ?Nomenclador { return $this->smgyd5d; }
     public function setSmgyd5d(?Nomenclador $smgyd5d): self { $this->smgyd5d = $smgyd5d; return $this; }
+
+    public function getSmgyd5h3(): ?Nomenclador { return $this->smgyd5h3; }
+    public function setSmgyd5h3(?Nomenclador $smgyd5h3): self { $this->smgyd5h3 = $smgyd5h3; return $this; }
    
     public function getSmgyd22b(): ?Nomenclador { return $this->smgyd22b; }
     public function setSmgyd22b(?Nomenclador $smgyd22b): self { $this->smgyd22b = $smgyd22b; return $this; }
@@ -304,6 +320,15 @@ class Smgyd
 
     public function getSmgyd5g1(): ?string { return $this->smgyd5g1; }
     public function setSmgyd5g1(?string $smgyd5g1): self { $this->smgyd5g1 = $smgyd5g1; return $this; }
+
+    public function getSmgyd5h(): ?bool { return $this->smgyd5h; }
+    public function setSmgyd5h(?bool $smgyd5h): self { $this->smgyd5h = $smgyd5h; return $this; }
+
+    public function getSmgyd5h1(): ?string { return $this->smgyd5h1; }
+    public function setSmgyd5h1(?string $smgyd5h1): self { $this->smgyd5h1 = $smgyd5h1; return $this; }
+
+    public function getSmgyd5h2(): ?int { return $this->smgyd5h2; }
+    public function setSmgyd5h2(?int $smgyd5h2): self { $this->smgyd5h2 = $smgyd5h2; return $this; }
 
     public function getSmgyd22a(): ?\DateTimeInterface { return $this->smgyd22a; }
     public function setSmgyd22a(?\DateTimeInterface $smgyd22a): self { $this->smgyd22a = $smgyd22a; return $this; }

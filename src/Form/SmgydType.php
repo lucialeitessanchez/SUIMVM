@@ -320,6 +320,33 @@ class SmgydType extends AbstractType
                 'required' => false,
                 'label'=>'Edad'                
             ])
+            ->add('smgyd5h', CheckboxType::class, [ 
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('smgyd5h1', TextType::class, [
+                'required' => false,
+                'label'=>'Apellido y nombre del autor intelectual'                
+            ])
+            ->add('smgyd5h2', IntegerType::class, [
+                'required' => false,
+                'label'=>'Edad'                
+            ])
+            ->add('smgyd5h3', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione...',
+                'required' => false,
+                'label'=>'Vinculo con la victima',
+                    'query_builder' => function ($repo) {
+                        return $repo->createQueryBuilder('n')
+                            ->where('n.nomenclador = :clave')
+                            ->setParameter('clave', 'TIPO_VINCULO')
+                            ->orderBy('n.valor_nomenclador', 'ASC');
+                    },
+            ])
 
             ->add('smgyd16b', TextType::class, [
                     'required' => false,

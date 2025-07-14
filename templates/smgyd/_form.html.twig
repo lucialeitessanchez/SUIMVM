@@ -117,7 +117,8 @@
                 <div class='col md-4'>
                     {{ form_row(form.smgyd5d, {'attr': {'class': 'form-select'}}) }}
                 </div>  
-          </div>    
+          </div>  
+          
           <div class="row mb-3">
                 <div class="col-md-4">
                         {{ form_label(form.smgyd5e, null, {'label_attr': {'class': 'form-label'}}) }}
@@ -144,6 +145,24 @@
                     {{ form_row(form.smgyd5g1, {'attr': {'class': 'form-control'}}) }}
                 </div>
           </div>
+          <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class='form-label'>¿Es el autor intelectual?</label>
+                    <div class="form-check form-switch">
+                            {{ form_row(form.smgyd5h, {'label_attr': {'class': 'form-label'}}) }}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                        {{ form_label(form.smgyd5h1, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.smgyd5h1, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.smgyd5h1) }}
+                </div>
+                 <div class="col-md-3">
+                        {{ form_label(form.smgyd5h2, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.smgyd5h2, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.smgyd5h2) }}
+                </div>
+          </div> 
       </div>    
       </div>
     </div>{#item#}
