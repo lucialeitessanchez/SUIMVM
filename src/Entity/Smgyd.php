@@ -41,20 +41,21 @@ class Smgyd
     #[ORM\JoinColumn(name: "smgyd_5d", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $smgyd5d = null;
 
-    #[ORM\Column(name: "smgyd_5e",type: 'integer', length: 255, nullable: true)]
-    private ?int $smgyd5e = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "smgyd_5e", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $smgyd5e = null;
 
     #[ORM\Column(name: "smgyd_5f",type: 'boolean', length: 255, nullable: true)]
     private ?bool $smgyd5f = null;
 
-    #[ORM\Column(name: "smgyd_5g",type: 'string', length: 255, nullable: true)]
-    private ?string $smgyd5g = null;
+    #[ORM\Column(name: "smgyd_5g",type: 'boolean', length: 255, nullable: true)]
+    private ?bool $smgyd5g = null;
 
     #[ORM\Column(name: "smgyd_5g1",type: 'text', length: 255, nullable: true)]
     private ?string $smgyd5g1 = null;
 
     #[ORM\Column(name: "smgyd_22a",type: 'datetime', nullable: true)]
-    private \DateTimeInterface $smgyd22a;
+    private ?\DateTimeInterface $smgyd22a = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "smgyd_22b", referencedColumnName: "id_nomenclador", nullable: true)]
@@ -70,6 +71,9 @@ class Smgyd
     //Relaciones oneToMany
     #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydFamiliar::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $familiares;
+
+    #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydFamiliarReferencia::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $familiaresReferencia;
 
     #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: SmgydOrganizacion::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $organizaciones;
@@ -166,6 +170,7 @@ class Smgyd
         $this->organizaciones = new ArrayCollection();
         $this->procesosJudiciales = new ArrayCollection();
         $this->equipos = new ArrayCollection();
+        $this->familiaresReferencia = new ArrayCollection();
     }
 
     // Generación de getters y setters
@@ -211,6 +216,35 @@ class Smgyd
                 $familiar->setSmgyd(null);
             }
         }    
+        return $this;
+    }
+    public function getFamiliaresReferencia(): Collection
+    {
+        return $this->familiaresReferencia;
+    }
+    public function setFamiliaresReferencia(Collection $familiaresReferencia): self
+    {
+        $this->familiaresReferencia = $familiaresReferencia;
+        return $this;
+    }
+    public function addFamiliarReferencia(SmgydFamiliarReferencia $familiar): static
+    {
+        if (!$this->familiaresReferencia->contains($familiar)) {
+            $this->familiaresReferencia[] = $familiar;
+            $familiar->setSmgyd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFamiliarReferencia(SmgydFamiliarReferencia $familiar): static
+    {
+        if ($this->familiaresReferencia->removeElement($familiar)) {
+            if ($familiar->getSmgyd() === $this) {
+                $familiar->setSmgyd(null);
+            }
+        }
+
         return $this;
     }
     public function getOrganizaciones(): Collection { return $this->organizaciones; }
@@ -259,14 +293,14 @@ class Smgyd
     public function getSmgyd5c(): ?int { return $this->smgyd5c; }
     public function setSmgyd5c(?int $smgyd5c): self { $this->smgyd5c = $smgyd5c; return $this; }
 
-    public function getSmgyd5e(): ?int { return $this->smgyd5e; }
-    public function setSmgyd5e(?int $smgyd5e): self { $this->smgyd5e = $smgyd5e; return $this; }
+    public function getSmgyd5e(): ?Nomenclador { return $this->smgyd5e; }
+    public function setSmgyd5e(?Nomenclador $smgyd5e): self { $this->smgyd5e = $smgyd5e; return $this; }
 
     public function getSmgyd5f(): ?bool { return $this->smgyd5f; }
     public function setSmgyd5f(?bool $smgyd5f): self { $this->smgyd5f = $smgyd5f; return $this; }
 
-    public function getSmgyd5g(): ?string { return $this->smgyd5g; }
-    public function setSmgyd5g(?string $smgyd5g): self { $this->smgyd5g = $smgyd5g; return $this; }
+    public function getSmgyd5g(): ?bool { return $this->smgyd5g; }
+    public function setSmgyd5g(?bool $smgyd5g): self { $this->smgyd5g = $smgyd5g; return $this; }
 
     public function getSmgyd5g1(): ?string { return $this->smgyd5g1; }
     public function setSmgyd5g1(?string $smgyd5g1): self { $this->smgyd5g1 = $smgyd5g1; return $this; }

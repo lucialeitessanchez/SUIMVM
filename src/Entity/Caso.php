@@ -76,6 +76,10 @@ class Caso
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $vinculo = null;
 
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "lugar_hecho_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $lugarHechoNomenclador = null;
+
     #[ORM\OneToMany(mappedBy: "caso", targetEntity: Mpa::class)]
     private Collection $mpas;
    
@@ -299,6 +303,9 @@ public function setVinculo(?string $vinculo): self
     $this->vinculo = $vinculo;
     return $this;
 }
+
+public function getLugarHechoNomenclador(): ?Nomenclador { return $this->lugarHechoNomenclador; }
+public function setLugarHechoNomenclador(?Nomenclador $lugarHechoNomenclador): self { $this->lugarHechoNomenclador = $lugarHechoNomenclador; return $this; }
 
 public function getUsuarioCarga(): ?string
 {

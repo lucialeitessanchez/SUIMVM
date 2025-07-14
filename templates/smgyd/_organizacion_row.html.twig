@@ -1,11 +1,18 @@
 <div class="row organizacion-item mb-3 p-3 border rounded">
-    <div class="col-md-5">
+    <div class="col-md-6">
         {{ form_row(form.nombre, {'attr': {'class': 'form-control'}}) }}
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         {{ form_row(form.referente, {'attr': {'class': 'form-control'}}) }}
     </div>
-     <div class="col-md-1">
+
+    <div class="col-md-3">
+        {{ form_row(form.celular, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-5">
+        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+     <div class="col-md-4 text-end" >
         <br>
         <button type="button" class="btn btn-danger btn-sm remove-organizacion">Eliminar</button>
     </div>

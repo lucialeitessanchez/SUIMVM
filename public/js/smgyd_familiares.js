@@ -29,5 +29,7 @@
                 event.target.closest('.familiar-item').remove();
             }
         });
+
+        
     });
 

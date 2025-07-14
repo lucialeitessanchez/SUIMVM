@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Caso;
 use App\Entity\Localidad;
+use App\Entity\Nomenclador;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -85,6 +86,19 @@ class CasoType extends AbstractType
                 'label' => 'Franja Etarea',
                 'required' => false,
                
+            ])
+            ->add('lugarHechoNomenclador', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione...',
+                'required' => false,
+                'label'=>'Lugar del hecho',
+                    'query_builder' => function ($repo) {
+                        return $repo->createQueryBuilder('n')
+                            ->where('n.nomenclador = :clave')
+                            ->setParameter('clave', 'TIPO_LUGAR')
+                            ->orderBy('n.valor_nomenclador', 'ASC');
+                    },
             ])
             
             ->add('localidad', EntityType::class, array(
