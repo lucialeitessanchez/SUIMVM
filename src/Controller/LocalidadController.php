@@ -33,24 +33,27 @@ class LocalidadController extends AbstractController
     }
 
 
-     #[Route('/buscar-localidades', name: 'buscar_localidades')]
-    public function buscarLocalidades(Request $request, LocalidadRepository $repo): JsonResponse
+    // src/Controller/LocalidadController.php
+        #[Route('/buscar-localidades', name: 'buscar_localidades')]
+        public function buscarLocalidades(Request $request, LocalidadRepository $repo): JsonResponse
         {
-            $term = $request->query->get('term'); // lo que escribe el usuario
-
-            $localidades = $repo->createQueryBuilder('l')
+            $term = $request->query->get('term');
+            $resultados = $repo->createQueryBuilder('l')
                 ->where('l.localidad LIKE :term')
                 ->setParameter('term', '%' . $term . '%')
-                ->orderBy('l.localidad', 'ASC')
                 ->setMaxResults(20)
                 ->getQuery()
                 ->getResult();
 
-            $data = array_map(fn($loc) => [
-                'id' => $loc->getIdLocalidad(),
-                'text' => $loc->getLocalidad()
-            ], $localidades);
+            $json = [];
+            foreach ($resultados as $localidad) {
+                $json[] = [
+                    'id' => $localidad->getIdLocalidad(),
+                    'text' => $localidad->getLocalidad(),
+                ];
+            }
 
-            return new JsonResponse(['results' => $data]);
+            return $this->json(['results' => $json]);
         }
+
 }

@@ -129,20 +129,22 @@
         </div>
      </div>
      <div class="row mb-3">
-                    <div class="col-md-4">
-                        {{ form_row(form.localidad, {'attr': {'class': 'form-select'}}) }}
-                    </div>        
+            <div class="col-md-4">
+                {{ form_label(form.localidad, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.localidad, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.localidad) }}
+            </div>        
                 <!-- Departamento -->
-                    <div class="col-md-4">
-                        <label for="departamento" class="form-label">Departamento</label>
-                        <input type="text" class="form-control" id="departamento" readonly="true">
-                    </div>
+            <div class="col-md-4">
+                    <label for="departamento" class="form-label">Departamento</label>
+                    <input type="text" class="form-control" id="departamento" readonly="true">
+            </div>
                 
                     <!-- Microregión -->
-                    <div class="col-md-4">
-                        <label for="microregion" class="form-label">Microregión</label>
-                        <input type="text" class="form-control" id="microregion" readonly>
-                    </div>
+            <div class="col-md-4">
+                <label for="microregion" class="form-label">Microregión</label>
+                <input type="text" class="form-control" id="microregion" readonly>
+            </div>
      </div>
      <br>
 
@@ -169,6 +171,6 @@
 </script>
           <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
           <script src="{{ asset('js/persona.js') }}"></script>
-      
+      <script src="{{ asset('js/localidad.js') }}"></script>
          
 {% endblock %}

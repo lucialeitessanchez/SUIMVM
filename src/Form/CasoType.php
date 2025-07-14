@@ -122,9 +122,12 @@ class CasoType extends AbstractType
                 'choice_label' => 'localidad',
                 'placeholder' => 'Todos',
                 'class' => Localidad::class,
-                'query_builder' => function ($repositorio) {
-                    return $repositorio->createQueryBuilder('l')->orderBy('l.localidad', 'ASC');
-                }
+                'attr' => [
+                    'class' => 'select2-autocomplete',
+                ],
+                //'query_builder' => function ($repositorio) {
+                //    return $repositorio->createQueryBuilder('l')->orderBy('l.localidad', 'ASC');
+                //}
             ))
 /*
             ->add('localidad', ChoiceType::class, [
