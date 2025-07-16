@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class MpaForm extends AbstractType
 {
@@ -225,24 +226,7 @@ class MpaForm extends AbstractType
                         ],
                     'required' => false,
                 ])    
-           /* ->add('mecanicasDelHecho', ChoiceType::class, [
-                    'label' => 'Mecánica del hecho',
-                    'placeholder' => 'Seleccione...',
-                    'multiple'=>true,
-                    'choices' => [
-                       'Arma de fuego' => 'arma de fuego',
-                        'Arma blanca' => 'arma blanca',
-                        'Ahorcamiento' =>'ahorcamiento',
-                        'Asfixia'=>'asfixia',
-                        'Golpes con objetos'=>'golpes con objetos',
-                        'Golpes con objetos contundentes'=>'golpes con objetos contundentes',
-                        'Golpes de puño'=>'golpes de puño',
-                        'Quemaduras'=>'quemaduras',
-                        'Otros medios'=>'otros medios',
-                        'Sin determinar'=>'sin determinar',
-                        ],
-                    'required' => false,
-                ])     */
+
                 ->add('mecanicasDelHecho', EntityType::class, array(
                     'required' => false,
                     'label' => 'Mecanica del hecho',
@@ -257,27 +241,8 @@ class MpaForm extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                     }
                 ))           
-              /*  ->add('otrasViolencias', ChoiceType::class, [
-                    'label' => 'Otras expresiones de violencia',
-                    'placeholder' => 'Seleccione...',
-                    'multiple'=>true,
-                    'choices' => [
-                       'Tortura' => 'Tortura',
-                        'Existencia de violencia sexual' => 'Existencia de violencia sexual',
-                        'Privacion ilegitima de la libertad' =>'Privacion ilegitima de la libertad',
-                        'Violencia en contexto de grupo de hombres'=>'Violencia en contexto de grupo de hombres',
-                        'Signos de violencia simbolica'=>'Signos de violencia simbolica',
-                        'Traslado al extranjero o a ciudad lejana'=>'Traslado al extranjero o a ciudad lejana',
-                        'Incomunicacion de la victima'=>'Incomunicacion de la victima',
-                        'Suministro de estupefacientes'=>'Suministro de estupefacientes',
-                        'Homicidios sin cuerpo'=>'Homicidios sin cuerpo',
-                        'Cuerpo desechado'=>'Cuerpo desechado',
-                        'Violencia excesiva'=>'Violencia excesiva',
-                        'Más de un procedemiento homicida'=>'Más de un procedemiento homicida'
-                       ],
-                    'required' => false,
-                  ])  */
-                  ->add('otrasViolencias', EntityType::class, array(
+
+            ->add('otrasViolencias', EntityType::class, array(
                     'required' => false,
                     'label' => 'Otras expresiones de violencia',
                     'multiple' => true,
@@ -291,28 +256,27 @@ class MpaForm extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                     }
                 ))
-                 
-                ->add('mpa_13a', TextareaType::class, [
+                
+            ->add('mpa_13a', TextareaType::class, [
                     'label' => 'Que tipo de violencia excesiva',
                     'required'=>false,
-                     ])           
-                ->add('mpa_14', TextareaType::class, [
+                    ])           
+            ->add('mpa_14', TextareaType::class, [
                         'label' => 'Conducta del agresor posterior al femicidio',
                         'required'=>false,
-                     ])      
-           
-                ->add('mpa_15', CheckboxType::class, [//existencia hechos previos
+                    ])      
+        
+            ->add('mpa_15', CheckboxType::class, [//existencia hechos previos
                         'label' => 'No / Sí',
                         'required' => false,
                         'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                         'label_attr' => ['class' => 'form-check-label'],
-                     ])
+            ])
 
-                ->add('tiposViolencias', EntityType::class, [
+            ->add('tiposViolencias', EntityType::class, [
                         'class' => Nomenclador::class,
                         'choice_label' => 'valor_nomenclador', // o el campo que muestre el texto visible
                         'multiple' => true,
-                        //'expanded' => true, // ✅ true = checkboxes | false = <select multiple>
                         'required' => false,
                         'by_reference' => false,
                         'label' => 'Tipos de violencia',
@@ -323,7 +287,7 @@ class MpaForm extends AbstractType
                                 ->orderBy('n.valor_nomenclador', 'ASC');
                         },
                 ])     
-                ->add('caso', EntityType::class, [
+            ->add('caso', EntityType::class, [
                     'class' => Caso::class,
                     'choice_label' => 'id_caso',
                     'attr'=>[ 'style' => 'display:none;'], // Esto sí oculta el campo]
@@ -331,6 +295,11 @@ class MpaForm extends AbstractType
                         'style' => 'display:none;', // Oculta también el label y errores
                     ]
                 ])
+            ->add('archivo',FileType::class, [
+                'label' =>'Subir archivo',
+                'mapped' => false,
+                'required' => false,
+            ])
                 ;
     }
 

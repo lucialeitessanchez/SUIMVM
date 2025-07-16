@@ -153,6 +153,21 @@ class Mpa
         inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
     )]
     private Collection $otrasViolencias;
+    
+    #[ORM\Column(type: 'string')]
+    private string $archivo;
+
+    public function getArchivo(): string
+    {
+        return $this->archivo;
+    }
+
+    public function setArchivo(string $archivo): self
+    {
+        $this->archivo = $archivo;
+
+        return $this;
+    }
 
     public function __construct()
     {
