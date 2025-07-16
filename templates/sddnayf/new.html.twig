@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SGMyD{% endblock %}
+
+{% block body %}
+
+    {{ include('sddnayf/_form.html.twig', {'button_label': 'Guardar'}) }}
+    
+{% endblock %}
+{% block javascripts %}
+
+   {{ parent()}}
+      <script src="{{ asset('js/sddnayf.js') }}"></script>
+{% endblock %}

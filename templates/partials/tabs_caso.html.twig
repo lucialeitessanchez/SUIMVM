@@ -55,6 +55,14 @@
       </a>
      
     {% endif %}
+
+    {% if sddnayf is not empty %}
+      <a href="{{ path('app_sddnayf_show', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
+         title="SDDNAyF">
+        <span class="circle-letter"><h6>SDDNAyF</h6></span>
+      </a>
+    {% endif %}
   </div>
 
 

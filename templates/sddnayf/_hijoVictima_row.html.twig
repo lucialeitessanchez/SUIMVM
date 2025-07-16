@@ -1,0 +1,117 @@
+<div class="row familiar-item mb-3 p-3 border rounded">
+    <div class="row mb-3">
+        <div class="col-md-5">
+            {{ form_row(form.apenom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.nrodocu, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-md-2">
+            {{ form_row(form.fnac, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.vinculoAgresor, {'attr': {'class': 'form-select'}}) }}
+        </div>
+    </div>
+    
+    <div class="accordion" id="accordionFormularioF">
+
+      <!-- Ítem 1 -->
+      <div class="accordion-item">
+        <h6 class="accordion-header" id="heading_hijos">
+          <button class="accordion-button d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseH" aria-expanded="true" aria-controls="collapseH">
+                <span class="me-2">Más datos</span>
+                <i class="bi bi-plus-circle"></i>
+            </button>
+        </h6>
+        <div id="collapseH" class="accordion-collapse collapse " aria-labelledby="headingH" data-bs-parent="#accordionFormularioF">
+          <div class="accordion-body">
+          <div class="row mb-3">
+              <div class="col-md-4">
+                   {{ form_row(form.sddnayf3a, {'label_attr': {'class': 'form-label'}}) }}
+              </div>
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf3b, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf3b) }}
+                  {{ form_widget(form.sddnayf3b,{'attr': {'class': 'form-select'}})  }}
+                
+              </div>
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf3c, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf3c) }}
+                  {{ form_widget(form.sddnayf3c,{'attr': {'class': 'form-select'}})  }}
+              </div>  
+            <div class="row position-relative mb-3">   
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf3d, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf3d) }}
+                  {{ form_widget(form.sddnayf3d,{'attr': {'class': 'form-select'}})  }}
+              </div>   
+               <div class="col-md-4">
+                  {{ form_label(form.sddnayf3e, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf3e) }}
+                  {{ form_widget(form.sddnayf3e,{'attr': {'class': 'form-select'}})  }}
+              </div> 
+              <div class="col-md-2">
+                  {{ form_label(form.sddnayf3fa, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf3fa) }}
+                  {{ form_widget(form.sddnayf3fa,{'attr': {'class': 'form-control'}})  }}
+              </div> 
+              <div class="col-md-2">
+                  {{ form_label(form.sddnayf3fb, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf3fb) }}
+                  {{ form_widget(form.sddnayf3fb,{'attr': {'class': 'form-control'}})  }}
+              </div>
+               <div class="flotante-indicacion">
+                    En caso de haber más de una, indique la última
+                </div>
+            </div>
+            <div class="row position-relative mb-3">   
+                  <div class="col-md-4">
+                      {{ form_label(form.sddnayf3g, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf3g) }}
+                      {{ form_widget(form.sddnayf3g,{'attr': {'class': 'form-select'}})  }}
+                 </div> 
+                   <div class="col-md-4">
+                      {{ form_label(form.sddnayf3h, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf3h) }}
+                      {{ form_widget(form.sddnayf3h,{'attr': {'class': 'form-select'}})  }}
+                 </div>
+                 <div class="col-md-4">     
+                       <label for="sddnayf_3i" class="form-label">Indique si la NNA cuenta con la designacion de abogada/o de NNA</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf3i, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+                  </div>
+            </div>
+<div class="row position-relative mb-3">   
+                  <div class="col-md-4">
+                       <label for="sddnayf_3j" class="form-label">Indique si el OA ha intervenido en relacion a situaciones en conflicto con la ley penal</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf3j, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+                 </div> 
+                   <div class="col-md-4">
+                     <label for="sddnayf_3k" class="form-label">Intervencion y/o seguimiento del OA a las NNA tras el suceso que se investiga</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf3k, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+                 </div>
+                 <div class="col-md-4">     
+                        {{ form_label(form.sddnayf3l, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_errors(form.sddnayf3l) }}
+                        {{ form_widget(form.sddnayf3l,{'attr': {'class': 'form-select'}})  }}
+                  </div>
+            </div>
+              {#------#}
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="row text-end">
+    <div class="col-md-1">
+    <br>
+        <button type="button" class="btn btn-danger btn-sm remove-familiar">Eliminar</button>
+    </div>
+    </div>
+</div>

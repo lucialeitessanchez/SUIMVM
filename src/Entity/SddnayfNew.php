@@ -17,8 +17,8 @@ class SddnayfNew
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $sddnayf_1a = null;
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $sddnayf_1a = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $sddnayf_1d = null;
@@ -59,72 +59,80 @@ class SddnayfNew
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $sddnayf_2i = null;
 
+    #[ORM\ManyToOne(targetEntity: Caso::class)]
+    #[ORM\JoinColumn(name: 'caso_id_caso', referencedColumnName: 'id_caso', nullable: false, onDelete: 'CASCADE')]
+    private ?Caso $caso = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $fechacarga = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $usuariocarga = null;
+
     //oneTomany
     #[ORM\OneToMany(mappedBy: 'sddnayfNew', targetEntity: SddnayfHijosVictima::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $hijosVictima;
 
+    //manyTomany
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sddnayf_1b',
+        joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $sddnayf_1b;
 
-//manyTomany
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sddnayf_1c',
+        joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $sddnayf_1c;
 
-#[ORM\ManyToMany(targetEntity: Nomenclador::class)]
-#[ORM\JoinTable(
-    name: 'sddnayf_1b',
-    joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
-    inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
-)]
-private Collection $sddnayf_1b;
+    //item 2
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sddnayf_2b',
+        joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $sddnayf_2b;
 
-#[ORM\ManyToMany(targetEntity: Nomenclador::class)]
-#[ORM\JoinTable(
-    name: 'sddnayf_1c',
-    joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
-    inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
-)]
-private Collection $sddnayf_1c;
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sddnayf_2c',
+        joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $sddnayf_2c;
 
-//item 2
-#[ORM\ManyToMany(targetEntity: Nomenclador::class)]
-#[ORM\JoinTable(
-    name: 'sddnayf_2b',
-    joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
-    inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
-)]
-private Collection $sddnayf_2b;
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sddnayf_2e',
+        joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $sddnayf_2e;
 
-#[ORM\ManyToMany(targetEntity: Nomenclador::class)]
-#[ORM\JoinTable(
-    name: 'sddnayf_2c',
-    joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
-    inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
-)]
-private Collection $sddnayf_2c;
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(
+        name: 'sddnayf_1e',
+        joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
+    )]
+    private Collection $sddnayf_1e;
 
-#[ORM\ManyToMany(targetEntity: Nomenclador::class)]
-#[ORM\JoinTable(
-    name: 'sddnayf_2e',
-    joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
-    inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
-)]
-private Collection $sddnayf_2e;
-
-#[ORM\ManyToMany(targetEntity: Nomenclador::class)]
-#[ORM\JoinTable(
-    name: 'sddnayf_1e',
-    joinColumns: [new ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id')],
-    inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
-)]
-private Collection $sddnayf_1e;
-
-public function __construct()
-    {
-        $this->sddnayf_1b = new ArrayCollection();
-        $this->sddnayf_1c = new ArrayCollection();
-        $this->sddnayf_1e = new ArrayCollection();
-        $this->sddnayf_2b = new ArrayCollection();
-        $this->sddnayf_2c = new ArrayCollection();
-        $this->sddnayf_2e = new ArrayCollection();
-        $this->hijosVictima = new ArrayCollection();
-    }
+    public function __construct()
+        {
+            $this->sddnayf_1b = new ArrayCollection();
+            $this->sddnayf_1c = new ArrayCollection();
+            $this->sddnayf_1e = new ArrayCollection();
+            $this->sddnayf_2b = new ArrayCollection();
+            $this->sddnayf_2c = new ArrayCollection();
+            $this->sddnayf_2e = new ArrayCollection();
+            $this->hijosVictima = new ArrayCollection();
+        }
 
     /**
      * @return Collection|SddnayfHijosVictima[]
@@ -137,12 +145,12 @@ public function __construct()
         return $this->id;
     }
 
-    public function getSddnayf1a(): ?int
+    public function getSddnayf1a(): ?string
     {
         return $this->sddnayf_1a;
     }
 
-    public function setSddnayf1a(?int $sddnayf_1a): self
+    public function setSddnayf1a(?string $sddnayf_1a): self
     {
         $this->sddnayf_1a = $sddnayf_1a;
         return $this;
@@ -290,6 +298,15 @@ public function __construct()
         $this->sddnayf_2i = $sddnayf_2i;
         return $this;
     }
+
+    public function getCaso(): ?Caso { return $this->caso; }
+    public function setCaso(?Caso $caso): self { $this->caso = $caso; return $this; }
+
+    public function getFechacarga(): ?\DateTimeInterface { return $this->fechacarga; }
+    public function setFechacarga(?\DateTimeInterface $fechacarga): self { $this->fechacarga = $fechacarga; return $this; }
+
+    public function getUsuariocarga(): ?string { return $this->usuariocarga; }
+    public function setUsuariocarga(?string $usuariocarga): self { $this->usuariocarga = $usuariocarga; return $this; }
 
     //add remove
     // sddnayf_1b
