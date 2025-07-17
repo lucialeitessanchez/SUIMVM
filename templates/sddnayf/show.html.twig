@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vista de datos - AL{% endblock %}
+{% block title %}Vista de datos - SDDNAyF{% endblock %}
 
 {% block body %}
-{% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'smgyd':smgyd,'al':gobLocales,'sddnayf':sddnayf} %}    
+{% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'smgyd':smgyd,'gl':gl,'sddnayf':sddnayf} %}    
 
-    {{ include('smgyd/_form.html.twig', {'modo': 'show'}) }}
+    {{ include('sddnayf/_form.html.twig', {'modo': 'show'}) }}
    
 {% endblock %}
 {% block javascripts %}

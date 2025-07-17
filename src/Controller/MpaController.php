@@ -130,17 +130,16 @@ final class MpaController extends AbstractController
         $form = $formFactory->create(MpaForm::class, $mpa, [
             'disabled' => true,
         ]);
-    
-        return $this->render('mpa/show.html.twig', [
-            'form' => $form,
-            'caso' => $caso,
-            'caj' => $tabsData['caj'],
-            'sdh' => $tabsData['sdh'],
-            'mpa' => $tabsData['mpa'],
-            'gl' => $tabsData['gl'],
-            'smgyd' => $tabsData['smgyd'],
-            'pestaña_activa' => 'mpa',
-        ]);
+        
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+        $parametros['form'] = $form->createView();
+        $parametros['caso'] = $caso;     
+        $parametros['pestaña_activa'] = 'mpa';
+
+        return $this->render('mpa/show.html.twig', $parametros);
+       
     }
 
     #[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
@@ -173,13 +172,12 @@ final class MpaController extends AbstractController
             $this->addFlash('success_js', 'Datos guardados correctamente');   
            return $this->redirectToRoute('app_caso_index');
         }
+
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
         $parametros['form'] = $form->createView();
-        $parametros['mpa'] = $mpa;
-        $parametros['caso'] = $caso;
-        $parametros['caj'] = $tabsData['caj'];
-        $parametros['sdh'] = $tabsData['sdh'];
-        $parametros['gl'] = $tabsData['gl'];  
-        $parametros['smgyd'] = $tabsData['smgyd'];  
+        $parametros['caso'] = $caso;     
         $parametros['pestaña_activa'] = 'mpa';
 
         return $this->render('mpa/edit.html.twig', $parametros);

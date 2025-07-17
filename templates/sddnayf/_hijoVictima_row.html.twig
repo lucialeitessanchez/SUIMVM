@@ -14,21 +14,25 @@
         </div>
     </div>
     
-    <div class="accordion" id="accordionFormularioF">
+    <div class="accordion accordion-flush" id="accordionFormularioF">
 
       <!-- Ítem 1 -->
-      <div class="accordion-item">
+      <div class="accordion-item bg-success id="accordionExample"">
         <h6 class="accordion-header" id="heading_hijos">
-          <button class="accordion-button d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseH" aria-expanded="true" aria-controls="collapseH">
-                <span class="me-2">Más datos</span>
-                <i class="bi bi-plus-circle"></i>
-            </button>
+          <button class="accordion-button  d-flex justify-content-between align-items-center bg-light text-primary fw-bold shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseH" aria-expanded="true" aria-controls="collapseH">
+            <span><i class="bi bi-people-fill me-2"></i>Mas datos</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+        </button>
         </h6>
-        <div id="collapseH" class="accordion-collapse collapse " aria-labelledby="headingH" data-bs-parent="#accordionFormularioF">
-          <div class="accordion-body">
+        <div id="collapseH" class="accordion-collapse collapse bg-lightgray"  aria-labelledby="headingH" data-bs-parent="#accordionFormularioF">
+          <div class="accordion-body bg-lightgray">
           <div class="row mb-3">
               <div class="col-md-4">
-                   {{ form_row(form.sddnayf3a, {'label_attr': {'class': 'form-label'}}) }}
+                 
+                   <label for="sddnayf3a" class="form-label">¿El OA tuvo intervencion en su niñez /adolescencia anterior al suceso que se investiga?</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf3a, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
               </div>
               <div class="col-md-4">
                   {{ form_label(form.sddnayf3b, null, {'label_attr': {'class': 'form-label'}}) }}
@@ -40,7 +44,8 @@
                   {{ form_label(form.sddnayf3c, null, {'label_attr': {'class': 'form-label'}}) }}
                   {{ form_errors(form.sddnayf3c) }}
                   {{ form_widget(form.sddnayf3c,{'attr': {'class': 'form-select'}})  }}
-              </div>  
+              </div> 
+            </div>   
             <div class="row position-relative mb-3">   
               <div class="col-md-4">
                   {{ form_label(form.sddnayf3d, null, {'label_attr': {'class': 'form-label'}}) }}
@@ -62,12 +67,13 @@
                   {{ form_errors(form.sddnayf3fb) }}
                   {{ form_widget(form.sddnayf3fb,{'attr': {'class': 'form-control'}})  }}
               </div>
-               <div class="flotante-indicacion">
+               <div class="flotante-indicacionH">
                     En caso de haber más de una, indique la última
                 </div>
             </div>
-            <div class="row position-relative mb-3">   
+            <div class="row position-relative mb-3"> 
                   <div class="col-md-4">
+                    <br> 
                       {{ form_label(form.sddnayf3g, null, {'label_attr': {'class': 'form-label'}}) }}
                       {{ form_errors(form.sddnayf3g) }}
                       {{ form_widget(form.sddnayf3g,{'attr': {'class': 'form-select'}})  }}
@@ -115,3 +121,25 @@
     </div>
     </div>
 </div>
+<style>
+.accordion-button::after {
+  content: none !important;
+  background-image: none !important;
+}
+.bg-lightgray {
+  background-color: #f8f9fa !important; /* gris clarito tipo Bootstrap */
+  border: 1px solid #f8f9fa !important;
+  padding: 1rem;
+}
+#collapseH {
+  background-color: #f0f0f0 !important;
+  overflow: visible !important;
+}
+.flotante-indicacionH {
+      position: absolute;
+      right: -800px; /* ajustá según el espacio real disponible */
+      top: 80px;    /* ajustá según la altura de los campos de fecha */
+      font-size: 0.875rem;
+      color: #6c757d;
+  }
+</style>

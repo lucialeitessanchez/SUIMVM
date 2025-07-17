@@ -207,11 +207,21 @@
 </div>
                   </div>        
                 </div>  
-      </div>
-        
+      </div>        
     </div>
+     
+{% if modo != 'show' %}
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+               &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+                </div>
+        </div>
+   {% endif %}
 
     {{ form_end(form) }}
+    <br>
   </section>
 {% endif %}
 <style>

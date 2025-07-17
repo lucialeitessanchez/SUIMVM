@@ -19,9 +19,10 @@ class SddnayfNew
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $sddnayf_1a = null;
-
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $sddnayf_1d = null;
+ 
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "sddnayf_1d", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $sddnayf_1d = null;
 
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $sddnayf_1fa = null;
@@ -29,20 +30,23 @@ class SddnayfNew
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $sddnayf_1fb = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $sddnayf_1g = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "sddnayf_1g", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $sddnayf_1g = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $sddnayf_1h = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "sddnayf_1h", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $sddnayf_1h = null;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $sddnayf_1i = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $sddnayf_2a = null;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private ?bool $sddnayf_2a = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $sddnayf_2d = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "sddnayf_2d", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $sddnayf_2d = null;
 
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $sddnayf_2fa = null;
@@ -50,8 +54,9 @@ class SddnayfNew
     #[ORM\Column(type: 'date', nullable: true)]
     private ?\DateTimeInterface $sddnayf_2fb = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $sddnayf_2g = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "sddnayf_2g", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $sddnayf_2g = null;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $sddnayf_2h = null;
@@ -134,10 +139,7 @@ class SddnayfNew
             $this->hijosVictima = new ArrayCollection();
         }
 
-    /**
-     * @return Collection|SddnayfHijosVictima[]
-     */
-
+ 
     // Getters y Setters
 
     public function getId(): ?int
@@ -156,12 +158,12 @@ class SddnayfNew
         return $this;
     }
 
-    public function getSddnayf1d(): ?int
+    public function getSddnayf1d(): ?Nomenclador
     {
         return $this->sddnayf_1d;
     }
 
-    public function setSddnayf1d(?int $sddnayf_1d): self
+    public function setSddnayf1d(?Nomenclador $sddnayf_1d): self
     {
         $this->sddnayf_1d = $sddnayf_1d;
         return $this;
@@ -189,23 +191,23 @@ class SddnayfNew
         return $this;
     }
 
-    public function getSddnayf1g(): ?int
+    public function getSddnayf1g(): ?Nomenclador
     {
         return $this->sddnayf_1g;
     }
 
-    public function setSddnayf1g(?int $sddnayf_1g): self
+    public function setSddnayf1g(?Nomenclador $sddnayf_1g): self
     {
         $this->sddnayf_1g = $sddnayf_1g;
         return $this;
     }
 
-    public function getSddnayf1h(): ?int
+    public function getSddnayf1h(): ?Nomenclador
     {
         return $this->sddnayf_1h;
     }
 
-    public function setSddnayf1h(?int $sddnayf_1h): self
+    public function setSddnayf1h(?Nomenclador $sddnayf_1h): self
     {
         $this->sddnayf_1h = $sddnayf_1h;
         return $this;
@@ -222,23 +224,23 @@ class SddnayfNew
         return $this;
     }
 
-    public function getSddnayf2a(): ?int
+    public function getSddnayf2a(): ?bool
     {
         return $this->sddnayf_2a;
     }
 
-    public function setSddnayf2a(?int $sddnayf_2a): self
+    public function setSddnayf2a(?bool $sddnayf_2a): self
     {
         $this->sddnayf_2a = $sddnayf_2a;
         return $this;
     }
 
-    public function getSddnayf2d(): ?int
+    public function getSddnayf2d(): ?Nomenclador
     {
         return $this->sddnayf_2d;
     }
 
-    public function setSddnayf2d(?int $sddnayf_2d): self
+    public function setSddnayf2d(?Nomenclador $sddnayf_2d): self
     {
         $this->sddnayf_2d = $sddnayf_2d;
         return $this;
@@ -266,12 +268,12 @@ class SddnayfNew
         return $this;
     }
 
-    public function getSddnayf2g(): ?int
+    public function getSddnayf2g(): ?Nomenclador
     {
         return $this->sddnayf_2g;
     }
 
-    public function setSddnayf2g(?int $sddnayf_2g): self
+    public function setSddnayf2g(?Nomenclador $sddnayf_2g): self
     {
         $this->sddnayf_2g = $sddnayf_2g;
         return $this;
@@ -435,7 +437,9 @@ class SddnayfNew
         return $this->hijosVictima;
     }
 
-    public function addHijoVictima(SddnayfHijosVictima $hijo): self
+    
+
+    public function addHijoVictima(SddnayfHijosVictima $hijo): static
     {
         if (!$this->hijosVictima->contains($hijo)) {
             $this->hijosVictima[] = $hijo;
@@ -445,7 +449,7 @@ class SddnayfNew
         return $this;
     }
 
-    public function removeHijoVictima(SddnayfHijosVictima $hijo): self
+    public function removeHijoVictima(SddnayfHijosVictima $hijo): static
     {
         if ($this->hijosVictima->removeElement($hijo)) {
             // set the owning side to null (unless already changed)
@@ -454,6 +458,11 @@ class SddnayfNew
             }
         }
 
+        return $this;
+    }
+
+    public function setHijosVictima(Collection $hijosVictima): self
+    {   $this->hijosVictima = $hijosVictima;
         return $this;
     }
 }

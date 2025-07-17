@@ -66,7 +66,7 @@ class SddnayfNewType extends AbstractType
             ->add('sddnayf_1d', EntityType::class, array(
                 'required' => false,
                 'label' => 'Indique sede del OA que adopto la MPE',
-                'multiple' => true,
+                'multiple' => false,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
@@ -171,7 +171,7 @@ class SddnayfNewType extends AbstractType
             ->add('sddnayf_2d', EntityType::class, array(
                 'required' => false,
                 'label' => 'Indique sede del OA que adopto la MPE',
-                'multiple' => true,
+                'multiple' => false,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,

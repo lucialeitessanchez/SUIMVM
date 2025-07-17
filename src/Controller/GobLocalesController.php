@@ -56,17 +56,17 @@ class GobLocalesController extends AbstractController
             'disabled' => true,
         ]);
 
-    
-         return $this->render('gobLocal/show.html.twig', [
-            'form' =>$form,
-            'caso' => $caso,
-            'caj' => $tabsData['caj'],
-            'sdh' => $tabsData['sdh'],
-            'mpa' => $tabsData['mpa'],
-            'gl' => $gobLocales,  
-            'smgyd' => $tabsData['smgyd'],      
-            'pestaña_activa'=>'gl',
-        ]);
+        $parametros['form'] = $form->createView();
+        $parametros['caso'] = $caso;
+
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+   
+        $parametros['pestaña_activa'] = 'gl';
+
+        return $this->render('gobLocal/show.html.twig', $parametros);
+         
     }
 
     #[Route('/{idCaso}/edit', name: 'gob_locales_edit', methods: ['GET', 'POST'])]
@@ -99,12 +99,12 @@ class GobLocalesController extends AbstractController
         }
         
             $parametros['form'] = $form->createView();
-            $parametros['mpa'] = $tabsData['mpa'];
             $parametros['caso'] = $caso;
-            $parametros['caj'] = $tabsData['caj'];
-            $parametros['sdh'] = $tabsData['sdh'];
-            $parametros['gl'] = $gobLocales;
-            $parametros['smgyd'] = $tabsData['smgyd'];           
+
+            foreach ($tabsData as $clave => $valor) {
+                $parametros[$clave] = $valor;
+            }
+       
             $parametros['pestaña_activa'] = 'gl';
 
         return $this->render('gobLocal/edit.html.twig', $parametros);

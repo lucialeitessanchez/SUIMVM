@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\SddnayfNew;
+use App\Entity\SddnayfHijosVictima;
 use App\Entity\Caso;
 use App\Form\SddnayfNewType;
 use App\Repository\SddnayfNewRepository;
@@ -50,41 +51,108 @@ class SddnayfNewController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $sddnayf->setCaso($caso); 
             $sddnayf->setFechacarga(new \DateTime());
             $sddnayf->setUsuariocarga($this->getUser()?->getUserIdentifier());
 
             $em->persist($sddnayf);
             $em->flush();
 
-            $this->addFlash('success', 'Formulario guardado correctamente.');
-            return $this->redirectToRoute('caso_ver', ['id' => $idCaso]);
+            $this->addFlash('success_js', 'Seccion SDDNAyF guardada correctamente');   
+            return $this->redirectToRoute('app_caso_index');
         }
 
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
-        $parametros['modo'] = 'new';
+        $parametros['modo'] = 'edit';
         return $this->render('sddnayf/new.html.twig', $parametros);
     }
-/*
 
-    #[Route('/edit/{id}', name: 'app_sddnayf_edit', methods: ['GET', 'POST'])]
+   
+    #[Route('/{idCaso}/edit', name: 'app_sddnayf_edit', methods: ['GET', 'POST'])]
     public function edit(
-        SddnayfNew $sddnayf,
         Request $request,
+        int $idCaso,
+        CasoRepository $casoRepository,
+        CasoTabsDataProvider $tabsProvider,
         EntityManagerInterface $em
+
     ): Response {
-        $form = $this->createForm(SddnayfNewType::class, $sddnayf);
+        $sinCaso = false;
+        
+        $caso = $casoRepository->find($idCaso);
+        if (!$caso) {
+            throw $this->createNotFoundException('Caso no encontrado');
+        }
+        $tabsData = $tabsProvider->getData($caso);
+        $sddnayfNew = $em->getRepository(SddnayfNew::class)->findOneBy(['caso' => $caso]);
+
+        if (!$sddnayfNew) {
+            return $this->redirectToRoute('app_sddnayf_new', ['idCaso' => $idCaso]);
+
+        }
+        if ($sddnayfNew->getHijosVictima()->isEmpty()) {
+            $sddnayfNew->addHijoVictima(new SddnayfHijosVictima());
+        }
+        $form = $this->createForm(SddnayfNewType::class, $sddnayfNew);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            $this->addFlash('success', 'Formulario actualizado correctamente.');
-            return $this->redirectToRoute('caso_ver', ['id' => $sddnayf->getCaso()->getIdCaso()]);
+            $this->addFlash('success_js', 'Seccion SDDNAyF guardada correctamente');   
+            return $this->redirectToRoute('app_caso_index');
+        }
+        $parametros['form'] = $form->createView();
+        $parametros['caso'] = $caso;
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+        $parametros['sinCaso'] = $sinCaso;
+        $parametros['pestaña_activa'] = 'sddnayf';
+
+        return $this->render('sddnayf/edit.html.twig', $parametros);
+      
+    }
+
+    #[Route('/{idCaso}/show', name: 'app_sddnayf_show', methods: ['GET'])]
+    public function show(CasoRepository $casoRepository,
+    SddnayfNewRepository $sddnayfNewRepository,int $idCaso, 
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    {
+        $caso = null;
+        $sinCaso = false;
+        $parametros = [];
+
+        // Buscar el caso           
+        $caso = $casoRepository->find($idCaso);
+        if (!$caso) {
+            throw $this->createNotFoundException('Caso no encontrado');
         }
 
-        return $this->render('sddnayf/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+         //busco si hay datos asociados para mostrar la pestaña desde el servicio
+         $tabsData = $tabsProvider->getData($caso);
+
+         $sddnayf = $sddnayfNewRepository->findOneBy(['caso' => $caso]);
+         if (!$sddnayfNewRepository) {
+             throw $this->createNotFoundException('No hay datos de SDH para este caso');
+         }
+       
+         
+          // Creamos el form pero sin intención de editar
+             $form = $formFactory->create(SddnayfNewType::class, $sddnayf, [
+                 'disabled' => true, // importante: desactiva todos los campos
+             ]);
+
+            $parametros['form'] = $form->createView();
+            $parametros['caso'] = $caso;
+            foreach ($tabsData as $clave => $valor) {
+                $parametros[$clave] = $valor;
+            }
+            $parametros['sinCaso'] = $sinCaso;
+            $parametros['pestaña_activa'] = 'sddnayf';
+    
+            return $this->render('sddnayf/show.html.twig', $parametros);
+        
     }
-        */
+
 }

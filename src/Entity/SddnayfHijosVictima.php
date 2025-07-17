@@ -31,20 +31,19 @@ class SddnayfHijosVictima
     #[ORM\Column(type: 'boolean', nullable: true, name: 'sddnayf_3a')]
     private ?bool $sddnayf3a = null;
 
-    #[ORM\Column(type: 'integer', nullable: true, name: 'sddnayf_3d')]
-    private ?int $sddnayf3d = null;
-
     #[ORM\Column(type: 'date', nullable: true, name: 'sddnayf_3fa')]
     private ?\DateTimeInterface $sddnayf3fa = null;
 
     #[ORM\Column(type: 'date', nullable: true, name: 'sddnayf_3fb')]
     private ?\DateTimeInterface $sddnayf3fb = null;
 
-    #[ORM\Column(type: 'integer', nullable: true, name: 'sddnayf_3g')]
-    private ?int $sddnayf3g = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "sddnayf_3g", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $sddnayf3g = null;
 
-    #[ORM\Column(type: 'integer', nullable: true, name: 'sddnayf_3h')]
-    private ?int $sddnayf3h = null;
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "sddnayf_3h", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $sddnayf3h = null;
 
     #[ORM\Column(type: 'boolean', nullable: true, name: 'sddnayf_3i')]
     private ?bool $sddnayf3i = null;
@@ -54,6 +53,10 @@ class SddnayfHijosVictima
 
     #[ORM\Column(type: 'boolean', nullable: true, name: 'sddnayf_3k')]
     private ?bool $sddnayf3k = null;
+  
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "sddnayf_3d", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $sddnayf3d = null;
 
     // Relación ManyToOne hacia SddnayfNew
 
@@ -67,15 +70,15 @@ class SddnayfHijosVictima
     #[ORM\JoinTable(
         name: 'sddnayf_3b',
         joinColumns: [new ORM\JoinColumn(name: 'hijo_id', referencedColumnName: 'id_vinculado')],
-        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
     )]
     private Collection $sddnayf3b;
-
+   
     #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
     #[ORM\JoinTable(
         name: 'sddnayf_3c',
         joinColumns: [new ORM\JoinColumn(name: 'hijo_id', referencedColumnName: 'id_vinculado')],
-        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
     )]
     private Collection $sddnayf3c;
 
@@ -83,7 +86,7 @@ class SddnayfHijosVictima
     #[ORM\JoinTable(
         name: 'sddnayf_3e',
         joinColumns: [new ORM\JoinColumn(name: 'hijo_id', referencedColumnName: 'id_vinculado')],
-        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
     )]
     private Collection $sddnayf3e;
 
@@ -91,7 +94,7 @@ class SddnayfHijosVictima
     #[ORM\JoinTable(
         name: 'sddnayf_3l',
         joinColumns: [new ORM\JoinColumn(name: 'hijo_id', referencedColumnName: 'id_vinculado')],
-        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id')]
+        inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
     )]
     private Collection $sddnayf3l;
 
@@ -165,12 +168,12 @@ class SddnayfHijosVictima
         return $this;
     }
 
-    public function getSddnayf3d(): ?int
+    public function getSddnayf3d(): ?Nomenclador
     {
         return $this->sddnayf3d;
     }
 
-    public function setSddnayf3d(?int $sddnayf3d): self
+    public function setSddnayf3d(?Nomenclador $sddnayf3d): self
     {
         $this->sddnayf3d = $sddnayf3d;
         return $this;
@@ -198,23 +201,23 @@ class SddnayfHijosVictima
         return $this;
     }
 
-    public function getSddnayf3g(): ?int
+    public function getSddnayf3g(): ?Nomenclador
     {
         return $this->sddnayf3g;
     }
 
-    public function setSddnayf3g(?int $sddnayf3g): self
+    public function setSddnayf3g(?Nomenclador $sddnayf3g): self
     {
         $this->sddnayf3g = $sddnayf3g;
         return $this;
     }
 
-    public function getSddnayf3h(): ?int
+    public function getSddnayf3h(): ?Nomenclador
     {
         return $this->sddnayf3h;
     }
 
-    public function setSddnayf3h(?int $sddnayf3h): self
+    public function setSddnayf3h(?Nomenclador $sddnayf3h): self
     {
         $this->sddnayf3h = $sddnayf3h;
         return $this;

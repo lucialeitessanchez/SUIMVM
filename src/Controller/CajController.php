@@ -85,17 +85,15 @@ class CajController extends AbstractController
                 $form = $formFactory->create(CajType::class, $caj, [
                     'disabled' => true, // importante: desactiva todos los campos
                 ]);
-        
-            return $this->render('caj/show.html.twig', [
-                    'form' => $form,
-                    'caso' => $caso,
-                    'caj' => $tabsData['caj'],
-                    'sdh' => $tabsData['sdh'],
-                    'mpa' => $tabsData['mpa'],
-                    'gl' => $tabsData['gl'],
-                    'smgyd' => $tabsData['smgyd'],
-                'pestaña_activa' => 'caj',
-                ]);
+                foreach ($tabsData as $clave => $valor) {
+                    $parametros[$clave] = $valor;
+                }
+                $parametros['form'] = $form->createView();
+                $parametros['caso'] = $caso;
+                $parametros['pestaña_activa'] = 'caj';
+
+                return $this->render('caj/show.html.twig', $parametros);
+            
             }
 
             #[Route('/{idCaso}/edit', name: 'app_caj_edit', methods: ['GET', 'POST'])]
@@ -129,13 +127,12 @@ class CajController extends AbstractController
                     $this->addFlash('success_js', 'Datos guardados correctamente');   
                 return $this->redirectToRoute('app_caso_index');
                 }
+
+                foreach ($tabsData as $clave => $valor) {
+                    $parametros[$clave] = $valor;
+                }
                 $parametros['form'] = $form->createView();
-                $parametros['mpa'] = $tabsData['mpa'];
                 $parametros['caso'] = $caso;
-                $parametros['caj'] = $caj;
-                $parametros['sdh'] = $tabsData['sdh'];
-                $parametros['gl'] = $tabsData['gl'];  
-                $parametros['smgyd'] = $tabsData['smgyd'];
                 $parametros['pestaña_activa'] = 'caj';
 
                 return $this->render('caj/edit.html.twig', $parametros);

@@ -135,20 +135,20 @@ class CasoController extends AbstractController
         //busco si hay datos asociados para mostrar la pestaña desde el servicio
         $tabsData = $tabsProvider->getData($caso);
 
-        return $this->render('caso/show.html.twig', [
-            'form' => $form,
-            'caso' => $caso,
-            'datosPersona'=>$datosPersona,
-            'departamento'=>$departamento,
-            'microregion'=>$microregion,
-            'nacionalidad'=>$nacionalidad,
-            'caj' => $tabsData['caj'],
-            'sdh' => $tabsData['sdh'],
-            'mpa' => $tabsData['mpa'],
-            'gl' => $tabsData['gl'],
-            'smgyd' => $tabsData['smgyd'],
-            'pestaña_activa'=>'caso',
-        ]);
+        $parametros['form'] = $form->createView();
+        $parametros['caso'] = $caso;
+        $parametros['datosPersona']= $datosPersona;
+        $parametros['datosPersona']=$datosPersona;
+        $parametros['departamento']=$departamento;
+        $parametros['microregion']=$microregion;
+
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+        $parametros['pestaña_activa'] = 'caso';
+
+        return $this->render('caso/show.html.twig', $parametros);
+        
     }
     
 
@@ -208,17 +208,15 @@ class CasoController extends AbstractController
             return $this->redirectToRoute('app_caso_index');
         }
         $parametros['form'] = $form->createView();
-        $parametros['mpa'] = $tabsData['mpa'];
         $parametros['caso'] = $caso;
         $parametros['datosPersona']= $datosPersona;
         $parametros['datosPersona']=$datosPersona;
         $parametros['departamento']=$departamento;
         $parametros['microregion']=$microregion;
-        
-        $parametros['caj'] = $tabsData['caj'];
-        $parametros['sdh'] = $tabsData['sdh'];
-        $parametros['gl'] = $tabsData['gl'];
-        $parametros['smgyd'] = $tabsData['smgyd'];
+
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
         $parametros['pestaña_activa'] = 'caso';
 
         return $this->render('caso/edit.html.twig', $parametros);
