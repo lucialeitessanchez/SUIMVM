@@ -17,13 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
         container.dataset.index = index;
 
         // Botón de eliminar
-        div.querySelectorAll(".remove-familiar").forEach((btn) => {
+        div.querySelectorAll(".remove-hijo").forEach((btn) => {
             btn.addEventListener("click", () => div.remove());
         });
     });
 
     // Inicializar los botones de eliminar existentes
-    container.querySelectorAll(".remove-familiar").forEach((btn) => {
+    container.querySelectorAll(".remove-hijo").forEach((btn) => {
         btn.addEventListener("click", function () {
             btn.closest(".hijo-item").remove();
         });

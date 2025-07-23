@@ -462,7 +462,20 @@ class SddnayfNew
     }
 
     public function setHijosVictima(Collection $hijosVictima): self
-    {   $this->hijosVictima = $hijosVictima;
-        return $this;
+{
+    // Eliminar los que ya no están
+    foreach ($this->hijosVictima as $hijo) {
+        if (!$hijosVictima->contains($hijo)) {
+            $this->removeHijoVictima($hijo);
+        }
     }
+
+    // Agregar los nuevos
+    foreach ($hijosVictima as $hijo) {
+        $this->addHijoVictima($hijo);
+    }
+
+    return $this;
+}
+    
 }

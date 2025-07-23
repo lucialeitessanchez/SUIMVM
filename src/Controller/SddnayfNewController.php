@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[Route('/sddnayf')]
 class SddnayfNewController extends AbstractController
@@ -68,7 +70,8 @@ class SddnayfNewController extends AbstractController
         return $this->render('sddnayf/new.html.twig', $parametros);
     }
 
-   
+    //edit de gpt
+
     #[Route('/{idCaso}/edit', name: 'app_sddnayf_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
@@ -76,32 +79,46 @@ class SddnayfNewController extends AbstractController
         CasoRepository $casoRepository,
         CasoTabsDataProvider $tabsProvider,
         EntityManagerInterface $em
-
     ): Response {
-        $sinCaso = false;
-        
+
+        $sinCaso=false;
         $caso = $casoRepository->find($idCaso);
+    
         if (!$caso) {
-            throw $this->createNotFoundException('Caso no encontrado');
+            throw $this->createNotFoundException('Caso no encontrado.');
         }
+    
         $tabsData = $tabsProvider->getData($caso);
         $sddnayfNew = $em->getRepository(SddnayfNew::class)->findOneBy(['caso' => $caso]);
 
+        
         if (!$sddnayfNew) {
             return $this->redirectToRoute('app_sddnayf_new', ['idCaso' => $idCaso]);
 
         }
-        if ($sddnayfNew->getHijosVictima()->isEmpty()) {
-            $sddnayfNew->addHijoVictima(new SddnayfHijosVictima());
+        // importante: mantener hijos existentes, no reemplazarlos
+        foreach ($sddnayfNew->getHijosVictima() as $hijo) {
+            $hijo->setSddnayfNew($sddnayfNew); // opcional, si no está hecho en cascada
         }
+    
         $form = $this->createForm(SddnayfNewType::class, $sddnayfNew);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+    
+            // asegurar hijos válidos y que no se borren si no se tocaron
+            foreach ($sddnayfNew->getHijosVictima() as $hijo) {
+                $hijo->setSddnayfNew($sddnayfNew); // aseguramos relación bidireccional
+            }
+    
+            $em->persist($sddnayfNew);
             $em->flush();
-            $this->addFlash('success_js', 'Seccion SDDNAyF guardada correctamente');   
-            return $this->redirectToRoute('app_caso_index');
+    
+            $this->addFlash('success', 'Formulario actualizado correctamente.');
+    
+            return $this->redirectToRoute('app_sddnayf_edit', ['idCaso' => $idCaso]);
         }
+    
         $parametros['form'] = $form->createView();
         $parametros['caso'] = $caso;
         foreach ($tabsData as $clave => $valor) {
@@ -111,8 +128,11 @@ class SddnayfNewController extends AbstractController
         $parametros['pestaña_activa'] = 'sddnayf';
 
         return $this->render('sddnayf/edit.html.twig', $parametros);
-      
     }
+    
+    //-----------------------------------
+   
+    
 
     #[Route('/{idCaso}/show', name: 'app_sddnayf_show', methods: ['GET'])]
     public function show(CasoRepository $casoRepository,

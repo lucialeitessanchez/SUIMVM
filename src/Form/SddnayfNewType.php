@@ -244,7 +244,6 @@ class SddnayfNewType extends AbstractType
             // Hijos víctima
             ->add('hijosVictima', CollectionType::class, [
                 'entry_type' => SddnayfHijosVictimaType::class,
-                'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,

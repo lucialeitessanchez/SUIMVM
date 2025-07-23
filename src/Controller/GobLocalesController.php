@@ -58,7 +58,7 @@ class GobLocalesController extends AbstractController
 
         $parametros['form'] = $form->createView();
         $parametros['caso'] = $caso;
-
+        $parametros['sinCaso'] = $sinCaso;
         foreach ($tabsData as $clave => $valor) {
             $parametros[$clave] = $valor;
         }
@@ -78,9 +78,12 @@ class GobLocalesController extends AbstractController
         CasoTabsDataProvider $tabsProvider,
         EntityManagerInterface $em
     ): Response {
+
+        $sinCaso=false;
         $caso = $casoRepository->find($idCaso);
         if (!$caso) {
             throw $this->createNotFoundException('Caso no encontrado');
+            $sinCaso=true;
         }
         $tabsData = $tabsProvider->getData($caso);
         $gobLocales = $em->getRepository(GobLocales::class)->findOneBy(['caso' => $caso]);
@@ -100,7 +103,7 @@ class GobLocalesController extends AbstractController
         
             $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
-
+            $parametros['sinCaso'] = $sinCaso;
             foreach ($tabsData as $clave => $valor) {
                 $parametros[$clave] = $valor;
             }
@@ -118,13 +121,15 @@ class GobLocalesController extends AbstractController
     ): Response {
        
         $idCaso = $session->get('caso_id');
-        
+       
         $caso = null;
         $sinCaso = false;
         $parametros = [];
         if (!$idCaso) {
+            
             $this->addFlash('error', 'Debe seleccionar un caso primero.');
             $sinCaso = true;
+            
         } else {
             $caso = $em->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
@@ -138,12 +143,12 @@ class GobLocalesController extends AbstractController
    
         $gobLocales->setFechaCarga(new \DateTimeImmutable());
         $gobLocales->setUsuarioCarga($this->getUser()?->getUserIdentifier() ?? 'sistema');
-        $gobLocales->setCaso($caso);
+    
         $form = $this->createForm(GobLocalesType::class, $gobLocales);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            $gobLocales->setCaso($caso);
             $em->persist($gobLocales);
             $em->flush();
           // dd($idCaso);
@@ -151,7 +156,7 @@ class GobLocalesController extends AbstractController
            $this->addFlash('success_js', 'Seccion Area Local guardada correctamente');   
            return $this->redirectToRoute('app_caso_index');
         }
-
+        
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
         $parametros['modo'] = 'edit';

@@ -1,5 +1,20 @@
 {% block body %}
-
+{% if sinCaso %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Swal.fire({
+        icon: "error",
+        title: "Debe seleccionar un caso",
+        text: "Antes de registrar Areas Locales, es necesario elegir un caso.",
+        confirmButtonText: "Ir a casos"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{ path('app_caso_index') }}";
+        }
+      });
+    });
+  </script>
+{% endif %}
  {% if caso is defined  %}  
     <section id="formSecretaria" class="container my-5">
           

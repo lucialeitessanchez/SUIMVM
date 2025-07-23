@@ -178,37 +178,37 @@
 
           </div>
         </div>
-      </div>
+      </div> {#fin item 2#}
+
+      {# item 3 #}
       <div class="accordion-item">
-              <h2 class="accordion-header" id="heading3">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                  3. Datos personales  de hijxs niñez/adolescencia de la victima por muerte violenta por razones de genero
-                </button>
-              </h2>
-              <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionFormularioViolencia">
-                <div class="accordion-body">
-                  <div class="row mb-3">
-                  <div class="row mb-4">
-            <div class="col-md-12">
-    <div class="collapse mt-2 show" id="hijosVictimaCollapse">
-        <div id="hijosVictima-collection"
-             data-prototype="{{ include('sddnayf/_hijoVictima_row.html.twig', { form: form.hijosVictima.vars.prototype })|e('html_attr') }}"
-             data-index="{{ form.hijosVictima|length }}">
-            {% for hijoForm in form.hijosVictima %}
-                <div class="hijo-item mb-3">
-                    {% include 'sddnayf/_hijoVictima_row.html.twig' with {'form': hijoForm} %}
-                </div>  
-            {% endfor %}
-        </div>
-        <div class="text-end">
-            <button type="button" class="btn btn-primary btn-sm mt-2" id="add-hijo">Agregar hijo/a vinculado</button>
+    <h2 class="accordion-header" id="headingHijos">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHijos" aria-expanded="false" aria-controls="collapseHijos">
+            3. Datos personales de hijxs de la victima de muerte por razones de genero 
+        </button>
+    </h2>
+    <div id="collapseHijos" class="accordion-collapse collapse" aria-labelledby="headingHijos" data-bs-parent="#accordion">
+        <div class="accordion-body">
+            <div id="hijosVictima-collection"
+                 data-prototype="{{ form_widget(form.hijosVictima.vars.prototype)|e('html_attr') }}"
+                 data-index="{{ form.hijosVictima|length }}">
+                 
+                {% for hijoForm in form.hijosVictima %}
+                    {% include 'sddnayf/_hijoVictima_row.html.twig' with { form: hijoForm } %}
+                {% endfor %}
+            </div>
+
+            <button type="button" class="btn btn-primary mt-3" id="add-hijo">
+                + Agregar hijo/a
+            </button>
         </div>
     </div>
-</div>
-                  </div>        
-                </div>  
-      </div>        
-    </div>
+</div>{# fin item3#}
+   </div>
+  </div>        
+  </div>  
+  </div>        
+  </div>
      
 {% if modo != 'show' %}
         <div class="col-md-12 d-flex justify-content-end">
