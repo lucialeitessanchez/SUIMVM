@@ -20,14 +20,26 @@ use App\Service\CasoTabsDataProvider;
 class CajController extends AbstractController
 {
     #[Route('/new', name: 'caj_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em, SessionInterface $session): Response
+    public function new(Request $request, 
+    EntityManagerInterface $em, SessionInterface $session,CasoRepository $casoRepo,
+    CasoTabsDataProvider $tabsProvider, ?int $idCaso = null,
+    FormFactoryInterface $formFactory,CajRepository $cajRepository
+    ): Response
     {
-      $idCaso = $session->get('caso_id');
 
-      $caj = new Caj();
-      $caso = null;
-      $sinCaso = false;
-      $parametros = [];
+        $idCaso = $session->get('caso_id');
+        $caso = null;
+        $sinCaso = false;
+        $parametros = [];
+
+        $tabsData = $tabsProvider->getData($casoRepo->find($idCaso));
+       
+        if (!empty($tabsData['caj'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request, $idCaso, $casoRepo, $cajRepository,$tabsProvider,$em);
+        }
+    
+      $caj = new Caj();    
 
       if (!$idCaso) {
           $this->addFlash('error', 'Debe seleccionar un caso primero.');

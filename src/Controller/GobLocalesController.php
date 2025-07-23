@@ -70,13 +70,12 @@ class GobLocalesController extends AbstractController
     }
 
     #[Route('/{idCaso}/edit', name: 'gob_locales_edit', methods: ['GET', 'POST'])]
-    public function edit(
-        int $idCaso,
+    public function edit(      
         Request $request,
         GobLocalesRepository $gobLocalesRepository,
         CasoRepository $casoRepository,
         CasoTabsDataProvider $tabsProvider,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,  int $idCaso,
     ): Response {
 
         $sinCaso=false;
@@ -117,7 +116,10 @@ class GobLocalesController extends AbstractController
     public function new(
          Request $request,
         CasoRepository $casoRepository,
-        EntityManagerInterface $em,SessionInterface $session
+        EntityManagerInterface $em,SessionInterface $session,        
+        GobLocalesRepository $gobLocalesRepository,        
+        CasoTabsDataProvider $tabsProvider, ?int $idCaso = null 
+      
     ): Response {
        
         $idCaso = $session->get('caso_id');
@@ -125,6 +127,16 @@ class GobLocalesController extends AbstractController
         $caso = null;
         $sinCaso = false;
         $parametros = [];
+
+        $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
+       
+        if (!empty($tabsData['gl'])) {
+            // Llamar al método edit y devolver su Response
+
+            return $this->edit($request, $gobLocalesRepository, $casoRepository, $tabsProvider, $em,$idCaso);
+        }
+ 
+
         if (!$idCaso) {
             
             $this->addFlash('error', 'Debe seleccionar un caso primero.');

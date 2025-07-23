@@ -24,15 +24,23 @@ class SddnayfNewController extends AbstractController
     #[Route('/new_sddnayf', name: 'app_sddnayf_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        EntityManagerInterface $em,CasoRepository $casoRepo, SessionInterface $session
+        EntityManagerInterface $em,CasoRepository $casoRepo, SessionInterface $session,
+        CasoTabsDataProvider $tabsProvider, ?int $idCaso = null 
     ): Response {
         
         $idCaso = $session->get('caso_id');
-
         $caso = null;
         $sinCaso = false;
         $parametros = [];
 
+        $tabsData = $tabsProvider->getData($casoRepo->find($idCaso));
+       
+        if (!empty($tabsData['sddnayf'])) {
+            // Llamar al método edit y devolver su Response
+
+            return $this->edit($request, $idCaso, $casoRepo, $tabsProvider, $em);
+        }
+ 
            if (!$idCaso) {
             $this->addFlash('error', 'Debe seleccionar un caso primero.');
             $sinCaso = true;
@@ -43,31 +51,37 @@ class SddnayfNewController extends AbstractController
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
+         
         }
-        $sddnayf = new SddnayfNew();
+       
+                $sddnayf = new SddnayfNew();
 
-        // Al menos un hijo vacío para inicializar
-        $sddnayf->addHijoVictima(new \App\Entity\SddnayfHijosVictima());
+                $form = $this->createForm(SddnayfNewType::class, $sddnayf);
+                $form->handleRequest($request);
 
-        $form = $this->createForm(SddnayfNewType::class, $sddnayf);
-        $form->handleRequest($request);
+                // Al menos un hijo vacío para inicializar
+                $sddnayf->addHijoVictima(new \App\Entity\SddnayfHijosVictima());
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $sddnayf->setCaso($caso); 
-            $sddnayf->setFechacarga(new \DateTime());
-            $sddnayf->setUsuariocarga($this->getUser()?->getUserIdentifier());
+                $form = $this->createForm(SddnayfNewType::class, $sddnayf);
+                $form->handleRequest($request);
 
-            $em->persist($sddnayf);
-            $em->flush();
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $sddnayf->setCaso($caso); 
+                    $sddnayf->setFechacarga(new \DateTime());
+                    $sddnayf->setUsuariocarga($this->getUser()?->getUserIdentifier());
 
-            $this->addFlash('success_js', 'Seccion SDDNAyF guardada correctamente');   
-            return $this->redirectToRoute('app_caso_index');
-        }
+                    $em->persist($sddnayf);
+                    $em->flush();
 
-        $parametros['form'] = $form->createView();
-        $parametros['sinCaso'] = $sinCaso;
-        $parametros['modo'] = 'edit';
-        return $this->render('sddnayf/new.html.twig', $parametros);
+                    $this->addFlash('success_js', 'Seccion SDDNAyF guardada correctamente');   
+                    return $this->redirectToRoute('app_caso_index');
+                }
+
+                $parametros['form'] = $form->createView();
+                $parametros['sinCaso'] = $sinCaso;
+                $parametros['modo'] = 'edit';
+                return $this->render('sddnayf/new.html.twig', $parametros);
+            
     }
 
     //edit de gpt
