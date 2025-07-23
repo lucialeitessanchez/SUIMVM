@@ -50,8 +50,8 @@ class SddnayfHijosVictima
     #[ORM\Column(name:'sddnayf_3fb',type: 'date', nullable: true)]
     private ?\DateTimeInterface $sddnayf3fb = null;
 
-    #[ORM\Column(name:'sddnayf_3i',type: 'integer', nullable: true)]
-    private ?int $sddnayf3i = null;
+    #[ORM\Column(name:'sddnayf_3i',type: 'boolean', nullable: true)]
+    private ?bool $sddnayf3i = null;
 
     #[ORM\Column(name:'sddnayf_3j',type: 'boolean', nullable: true)]
     private ?bool $sddnayf3j = null;
@@ -223,12 +223,12 @@ class SddnayfHijosVictima
         return $this;
     }
 
-    public function getSddnayf3i(): ?int
+    public function getSddnayf3i(): ?bool
     {
         return $this->sddnayf3i;
     }
 
-    public function setSddnayf3i(?int $sddnayf3i): self
+    public function setSddnayf3i(?bool $sddnayf3i): self
     {
         $this->sddnayf3i = $sddnayf3i;
         return $this;

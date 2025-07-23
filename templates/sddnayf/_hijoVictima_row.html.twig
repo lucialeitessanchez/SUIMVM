@@ -1,4 +1,5 @@
-<div class="hijo-item mb-3 border p-3 rounded shadow-sm">
+<div class="hijo-item mb-3 border p-3 rounded shadow-smd-flex align-items-start gap-2">
+    <i class="bi bi-person-fill fs-4 text-primary"></i>
   <div class="row mb-3">
       <div class="col-md-4">
           {{ form_label(form.apenom, null, {'label_attr': {'class': 'form-label'}}) }}
@@ -100,11 +101,8 @@
                  </div> 
         </div>         
     {# Relación simple #}
-      
-
 
     {# Relación ManyToMany #}
-  
  <div class="col-md-12 d-flex justify-content-end">
     <button type="button" class="btn btn-danger btn-sm mt-2 remove-hijo">
         Quitar hijo
