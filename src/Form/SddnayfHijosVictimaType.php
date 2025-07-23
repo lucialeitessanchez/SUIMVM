@@ -27,13 +27,7 @@ class SddnayfHijosVictimaType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
             ])
-            ->add('sddnayf3a', CheckboxType::class, [
-                'label' => 'No / Sí',
-                'required' => false,
-                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
-                'label_attr' => ['class' => 'form-check-label'],
-            ])
-
+       
             // ManyToOne (relación simple)
             ->add('vinculoAgresor', EntityType::class, [
                 'class' => Nomenclador::class,
@@ -42,6 +36,68 @@ class SddnayfHijosVictimaType extends AbstractType
                 'required' => false,
                 'label' => 'Vínculo con el agresor',
             ])
+            ->add('sddnayf3a', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('sddnayf_3b', EntityType::class, array(
+                'required' => false,
+                'label' => 'Tipo de intervencion recibida',
+                'multiple' => true,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione',
+                'class' => Nomenclador::class,
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'TIPO_INTERVENCION')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
+            ->add('sddnayf_3c', EntityType::class, array(
+                'required' => false,
+                'label' => 'Motivo de la Medida de Proteccion',
+                'multiple' => true,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione',
+                'class' => Nomenclador::class,
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'MOTIVO_MEDIDA_PROTECCION')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
+            ->add('sddnayf_3d', EntityType::class, array(
+                'required' => false,
+                'label' => 'Indique sede del OA que adopto la MPE',
+                'multiple' => false,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione',
+                'class' => Nomenclador::class,
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'SEDE_SDDNAyF')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
+            ->add('sddnayf_3e', EntityType::class, array(
+                'required' => false,
+                'label' => 'Trayectoria de alojamiento durante la medida',
+                'multiple' => true,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione',
+                'class' => Nomenclador::class,
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'TRAYECTORIA_ALOJAMIENTO')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
             ->add('sddnayf3fa', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false,
@@ -52,61 +108,69 @@ class SddnayfHijosVictimaType extends AbstractType
                 'required' => false,
                 'label'=>"Fecha fin de la MPE"
                 ])
-            ->add('sddnayf_3d', EntityType::class, [
-                'class' => Nomenclador::class,
+            ->add('sddnayf_3g', EntityType::class, array(
+                    'required' => false,
+                    'label' => 'Motivo de resolucion de la MPE',
+                    'multiple' => false,
+                    'choice_label' => 'valor_nomenclador',
+                    'placeholder' => 'Seleccione',
+                    'class' => Nomenclador::class,
+                    'query_builder' => function ($repositorio) {
+                        return $repositorio->createQueryBuilder('n')
+                        ->where('n.nomenclador = :nomenclador')
+                        ->setParameter('nomenclador', 'MOTIVO_RESOLUCION_MEDIDA')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                    }
+            ))
+            
+            ->add('sddnayf_3h', EntityType::class, array(
+                'required' => false,
+                'label' => 'Si corresponde, indique motivo de egreso del sistema',
+                'multiple' => false,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
-                'required' => false,
-                'label' => 'Sddnayf 3d',
-            ])
-            ->add('sddnayf_3g', EntityType::class, [
                 'class' => Nomenclador::class,
-                'choice_label' => 'valor_nomenclador',
-                'placeholder' => 'Seleccione',
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'MOTIVO_EGRESO_SISTEMA')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
+            ->add('sddnayf_3i', CheckboxType::class, [
+                'label' => 'No / Sí',
                 'required' => false,
-                'label' => 'Sddnayf 3g',
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
             ])
-            ->add('sddnayf_3h', EntityType::class, [
-                'class' => Nomenclador::class,
-                'choice_label' => 'valor_nomenclador',
-                'placeholder' => 'Seleccione',
+            ->add('sddnayf_3j', CheckboxType::class, [
+                'label' => 'No / Sí',
                 'required' => false,
-                'label' => 'Sddnayf 3h',
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
             ])
-
+            ->add('sddnayf_3k', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
             // ManyToMany (select múltiple)
-            ->add('sddnayf_3b', EntityType::class, [
-                'class' => Nomenclador::class,
-                'choice_label' => 'valor_nomenclador',
-                'multiple' => true,
-                'expanded' => false,
+            
+            ->add('sddnayf_3l', EntityType::class, array(
                 'required' => false,
-                'label' => 'Sddnayf 3b',
-            ])
-            ->add('sddnayf_3c', EntityType::class, [
-                'class' => Nomenclador::class,
-                'choice_label' => 'valor_nomenclador',
+                'label' => 'Tipo de intervencion',
                 'multiple' => true,
-                'expanded' => false,
-                'required' => false,
-                'label' => 'Sddnayf 3c',
-            ])
-            ->add('sddnayf_3e', EntityType::class, [
-                'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',
-                'multiple' => true,
-                'expanded' => false,
-                'required' => false,
-                'label' => 'Sddnayf 3e',
-            ])
-            ->add('sddnayf_3l', EntityType::class, [
+                'placeholder' => 'Seleccione',
                 'class' => Nomenclador::class,
-                'choice_label' => 'valor_nomenclador',
-                'multiple' => true,
-                'expanded' => false,
-                'required' => false,
-                'label' => 'Sddnayf 3l',
-            ])
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'TIPO_INTERVENCION')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
+            ))
         ;
     }
 

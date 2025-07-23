@@ -190,17 +190,18 @@
     <div id="collapseHijos" class="accordion-collapse collapse" aria-labelledby="headingHijos" data-bs-parent="#accordion">
         <div class="accordion-body">
             <div id="hijosVictima-collection"
-                 data-prototype="{{ form_widget(form.hijosVictima.vars.prototype)|e('html_attr') }}"
-                 data-index="{{ form.hijosVictima|length }}">
-                 
+                 data-prototype="{{ include('sddnayf/_hijoVictima_row.html.twig', { form: form.hijosVictima.vars.prototype })|e('html_attr') }}"
+                data-index="{{ form.hijosVictima|length }}">
+
                 {% for hijoForm in form.hijosVictima %}
                     {% include 'sddnayf/_hijoVictima_row.html.twig' with { form: hijoForm } %}
                 {% endfor %}
             </div>
-
-            <button type="button" class="btn btn-primary mt-3" id="add-hijo">
-                + Agregar hijo/a
-            </button>
+            <div class="col-md-12 d-flex justify-content-end">
+                <button type="button" class="btn btn-primary mt-3" id="add-hijo">
+                    + Agregar hijo/a
+                </button>
+            </div>
         </div>
     </div>
 </div>{# fin item3#}
@@ -209,7 +210,7 @@
   </div>  
   </div>        
   </div>
-     
+     <br>
 {% if modo != 'show' %}
         <div class="col-md-12 d-flex justify-content-end">
                 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">

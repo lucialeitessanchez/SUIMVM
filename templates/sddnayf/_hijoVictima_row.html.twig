@@ -18,28 +18,98 @@
       </div>  
  </div>
   <div class="row mb-3">
-      <div class="col-md-6">
+      <div class="col-md-4">
           <label class='form-label'>¿El OA tuvo alguna intervencion en su niñez/adolescencia anterior al suceso que se investiga?</label>
           <div class="form-check form-switch">
                       {{ form_row(form.sddnayf3a, {'label_attr': {'class': 'form-label'}}) }}
           </div>
       </div>
+      <div class="col-md-4">
+                   {{ form_label(form.sddnayf_3b, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_3b) }}
+                  {{ form_widget(form.sddnayf_3b,{'attr': {'class': 'form-select'}})  }}
+                
+      </div>
+      <div class="col-md-4">
+                  {{ form_label(form.sddnayf_3c, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_3c) }}
+                  {{ form_widget(form.sddnayf_3c,{'attr': {'class': 'form-select'}})  }}
+                
+      </div>   
   </div>
+   <div class="row position-relative mb-3">   
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf_3d, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_3d) }}
+                  {{ form_widget(form.sddnayf_3d,{'attr': {'class': 'form-select'}})  }}
+              </div>   
+               <div class="col-md-4">
+                  {{ form_label(form.sddnayf_3e, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_3e) }}
+                  {{ form_widget(form.sddnayf_3e,{'attr': {'class': 'form-select'}})  }}
+              </div> 
+              <div class="col-md-2">
+                  {{ form_label(form.sddnayf3fa, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf3fa) }}
+                  {{ form_widget(form.sddnayf3fa,{'attr': {'class': 'form-control'}})  }}
+              </div> 
+              <div class="col-md-2">
+                  {{ form_label(form.sddnayf3fb, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf3fb) }}
+                  {{ form_widget(form.sddnayf3fb,{'attr': {'class': 'form-control'}})  }}
+              </div>
+               <div class="flotante-indicacion">
+                    En caso de haber más de una, indique la última
+                </div>
+    </div>
+    <div class="row position-relative mb-3">   
+                  <div class="col-md-4">
+                      {{ form_label(form.sddnayf_3g, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf_3g) }}
+                      {{ form_widget(form.sddnayf_3g,{'attr': {'class': 'form-select'}})  }}
+                 </div> 
+                   <div class="col-md-4">
+                      {{ form_label(form.sddnayf_3h, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf_3h) }}
+                      {{ form_widget(form.sddnayf_3h,{'attr': {'class': 'form-select'}})  }}
+                 </div>
+                 <div class="col-md-4">     
+                       <label for="sddnayf_3i" class="form-label">Indique si el NNA cuenta con designacion de abogado/a</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf_3i, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+                  </div>
+            </div>
+        <div class="row position-relative mb-3">   
+                  <div class="col-md-4">     
+                       <label for="sddnayf_3j" class="form-label">Indique si el OA ha intervenido en relacion a situaciones en conflicto con la Ley Penal</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf_3j, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+                  </div>
+                   <div class="col-md-4">     
+                       <label for="sddnayf_3k" class="form-label">Intervencion y/o seguimiento del OA a las NNA tras el suceso que se investiga</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf_3k, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+                  </div>
+                      <div class="col-md-4">
+                      {{ form_label(form.sddnayf_3l, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf_3l) }}
+                      {{ form_widget(form.sddnayf_3l,{'attr': {'class': 'form-select'}})  }}
+                 </div> 
+        </div>         
     {# Relación simple #}
-   
-    {{ form_row(form.sddnayf_3d) }}
-    {{ form_row(form.sddnayf_3g) }}
-    {{ form_row(form.sddnayf_3h) }}
+      
+
 
     {# Relación ManyToMany #}
-    {{ form_row(form.sddnayf_3b) }}
-    {{ form_row(form.sddnayf_3c) }}
-    {{ form_row(form.sddnayf_3e) }}
-    {{ form_row(form.sddnayf_3l) }}
-
-    <button type="button" class="btn btn-danger btn-sm mt-2 remove-familiar">
+  
+ <div class="col-md-12 d-flex justify-content-end">
+    <button type="button" class="btn btn-danger btn-sm mt-2 remove-hijo">
         Quitar hijo
     </button>
+</div>
 </div>
 <style>
 .accordion-button::after {
