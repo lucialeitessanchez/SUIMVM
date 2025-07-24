@@ -118,8 +118,7 @@ class GobLocalesController extends AbstractController
         CasoRepository $casoRepository,
         EntityManagerInterface $em,SessionInterface $session,        
         GobLocalesRepository $gobLocalesRepository,        
-        CasoTabsDataProvider $tabsProvider, ?int $idCaso = null 
-      
+        CasoTabsDataProvider $tabsProvider      
     ): Response {
        
         $idCaso = $session->get('caso_id');
@@ -127,15 +126,6 @@ class GobLocalesController extends AbstractController
         $caso = null;
         $sinCaso = false;
         $parametros = [];
-
-        $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
-       
-        if (!empty($tabsData['gl'])) {
-            // Llamar al método edit y devolver su Response
-
-            return $this->edit($request, $gobLocalesRepository, $casoRepository, $tabsProvider, $em,$idCaso);
-        }
- 
 
         if (!$idCaso) {
             
@@ -145,12 +135,19 @@ class GobLocalesController extends AbstractController
         } else {
             $caso = $em->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
-        }
+        }        
+       
+        if (!empty($tabsData['gl'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request, $gobLocalesRepository, $casoRepository, $tabsProvider, $em,$idCaso);
+        } 
 
+        
         $gobLocales = new GobLocales();
    
         $gobLocales->setFechaCarga(new \DateTimeImmutable());

@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "sddnayf_new_sddnayf_1c",
         "sddnayf_new_sddnayf_1d",
         "sddnayf_new_sddnayf_1e",
-        "sddnayf_new_sddnayf_1fa",
-        "sddnayf_new_sddnayf_1fb",
+        "sddnayf_new_sddnayf1fa",
+        "sddnayf_new_sddnayf1fb",
         "sddnayf_new_sddnayf_1g",
         "sddnayf_new_sddnayf_1h"
     ];
@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "sddnayf_3c",
         "sddnayf_3d",
         "sddnayf_3e",
-        "sddnayf_3fa",
-        "sddnayf_3fb",
+        "sddnayf3fa",
+        "sddnayf3fb",
         "sddnayf_3g",
         "sddnayf_3h"
     ];

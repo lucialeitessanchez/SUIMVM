@@ -46,7 +46,7 @@ class CasoType extends AbstractType
             ])
 
             ->add('femicidioVinculado', CheckboxType::class, [
-                'label' => 'No / Sí',
+                'label' => 'No po_muerte/ Sí',
                 'required' => false,
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],

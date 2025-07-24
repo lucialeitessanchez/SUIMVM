@@ -25,7 +25,7 @@ class SddnayfNewController extends AbstractController
     public function new(
         Request $request,
         EntityManagerInterface $em,CasoRepository $casoRepo, SessionInterface $session,
-        CasoTabsDataProvider $tabsProvider, ?int $idCaso = null 
+        CasoTabsDataProvider $tabsProvider
     ): Response {
         
         $idCaso = $session->get('caso_id');
@@ -33,25 +33,26 @@ class SddnayfNewController extends AbstractController
         $sinCaso = false;
         $parametros = [];
 
-        $tabsData = $tabsProvider->getData($casoRepo->find($idCaso));
+        if (!$idCaso) {
+            $this->addFlash('error', 'Debe seleccionar un caso primero.');
+            $sinCaso = true;
+            
+        } else {
+            $caso = $em->getRepository(Caso::class)->find($idCaso);
+            $parametros['caso'] = $caso;
+            
+            $tabsData = $tabsProvider->getData($casoRepo->find($idCaso));
+            if (!$caso) {
+                $this->addFlash('error', 'El caso seleccionado no existe.');
+                $sinCaso = true;
+            }
+        }
+        
        
         if (!empty($tabsData['sddnayf'])) {
             // Llamar al método edit y devolver su Response
 
             return $this->edit($request, $idCaso, $casoRepo, $tabsProvider, $em);
-        }
- 
-           if (!$idCaso) {
-            $this->addFlash('error', 'Debe seleccionar un caso primero.');
-            $sinCaso = true;
-        } else {
-            $caso = $em->getRepository(Caso::class)->find($idCaso);
-            $parametros['caso'] = $caso;
-            if (!$caso) {
-                $this->addFlash('error', 'El caso seleccionado no existe.');
-                $sinCaso = true;
-            }
-         
         }
        
                 $sddnayf = new SddnayfNew();
@@ -100,11 +101,12 @@ class SddnayfNewController extends AbstractController
     
         if (!$caso) {
             throw $this->createNotFoundException('Caso no encontrado.');
-        }
+        } else {
     
         $tabsData = $tabsProvider->getData($caso);
-        $sddnayfNew = $em->getRepository(SddnayfNew::class)->findOneBy(['caso' => $caso]);
 
+        $sddnayfNew = $em->getRepository(SddnayfNew::class)->findOneBy(['caso' => $caso]);
+        }
         
         if (!$sddnayfNew) {
             return $this->redirectToRoute('app_sddnayf_new', ['idCaso' => $idCaso]);

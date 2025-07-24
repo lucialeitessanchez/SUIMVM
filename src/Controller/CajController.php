@@ -22,7 +22,7 @@ class CajController extends AbstractController
     #[Route('/new', name: 'caj_new', methods: ['GET', 'POST'])]
     public function new(Request $request, 
     EntityManagerInterface $em, SessionInterface $session,CasoRepository $casoRepo,
-    CasoTabsDataProvider $tabsProvider, ?int $idCaso = null,
+    CasoTabsDataProvider $tabsProvider,
     FormFactoryInterface $formFactory,CajRepository $cajRepository
     ): Response
     {
@@ -32,27 +32,26 @@ class CajController extends AbstractController
         $sinCaso = false;
         $parametros = [];
 
-        $tabsData = $tabsProvider->getData($casoRepo->find($idCaso));
+        if (!$idCaso) {
+            $this->addFlash('error', 'Debe seleccionar un caso primero.');
+            $sinCaso = true;
+        } else {
+            $caso = $em->getRepository(Caso::class)->find($idCaso);
+            $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepo->find($idCaso));
+
+            if (!$caso) {
+                $this->addFlash('error', 'El caso seleccionado no existe.');
+                $sinCaso = true;
+            }
+        }
        
         if (!empty($tabsData['caj'])) {
             // Llamar al método edit y devolver su Response
             return $this->edit($request, $idCaso, $casoRepo, $cajRepository,$tabsProvider,$em);
         }
     
-      $caj = new Caj();    
-
-      if (!$idCaso) {
-          $this->addFlash('error', 'Debe seleccionar un caso primero.');
-          $sinCaso = true;
-      } else {
-          $caso = $em->getRepository(Caso::class)->find($idCaso);
-          $parametros['caso'] = $caso;
-          if (!$caso) {
-              $this->addFlash('error', 'El caso seleccionado no existe.');
-              $sinCaso = true;
-          }
-      }
-
+        $caj = new Caj();    
         $form = $this->createForm(CajType::class, $caj);
         $form->handleRequest($request);
 

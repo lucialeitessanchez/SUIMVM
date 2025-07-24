@@ -52,9 +52,13 @@ class CasoController extends AbstractController
      $organismoOrigen=$em->getRepository(OrganismoOrigen::class)->findOneBy(['organismo' => $organismo]);
         // dd('Estoy en el método new');
         $caso = new Caso();
+        if ($caso->getPersonaIdPersona() === null) {
+            $caso->setPersonaIdPersona(new Persona());
+        }
         $form = $this->createForm(CasoType::class, $caso);
         $form->handleRequest($request);
-    
+     
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             // Obtener datos sueltos desde la request
@@ -65,6 +69,7 @@ class CasoController extends AbstractController
             $nacionalidad=$request->request->get('nacionalidad');
             $sexo=$request->request->get('sexo');
             $generoAud=$request->request->get('generoAutop');
+            $orientacionSexual = $form->get('orientacionSexual')->getData();
 
             // Crear y asociar la persona
             $persona = new Persona();
@@ -74,7 +79,7 @@ class CasoController extends AbstractController
             $persona->setNacionalidad($nacionalidad);
             $persona->setSexo($sexo);
             $persona->setGeneroAutop($generoAud);
-            
+            $persona->setOrientacionSexual($orientacionSexual);
 
             $caso->setPersonaIdPersona($persona);
             $caso->setFranjaEtaria($franjaEtaria);

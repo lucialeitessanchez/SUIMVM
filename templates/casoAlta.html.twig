@@ -38,7 +38,8 @@
                 </div>
                 <div class="col-md-2">
                     <label for="dni" class="form-label">DNI</label>
-                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" placeholder="Número de DNI" required>
+                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" placeholder="Número de DNI"  maxlength="8" required  inputmode="numeric"
+       pattern="\d{7,8}">
                 </div>
               
                 <div class="col-md-2">
@@ -131,7 +132,7 @@
      <div class="row mb-3">
             <div class="col-md-4">
                 {{ form_label(form.localidad, null, {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.localidad, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.localidad, {'attr': {'class': 'select2-autocomplete form-select'}}) }}
                 {{ form_errors(form.localidad) }}
             </div>        
                 <!-- Departamento -->
@@ -171,6 +172,6 @@
 </script>
           <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
           <script src="{{ asset('js/persona.js') }}"></script>
-      <script src="{{ asset('js/localidad.js') }}"></script>
+            <script src="{{ asset('js/localidad.js') }}"></script>
          
 {% endblock %}

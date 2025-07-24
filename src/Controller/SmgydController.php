@@ -32,7 +32,10 @@ class SmgydController extends AbstractController
     }
 
     #[Route('/new', name: 'app_smgyd_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em,SessionInterface $session): Response
+    public function new(Request $request, 
+    CasoTabsDataProvider $tabsProvider, 
+    CasoRepository $casoRepository, 
+    EntityManagerInterface $em,SessionInterface $session): Response
     {
         $idCaso = $session->get('caso_id');
         
@@ -45,12 +48,16 @@ class SmgydController extends AbstractController
         } else {
             $caso = $em->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
         }
-
+        if (!empty($tabsData['smgyd'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em);
+        } 
         $smgyd = new Smgyd();
         $smgyd->addFamiliar(new SmgydFamiliar());
         $smgyd->addProcesoJudicial(new SmgydProcesoJudicial());

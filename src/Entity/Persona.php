@@ -30,7 +30,7 @@ class Persona
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "orientacion_sexual_id", referencedColumnName: "id_nomenclador", nullable: true)]
-    private ?Nomenclador $orientacion_sexual = null;
+    private ?Nomenclador $orientacionSexual = null;
 
     #[ORM\Column(type: 'string', length: 45, nullable:true)]
     private ?string $nacionalidad = null;
@@ -98,12 +98,12 @@ class Persona
 
    public function getOrientacionSexual(): ?Nomenclador
     {
-        return $this->orientacion_sexual;
+        return $this->orientacionSexual;
     }
 
     public function setOrientacionSexual(?Nomenclador $orientacionSexual): self
     {
-        $this->orientacion_sexual = $orientacionSexual;
+        $this->orientacionSexual = $orientacionSexual;
 
         return $this;
     }

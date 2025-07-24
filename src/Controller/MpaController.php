@@ -34,8 +34,14 @@ final class MpaController extends AbstractController
     }
 
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    public function new(Request $request, 
+    CasoRepository $casoRepository,
+    CasoTabsDataProvider $tabsProvider, 
+    EntityManagerInterface $entityManager, 
+    SessionInterface $session   
+    ): Response
     {
+
         $idCaso = $session->get('caso_id');
 
         $caso = null;
@@ -49,11 +55,16 @@ final class MpaController extends AbstractController
         } else {
             $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
         }
+        if (!empty($tabsData['mpa'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $entityManager);
+        } 
 
         $mpa = new Mpa();
          // Agregamos al menos un campo vacío
