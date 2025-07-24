@@ -4,7 +4,16 @@
 {% block body %}
 
     <section id="caso-table" class="container my-5">
-    <h2  class="text-left mb-4">Casos ingresados</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Casos ingresados</h2>
+            <div class="px-3 py-1 bg-light border rounded text-muted big">
+            <span >
+                    Caso seleccionado: <span class="badge bg-primary p-2" id="caso-seleccionado-id">Ninguno</span>
+                </span>
+            </div>
+    </div>
+        
+    
     <hr>
        <div class="table-wrapper">
     <table class="table table-striped" data-guardar-url="{{ path('guardar_caso_sesion') }}">
@@ -70,6 +79,7 @@
     const guardarCasoUrl = "{{ path('guardar_caso_sesion') }}";
     </script>
     <script src="{{ asset('js/casoSesion.js') }}"></script>
+     <script src="{{ asset('js/casoSeleccionado.js') }}"></script>
     {% for message in app.flashes('success_js') %}
             <script>
                 Swal.fire({

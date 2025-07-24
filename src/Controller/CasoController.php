@@ -26,14 +26,17 @@ use App\Service\CasoTabsDataProvider;
 class CasoController extends AbstractController
 {
     #[Route(name: 'app_caso_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, SessionInterface $session   ): Response
     {
+        $idCaso = $session->get('caso_id') ?? '';
+
         $casos = $entityManager
         ->getRepository(Caso::class)
         ->findAll();
     if ($casos){
             return $this->render('/caso/casoList.html.twig', [
            'casos' => $casos,
+           'idCaso'=>$idCaso,
             ]);}
     else {
         return $this->render('/index.html.twig');}
@@ -228,7 +231,16 @@ class CasoController extends AbstractController
         
     }
 
-   
+    #[Route('/caso/seleccionado', name: 'caso_seleccionado', methods: ['GET'])]
+    public function obtenerCasoSeleccionado(SessionInterface $session): JsonResponse
+    {
+        $idCaso = $session->get('caso_id');
+    
+        return new JsonResponse([
+            'success' => true,
+            'id' => $idCaso ?? null
+        ]);
+    }
 
     
 }
