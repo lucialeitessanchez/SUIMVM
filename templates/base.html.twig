@@ -48,20 +48,21 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Organismos Colaboradores</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Organismos</a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_smgyd_new')}}">SMGyD</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_mpa_new') }}">MPA</a></li>
                         <li><a class="dropdown-item" href="{{ path('caj_new') }}">Centro Asistencia Judicial</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_sddnayf_new')}}">SDNAyF</a></li>
-                        <li><a class="dropdown-item" href="#">Cámara Federal</a></li>
-                        <li><a class="dropdown-item" href="#">Defensoría del Pueblo</a></li>
+                        {#<li><a class="dropdown-item" href="#">Cámara Federal</a></li>#}
+                        {#<li><a class="dropdown-item" href="#">Defensoría del Pueblo</a></li>#}
                         <li><a class="dropdown-item" href="{{ path('sdh_new') }}">Secretaría de Derechos Humanos</a></li>
-                        <li><a class="dropdown-item" href="#">Ministerio de Salud</a></li>
+                        {#<li><a class="dropdown-item" href="#">Ministerio de Salud</a></li>#}
                         <li><a class="dropdown-item" href="{{ path ('gob_locales_new') }}">Áreas locales</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_smgyd_new')}}">SMGyD</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_mpa_new') }}">MPA</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a></li>
+                
+                {#<li class="nav-item"><a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a></li>#}
             </ul>
 
             <div class="ms-auto d-flex align-items-center text-white">

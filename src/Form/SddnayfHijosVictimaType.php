@@ -35,6 +35,12 @@ class SddnayfHijosVictimaType extends AbstractType
                 'placeholder' => 'Seleccione',
                 'required' => false,
                 'label' => 'Vínculo con el agresor',
+                'query_builder' => function ($repositorio) {
+                    return $repositorio->createQueryBuilder('n')
+                    ->where('n.nomenclador = :nomenclador')
+                    ->setParameter('nomenclador', 'TIPO_VINCULO')
+                    ->orderBy('n.valor_nomenclador', 'ASC');
+                }
             ])
             ->add('sddnayf3a', CheckboxType::class, [
                 'label' => 'No / Sí',
