@@ -242,5 +242,41 @@ class CasoController extends AbstractController
         ]);
     }
 
+    #[Route('/caso/buscar_ajax', name: 'caso_buscar_ajax', methods: ['GET'])]
+    public function buscarAjax(Request $request, CasoRepository $repo): JsonResponse
+    {
+        $criterio = $request->query->get('criterio');
+        $valor = $request->query->get('valor');
+
+        if (!$valor || !in_array($criterio, ['documento', 'apellido', 'localidad'])) {
+            return $this->json(['error' => 'Parámetros inválidos'], 400);
+        }
+
+        switch ($criterio) {
+            case 'documento':
+                $casos = $repo->findByDocumento($valor);
+                break;
+
+            case 'apellido':
+                $casos = $repo->findByApellidoNombre($valor);
+                break;
+
+            case 'localidad':
+                $casos = $repo->findByLocalidad($valor);
+                break;
+        }
+
+        $resultados = array_map(function($caso) {
+            return [
+                'id' => $caso->getId(),
+                'nombre' => $caso->getPersona()->getApellido() . ' ' . $caso->getPersona()->getNombre(),
+                'documento' => $caso->getPersona()->getNrodoc(),
+                'localidad' => $caso->getLocalidad()->getNombre(),
+            ];
+        }, $casos);
+
+        return $this->json($resultados);
+    }
+
     
 }

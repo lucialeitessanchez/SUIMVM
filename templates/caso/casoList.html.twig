@@ -4,24 +4,82 @@
 {% block body %}
 
     <section id="caso-table" class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0">Casos ingresados</h2>
-            <div class="px-3 py-1 bg-light border rounded text-muted big">
-            <span >
-                    Caso seleccionado: <span class="badge bg-primary p-3" id="caso-seleccionado-id">Ninguno</span>
-                </span>
-            </div>
+   <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- Contenedor para título + botón -->
+        <div class="d-flex align-items-center gap-3">
+            <h2 class="mb-0">Casos ingresados</h2>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalBusqueda">
+            <i class="bi bi-search"></i> Buscar
+            </button>
+            <button type="button" class="btn btn-outline-primary" id="btnLimpiarFiltros">
+              <i class="bi bi-arrow-clockwise"></i>
+            </button>
+        </div>
+
+        <!-- Caso seleccionado a la derecha -->
+        <div class="px-3 py-1 bg-light border rounded text-muted big">
+            <span>
+            Caso seleccionado: <span class="badge bg-primary p-3" id="caso-seleccionado-id">Ninguno</span>
+            </span>
+        </div>
     </div>
-        
+  {# VENTANA MODAL PARA BUSCAR #}    
+<!-- Modal de búsqueda -->
+<div class="modal fade" id="modalBusqueda" tabindex="-1" aria-labelledby="modalBusquedaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalBusquedaLabel">Buscar casos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="formBusqueda">
+          <!-- Criterio -->
+          <div class="mb-3">
+            <label class="form-label">Buscar por:</label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="criterioBusqueda" id="criterioNroCaso" value="caso">
+              <label class="form-check-label" for="criterioNroCaso">N° Caso</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="criterioBusqueda" id="criterioApellido" value="apellido" checked>
+              <label class="form-check-label" for="criterioApellido">Apellido o Nombre</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="criterioBusqueda" id="criterioLocalidad" value="localidad">
+              <label class="form-check-label" for="criterioLocalidad">Localidad</label>
+            </div>
+          </div>
+
+          <!-- Valor de búsqueda -->
+          <div class="mb-3">
+            <label for="inputBusqueda" class="form-label">Texto a buscar</label>
+            <input type="text" class="form-control" id="inputBusqueda" placeholder="Ingrese valor...">
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+       {# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>#}
+        <button type="button" class="btn btn-primary" id="btnBuscarCasos">Buscar</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+  {# ---------------------------- #} 
     
     <hr>
        <div class="table-wrapper">
-    <table class="table table-striped" data-guardar-url="{{ path('guardar_caso_sesion') }}">
+    <table id="tablaCasos" class="table table-striped table-hover" data-guardar-url="{{ path('guardar_caso_sesion') }}">
         <thead>
         <tr>
             <th>Caso</th>
             <th>Fecha del hecho</th>
-            <th colspan="2">Datos de la victima</th>
+            <th >Datos de la victima</th>
             <th>Localidad</th>
             <th>Institución de carga</th>
             <th>Opciones</th>
@@ -31,11 +89,11 @@
         <!-- Filas dinámicas -->
         {% for caso in casos %}
             <tr>
-                <td id="casoId">{{ caso.idCaso }}</td>
+                <td class="col-caso" id="casoId">{{ caso.idCaso }}</td>
                 <td>{{ caso.fechaCarga ? caso.fechaCarga|date('d-m-Y') : '' }}</td>
-                <td>{{ caso.personaIdPersona.apellido }}</td>
-                <td>{{ caso.personaIdPersona.nombre }}</td>
-                <td>{{ caso.localidad }}</td>
+               
+                <td class="col-nombre">{{ caso.personaIdPersona.apellido }}, {{ caso.personaIdPersona.nombre }}</td>
+                <td class="col-localidad">{{ caso.localidad }}</td>
                 <td>{{ caso.organismoOrigenIdOrigen }}</td>
                 <td>
                 <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
@@ -71,7 +129,15 @@
     </table>
     </div>
     </section>
-
+<style>
+.modal-footer .btn {
+  display: inline-flex;
+  align-items: center;
+  height: 38px; /* o el alto que tenga el btn-primary */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+</style>
 {% endblock %}
 {% block javascripts %}
   {{ parent() }}
@@ -79,7 +145,8 @@
     const guardarCasoUrl = "{{ path('guardar_caso_sesion') }}";
     </script>
     <script src="{{ asset('js/casoSesion.js') }}"></script>
-     <script src="{{ asset('js/casoSeleccionado.js') }}"></script>
+    <script src="{{ asset('js/casoSeleccionado.js') }}"></script>
+    <script src="{{ asset('js/casoFiltrar.js') }}"></script>
     {% for message in app.flashes('success_js') %}
             <script>
                 Swal.fire({
