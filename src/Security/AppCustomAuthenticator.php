@@ -42,11 +42,14 @@ class AppCustomAuthenticator extends AbstractAuthenticator
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
-    {
+    {   
+     
         /** @var \App\Security\User $user */
         $user = $token->getUser();
 
         // Asignar atributos CAS si están disponibles
+        $attributes = $token->getAttributes();
+
         $attributes = $this->cas->getAttributes();
 
         $user->setUid($attributes['uid'] ?? null);

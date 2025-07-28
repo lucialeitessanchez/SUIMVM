@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\CasoTabsDataProvider;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/mpa')]
 final class MpaController extends AbstractController
@@ -34,7 +36,7 @@ final class MpaController extends AbstractController
     }
 
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session,SluggerInterface $slugger): Response
     {
         $idCaso = $session->get('caso_id');
 
@@ -60,10 +62,33 @@ final class MpaController extends AbstractController
         
         $form = $this->createForm(MpaForm::class, $mpa);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             //seteo usuario carga
-            $mpa->setUsuarioCarga("prueba");
+            $mpa->setUsuarioCarga("Usuario 1");
+            $file = $form->get('archivo')->getData(); // archivo adj
+
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                // Make sure $slugger is available (e.g., injected into your controller)
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+        
+                try {
+                    // Move the file to your designated directory
+                    $file->move(
+                        $this->getParameter('archivos_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // Handle the exception, e.g., log it or return an error response
+                    throw new \Exception('Problemas con el archivo: ' . $e->getMessage());
+                }
+        
+                // Store only the new filename in your entity
+                $mpa->setArchivo($newFilename);
+            }
+            $mpa->setUsuarioCarga("usuario 1");
             if (!$sinCaso)
                 $mpa->setCaso($caso);
             $entityManager->persist($mpa);
@@ -109,7 +134,6 @@ final class MpaController extends AbstractController
         if (!$caso) {
             throw $this->createNotFoundException('Caso no encontrado');
         }
-    
         // Buscar datos asociados para mostrar las pestañas
         $tabsData = $tabsProvider->getData($caso);
     

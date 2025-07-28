@@ -154,15 +154,15 @@ class Mpa
     )]
     private Collection $otrasViolencias;
     
-    #[ORM\Column(type: 'string')]
-    private string $archivo;
+    #[ORM\Column(type: 'string', length: 255, nullable:true)]
+    private ?string $archivo = null;
 
-    public function getArchivo(): string
+    public function getArchivo(): ?string
     {
         return $this->archivo;
     }
 
-    public function setArchivo(string $archivo): self
+    public function setArchivo(?string $archivo): self
     {
         $this->archivo = $archivo;
 
