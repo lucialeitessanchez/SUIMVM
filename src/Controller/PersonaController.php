@@ -16,8 +16,11 @@ class PersonaController extends AbstractController
     {
         $nrodoc = $request->query->get('nrodoc');
 
-        $persona = $personaRepository->findOneBy(['nrodoc' => $nrodoc]);
-
+        $persona = null;
+        
+        if (trim($nrodoc) !== '00000000') {
+          $persona = $personaRepository->findOneBy(['nrodoc' => $nrodoc]);
+        }
         return new JsonResponse([
             'existe' => $persona !== null,
         ]);
