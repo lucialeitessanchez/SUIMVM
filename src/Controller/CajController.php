@@ -20,27 +20,38 @@ use App\Service\CasoTabsDataProvider;
 class CajController extends AbstractController
 {
     #[Route('/new', name: 'caj_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em, SessionInterface $session): Response
+    public function new(Request $request, 
+    EntityManagerInterface $em, SessionInterface $session,CasoRepository $casoRepo,
+    CasoTabsDataProvider $tabsProvider,
+    FormFactoryInterface $formFactory,CajRepository $cajRepository
+    ): Response
     {
-      $idCaso = $session->get('caso_id');
 
-      $caj = new Caj();
-      $caso = null;
-      $sinCaso = false;
-      $parametros = [];
+        $idCaso = $session->get('caso_id');
+        $caso = null;
+        $sinCaso = false;
+        $parametros = [];
 
-      if (!$idCaso) {
-          $this->addFlash('error', 'Debe seleccionar un caso primero.');
-          $sinCaso = true;
-      } else {
-          $caso = $em->getRepository(Caso::class)->find($idCaso);
-          $parametros['caso'] = $caso;
-          if (!$caso) {
-              $this->addFlash('error', 'El caso seleccionado no existe.');
-              $sinCaso = true;
-          }
-      }
+        if (!$idCaso) {
+            $this->addFlash('error', 'Debe seleccionar un caso primero.');
+            $sinCaso = true;
+        } else {
+            $caso = $em->getRepository(Caso::class)->find($idCaso);
+            $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepo->find($idCaso));
 
+            if (!$caso) {
+                $this->addFlash('error', 'El caso seleccionado no existe.');
+                $sinCaso = true;
+            }
+        }
+       
+        if (!empty($tabsData['caj'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request, $idCaso, $casoRepo, $cajRepository,$tabsProvider,$em);
+        }
+    
+        $caj = new Caj();    
         $form = $this->createForm(CajType::class, $caj);
         $form->handleRequest($request);
 
@@ -85,17 +96,15 @@ class CajController extends AbstractController
                 $form = $formFactory->create(CajType::class, $caj, [
                     'disabled' => true, // importante: desactiva todos los campos
                 ]);
-        
-            return $this->render('caj/show.html.twig', [
-                    'form' => $form,
-                    'caso' => $caso,
-                    'caj' => $tabsData['caj'],
-                    'sdh' => $tabsData['sdh'],
-                    'mpa' => $tabsData['mpa'],
-                    'gl' => $tabsData['gl'],
-                    'smgyd' => $tabsData['smgyd'],
-                'pestaña_activa' => 'caj',
-                ]);
+                foreach ($tabsData as $clave => $valor) {
+                    $parametros[$clave] = $valor;
+                }
+                $parametros['form'] = $form->createView();
+                $parametros['caso'] = $caso;
+                $parametros['pestaña_activa'] = 'caj';
+
+                return $this->render('caj/show.html.twig', $parametros);
+            
             }
 
             #[Route('/{idCaso}/edit', name: 'app_caj_edit', methods: ['GET', 'POST'])]
@@ -129,13 +138,12 @@ class CajController extends AbstractController
                     $this->addFlash('success_js', 'Datos guardados correctamente');   
                 return $this->redirectToRoute('app_caso_index');
                 }
+
+                foreach ($tabsData as $clave => $valor) {
+                    $parametros[$clave] = $valor;
+                }
                 $parametros['form'] = $form->createView();
-                $parametros['mpa'] = $tabsData['mpa'];
                 $parametros['caso'] = $caso;
-                $parametros['caj'] = $caj;
-                $parametros['sdh'] = $tabsData['sdh'];
-                $parametros['gl'] = $tabsData['gl'];  
-                $parametros['smgyd'] = $tabsData['smgyd'];
                 $parametros['pestaña_activa'] = 'caj';
 
                 return $this->render('caj/edit.html.twig', $parametros);

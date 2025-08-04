@@ -56,31 +56,33 @@ class GobLocalesController extends AbstractController
             'disabled' => true,
         ]);
 
-    
-         return $this->render('gobLocal/show.html.twig', [
-            'form' =>$form,
-            'caso' => $caso,
-            'caj' => $tabsData['caj'],
-            'sdh' => $tabsData['sdh'],
-            'mpa' => $tabsData['mpa'],
-            'gl' => $gobLocales,  
-            'smgyd' => $tabsData['smgyd'],      
-            'pestaña_activa'=>'gl',
-        ]);
+        $parametros['form'] = $form->createView();
+        $parametros['caso'] = $caso;
+        $parametros['sinCaso'] = $sinCaso;
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+   
+        $parametros['pestaña_activa'] = 'gl';
+
+        return $this->render('gobLocal/show.html.twig', $parametros);
+         
     }
 
     #[Route('/{idCaso}/edit', name: 'gob_locales_edit', methods: ['GET', 'POST'])]
-    public function edit(
-        int $idCaso,
+    public function edit(      
         Request $request,
         GobLocalesRepository $gobLocalesRepository,
         CasoRepository $casoRepository,
         CasoTabsDataProvider $tabsProvider,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,  int $idCaso,
     ): Response {
+
+        $sinCaso=false;
         $caso = $casoRepository->find($idCaso);
         if (!$caso) {
             throw $this->createNotFoundException('Caso no encontrado');
+            $sinCaso=true;
         }
         $tabsData = $tabsProvider->getData($caso);
         $gobLocales = $em->getRepository(GobLocales::class)->findOneBy(['caso' => $caso]);
@@ -99,12 +101,12 @@ class GobLocalesController extends AbstractController
         }
         
             $parametros['form'] = $form->createView();
-            $parametros['mpa'] = $tabsData['mpa'];
             $parametros['caso'] = $caso;
-            $parametros['caj'] = $tabsData['caj'];
-            $parametros['sdh'] = $tabsData['sdh'];
-            $parametros['gl'] = $gobLocales;
-            $parametros['smgyd'] = $tabsData['smgyd'];           
+            $parametros['sinCaso'] = $sinCaso;
+            foreach ($tabsData as $clave => $valor) {
+                $parametros[$clave] = $valor;
+            }
+       
             $parametros['pestaña_activa'] = 'gl';
 
         return $this->render('gobLocal/edit.html.twig', $parametros);
@@ -114,36 +116,48 @@ class GobLocalesController extends AbstractController
     public function new(
          Request $request,
         CasoRepository $casoRepository,
-        EntityManagerInterface $em,SessionInterface $session
+        EntityManagerInterface $em,SessionInterface $session,        
+        GobLocalesRepository $gobLocalesRepository,        
+        CasoTabsDataProvider $tabsProvider      
     ): Response {
        
         $idCaso = $session->get('caso_id');
-        
+       
         $caso = null;
         $sinCaso = false;
         $parametros = [];
+
         if (!$idCaso) {
+            
             $this->addFlash('error', 'Debe seleccionar un caso primero.');
             $sinCaso = true;
+            
         } else {
             $caso = $em->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
-        }
+        }        
+       
+        if (!empty($tabsData['gl'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request, $gobLocalesRepository, $casoRepository, $tabsProvider, $em,$idCaso);
+        } 
 
+        
         $gobLocales = new GobLocales();
    
         $gobLocales->setFechaCarga(new \DateTimeImmutable());
         $gobLocales->setUsuarioCarga($this->getUser()?->getUserIdentifier() ?? 'sistema');
-        $gobLocales->setCaso($caso);
+    
         $form = $this->createForm(GobLocalesType::class, $gobLocales);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            $gobLocales->setCaso($caso);
             $em->persist($gobLocales);
             $em->flush();
           // dd($idCaso);
@@ -151,7 +165,7 @@ class GobLocalesController extends AbstractController
            $this->addFlash('success_js', 'Seccion Area Local guardada correctamente');   
            return $this->redirectToRoute('app_caso_index');
         }
-
+        
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
         $parametros['modo'] = 'edit';

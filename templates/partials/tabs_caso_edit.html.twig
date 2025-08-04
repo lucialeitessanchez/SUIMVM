@@ -4,20 +4,20 @@
     <a href="{{ path('app_caso_edit', { idCaso: caso.idCaso }) }}"
        class="circle-tab {% if pestaña_activa == 'caso' %}active{% endif %}"
        
-       title="Caso">
+       title="Identificación de la víctima">
       <i class="bi bi-person-lines-fill"></i>
     </a>
 
     {% if caj is not empty %}
       <a href="{{ path('app_caj_edit', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
-         title="CAJ">
+         title="Centro de Asistencia Judicial">
         <span class="circle-letter"><h5>CAJ</h5></span>
       </a>
       {% else %}
           <a href="{{ path('caj_new', { idCaso: caso.idCaso }) }}"
             class="circle-tab position-relative {% if pestaña_activa == 'caj' %}active{% endif %}"
-            title="CAJ">
+            title="Centro de Asistencia Judicial">
               <span class="circle-letter"><h5>CAJ</h5></span>
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
@@ -27,13 +27,13 @@
     {% if sdh is not empty %}
       <a href="{{ path('app_sdh_edit', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
-         title="SDH">
+         title="Secretaría de Derechos Humanos">
         <span class="circle-letter"><h5>SDH</h5></span>
       </a>
      {% else %}
           <a href="{{ path('sdh_new', { idCaso: caso.idCaso }) }}"
             class="circle-tab position-relative {% if pestaña_activa == 'sdh' %}active{% endif %}"
-            title="SDH">
+            title="Secretaría de Derechos Humanos">
               <span class="circle-letter"><h5>SDH</h5></span>
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
@@ -42,13 +42,13 @@
     {% if mpa is not empty %}
       <a href="{{ path('app_mpa_edit', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'mpa' %}active{% endif %}"
-         title="MPA">
+         title="Ministerio Público de la Acusación">
         <span class="circle-letter"><h5>MPA</h5></span>
       </a>
      {% else %}
           <a href="{{ path('app_mpa_new', { idCaso: caso.idCaso }) }}"
             class="circle-tab position-relative {% if pestaña_activa == 'mpa' %}active{% endif %}"
-            title="MPA">
+            title="Ministerio Público de la Acusación">
               <span class="circle-letter"><h5>MPA</h5></span>
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
@@ -56,29 +56,44 @@
     {% if gl is not empty %}
           <a href="{{ path('gob_locales_edit', { idCaso: caso.idCaso }) }}"
             class="circle-tab {% if pestaña_activa == 'gl' %}active{% endif %}"
-            title="AREAS LOCALES">
+            title="Areas Locales">
              <span class="circle-letter"><h5>AL</h5></span>
           </a>
         
      {% else %}
           <a href="{{ path('gob_locales_new', { idCaso: caso.idCaso }) }}"
             class="circle-tab position-relative {% if pestaña_activa == 'gl' %}active{% endif %}"
-            title="AREAS LOCALES">
+            title="Areas Locales">
               <span class="circle-letter"><h5>AL</h5></span>
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
     {% endif %}
     {% if smgyd is not empty %}
       <a href="{{ path('app_smgyd_edit', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
-         title="SMGyD">
+         class="circle-tab {% if pestaña_activa == 'smgyd' %}active{% endif %}"
+         title="Sec.Mujeres, Género y Diversidad">
         <span class="circle-letter"><h6>SMGyD</h6></span>
       </a>
      {% else %}
           <a href="{{ path('app_smgyd_new', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'sdh' %}active{% endif %}"
-            title="SMGyD">
+            class="circle-tab position-relative {% if pestaña_activa == 'smgyd' %}active{% endif %}"
+            title="Sec.Mujeres, Género y Diversidad">
               <span class="circle-letter"><h6>SMGyD</h6></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
+    {% endif %}
+
+    {% if sddnayf is not empty %}
+      <a href="{{ path('app_sddnayf_edit', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
+         title="Sec.de Derechos de la Niñez, Adolescencia y Familia">
+        <span class="circle-letter"><h6>SDDNAyF</h6></span>
+      </a>
+     {% else %}
+          <a href="{{ path('app_sddnayf_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
+            title="Sec.de Derechos de la Niñez, Adolescencia y Familia">
+              <span class="circle-letter"><h6>SDDNAyF</h6></span>
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
     {% endif %}

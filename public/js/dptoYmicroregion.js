@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const localidadSelect = document.getElementById('caso_localidad');
+   // const localidadSelect = document.getElementById('caso_localidad');
+   const localidadSelect = document.getElementById('caso_localidad');
+   
     const departamentoInput = document.getElementById('departamento');
     const microInput = document.getElementById('microregion');
 
@@ -26,16 +28,15 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Evento para cuando el usuario cambia la localidad
-    localidadSelect.addEventListener('change', function () {
-        const selectedId = this.value;
-        if (!selectedId) return;
-
-        actualizarDepartamentoYMicroregion(selectedId);
-    });
-
-    // 🚀 Llamada inicial si ya hay una localidad seleccionada (modo ver)
-    if (localidadSelect.value) {
-        actualizarDepartamentoYMicroregion(localidadSelect.value);
-    }
+        // Escuchar cuando select2 termine de hacer un cambio
+        $(localidadSelect).on('change', function () {
+            const selectedId = this.value;
+            if (!selectedId) return;
+    
+            actualizarDepartamentoYMicroregion(selectedId);
+        });
+    
+        if (localidadSelect.value) {
+            actualizarDepartamentoYMicroregion(localidadSelect.value);
+        }
 });

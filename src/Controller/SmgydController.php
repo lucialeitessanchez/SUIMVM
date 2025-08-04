@@ -32,7 +32,10 @@ class SmgydController extends AbstractController
     }
 
     #[Route('/new', name: 'app_smgyd_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em,SessionInterface $session): Response
+    public function new(Request $request, 
+    CasoTabsDataProvider $tabsProvider, 
+    CasoRepository $casoRepository, 
+    EntityManagerInterface $em,SessionInterface $session): Response
     {
         $idCaso = $session->get('caso_id');
         
@@ -45,12 +48,16 @@ class SmgydController extends AbstractController
         } else {
             $caso = $em->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
         }
-
+        if (!empty($tabsData['smgyd'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em);
+        } 
         $smgyd = new Smgyd();
         $smgyd->addFamiliar(new SmgydFamiliar());
         $smgyd->addProcesoJudicial(new SmgydProcesoJudicial());
@@ -111,17 +118,17 @@ class SmgydController extends AbstractController
              $form = $formFactory->create(SmgydType::class, $smgyd, [
                  'disabled' => true, // importante: desactiva todos los campos
              ]);
-        return $this->render('smgyd/show.html.twig', [
-            'form' =>$form,
-            'caso' => $caso,
-            'sinCaso'=>$sinCaso,
-            'caj' => $tabsData['caj'],
-            'sdh' => $tabsData['sdh'],
-            'mpa' =>  $tabsData['mpa'],
-            'gl' => $tabsData['gl'],
-            'smgyd' => $smgyd,
-            'pestaña_activa'=>'smgyd',
-        ]);
+
+             $parametros['form'] = $form->createView();
+            $parametros['caso'] = $caso;
+            foreach ($tabsData as $clave => $valor) {
+                $parametros[$clave] = $valor;
+            }
+            $parametros['sinCaso'] = $sinCaso;
+            $parametros['pestaña_activa'] = 'smgyd';
+    
+            return $this->render('smgyd/show.html.twig', $parametros);
+        
     }
 
 
@@ -167,18 +174,16 @@ class SmgydController extends AbstractController
             return $this->redirectToRoute('app_caso_index');
         }
 
-        $parametros['form'] = $form->createView();
-            $parametros['mpa'] = $tabsData['mpa'];
+            $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
-            $parametros['caj'] = $tabsData['caj'];
-            $parametros['sdh'] = $tabsData['sdh'];
-            $parametros['gl'] = $tabsData['gl'];
-            $parametros['smgyd'] = $smgyd;
+            foreach ($tabsData as $clave => $valor) {
+                $parametros[$clave] = $valor;
+            }
             $parametros['sinCaso'] = $sinCaso;
             $parametros['pestaña_activa'] = 'smgyd';
-
-        return $this->render('smgyd/edit.html.twig', $parametros);
-    }
+    
+            return $this->render('smgyd/edit.html.twig', $parametros);
+          }
 
     #[Route('/{id}', name: 'app_smgyd_delete', methods: ['POST'])]
     public function delete(Request $request, Smgyd $smgyd, EntityManagerInterface $em): Response

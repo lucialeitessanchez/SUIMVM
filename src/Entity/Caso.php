@@ -45,8 +45,11 @@ class Caso
     #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
     private ?string $lugar_hecho = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $tipo_muerte = null;
+   // #[ORM\Column(type: 'integer', nullable: true)]
+   // private ?int $tipo_muerte = null;
+   #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+   #[ORM\JoinColumn(name: "tipo_muerte", referencedColumnName: "id_nomenclador", nullable: true)]
+   private ?Nomenclador $tipo_muerte = null;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "localidad_id_localidad", referencedColumnName: "id_localidad", nullable: false)]
@@ -58,7 +61,7 @@ class Caso
 
     #[ORM\ManyToOne(targetEntity: Persona::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "persona_id_persona", referencedColumnName: "id_persona", nullable: false)]
-    private Persona $persona_id_persona;
+    private ?Persona $persona_id_persona = null;
 
     #[ORM\ManyToOne(targetEntity: OrganismoOrigen::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_origen", nullable: false)]
@@ -205,12 +208,12 @@ public function setLugarHecho(?string $lugar_hecho): self
     return $this;
 }
 
-public function getTipoMuerte(): ?string
+public function getTipoMuerte(): ?Nomenclador
 {
     return $this->tipo_muerte;
 }
 
-public function setTipoMuerte(?string $tipo_muerte): self
+public function setTipoMuerte(?Nomenclador $tipo_muerte): self
 {
     $this->tipo_muerte = $tipo_muerte;
     return $this;
@@ -238,12 +241,12 @@ public function setLocalidadIdHecho(?Localidad $localidad_id_hecho): self
     return $this;
 }
 
-public function getPersonaIdPersona(): Persona
+public function getPersonaIdPersona(): ?Persona
 {
     return $this->persona_id_persona;
 }
 
-public function setPersonaIdPersona(Persona $persona_id_persona): self
+public function setPersonaIdPersona(?Persona $persona_id_persona): self
 {
     $this->persona_id_persona = $persona_id_persona;
     return $this;

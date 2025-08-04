@@ -16,11 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+
 #[Route('/sdh')]
 class SdhController extends AbstractController
 {
     #[Route('/new_sdh', name: 'sdh_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em, CasoRepository $casoRepo, SessionInterface $session): Response
+    public function new(Request $request, 
+    EntityManagerInterface $em, CasoRepository $casoRepository, 
+    CasoTabsDataProvider $tabsProvider, 
+    SessionInterface $session
+    ): Response
     {
         $idCaso = $session->get('caso_id');
 
@@ -34,12 +39,16 @@ class SdhController extends AbstractController
         } else {
             $caso = $em->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
         }
-
+        if (!empty($tabsData['sdh'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em);
+        } 
         $sdh = new Sdh();
        
         $sdh->setFechaCarga(new \DateTime());
@@ -101,7 +110,8 @@ class SdhController extends AbstractController
             'sdh' => $tabsData['sdh'],
             'mpa' => $tabsData['mpa'],
             'gl' => $tabsData['gl'],   
-            'smgyd' => $tabsData['smgyd'],      
+            'smgyd' => $tabsData['smgyd'],  
+            'sddnayf'=>$tabsData['sddnayf'],    
             'pestaña_activa'=>'sdh',
         ]);
             
@@ -143,7 +153,8 @@ class SdhController extends AbstractController
         $parametros['caj'] = $tabsData['caj'];
         $parametros['sdh'] = $sdh;
         $parametros['gl'] = $tabsData['gl'];     
-        $parametros['smgyd'] = $tabsData['smgyd'];           
+        $parametros['smgyd'] = $tabsData['smgyd'];  
+        $parametros['sddnayf'] = $tabsData['sddnayf'];         
         $parametros['pestaña_activa'] = 'sdh';
 
         return $this->render('sdh/edit.html.twig', $parametros);

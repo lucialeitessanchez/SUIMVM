@@ -38,6 +38,7 @@ final class MpaController extends AbstractController
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session,SluggerInterface $slugger): Response
     {
+
         $idCaso = $session->get('caso_id');
 
         $caso = null;
@@ -51,11 +52,16 @@ final class MpaController extends AbstractController
         } else {
             $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
+            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
         }
+        if (!empty($tabsData['mpa'])) {
+            // Llamar al método edit y devolver su Response
+            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $entityManager);
+        } 
 
         $mpa = new Mpa();
          // Agregamos al menos un campo vacío
@@ -154,17 +160,16 @@ final class MpaController extends AbstractController
         $form = $formFactory->create(MpaForm::class, $mpa, [
             'disabled' => true,
         ]);
-    
-        return $this->render('mpa/show.html.twig', [
-            'form' => $form,
-            'caso' => $caso,
-            'caj' => $tabsData['caj'],
-            'sdh' => $tabsData['sdh'],
-            'mpa' => $tabsData['mpa'],
-            'gl' => $tabsData['gl'],
-            'smgyd' => $tabsData['smgyd'],
-            'pestaña_activa' => 'mpa',
-        ]);
+        
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+        $parametros['form'] = $form->createView();
+        $parametros['caso'] = $caso;     
+        $parametros['pestaña_activa'] = 'mpa';
+
+        return $this->render('mpa/show.html.twig', $parametros);
+       
     }
 
     #[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
@@ -197,13 +202,12 @@ final class MpaController extends AbstractController
             $this->addFlash('success_js', 'Datos guardados correctamente');   
            return $this->redirectToRoute('app_caso_index');
         }
+
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
         $parametros['form'] = $form->createView();
-        $parametros['mpa'] = $mpa;
-        $parametros['caso'] = $caso;
-        $parametros['caj'] = $tabsData['caj'];
-        $parametros['sdh'] = $tabsData['sdh'];
-        $parametros['gl'] = $tabsData['gl'];  
-        $parametros['smgyd'] = $tabsData['smgyd'];  
+        $parametros['caso'] = $caso;     
         $parametros['pestaña_activa'] = 'mpa';
 
         return $this->render('mpa/edit.html.twig', $parametros);

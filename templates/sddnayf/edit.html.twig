@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SDDNAyF - Editando datos{% endblock %}
+
+{% block body %}
+{% include 'partials/tabs_caso_edit.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'smgyd':smgyd,'gl':gl,'sddnayf':sddnayf } %}    
+
+    {{ include('sddnayf/_form.html.twig', {'button_label': 'Actualizar',
+                                              'modo':'edit'}) }}
+
+{% endblock %}
+{% block javascripts %}
+
+     {{ parent()}}
+       <script src="{{ asset('js/sddnayf.js') }}"></script> 
+{% endblock %}

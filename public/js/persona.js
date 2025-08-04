@@ -1,14 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
 
    // Symfony arma la URL completa con el nombre de la ruta
-   
-   
-    const nrodocInput = document.getElementById('nrodoc');
+   const nrodocInput = document.getElementById('nrodoc');
 
     nrodocInput.addEventListener('blur', function () {
-        const nrodoc = nrodocInput.value;
+        let nrodoc = nrodocInput.value.trim();
        
-        if (nrodoc.trim() === '') return;
+        if (nrodoc === '') return;
+         // Completa con ceros a la izquierda hasta 8 dígitos
+         nrodoc = nrodoc.padStart(8, '0');
+         nrodocInput.value = nrodoc;
+
+        // Si es 00000000, mostrar advertencia, pero seguir
+        if (nrodoc === '00000000') {
+            alert('El número de documento 00000000 se considera sin dato.Verifique');
+            return;
+        }
+
         const url = window.verificarDniUrlTemplate.replace('PLACEHOLDER', encodeURIComponent(nrodoc));
         fetch(url)
             .then(response => response.json())
