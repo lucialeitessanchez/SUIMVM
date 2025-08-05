@@ -25,6 +25,15 @@ class Archivo
     #[ORM\Column(nullable: true)]
     private ?int $size = null;
 
+    #[ORM\ManyToOne(inversedBy: 'archivos')]
+    private ?Mpa $mpa = null;
+
+    #[ORM\ManyToOne(inversedBy: 'archivos')]
+    private ?Smgyd $smgyd = null;
+
+    #[ORM\ManyToOne(inversedBy: 'archivos')]
+    private ?Caj $caj = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +83,42 @@ class Archivo
     public function setSize(?int $size): static
     {
         $this->size = $size;
+
+        return $this;
+    }
+
+    public function getMpa(): ?Mpa
+    {
+        return $this->mpa;
+    }
+
+    public function setMpa(?Mpa $mpa): static
+    {
+        $this->mpa = $mpa;
+
+        return $this;
+    }
+
+    public function getSmgyd(): ?Smgyd
+    {
+        return $this->smgyd;
+    }
+
+    public function setSmgyd(?Smgyd $smgyd): static
+    {
+        $this->smgyd = $smgyd;
+
+        return $this;
+    }
+
+    public function getCaj(): ?Caj
+    {
+        return $this->caj;
+    }
+
+    public function setCaj(?Caj $caj): static
+    {
+        $this->caj = $caj;
 
         return $this;
     }

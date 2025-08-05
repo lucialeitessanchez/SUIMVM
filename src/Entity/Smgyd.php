@@ -177,6 +177,12 @@ class Smgyd
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $usuariocarga = null;
 
+    /**
+     * @var Collection<int, Archivo>
+     */
+    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'smgyd')]
+    private Collection $archivos;
+
     public function __construct()
     {
         $this->familiares = new ArrayCollection();
@@ -184,6 +190,7 @@ class Smgyd
         $this->procesosJudiciales = new ArrayCollection();
         $this->equipos = new ArrayCollection();
         $this->familiaresReferencia = new ArrayCollection();
+        $this->archivos = new ArrayCollection();
     }
 
     // Generación de getters y setters
@@ -427,4 +434,34 @@ class Smgyd
 
     public function getUsuariocarga(): ?string { return $this->usuariocarga; }
     public function setUsuariocarga(?string $usuariocarga): self { $this->usuariocarga = $usuariocarga; return $this; }
+
+    /**
+     * @return Collection<int, Archivo>
+     */
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
+    public function addArchivo(Archivo $archivo): static
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setSmgyd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchivo(Archivo $archivo): static
+    {
+        if ($this->archivos->removeElement($archivo)) {
+            // set the owning side to null (unless already changed)
+            if ($archivo->getSmgyd() === $this) {
+                $archivo->setSmgyd(null);
+            }
+        }
+
+        return $this;
+    }
 }

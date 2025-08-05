@@ -19,9 +19,6 @@ class TipoVulneracionHasSddnayf
     #[ORM\JoinColumn(name: "tipo_vulneracion_id_tipo_vulneracion", referencedColumnName: "id_tipo_vulneracion", nullable: false)]
     private ?TipoVulneracion $tipoVulneracion = null;
 
-    #[ORM\ManyToOne(targetEntity: Sddnayf::class, inversedBy: "tipoVulneraciones")]
-    #[ORM\JoinColumn(name: "sddnayf_id_sddnayf", referencedColumnName: "id_sddnayf", nullable: false)]
-    private ?Sddnayf $sddnayf = null;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $sddnayf6b = null;
@@ -36,17 +33,6 @@ class TipoVulneracionHasSddnayf
     public function setTipoVulneracion(?TipoVulneracion $tipoVulneracion): self
     {
         $this->tipoVulneracion = $tipoVulneracion;
-        return $this;
-    }
-
-    public function getSddnayf(): ?Sddnayf
-    {
-        return $this->sddnayf;
-    }
-
-    public function setSddnayf(?Sddnayf $sddnayf): self
-    {
-        $this->sddnayf = $sddnayf;
         return $this;
     }
 

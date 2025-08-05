@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Archivo;
 use App\Entity\Caso;
 use App\Entity\Mpa;
 use App\Entity\MpaTipoViolencia;
@@ -65,28 +66,34 @@ final class MpaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //seteo usuario carga
             $mpa->setUsuarioCarga("Usuario 1");
-            $file = $form->get('archivo')->getData(); // archivo adj
+            // Obtener los archivos
+            /** @var UploadedFile[] $uploadedFiles */ // Esto ayuda con la auto-completación del IDE
+            $uploadedFiles = $form->get('archivos')->getData(); //un array de objetos UploadedFiles
 
-            if ($file) {
+            foreach ($uploadedFiles as $file) {
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                // Make sure $slugger is available (e.g., injected into your controller)
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
-        
+
                 try {
-                    // Move the file to your designated directory
                     $file->move(
                         $this->getParameter('archivos_directory'),
                         $newFilename
                     );
+
+                    // Crea una nueva instancia de la entidad Archivo
+                    $archivoEntity = new Archivo();
+                    $archivoEntity->setNombreArchivo($newFilename);
+                    $archivoEntity->setOriginalFilename($originalFilename);
+                    $archivoEntity->setMimeType($file->getMimeType());
+                    $archivoEntity->setSize($file->getSize());
+                    
+                    // Añade la entidad Archivo a la colección de Mpa
+                    $mpa->addArchivo($archivoEntity);
+
                 } catch (FileException $e) {
-                    // Handle the exception, e.g., log it or return an error response
-                    throw new \Exception('Problemas con el archivo: ' . $e->getMessage());
+                    $this->addFlash('error', 'Problemas al subir el archivo ' . $originalFilename . ': ' . $e->getMessage());
                 }
-        
-                // Store only the new filename in your entity
-                $mpa->setArchivo($newFilename);
             }
             $mpa->setUsuarioCarga("usuario 1");
             if (!$sinCaso)

@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -447,7 +448,12 @@ class SmgydType extends AbstractType
                 'by_reference' => false,
                  'label' => false,
             ])
-
+            ->add('archivo',FileType::class, [
+                'label' =>'Subir archivos',
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
+            ])
          ;
        
     }

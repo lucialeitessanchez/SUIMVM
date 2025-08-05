@@ -275,7 +275,19 @@
                     </div> {#collapse#}
           </div>{#item 3 #}
     </div>{#acordeon form #}
-   
+    <br>
+              <div class="mb-3">
+              <label for="{{ form.archivo.vars.id }}" class="form-label fw-bold">
+                <i class="la la-upload me-1"></i> Adjuntar archivos
+              </label>
+              {{ form_errors(form.archivo) }}
+              {{ form_widget(form.archivo, {
+                'attr': {
+                  'class': 'form-control',
+                  'id': form.archivo.vars.id
+                }
+              }) }}
+            </div>
 <br>
 <div class="col-md-12 d-flex justify-content-end">
 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">

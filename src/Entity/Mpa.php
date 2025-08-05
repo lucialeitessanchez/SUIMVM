@@ -153,27 +153,20 @@ class Mpa
         inverseJoinColumns: [new ORM\JoinColumn(name: 'nomenclador_id', referencedColumnName: 'id_nomenclador')]
     )]
     private Collection $otrasViolencias;
-    
-    #[ORM\Column(type: 'string', length: 255, nullable:true)]
-    private ?string $archivo = null;
 
-    public function getArchivo(): ?string
-    {
-        return $this->archivo;
-    }
+    /**
+     * @var Collection<int, Archivo>
+     */
+    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'mpa')]
+    private Collection $archivos;
 
-    public function setArchivo(?string $archivo): self
-    {
-        $this->archivo = $archivo;
-
-        return $this;
-    }
 
     public function __construct()
     {
         $this->tiposViolencias = new ArrayCollection();
         $this->mecanicasDelHecho = new ArrayCollection();
         $this->otrasViolencias = new ArrayCollection();
+        $this->archivos = new ArrayCollection();
     }
     // Getter
     public function getTiposViolencias(): Collection { return $this->tiposViolencias; }
@@ -211,17 +204,17 @@ class Mpa
  public function getOtrasViolencias(): Collection { return $this->otrasViolencias; }
  // Add
  public function addOtrasViolencias(Nomenclador $otraViolencia): self
-     { if (!$this->otrasViolencias->contains($otraViolencia)) 
-         { $this->otrasViolencias->add($otraViolencia); }
-         return $this;
-     }
+                    { if (!$this->otrasViolencias->contains($otraViolencia)) 
+                        { $this->otrasViolencias->add($otraViolencia); }
+                        return $this;
+                    }
  // Remove
  public function removeOtrasViolencias(Nomenclador $otraViolencia): self
-     {   $this->otrasViolencias->removeElement($otraViolencia);
-         return $this;
-     }
+                    {   $this->otrasViolencias->removeElement($otraViolencia);
+                        return $this;
+                    }
  public function setOtrasViolencias(Collection $otrasViolencias): self
- { $this->otrasViolencias = $otrasViolencias; return $this; }
+                { $this->otrasViolencias = $otrasViolencias; return $this; }
 //-----------------------------------------------------
 
     public function getId(): ?int
@@ -347,4 +340,34 @@ class Mpa
 {
     return (string) $this->id;
 }
+
+    /**
+     * @return Collection<int, Archivo>
+     */
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
+    public function addArchivo(Archivo $archivo): static
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setMpa($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchivo(Archivo $archivo): static
+    {
+        if ($this->archivos->removeElement($archivo)) {
+            // set the owning side to null (unless already changed)
+            if ($archivo->getMpa() === $this) {
+                $archivo->setMpa(null);
+            }
+        }
+
+        return $this;
+    }
 }

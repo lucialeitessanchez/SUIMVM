@@ -16,11 +16,8 @@ class MedidaExcepcionalHasSddnayf
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "sddnayf_7_2b", referencedColumnName: "id", nullable: false)]
-    private Sddnayf72b $sddnayf_7_2b;
+    private $sddnayf_7_2b;
 
-    #[ORM\ManyToOne(targetEntity: Sddnayf::class)]
-    #[ORM\JoinColumn(name: "sddnayf_id_sddnayf", referencedColumnName: "id", nullable: false)]
-    private Sddnayf $sddnayf;
 
     // Getters and Setters
 
@@ -29,25 +26,14 @@ class MedidaExcepcionalHasSddnayf
         return $this->id;
     }
 
-    public function getSddnayf72b(): Sddnayf72b
+    public function getSddnayf72b():Nomenclador
     {
         return $this->sddnayf_7_2b;
     }
 
-    public function setSddnayf72b(Sddnayf72b $sddnayf_7_2b): self
+    public function setSddnayf72b( $sddnayf_7_2b): self
     {
         $this->sddnayf_7_2b = $sddnayf_7_2b;
-        return $this;
-    }
-
-    public function getSddnayf(): Sddnayf
-    {
-        return $this->sddnayf;
-    }
-
-    public function setSddnayf(Sddnayf $sddnayf): self
-    {
-        $this->sddnayf = $sddnayf;
         return $this;
     }
 }
