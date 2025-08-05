@@ -296,7 +296,8 @@ class MpaForm extends AbstractType
                     ]
                 ])
             ->add('archivo',FileType::class, [
-                'label' =>'Subir archivo',
+                'label' =>'Subir archivos',
+                'multiple' => true,
                 'mapped' => false,
                 'required' => false,
             ])
