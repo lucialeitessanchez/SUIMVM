@@ -1,0 +1,59 @@
+
+
+    {{ form_start(form) }}
+    
+    <div class="row g-3">
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj1) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj2) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj4) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj5) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj6) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.pgcsj7) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj8) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj9) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj10) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.pgcsj12) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.pgcsj14) }}
+        </div>
+        <div class="col-12">
+            {{ form_row(form.pgcsj15) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.usuarioCarga) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.fechacarga) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.caso) }}
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <a href="{{ path('app_pgcsj_index') }}" class="btn btn-secondary">Volver</a>
+        <button class="btn btn-primary">Guardar</button>
+    </div>
+
+    {{ form_end(form) }}
+</div>

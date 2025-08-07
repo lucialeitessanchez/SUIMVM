@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PGCSJ{% endblock %}
+
+{% block body %}
+
+    {{ include('pgcsj/_form.html.twig', {'button_label': 'Guardar'}) }}
+    
+{% endblock %}
+{% block javascripts %}
+
+   {{ parent()}}
+    
+{% endblock %}
