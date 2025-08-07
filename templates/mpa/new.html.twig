@@ -276,18 +276,25 @@
           </div>{#item 3 #}
     </div>{#acordeon form #}
     <br>
-              <div class="mb-3">
-              <label for="{{ form.archivos.vars.id }}" class="form-label fw-bold">
-                <i class="la la-upload me-1"></i> Adjuntar archivos
-              </label>
-              {{ form_errors(form.archivos) }}
-              {{ form_widget(form.archivos, {
-                'attr': {
-                  'class': 'form-control',
-                  'id': form.archivos.vars.id
-                }
-              }) }}
-            </div>
+    <div class="mb-3">
+    <label for="{{ form.archivos.vars.id }}" class="form-label fw-bold">
+        <i class="la la-upload me-1"></i> Adjuntar archivos
+    </label>
+    {{ form_errors(form.archivos) }}
+    {{ form_widget(form.archivos, {
+        'attr': {
+            'class': 'form-control',
+            'id': 'mpa_archivos_input_js_hook',
+            'accept': '.pdf,.jpg,.jpeg,.png'
+        }
+    }) }}
+
+    {# ESTE ES EL NUEVO DIV PARA LA VISTA PREVIA #}
+    <div id="archivos_preview_container" class="mt-3 d-flex flex-wrap gap-2">
+        {# Aquí es donde el JavaScript mostrará los archivos seleccionados #}
+    </div>
+</div>
+</div>
 <br>
 <div class="col-md-12 d-flex justify-content-end">
 <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
@@ -309,4 +316,5 @@
         <script src="{{ asset('js/mpa.js') }}"></script>
         <script src="{{ asset('js/franjaHoraria.js') }}"></script>
         <script src="{{ asset('js/diaSemana.js') }}"></script>
+        <script src="{{ asset('js/vistaPreviaArchivo.js') }}"></script> 
 {% endblock %}

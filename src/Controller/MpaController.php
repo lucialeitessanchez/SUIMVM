@@ -35,16 +35,14 @@ final class MpaController extends AbstractController
             'mpas' => $mpas,
         ]);
     }
-
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session,SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, SluggerInterface $slugger): Response
     {
         $idCaso = $session->get('caso_id');
 
         $caso = null;
         $sinCaso = false;
         $parametros = [];
-
 
         if (!$idCaso) {
             $this->addFlash('error', 'Debe seleccionar un caso primero.');
@@ -59,21 +57,24 @@ final class MpaController extends AbstractController
         }
 
         $mpa = new Mpa();
-         // Agregamos al menos un campo vacío
-        
         $form = $this->createForm(MpaForm::class, $mpa);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            //seteo usuario carga
+            // --- Configuración de la entidad Mpa ---
             $mpa->setUsuarioCarga("Usuario 1");
-            // Obtener los archivos
-            /** @var UploadedFile[] $uploadedFiles */ // Esto ayuda con la auto-completación del IDE
-            $uploadedFiles = $form->get('archivos')->getData(); //un array de objetos UploadedFiles
+            if (!$sinCaso) {
+                $mpa->setCaso($caso);
+            }
+
+            // --- Procesamiento de archivos ---
+            /** @var UploadedFile[] $uploadedFiles */
+            $uploadedFiles = $form->get('archivos')->getData();
 
             foreach ($uploadedFiles as $file) {
                 $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
                 try {
                     $file->move(
@@ -81,46 +82,40 @@ final class MpaController extends AbstractController
                         $newFilename
                     );
 
-                    // Crea una nueva instancia de la entidad Archivo
                     $archivoEntity = new Archivo();
                     $archivoEntity->setNombreArchivo($newFilename);
                     $archivoEntity->setOriginalFilename($originalFilename);
                     $archivoEntity->setMimeType($file->getMimeType());
                     $archivoEntity->setSize($file->getSize());
                     
-                    // Añade la entidad Archivo a la colección de Mpa
-                    $mpa->addArchivo($archivoEntity);
-
+                    $mpa->addArchivo($archivoEntity); 
                 } catch (FileException $e) {
                     $this->addFlash('error', 'Problemas al subir el archivo ' . $originalFilename . ': ' . $e->getMessage());
+                    // Si un archivo falla, puedes decidir si quieres que el proceso de guardado continúe o no.
+                    // En este caso, simplemente añade un flash y sigue con el siguiente.
                 }
             }
-            $mpa->setUsuarioCarga("usuario 1");
-            if (!$sinCaso)
-                $mpa->setCaso($caso);
-            $entityManager->persist($mpa);
-            $entityManager->flush();
 
-            // Obtener el array desde el campo hidden
+            // --- Guardar los tipos de violencia ---
             $tiposViolenciaJson = $request->request->get('tiposViolencia');
-        
             $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
-
-            // Guardar los tipos de violencia
             if (is_array($tiposViolenciaArray)) {
                 foreach ($tiposViolenciaArray as $texto) {
                     $tipo = new MpaTipoViolencia();
                     $tipo->setMpa($mpa);
                     $tipo->setDescripcionViolencia($texto);
                     $entityManager->persist($tipo);
-                    $entityManager->flush(); // Este flush guarda los MpaTipoViolencia
                 }
-                
+            }
+            
+            // --- UN SOLO persist y UN SOLO flush al final ---
+            $entityManager->persist($mpa);
+            $entityManager->flush();
+
+            $this->addFlash('success_js', 'Sección MPA guardada correctamente');
+            return $this->redirectToRoute('app_caso_index');
         }
-           // $this->addFlash('success', 'MPA guardado correctamente.');
-        $this->addFlash('success_js', 'Seccion MPA guardada correctamente');   
-        return $this->redirectToRoute('app_caso_index');
-        }
+
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
         return $this->render('mpa/new.html.twig', $parametros);
@@ -198,14 +193,14 @@ final class MpaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
              /** @var UploadedFile[] $archivosSubidos */
-        $archivosSubidos = $form['archivoAdjunto']->getData();
+        $archivosSubidos = $form['archivos']->getData();
 
         if ($archivosSubidos) {
             foreach ($archivosSubidos as $archivo) {
                 $nuevoArchivo = new Archivo();
 
                 $nombreArchivo = uniqid().'.'.$archivo->guessExtension();
-                $archivo->move($this->getParameter('directorio_archivos'), $nombreArchivo);
+                $archivo->move($this->getParameter('archivos'), $nombreArchivo);
 
                 $nuevoArchivo->setNombreArchivo($nombreArchivo);
                 $nuevoArchivo->setOriginalFilename($archivo->getClientOriginalName());

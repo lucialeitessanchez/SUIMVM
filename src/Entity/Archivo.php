@@ -24,14 +24,17 @@ class Archivo
 
     #[ORM\Column(nullable: true)]
     private ?int $size = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'archivos')]
+    #[ORM\JoinColumn(nullable: true)] 
     private ?Mpa $mpa = null;
 
     #[ORM\ManyToOne(inversedBy: 'archivos')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Smgyd $smgyd = null;
 
     #[ORM\ManyToOne(inversedBy: 'archivos')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Caj $caj = null;
 
     public function getId(): ?int
