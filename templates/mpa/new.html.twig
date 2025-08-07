@@ -277,14 +277,14 @@
     </div>{#acordeon form #}
     <br>
               <div class="mb-3">
-              <label for="{{ form.archivo.vars.id }}" class="form-label fw-bold">
+              <label for="{{ form.archivos.vars.id }}" class="form-label fw-bold">
                 <i class="la la-upload me-1"></i> Adjuntar archivos
               </label>
-              {{ form_errors(form.archivo) }}
-              {{ form_widget(form.archivo, {
+              {{ form_errors(form.archivos) }}
+              {{ form_widget(form.archivos, {
                 'attr': {
                   'class': 'form-control',
-                  'id': form.archivo.vars.id
+                  'id': form.archivos.vars.id
                 }
               }) }}
             </div>

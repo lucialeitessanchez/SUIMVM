@@ -197,6 +197,26 @@ final class MpaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             /** @var UploadedFile[] $archivosSubidos */
+        $archivosSubidos = $form['archivoAdjunto']->getData();
+
+        if ($archivosSubidos) {
+            foreach ($archivosSubidos as $archivo) {
+                $nuevoArchivo = new Archivo();
+
+                $nombreArchivo = uniqid().'.'.$archivo->guessExtension();
+                $archivo->move($this->getParameter('directorio_archivos'), $nombreArchivo);
+
+                $nuevoArchivo->setNombreArchivo($nombreArchivo);
+                $nuevoArchivo->setOriginalFilename($archivo->getClientOriginalName());
+                $nuevoArchivo->setMimeType($archivo->getMimeType());
+                $nuevoArchivo->setSize($archivo->getSize());
+                $nuevoArchivo->setMpa($mpa); // Enlaza con el objeto actual
+
+                $entityManager->persist($nuevoArchivo);
+            }
+        }
+
             $entityManager->flush();
 
             //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);

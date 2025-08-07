@@ -295,7 +295,7 @@ class MpaForm extends AbstractType
                         'style' => 'display:none;', // Oculta también el label y errores
                     ]
                 ])
-            ->add('archivo',FileType::class, [
+            ->add('archivos',FileType::class, [
                 'label' =>'Subir archivos',
                 'multiple' => true,
                 'mapped' => false,
