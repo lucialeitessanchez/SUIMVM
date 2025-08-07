@@ -65,8 +65,17 @@ class PgcsjType extends AbstractType
             ])
             ->add('pgcsj14', TextType::class, ['required' => false])
             ->add('pgcsj15', TextareaType::class, ['required' => false])
-            ->add('usuarioCarga', TextType::class)
-            ->add('fechacarga', DateType::class, ['widget' => 'single_text'])
+
+            ->add('pgcsj_3', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'nombre', // ajustalo según el campo visible
+                'multiple' => true,
+                'expanded' => false, // true si querés checkboxes
+                'required' => false,
+                'label' => 'PGCSJ 3',
+                'attr' => ['class' => 'form-select', 'size' => 5], // estilo Bootstrap
+            ])
+          
          ;
     }
 

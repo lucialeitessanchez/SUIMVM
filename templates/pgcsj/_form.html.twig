@@ -1,5 +1,28 @@
-
-
+{% if sinCaso %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Swal.fire({
+        icon: "error",
+        title: "Debe seleccionar un caso",
+        text: "Antes de registrar SMGyD, es necesario elegir un caso.",
+        confirmButtonText: "Ir a casos"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{ path('app_caso_index') }}";
+        }
+      });
+    });
+  </script>
+{% endif %}
+{% if caso is defined %}
+  <section id="formSecretaria" class="container my-3">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h2 class="mb-0">Sección PGCSJ</h2>
+      <span class="ms-3">
+        Ud. está trabajando con el caso Nro:
+        <span class="badge badge-caso">{{ caso.idCaso }}</span>
+      </span>
+    </div>
     {{ form_start(form) }}
     
     <div class="row g-3">
@@ -9,6 +32,13 @@
         <div class="col-md-3">
             {{ form_row(form.pgcsj2) }}
         </div>
+        <div class="mb-3">
+            {{ form_label(form.pgcsj_3) }}
+            {{ form_errors(form.pgcsj_3) }}
+            {{ form_widget(form.pgcsj_3) }}
+        </div>
+    </div>    
+    <div class="row g-3">
         <div class="col-md-3">
             {{ form_row(form.pgcsj4) }}
         </div>
@@ -21,6 +51,8 @@
         <div class="col-md-6">
             {{ form_row(form.pgcsj7) }}
         </div>
+    </div>
+    <div class="row g-3">
         <div class="col-md-3">
             {{ form_row(form.pgcsj8) }}
         </div>
@@ -33,6 +65,8 @@
         <div class="col-md-3">
             {{ form_row(form.pgcsj12) }}
         </div>
+        </div>
+        <div class="row g-3">
         <div class="col-md-4">
             {{ form_row(form.pgcsj14) }}
         </div>
@@ -42,13 +76,7 @@
         <div class="col-md-6">
             {{ form_row(form.usuarioCarga) }}
         </div>
-        <div class="col-md-3">
-            {{ form_row(form.fechacarga) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.caso) }}
-        </div>
-    </div>
+      </div>
 
     <div class="mt-4 d-flex justify-content-between">
         <a href="{{ path('app_pgcsj_index') }}" class="btn btn-secondary">Volver</a>
@@ -57,3 +85,4 @@
 
     {{ form_end(form) }}
 </div>
+{% endif %}

@@ -61,6 +61,91 @@ class Pgcsj
     #[ORM\JoinColumn(name: 'caso_id_caso', referencedColumnName: 'id_caso', nullable: false)]
     private ?Caso $caso = null;
 
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(name: "pgcsj_pgcsj_3")]
+    #[ORM\JoinColumn(name: "pgcsj_id", referencedColumnName: "id", onDelete: "CASCADE")]
+    #[ORM\InverseJoinColumn(name: "nomenclador_id", referencedColumnName: "id_nomenclador", onDelete: "CASCADE")]
+    private Collection $pgcsj_3;
+
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(name: "pgcsj_pgcsj_11")]
+    #[ORM\JoinColumn(name: "pgcsj_id", referencedColumnName: "id", onDelete: "CASCADE")]
+    #[ORM\InverseJoinColumn(name: "nomenclador_id", referencedColumnName: "id_nomenclador", onDelete: "CASCADE")]
+    private Collection $pgcsj_11;
+
+    #[ORM\ManyToMany(targetEntity: Nomenclador::class)]
+    #[ORM\JoinTable(name: "pgcsj_pgcsj_13")]
+    #[ORM\JoinColumn(name: "pgcsj_id", referencedColumnName: "id", onDelete: "CASCADE")]
+    #[ORM\InverseJoinColumn(name: "nomenclador_id", referencedColumnName: "id_nomenclador", onDelete: "CASCADE")]
+    private Collection $pgcsj_13;
+
+    public function __construct()
+    {
+        $this->pgcsj_3 = new ArrayCollection();
+        $this->pgcsj_11 = new ArrayCollection();
+        $this->pgcsj_13 = new ArrayCollection();
+    }
+
+    public function getPgcsj3(): Collection
+    {
+        return $this->pgcsj_3;
+    }
+
+    public function addPgcsj3(Nomenclador $nomenclador): self
+    {
+        if (!$this->pgcsj_3->contains($nomenclador)) {
+            $this->pgcsj_3[] = $nomenclador;
+        }
+
+        return $this;
+    }
+
+    public function removePgcsj3(Nomenclador $nomenclador): self
+    {
+        $this->pgcsj_3->removeElement($nomenclador);
+        return $this;
+    }
+
+    public function getPgcsj11(): Collection
+    {
+        return $this->pgcsj_11;
+    }
+
+    public function addPgcsj11(Nomenclador $nomenclador): self
+    {
+        if (!$this->pgcsj_11->contains($nomenclador)) {
+            $this->pgcsj_11[] = $nomenclador;
+        }
+
+        return $this;
+    }
+
+    public function removePgcsj11(Nomenclador $nomenclador): self
+    {
+        $this->pgcsj_11->removeElement($nomenclador);
+        return $this;
+    }
+
+    public function getPgcsj13(): Collection
+    {
+        return $this->pgcsj_13;
+    }
+
+    public function addPgcsj13(Nomenclador $nomenclador): self
+    {
+        if (!$this->pgcsj_13->contains($nomenclador)) {
+            $this->pgcsj_13[] = $nomenclador;
+        }
+
+        return $this;
+    }
+
+    public function removePgcsj13(Nomenclador $nomenclador): self
+    {
+        $this->pgcsj_13->removeElement($nomenclador);
+        return $this;
+    }
+
     // Getters y Setters
 
     public function getId(): ?int
