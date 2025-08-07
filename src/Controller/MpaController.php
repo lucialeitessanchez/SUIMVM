@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Archivo;
 use App\Entity\Caso;
 use App\Entity\Mpa;
 use App\Entity\MpaTipoViolencia;
@@ -17,6 +18,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\CasoTabsDataProvider;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/mpa')]
 final class MpaController extends AbstractController
@@ -32,22 +35,14 @@ final class MpaController extends AbstractController
             'mpas' => $mpas,
         ]);
     }
-
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, 
-    CasoRepository $casoRepository,
-    CasoTabsDataProvider $tabsProvider, 
-    EntityManagerInterface $entityManager, 
-    SessionInterface $session   
-    ): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, SluggerInterface $slugger): Response
     {
-
         $idCaso = $session->get('caso_id');
 
         $caso = null;
         $sinCaso = false;
         $parametros = [];
-
 
         if (!$idCaso) {
             $this->addFlash('error', 'Debe seleccionar un caso primero.');
@@ -55,51 +50,72 @@ final class MpaController extends AbstractController
         } else {
             $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
-            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
         }
-        if (!empty($tabsData['mpa'])) {
-            // Llamar al método edit y devolver su Response
-            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $entityManager);
-        } 
 
         $mpa = new Mpa();
-         // Agregamos al menos un campo vacío
-        
         $form = $this->createForm(MpaForm::class, $mpa);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //seteo usuario carga
-            $mpa->setUsuarioCarga("prueba");
-            if (!$sinCaso)
+            // --- Configuración de la entidad Mpa ---
+            $mpa->setUsuarioCarga("Usuario 1");
+            if (!$sinCaso) {
                 $mpa->setCaso($caso);
-            $entityManager->persist($mpa);
-            $entityManager->flush();
+            }
 
-            // Obtener el array desde el campo hidden
+            // --- Procesamiento de archivos ---
+            /** @var UploadedFile[] $uploadedFiles */
+            $uploadedFiles = $form->get('archivos')->getData();
+
+            foreach ($uploadedFiles as $file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('archivos_directory'),
+                        $newFilename
+                    );
+
+                    $archivoEntity = new Archivo();
+                    $archivoEntity->setNombreArchivo($newFilename);
+                    $archivoEntity->setOriginalFilename($originalFilename);
+                    $archivoEntity->setMimeType($file->getMimeType());
+                    $archivoEntity->setSize($file->getSize());
+                    
+                    $mpa->addArchivo($archivoEntity); 
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Problemas al subir el archivo ' . $originalFilename . ': ' . $e->getMessage());
+                    // Si un archivo falla, puedes decidir si quieres que el proceso de guardado continúe o no.
+                    // En este caso, simplemente añade un flash y sigue con el siguiente.
+                }
+            }
+
+            // --- Guardar los tipos de violencia ---
             $tiposViolenciaJson = $request->request->get('tiposViolencia');
-        
             $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
-
-            // Guardar los tipos de violencia
             if (is_array($tiposViolenciaArray)) {
                 foreach ($tiposViolenciaArray as $texto) {
                     $tipo = new MpaTipoViolencia();
                     $tipo->setMpa($mpa);
                     $tipo->setDescripcionViolencia($texto);
                     $entityManager->persist($tipo);
-                    $entityManager->flush(); // Este flush guarda los MpaTipoViolencia
                 }
-                
+            }
+            
+            // --- UN SOLO persist y UN SOLO flush al final ---
+            $entityManager->persist($mpa);
+            $entityManager->flush();
+
+            $this->addFlash('success_js', 'Sección MPA guardada correctamente');
+            return $this->redirectToRoute('app_caso_index');
         }
-           // $this->addFlash('success', 'MPA guardado correctamente.');
-           $this->addFlash('success_js', 'Seccion MPA guardada correctamente');   
-           return $this->redirectToRoute('app_caso_index');
-        }
+
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
         return $this->render('mpa/new.html.twig', $parametros);
@@ -120,7 +136,6 @@ final class MpaController extends AbstractController
         if (!$caso) {
             throw $this->createNotFoundException('Caso no encontrado');
         }
-    
         // Buscar datos asociados para mostrar las pestañas
         $tabsData = $tabsProvider->getData($caso);
     
@@ -177,6 +192,26 @@ final class MpaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             /** @var UploadedFile[] $archivosSubidos */
+        $archivosSubidos = $form['archivos']->getData();
+
+        if ($archivosSubidos) {
+            foreach ($archivosSubidos as $archivo) {
+                $nuevoArchivo = new Archivo();
+
+                $nombreArchivo = uniqid().'.'.$archivo->guessExtension();
+                $archivo->move($this->getParameter('archivos'), $nombreArchivo);
+
+                $nuevoArchivo->setNombreArchivo($nombreArchivo);
+                $nuevoArchivo->setOriginalFilename($archivo->getClientOriginalName());
+                $nuevoArchivo->setMimeType($archivo->getMimeType());
+                $nuevoArchivo->setSize($archivo->getSize());
+                $nuevoArchivo->setMpa($mpa); // Enlaza con el objeto actual
+
+                $entityManager->persist($nuevoArchivo);
+            }
+        }
+
             $entityManager->flush();
 
             //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);

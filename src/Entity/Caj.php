@@ -123,6 +123,17 @@ class Caj
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $usuarioCarga = null;
 
+    /**
+     * @var Collection<int, Archivo>
+     */
+    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'caj')]
+    private Collection $archivos;
+
+    public function __construct()
+    {
+        $this->archivos = new ArrayCollection();
+    }
+
     public function getIdCaj(): ?int
     {
         return $this->id_caj;
@@ -467,6 +478,36 @@ public function setAsistenciasProporcionadas(Collection $asistenciasProporcionad
     public function setUsuarioCarga(?string $usuarioCarga): self
     {
         $this->usuarioCarga = $usuarioCarga;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Archivo>
+     */
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
+    public function addArchivo(Archivo $archivo): static
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setCaj($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchivo(Archivo $archivo): static
+    {
+        if ($this->archivos->removeElement($archivo)) {
+            // set the owning side to null (unless already changed)
+            if ($archivo->getCaj() === $this) {
+                $archivo->setCaj(null);
+            }
+        }
+
         return $this;
     }
 
