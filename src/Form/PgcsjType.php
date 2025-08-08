@@ -154,10 +154,7 @@ class PgcsjType extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
             ])
-            
-          
-          
-         ;
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
