@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\PgcsjRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 #[ORM\Entity(repositoryClass: PgcsjRepository::class)]
 #[ORM\Table(name: 'pgcsj')]
@@ -13,7 +16,8 @@ class Pgcsj
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-
+    private ?int $id = null;
+    
     #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
     private ?bool $pgcsj1 = null;
 

@@ -110,7 +110,6 @@ class SddnayfNewController extends AbstractController
         
         if (!$sddnayfNew) {
             return $this->redirectToRoute('app_sddnayf_new', ['idCaso' => $idCaso]);
-
         }
         // importante: mantener hijos existentes, no reemplazarlos
         foreach ($sddnayfNew->getHijosVictima() as $hijo) {
@@ -130,9 +129,10 @@ class SddnayfNewController extends AbstractController
             $em->persist($sddnayfNew);
             $em->flush();
     
-            $this->addFlash('success', 'Formulario actualizado correctamente.');
+            $this->addFlash('success_js', 'Formulario actualizado correctamente.');
     
-            return $this->redirectToRoute('app_sddnayf_edit', ['idCaso' => $idCaso]);
+    //        return $this->redirectToRoute('app_sddnayf_edit', ['idCaso' => $idCaso]);
+            return $this->redirectToRoute('app_caso_index');
         }
     
         $parametros['form'] = $form->createView();

@@ -25,63 +25,108 @@
     </div>
     {{ form_start(form) }}
     
-    <div class="row g-3">
+    <div class="row mb-3">
         <div class="col-md-3">
-            {{ form_row(form.pgcsj1) }}
+             <label for="pgcsj1" class="form-label">¿La victima solicito medidas preventivas?</label>
+             <div class="form-check form-switch">
+                  {{ form_row(form.pgcsj1, {'label_attr': {'class': 'form-label'}}) }}
+             </div>
         </div>
         <div class="col-md-3">
-            {{ form_row(form.pgcsj2) }}
+            <label for="pgcsj2" class="form-label">¿Se le otorgaron medidas preventivas? </label>
+             <div class="form-check form-switch">
+                  {{ form_row(form.pgcsj2, {'label_attr': {'class': 'form-label'}}) }}
+             </div>
         </div>
-        <div class="mb-3">
+        <div class="col-md-6">
             {{ form_label(form.pgcsj_3) }}
             {{ form_errors(form.pgcsj_3) }}
             {{ form_widget(form.pgcsj_3) }}
         </div>
     </div>    
-    <div class="row g-3">
-        <div class="col-md-3">
+    <div class="row mb-3">
+        <div class="col-md-4">
             {{ form_row(form.pgcsj4) }}
         </div>
-        <div class="col-md-3">
-            {{ form_row(form.pgcsj5) }}
-        </div>
-        <div class="col-md-3">
-            {{ form_row(form.pgcsj6) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.pgcsj7) }}
-        </div>
-    </div>
-    <div class="row g-3">
-        <div class="col-md-3">
-            {{ form_row(form.pgcsj8) }}
-        </div>
-        <div class="col-md-3">
-            {{ form_row(form.pgcsj9) }}
-        </div>
-        <div class="col-md-3">
-            {{ form_row(form.pgcsj10) }}
-        </div>
-        <div class="col-md-3">
-            {{ form_row(form.pgcsj12) }}
-        </div>
-        </div>
-        <div class="row g-3">
         <div class="col-md-4">
-            {{ form_row(form.pgcsj14) }}
+            <label for="pgcsj5" class="form-label">¿Las medidas fueron otorgadas en relacion al agresor? </label>
+             <div class="form-check form-switch">
+                  {{ form_row(form.pgcsj5, {'label_attr': {'class': 'form-label'}}) }}
+             </div>
         </div>
-        <div class="col-12">
-            {{ form_row(form.pgcsj15) }}
+        <div class="col-md-4">
+            <label for="pgcsj6" class="form-label">¿Se otorgaron medidas respecto a personas cercanas o del entorno del agresor? </label>
+             <div class="form-check form-switch">
+                  {{ form_row(form.pgcsj6, {'label_attr': {'class': 'form-label'}}) }}
+             </div>
         </div>
-        <div class="col-md-6">
-            {{ form_row(form.usuarioCarga) }}
+        </div>
+    <div class="row mb-3">
+       <div class="col-md-6">
+          {{ form_label(form.pgcsj7, null, {'label_attr': {'class': 'form-label'}}) }}
+          {{ form_errors(form.pgcsj7) }}
+          {{ form_widget(form.pgcsj7,{'attr': {'class': 'form-control'}})  }}
+        </div>
+        <div class="col-md-3">
+          {{ form_label(form.pgcsj8, null, {'label_attr': {'class': 'form-label'}}) }}
+          {{ form_errors(form.pgcsj8) }}
+          {{ form_widget(form.pgcsj8,{'attr': {'class': 'form-control'}})  }}
+        </div>
+        <div class="col-md-3">
+          {{ form_label(form.pgcsj9, null, {'label_attr': {'class': 'form-label'}}) }}
+          {{ form_errors(form.pgcsj9) }}
+          {{ form_widget(form.pgcsj9,{'attr': {'class': 'form-control'}})  }}
         </div>
       </div>
-
-    <div class="mt-4 d-flex justify-content-between">
-        <a href="{{ path('app_pgcsj_index') }}" class="btn btn-secondary">Volver</a>
-        <button class="btn btn-primary">Guardar</button>
-    </div>
+      <div class="row mb-3">    
+          <div class="col-md-6">
+              <label for="pgcsj10" class="form-label">¿Existen denuncias de incumplimiento de medidas judiciales preventivas urgentes?  </label>
+              <div class="form-check form-switch">
+                    {{ form_row(form.pgcsj10, {'label_attr': {'class': 'form-label'}}) }}
+              </div>
+          </div>
+          <div class="col-md-6">
+            {{ form_label(form.pgcsj_11) }}
+            {{ form_errors(form.pgcsj_11) }}
+            {{ form_widget(form.pgcsj_11) }}
+          </div>
+      </div>
+      <div class="row mb-3">
+          <div class="col-md-4">
+              <label for="pgcsj12" class="form-label">¿Se dio intervencion a la Asistencia social del juzgado?  </label>
+              <div class="form-check form-switch">
+                    {{ form_row(form.pgcsj12, {'label_attr': {'class': 'form-label'}}) }}
+              </div>   
+          </div>
+           <div class="col-md-5">
+            {{ form_label(form.pgcsj_13) }}
+            {{ form_errors(form.pgcsj_13) }}
+            {{ form_widget(form.pgcsj_13) }}
+          </div>
+          <div class="col-md-3">
+              {{ form_label(form.pgcsj14, null, {'label_attr': {'class': 'form-label'}}) }}
+              {{ form_errors(form.pgcsj14) }}
+              {{ form_widget(form.pgcsj14,{'attr': {'class': 'form-select'}})  }}
+          </div>
+      </div>
+      <div class="row md-3">        
+        <div class="col-12">
+            {{ form_label(form.pgcsj15, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_errors(form.pgcsj15) }}
+            {{ form_widget(form.pgcsj15,{'attr': {'class': 'form-control'}})  }}
+        </div>
+     
+      </div>
+  <br>
+  {% if modo != 'show' %}
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+               &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+                </div>
+        </div>
+   {% endif %}
 
     {{ form_end(form) }}
 </div>

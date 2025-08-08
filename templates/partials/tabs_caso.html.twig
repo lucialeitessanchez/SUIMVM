@@ -63,6 +63,13 @@
         <span class="circle-letter"><h6>SDDNAyF</h6></span>
       </a>
     {% endif %}
+    {% if pgcsj is not empty %}
+      <a href="{{ path('app_pgcsj_show', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'pgcsj' %}active{% endif %}"
+         title="Procuración General de la Corte Suprema de Justicia">
+        <span class="circle-letter"><h6>PGCSJ</h6></span>
+      </a>
+    {% endif %}
     
   </div>
 

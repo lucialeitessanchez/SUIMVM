@@ -50,6 +50,7 @@ class CasoTabsDataProvider
             'mpa' => $this->mpaRepository->findBy(['caso' => $caso]) ?: [],
             'smgyd' => $this->smgydRepository->findBy(['caso' => $caso]) ?: [],
             'sddnayf' => $this->sddnayfNewRepository->findBy(['caso' => $caso]) ?: [],
+            'pgcsj' => $this->sddnayfNewRepository->findBy(['caso' => $caso]) ?: [],
         ];
     }
 }

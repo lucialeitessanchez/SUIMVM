@@ -97,6 +97,20 @@
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
     {% endif %}
+       {% if pgcsj is not empty %}
+      <a href="{{ path('app_pgcsj_edit', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'pgcsj' %}active{% endif %}"
+         title="Procuración general de la Corte Suprema de Justicia">
+        <span class="circle-letter"><h6>PGCSJ</h6></span>
+      </a>
+     {% else %}
+          <a href="{{ path('app_pgcsj_new', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'pgcsj' %}active{% endif %}"
+            title="Procuración general de la Corte Suprema de Justicia">
+              <span class="circle-letter"><h6>PGCSJ</h6></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
+    {% endif %}
   </div>
 
 
