@@ -295,10 +295,19 @@ class MpaForm extends AbstractType
                         'style' => 'display:none;', // Oculta también el label y errores
                     ]
                 ])
-            ->add('archivos',FileType::class, [
+          /*  ->add('archivos',FileType::class, [
                 'label' =>'Subir archivos',
                 'multiple' => true,
                 'mapped' => false,
+                'required' => false,
+            ])*/
+            ->add('archivosAdjuntos', CollectionType::class, [
+                'entry_type' => ArchivoAdjuntoType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => 'Archivos adjuntos',
+                'prototype' => true,
                 'required' => false,
             ])
                 ;

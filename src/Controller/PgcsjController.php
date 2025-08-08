@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use App\Service\ArchivoAdjuntoService;
 
 #[Route('/pgcsj')]
 class PgcsjController extends AbstractController
@@ -71,6 +72,17 @@ class PgcsjController extends AbstractController
             $pgcsj->setCaso($caso); 
             $pgcsj->setFechacarga(new \DateTime());
             $pgcsj->setUsuariocarga($this->getUser()?->getUserIdentifier());
+
+            /** @var UploadedFile[] $archivos */
+            $archivos = $form->get('archivos')->get('archivo')->getData();
+
+            if ($archivos) {
+                $archivoService->guardarAdjuntos(
+                    $archivos,
+                    Pgcsj::class, // 👈 el tipo de entidad
+                    $pgcsj->getId()
+                );
+            }
 
             $em->persist($pgcsj);
             $em->flush();

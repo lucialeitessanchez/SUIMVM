@@ -6,6 +6,8 @@ use App\Entity\Pgcsj;
 use App\Entity\Caso;
 use App\Entity\Nomenclador;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -153,6 +155,23 @@ class PgcsjType extends AbstractType
                         ->setParameter('clave', 'PGCSJ_13')
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
+            ])
+            ->add('archivos', FileType::class, [
+                'label' => 'Archivos adjuntos',
+                'multiple' => true,
+                'mapped' => false, // ⬅ evita que Symfony intente asignarlo a una propiedad string
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '10M',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Formato no permitido. Solo PDF, JPG o PNG.',
+                    ]),
+                ],
             ])
             ;
     }
