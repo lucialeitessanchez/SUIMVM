@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vista de datos - PGCSJ{% endblock %}
+
+{% block body %}
+{% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'smgyd':smgyd,'gl':gl,'sddnayf':sddnayf,'pgcsj':pgcsj} %}    
+
+    {{ include('pgcsj/_form.html.twig', {'modo': 'show'}) }}
+   
+{% endblock %}
+{% block javascripts %}
+
+         {{ parent() }}       
+       
+{% endblock %}
