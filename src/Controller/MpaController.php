@@ -10,6 +10,7 @@ use App\Entity\Nomenclador;
 use App\Repository\MpaRepository;
 use App\Repository\CasoRepository;
 use App\Form\MpaForm;
+use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/mpa')]
 final class MpaController extends AbstractController
 {
+    private ArchivoService $archivoService;
+
+    public function __construct(ArchivoService $archivoService)
+    {
+        $this->archivoService = $archivoService;
+    }
+
     #[Route(name: 'app_mpa_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -36,7 +44,7 @@ final class MpaController extends AbstractController
         ]);
     }
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, ArchivoService $archivoService): Response
     {
         $idCaso = $session->get('caso_id');
 
@@ -67,35 +75,12 @@ final class MpaController extends AbstractController
                 $mpa->setCaso($caso);
             }
 
-            // --- Procesamiento de archivos ---
-            /** @var UploadedFile[] $uploadedFiles */
-            $uploadedFiles = $form->get('archivos')->getData();
-
-            foreach ($uploadedFiles as $file) {
-                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
-
-                try {
-                    $file->move(
-                        $this->getParameter('archivos_directory'),
-                        $newFilename
-                    );
-
-                    $archivoEntity = new Archivo();
-                    $archivoEntity->setNombreArchivo($newFilename);
-                    $archivoEntity->setOriginalFilename($originalFilename);
-                    $archivoEntity->setMimeType($file->getMimeType());
-                    $archivoEntity->setSize($file->getSize());
-                    
-                    $mpa->addArchivo($archivoEntity); 
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Problemas al subir el archivo ' . $originalFilename . ': ' . $e->getMessage());
-                    // Si un archivo falla, puedes decidir si quieres que el proceso de guardado continúe o no.
-                    // En este caso, simplemente añade un flash y sigue con el siguiente.
-                }
+            // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $mpa);
+                $entityManager->persist($archivoEntity);
             }
-
             // --- Guardar los tipos de violencia ---
             $tiposViolenciaJson = $request->request->get('tiposViolencia');
             $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
