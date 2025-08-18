@@ -73,6 +73,8 @@ final class MpaController extends AbstractController
             $mpa->setUsuarioCarga("Usuario 1");
             if (!$sinCaso) {
                 $mpa->setCaso($caso);
+                $entityManager->persist($mpa);
+                $entityManager->flush();
             }
 
             // Manejo de archivos usando el servicio
@@ -90,6 +92,7 @@ final class MpaController extends AbstractController
                     $tipo->setMpa($mpa);
                     $tipo->setDescripcionViolencia($texto);
                     $entityManager->persist($tipo);
+                    $entityManager->flush();
                 }
             }
             

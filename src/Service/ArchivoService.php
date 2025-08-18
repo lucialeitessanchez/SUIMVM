@@ -17,16 +17,21 @@ class ArchivoService
     {
         $nombreSeguro = $this->slugger->slug(pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME));
         $nuevoNombre = $nombreSeguro . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-
+    
+        // OBTENER METADATOS ANTES DEL MOVE
+        $originalFilename = $uploadedFile->getClientOriginalName();
+        $mimeType = $uploadedFile->getMimeType();
+        $size = $uploadedFile->getSize();
+    
         $uploadedFile->move($this->archivosDirectory, $nuevoNombre);
-
+    
         $archivoEntity = new Archivo();
         $archivoEntity->setNombreArchivo($nuevoNombre);
-        $archivoEntity->setOriginalFilename($uploadedFile->getClientOriginalName());
-        $archivoEntity->setMimeType($uploadedFile->getMimeType());
-        $archivoEntity->setSize($uploadedFile->getSize());
+        $archivoEntity->setOriginalName($originalFilename);
+        $archivoEntity->setMimeType($mimeType);
+        $archivoEntity->setSize($size);
         $archivoEntity->setMpa($mpa);
-
+    
         return $archivoEntity;
     }
 }

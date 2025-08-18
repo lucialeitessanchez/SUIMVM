@@ -142,7 +142,7 @@ class Smgyd
         name: 'smgyd_equipo',
         joinColumns: [new ORM\JoinColumn(name: 'smgyd_id', referencedColumnName: 'id')],// nombre opcional de la tabla intermedia
         inverseJoinColumns: [new ORM\JoinColumn(name: 'equipo_referencia_id', referencedColumnName: 'id_equipo')]
-        )] 
+        )]
     private Collection $equipos;
 
     #[ORM\Column(name:"smgyd_16b",type: 'string', length: 255, nullable: true)]

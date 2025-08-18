@@ -6,6 +6,7 @@ use App\Repository\ArchivoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArchivoRepository::class)]
+#[ORM\Table(name: "archivos")]
 class Archivo
 {
     #[ORM\Id]
@@ -17,7 +18,7 @@ class Archivo
     private ?string $nombreArchivo = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $originalFilename = null;
+    private ?string $originalName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mimeType = null;
@@ -25,16 +26,16 @@ class Archivo
     #[ORM\Column(nullable: true)]
     private ?int $size = null;
     
-    #[ORM\ManyToOne(inversedBy: 'archivos')]
-    #[ORM\JoinColumn(nullable: true)] 
+    #[ORM\ManyToOne(targetEntity: Mpa::class, inversedBy: 'archivos')]
+    #[ORM\JoinColumn(name: 'mpa_id', referencedColumnName: 'id_mpa', nullable: true, onDelete: 'SET NULL')]
     private ?Mpa $mpa = null;
-
-    #[ORM\ManyToOne(inversedBy: 'archivos')]
-    #[ORM\JoinColumn(nullable: true)]
+   // Relación con Smgyd
+    #[ORM\ManyToOne(targetEntity: Smgyd::class, inversedBy: 'archivos')]
+    #[ORM\JoinColumn(name: 'smgyd_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Smgyd $smgyd = null;
 
-    #[ORM\ManyToOne(inversedBy: 'archivos')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\ManyToOne(targetEntity: Caj::class, inversedBy: 'archivos')]
+    #[ORM\JoinColumn(name: 'caj_id', referencedColumnName: 'id_caj', nullable: true, onDelete: 'SET NULL')]
     private ?Caj $caj = null;
 
     public function getId(): ?int
@@ -54,14 +55,14 @@ class Archivo
         return $this;
     }
 
-    public function getOriginalFilename(): ?string
+    public function getOriginalName(): ?string
     {
-        return $this->originalFilename;
+        return $this->originalName;
     }
 
-    public function setOriginalFilename(?string $originalFilename): static
+    public function setOriginalName(?string $originalName): static
     {
-        $this->originalFilename = $originalFilename;
+        $this->originalName = $originalName;
 
         return $this;
     }

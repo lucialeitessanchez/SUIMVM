@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Dom\Text;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection; 
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
 class Mpa
@@ -52,7 +52,7 @@ class Mpa
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $mpa_6a = null;
 
-   #[ORM\Column(type: 'time', nullable: true)]
+    #[ORM\Column(type: 'time', nullable: true)]
     private ?\DateTimeInterface $mpa_6b = null;
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
