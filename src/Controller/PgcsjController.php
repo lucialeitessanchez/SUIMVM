@@ -33,7 +33,8 @@ class PgcsjController extends AbstractController
     #[Route('/new', name: 'app_pgcsj_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $em,
     CasoRepository $casoRepo, SessionInterface $session,
-    CasoTabsDataProvider $tabsProvider
+    CasoTabsDataProvider $tabsProvider,
+    ArchivoAdjuntoService $archivoService  
     ): Response
     {
         $idCaso = $session->get('caso_id');
@@ -69,23 +70,29 @@ class PgcsjController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($form->getErrors(true) as $error) {
+                dump($error->getMessage());
+                dump($error->getOrigin()->getName()); // nombre del campo
+                dump($error->getCause()?->getValue()); // ⬅️ valor que generó el error
+            }
+            die;
             $pgcsj->setCaso($caso); 
             $pgcsj->setFechacarga(new \DateTime());
             $pgcsj->setUsuariocarga($this->getUser()?->getUserIdentifier());
+       
 
+            
+        
+            $em->persist($pgcsj);
+            $em->flush(); 
             /** @var UploadedFile[] $archivos */
             $archivos = $form->get('archivos')->get('archivo')->getData();
-
             if ($archivos) {
-                $archivoService->guardarAdjuntos(
-                    $archivos,
-                    Pgcsj::class, // 👈 el tipo de entidad
-                    $pgcsj->getId()
-                );
+                    $usuario = 'prueba'; // o el objeto User según tu entidad
+                    $archivoService->guardarAdjuntos($archivos, 'Pgcsj', $pgcsj->getId(), $usuario);
             }
 
-            $em->persist($pgcsj);
-            $em->flush();
+          
 
             $this->addFlash('success_js', 'Seccion PGCSJ guardada correctamente');   
             return $this->redirectToRoute('app_caso_index');

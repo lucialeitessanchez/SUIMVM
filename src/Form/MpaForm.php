@@ -301,15 +301,7 @@ class MpaForm extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])*/
-            ->add('archivosAdjuntos', CollectionType::class, [
-                'entry_type' => ArchivoAdjuntoType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'label' => 'Archivos adjuntos',
-                'prototype' => true,
-                'required' => false,
-            ])
+      
                 ;
     }
 
