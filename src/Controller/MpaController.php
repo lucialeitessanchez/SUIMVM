@@ -133,7 +133,7 @@ final class MpaController extends AbstractController
             throw $this->createNotFoundException('No hay datos de mpa para este caso');
         }
     
-        // 🔧 Asegurar que mpa_9c (Nomenclador) esté gestionado
+        // Asegurar que mpa_9c (Nomenclador) esté gestionado
         $original = $mpa->getMpa9c();
         if ($original && !$entityManager->contains($original)) {
             $reloaded = $entityManager->getRepository(\App\Entity\Nomenclador::class)->find($original->getId());
@@ -144,16 +144,19 @@ final class MpaController extends AbstractController
         $form = $formFactory->create(MpaForm::class, $mpa, [
             'disabled' => true,
         ]);
-        
+        // Traer archivos asociados al MPA
+        $archivos = $entityManager->getRepository(\App\Entity\Archivo::class)->findBy(['mpa' => $mpa]);
+
+        // Pasar todo a twig
         foreach ($tabsData as $clave => $valor) {
             $parametros[$clave] = $valor;
         }
         $parametros['form'] = $form->createView();
-        $parametros['caso'] = $caso;     
+        $parametros['caso'] = $caso;
         $parametros['pestaña_activa'] = 'mpa';
-
+        $parametros['archivos'] = $archivos;
+        dump($mpa);
         return $this->render('mpa/show.html.twig', $parametros);
-       
     }
 
     #[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
@@ -191,7 +194,7 @@ final class MpaController extends AbstractController
                 $archivo->move($this->getParameter('archivos'), $nombreArchivo);
 
                 $nuevoArchivo->setNombreArchivo($nombreArchivo);
-                $nuevoArchivo->setOriginalFilename($archivo->getClientOriginalName());
+                $nuevoArchivo->setOriginalName($archivo->getClientOriginalName());
                 $nuevoArchivo->setMimeType($archivo->getMimeType());
                 $nuevoArchivo->setSize($archivo->getSize());
                 $nuevoArchivo->setMpa($mpa); // Enlaza con el objeto actual

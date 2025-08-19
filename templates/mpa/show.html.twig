@@ -247,7 +247,7 @@
                                               {{ form_label(form.tiposViolencias,null, {'label_attr': {'class': 'form-label'}}) }}
                                               {{ form_errors(form.tiposViolencias) }}
                                               {{ form_widget(form.tiposViolencias, {'attr': {'class': 'form-select'}}) }}
-                                       
+                                      
                                         </div>
 
                                         <input type="hidden" name="tiposViolencia" id="tiposViolencia">
@@ -256,7 +256,26 @@
                     </div> {#collapse#}
           </div>{#item 3 #}
     </div>{#acordeon form #}
-   
+   {# Agrega una línea horizontal para separar la sección de archivos #}
+<hr class="my-4">
+
+<h2>Archivos Adjuntos</h2>
+
+{% if archivos is not empty %}
+    <ul>
+        {% for archivo in archivos %}
+            <li>
+                {# Construye la URL para acceder al archivo #}
+                <a href="{{ asset('uploads/archivos/' ~ archivo.nombreArchivo) }}" target="_blank">
+                    {{ archivo.originalName }} 
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay archivos adjuntos para este MPA.</p>
+{% endif %}
+
 <br>
     {#
         <div class="col-md-12 d-flex justify-content-end">

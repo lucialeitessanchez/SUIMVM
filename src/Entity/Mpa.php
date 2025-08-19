@@ -154,10 +154,7 @@ class Mpa
     )]
     private Collection $otrasViolencias;
 
-    /**
-     * @var Collection<int, Archivo>
-     */
-    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'mpa')]
+    #[ORM\OneToMany(mappedBy: 'mpa', targetEntity: Archivo::class, cascade: ['persist', 'remove'])]
     private Collection $archivos;
 
 

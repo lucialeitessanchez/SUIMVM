@@ -34,4 +34,8 @@ class ArchivoService
     
         return $archivoEntity;
     }
+    public function getArchivosDirectory(): string
+    {
+        return $this->archivosDirectory;
+    }
 }
