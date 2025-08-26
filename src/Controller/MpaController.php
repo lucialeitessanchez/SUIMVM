@@ -145,8 +145,8 @@ final class MpaController extends AbstractController
             'disabled' => true,
         ]);
         // Traer archivos asociados al MPA
-        $archivos = $entityManager->getRepository(\App\Entity\Archivo::class)->findBy(['mpa' => $mpa]);
-
+        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['mpa' => $mpa]);
+        
         // Pasar todo a twig
         foreach ($tabsData as $clave => $valor) {
             $parametros[$clave] = $valor;
@@ -155,7 +155,7 @@ final class MpaController extends AbstractController
         $parametros['caso'] = $caso;
         $parametros['pestaña_activa'] = 'mpa';
         $parametros['archivos'] = $archivos;
-        dump($mpa);
+        
         return $this->render('mpa/show.html.twig', $parametros);
     }
 
