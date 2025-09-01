@@ -5,12 +5,14 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Entity\Archivo;
 use App\Entity\Mpa;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ArchivoService
 {
     public function __construct(
         private string $archivosDirectory,
-        private SluggerInterface $slugger
+        private SluggerInterface $slugger,
+        private EntityManagerInterface $entityManager
     ) {}
 
     public function guardarArchivoEntidad(UploadedFile $uploadedFile, Mpa $mpa): Archivo
@@ -38,4 +40,18 @@ class ArchivoService
     {
         return $this->archivosDirectory;
     }
+
+    public function eliminarArchivo(Archivo $archivo): void
+    {
+        // Borrar archivo físico
+        $rutaArchivo = $this->archivosDirectory . '/' . $archivo->getNombreArchivo();
+        if (file_exists($rutaArchivo)) {
+            unlink($rutaArchivo);
+        }
+
+        // Borrar en la BD
+        $this->entityManager->remove($archivo);
+        $this->entityManager->flush();
+    }
+
 }

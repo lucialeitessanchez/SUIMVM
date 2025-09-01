@@ -159,67 +159,78 @@ final class MpaController extends AbstractController
         return $this->render('mpa/show.html.twig', $parametros);
     }
 
-    #[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, int $idCaso,
-    CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
-    EntityManagerInterface $entityManager): Response
-    {
+#[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
+public function edit(
+    Request $request,
+    int $idCaso,
+    CasoRepository $casoRepository,
+    CasoTabsDataProvider $tabsProvider,
+    EntityManagerInterface $entityManager,
+    ArchivoService $archivoService
+): Response {
+    // Buscar el caso
+    $caso = $casoRepository->find($idCaso);
+    if (!$caso) {
+        throw $this->createNotFoundException('Caso no encontrado');
+    }
 
-         // Buscar el caso           
-         $caso = $casoRepository->find($idCaso);
-         if (!$caso) {
-             throw $this->createNotFoundException('Caso no encontrado');
-         }
+    // Datos de pestañas
+    $tabsData = $tabsProvider->getData($caso);
 
-          //busco si hay datos asociados para mostrar la pestaña desde el servicio
-          $tabsData = $tabsProvider->getData($caso);
+    // Buscar MPA asociado
+    $mpa = $entityManager->getRepository(Mpa::class)->findOneBy(['caso' => $caso]);
+    if (!$mpa) {
+        throw $this->createNotFoundException('No hay datos de MPA para este caso');
+    }
 
-          $mpa = $entityManager->getRepository(Mpa::class)->findOneBy(['caso' => $caso]);
-          if (!$mpa) {
-              throw $this->createNotFoundException('No hay datos de CAJ para este caso');
-          }
+    $form = $this->createForm(MpaForm::class, $mpa);
+    $form->handleRequest($request);
 
-        $form = $this->createForm(MpaForm::class, $mpa);
-        $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        // --- Manejo de archivos nuevos ---
+        $archivosSubidos = $form->get('archivos')->getData();
+        foreach ($archivosSubidos as $uploadedFile) {
+            $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $mpa);
+            $entityManager->persist($archivoEntity);
+        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-             /** @var UploadedFile[] $archivosSubidos */
-        $archivosSubidos = $form['archivos']->getData();
+        // --- Manejo de tipos de violencia ---
+        $tiposViolenciaJson = $request->request->get('tiposViolencia');
+        $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
+        if (is_array($tiposViolenciaArray)) {
+            foreach ($mpa->getTiposViolencia() as $existente) {
+                $entityManager->remove($existente);
+            }
 
-        if ($archivosSubidos) {
-            foreach ($archivosSubidos as $archivo) {
-                $nuevoArchivo = new Archivo();
-
-                $nombreArchivo = uniqid().'.'.$archivo->guessExtension();
-                $archivo->move($this->getParameter('archivos'), $nombreArchivo);
-
-                $nuevoArchivo->setNombreArchivo($nombreArchivo);
-                $nuevoArchivo->setOriginalName($archivo->getClientOriginalName());
-                $nuevoArchivo->setMimeType($archivo->getMimeType());
-                $nuevoArchivo->setSize($archivo->getSize());
-                $nuevoArchivo->setMpa($mpa); // Enlaza con el objeto actual
-
-                $entityManager->persist($nuevoArchivo);
+            foreach ($tiposViolenciaArray as $texto) {
+                $tipo = new MpaTipoViolencia();
+                $tipo->setMpa($mpa);
+                $tipo->setDescripcionViolencia($texto);
+                $entityManager->persist($tipo);
             }
         }
 
-            $entityManager->flush();
+        $entityManager->persist($mpa);
+        $entityManager->flush();
 
-            //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);
-            $this->addFlash('success_js', 'Datos guardados correctamente');   
-           return $this->redirectToRoute('app_caso_index');
-        }
-
-        foreach ($tabsData as $clave => $valor) {
-            $parametros[$clave] = $valor;
-        }
-        $parametros['form'] = $form->createView();
-        $parametros['caso'] = $caso;     
-        $parametros['pestaña_activa'] = 'mpa';
-
-        return $this->render('mpa/edit.html.twig', $parametros);
-        
+        $this->addFlash('success_js', 'Datos de MPA actualizados correctamente');
+        return $this->redirectToRoute('app_caso_index');
     }
+
+    // Archivos asociados al MPA (igual que en show)
+    $archivos = $entityManager->getRepository(Archivo::class)->findBy(['mpa' => $mpa]);
+
+    foreach ($tabsData as $clave => $valor) {
+        $parametros[$clave] = $valor;
+    }
+    $parametros['form'] = $form->createView();
+    $parametros['caso'] = $caso;
+    $parametros['pestaña_activa'] = 'mpa';
+    $parametros['archivos'] = $archivos;
+
+    return $this->render('mpa/edit.html.twig', $parametros);
+}
+
 
     #[Route('/{id_mpa}', name: 'app_mpa_delete', methods: ['POST'])]
     public function delete(Request $request, Mpa $mpa, EntityManagerInterface $entityManager): Response
