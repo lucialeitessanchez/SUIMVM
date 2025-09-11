@@ -34,12 +34,15 @@ public function new(Request $request, EntityManagerInterface $entityManager, Ses
 
     if (!$idCaso) {
         $this->addFlash('error', 'Debe seleccionar un caso primero.');
+        return $this->redirect('mpa/new.html.twig');
     }
 
     $caso = $entityManager->getRepository(Caso::class)->find($idCaso);
 
     if (!$caso) {
+
         throw $this->createNotFoundException("Caso no encontrado.");
+        return $this->redirect('mpa/new.html.twig');
     }
 
     $mpa = new Mpa();
