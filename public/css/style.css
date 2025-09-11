@@ -149,12 +149,37 @@ table tbody tr:hover {
 /* Estado 2: Sí */
 .range-si::-webkit-slider-thumb,
 .range-si::-moz-range-thumb {
-  background-color: #28a745; /* verde */
+  background-color: #81f09b; /* verde */
 }
 .range-si::-webkit-slider-runnable-track,
 .range-si::-moz-range-track {
   background-color: #d4edda;
 }
+
+.range-bajo::-webkit-slider-thumb { background-color: green; }
+.range-bajo::-webkit-slider-runnable-track { background-color: #d4edda; }
+
+.range-medio::-webkit-slider-thumb { background-color: orange; }
+.range-medio::-webkit-slider-runnable-track { background-color: #fff3cd; }
+
+.range-alto::-webkit-slider-thumb { background-color: darkorange; }
+.range-alto::-webkit-slider-runnable-track { background-color: #ffe5b4; }
+
+.range-critico::-webkit-slider-thumb { background-color: red; }
+.range-critico::-webkit-slider-runnable-track { background-color: #f8d7da; }
+
+/* Para Firefox */
+.range-bajo::-moz-range-thumb { background-color: green; }
+.range-bajo::-moz-range-track { background-color: #d4edda; }
+
+.range-medio::-moz-range-thumb { background-color: orange; }
+.range-medio::-moz-range-track { background-color: #fff3cd; }
+
+.range-alto::-moz-range-thumb { background-color: darkorange; }
+.range-alto::-moz-range-track { background-color: #ffe5b4; }
+
+.range-critico::-moz-range-thumb { background-color: red; }
+.range-critico::-moz-range-track { background-color: #f8d7da; }
 
   /* Fondo blanco por defecto */
   .accordion-button {
@@ -164,11 +189,19 @@ table tbody tr:hover {
   /* Fondo violeta claro cuando está expandido */
   .accordion-button:not(.collapsed) {
     background-color: #d5cfff;
+    border-color: #d5cfff;
+    box-shadow: 0 0 0 0.25rem rgba(213, 207, 255, 0.5); /* Opcional: resalta más el borde */
   }
 
   /* Aseguramos que el contenido (body) sea blanco */
   .accordion-body {
     background-color: #ffffff;
+  }
+
+  /* Cuando tiene el foco (evita el borde azul que pone Bootstrap) */
+  .accordion-button:focus {
+    border-color: #d5cfff;
+    box-shadow: 0 0 0 0.25rem rgba(213, 207, 255, 0.5); /* opcional */
   }
 
   .badge-caso {
@@ -178,3 +211,102 @@ table tbody tr:hover {
     font-weight: bold;
     padding: 0.5rem 1rem;
   }
+ 
+  #criminalidad_extra_fields {
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+  }
+
+  #criminalidad_extra_fields.show {
+    opacity: 1;
+    max-height: 300px; /* suficiente para que entre el contenido */
+  }
+
+  #criminalidad_extra_fields.hide {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+  }
+  #mpa_15a_list li {
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.choices__item--choice::before {
+  content: "✓";
+  visibility: hidden;
+  margin-right: 8px;
+  color: green;
+}
+
+.choices__item--choice.is-selected::before {
+  visibility: visible;
+}
+
+.choices__list--multiple .choices__item {
+  background-color: #0d6efd; /* Azul bootstrap */
+  color: white;
+  border-radius: 20px;
+  padding: 4px 10px;
+  margin: 2px;
+  font-size: 14px;
+}
+.choices__inner {
+  background-color: #f9f9f9 !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.402rem !important; /* igual que Bootstrap 5 */
+  padding: 6px 10px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+}
+
+.choices__list--dropdown {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.choices__inner::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #555;
+  transform: translateY(-50%);
+}
+
+.choices__inner {
+  position: relative;
+  padding-right: 2.5rem; /* espacio para la flecha */
+}
+
+.circle-tab.active{
+background-color:#9b8ef7!important ;
+border:none!important;
+--filter: brightness(90%);
+}
+.table-wrapper {
+  max-height:400px;
+  overflow-y: auto;
+  display: block;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background-color: white; /* o el color de fondo que quieras */
+  z-index: 1;
+}
+.circle-tab.sin-datos {
+  background-color: #e0f7fa; /* o algo que resalte */
+  color: #007bff;
+}
+

@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
+                    // 🔹 Actualizás el texto del span con JS
+                    document.getElementById("caso-seleccionado-id").textContent = id;
+                    
                     Swal.fire({
                         
                         icon: "success",
@@ -29,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         popup: 'swal2-sm'
                         }
                         });
-                } else {
+                     } else {
                     console.error("Error desde el backend:", data.error);
                 }
             })

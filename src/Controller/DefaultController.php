@@ -8,18 +8,31 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
-
-#[Route(path: '/')]
 class DefaultController extends AbstractController {
 
     #[Route('/index', name: 'app_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response {
-        $usuario = $this->getUser();
-        //$biens = $entityManager
-        //  ->getRepository(Bien::class)
-        //  ->findAll();
+    public function index(Security $security): Response {
+        $user = $security->getUser();
+        $token = $security->getToken();
 
+        if ($user instanceof \App\Security\User && method_exists($token, 'getAttributes')) {
+            $attrs = $token->getAttributes();
+
+            $user->setUid($attrs['uid'] ?? '');
+            $user->setCuil($attrs['cuil'] ?? '');
+            $user->setNombre($attrs['givenName'] ?? '');
+        }
+
+        return $this->render('index.html.twig', array('usuario' => $user));
+    }
+
+    #[Route('/secure/test', name: 'secure_test')]
+    public function testSecure(): Response
+    {
+        $usuario = $this->getUser();
         return $this->render('index.html.twig', array('' => $usuario));
     }
 
@@ -31,7 +44,21 @@ class DefaultController extends AbstractController {
         $usuario = $this->getUser();
 
         // return $this->render('index.html.twig');
-        return $this->render('index.html.twig', array('' => $usuario));
+        return $this->render('index.html.twig', array('usuario' => $usuario));
+    }
+
+
+    #[Route('/secure/logout', name: 'app_logout')]
+    public function logout()
+    {
+    }
+
+
+
+    #[Route('/failure', name: 'failure', methods: ['GET'])]
+    public function failure()
+    {
+        return new Response("No Estás logueado ");
     }
 
 }

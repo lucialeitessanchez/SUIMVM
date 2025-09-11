@@ -18,8 +18,8 @@ class Caso
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $fecha_carga;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTimeInterface $fecha_hecho;
+    #[ORM\Column(type: 'datetime', nullable:true)]
+    private ?\DateTimeInterface $fecha_hecho=null;
 
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $fecha_anoticiamiento;
@@ -45,8 +45,11 @@ class Caso
     #[ORM\Column(type: Types::STRING, length: 150, nullable: true)]
     private ?string $lugar_hecho = null;
 
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $tipo_muerte = null;
+   // #[ORM\Column(type: 'integer', nullable: true)]
+   // private ?int $tipo_muerte = null;
+   #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+   #[ORM\JoinColumn(name: "tipo_muerte", referencedColumnName: "id_nomenclador", nullable: true)]
+   private ?Nomenclador $tipo_muerte = null;
 
     #[ORM\ManyToOne(targetEntity: Localidad::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "localidad_id_localidad", referencedColumnName: "id_localidad", nullable: false)]
@@ -58,11 +61,27 @@ class Caso
 
     #[ORM\ManyToOne(targetEntity: Persona::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "persona_id_persona", referencedColumnName: "id_persona", nullable: false)]
-    private Persona $persona_id_persona;
+    private ?Persona $persona_id_persona = null;
 
     #[ORM\ManyToOne(targetEntity: OrganismoOrigen::class, inversedBy: "casos")]
     #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_origen", nullable: false)]
     private OrganismoOrigen $organismo_origen_id_origen;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $apenomAgresor = null;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $nrodocAgresor = null;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $edadAgresor = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $vinculo = null;
+
+    #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
+    #[ORM\JoinColumn(name: "lugar_hecho_nomenclador", referencedColumnName: "id_nomenclador", nullable: true)]
+    private ?Nomenclador $lugarHechoNomenclador = null;
 
     #[ORM\OneToMany(mappedBy: "caso", targetEntity: Mpa::class)]
     private Collection $mpas;
@@ -93,7 +112,7 @@ public function getFechaHecho(): \DateTimeInterface
     return $this->fecha_hecho;
 }
 
-public function setFechaHecho(\DateTimeInterface $fecha_hecho): self
+public function setFechaHecho(?\DateTimeInterface $fecha_hecho): self
 {
     $this->fecha_hecho = $fecha_hecho;
     return $this;
@@ -189,12 +208,12 @@ public function setLugarHecho(?string $lugar_hecho): self
     return $this;
 }
 
-public function getTipoMuerte(): ?string
+public function getTipoMuerte(): ?Nomenclador
 {
     return $this->tipo_muerte;
 }
 
-public function setTipoMuerte(?string $tipo_muerte): self
+public function setTipoMuerte(?Nomenclador $tipo_muerte): self
 {
     $this->tipo_muerte = $tipo_muerte;
     return $this;
@@ -222,12 +241,12 @@ public function setLocalidadIdHecho(?Localidad $localidad_id_hecho): self
     return $this;
 }
 
-public function getPersonaIdPersona(): Persona
+public function getPersonaIdPersona(): ?Persona
 {
     return $this->persona_id_persona;
 }
 
-public function setPersonaIdPersona(Persona $persona_id_persona): self
+public function setPersonaIdPersona(?Persona $persona_id_persona): self
 {
     $this->persona_id_persona = $persona_id_persona;
     return $this;
@@ -244,11 +263,52 @@ public function setOrganismoOrigenIdOrigen(OrganismoOrigen $organismo_origen_id_
     return $this;
 }
 
-public function __toString(): string
+public function getApenomAgresor(): ?string
 {
-    return (string) $this->id_caso;
+    return $this->apenomAgresor;
 }
 
+public function setApenomAgresor(?string $apenomAgresor): self
+{
+    $this->apenomAgresor = $apenomAgresor;
+    return $this;
+}
+
+public function getNrodocAgresor(): ?int
+{
+    return $this->nrodocAgresor;
+}
+
+public function setNrodocAgresor(?int $nrodocAgresor): self
+{
+    $this->nrodocAgresor = $nrodocAgresor;
+    return $this;
+}
+
+public function getEdadAgresor(): ?int
+{
+    return $this->edadAgresor;
+}
+
+public function setEdadAgresor(?int $edadAgresor): self
+{
+    $this->edadAgresor = $edadAgresor;
+    return $this;
+}
+
+public function getVinculo(): ?string
+{
+    return $this->vinculo;
+}
+
+public function setVinculo(?string $vinculo): self
+{
+    $this->vinculo = $vinculo;
+    return $this;
+}
+
+public function getLugarHechoNomenclador(): ?Nomenclador { return $this->lugarHechoNomenclador; }
+public function setLugarHechoNomenclador(?Nomenclador $lugarHechoNomenclador): self { $this->lugarHechoNomenclador = $lugarHechoNomenclador; return $this; }
 
 public function getUsuarioCarga(): ?string
 {
@@ -261,4 +321,8 @@ public function setUsuarioCarga(?string $usuarioCarga): self
     return $this;
 }
 
+public function __toString(): string
+{
+    return (string) $this->id_caso;
+}
 }

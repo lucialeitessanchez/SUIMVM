@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Sistema Unico de Informacion sobre muertes violentas de mujeres{% endblock %}</title>
+    <title>{% block title %}Registro Único de Femicidios{% endblock %}</title>
     <link rel="icon" href="https://www.santafe.gob.ar/assets/standard/images/favicon.ico">
     <base href="{{ asset('') }}">
   {% block stylesheets %}
@@ -12,14 +12,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 {% endblock %}
+
+
+
     
 </head>
 <body>
 
     {# Navbar común a todas las páginas #}
+    
+
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <img src="https://www.santafe.gob.ar/assets/standard/images/gob-santafe.png" class="navbar-brand" alt="Logo">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -39,29 +49,54 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Organismos Colaboradores</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Organismos</a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_smgyd_new')}}">SMGyD<i class="fas fa-asterisk text-danger ms-2"></i></a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_mpa_new') }}">MPA<i class="fas fa-asterisk text-danger ms-2"></i></a></li>
                         <li><a class="dropdown-item" href="{{ path('caj_new') }}">Centro Asistencia Judicial</a></li>
-                        <li><a class="dropdown-item" href="#">SDNAyF</a></li>
-                        <li><a class="dropdown-item" href="#">Cámara Federal</a></li>
-                        <li><a class="dropdown-item" href="#">Defensoría del Pueblo</a></li>
-                        <li><a class="dropdown-item" href="#">Secretaría de Derechos Humanos</a></li>
-                        <li><a class="dropdown-item" href="#">Ministerio de Salud</a></li>
-                        <li><a class="dropdown-item" href="#">Áreas locales</a></li>
-                  
+                        <li><a class="dropdown-item" href="{{ path('app_sddnayf_new')}}">SDNAyF</a></li>
+                        {#<li><a class="dropdown-item" href="#">Cámara Federal</a></li>#}
+                        {#<li><a class="dropdown-item" href="#">Defensoría del Pueblo</a></li>#}
+                        <li><a class="dropdown-item" href="{{ path('sdh_new') }}">Secretaría de Derechos Humanos</a></li>
+                        {#<li><a class="dropdown-item" href="#">Ministerio de Salud</a></li>#}
+                        <li><a class="dropdown-item" href="{{ path ('gob_locales_new') }}">Áreas locales</a></li>
+                        <li><a class="dropdown-item" href="{{ path ('app_pgcsj_new') }}">PGCSJ</a></li>
+                        
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">SMGyD</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_mpa_new') }}">MPA</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a></li>
+                
+                {#<li class="nav-item"><a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a></li>#}
             </ul>
+
+            <div class="ms-auto d-flex align-items-center text-white">
+            {% if app.user %}
+                
+                <div class="ms-auto d-flex align-items-center text-white">
+                {% if app.token.attributes.jpegPhoto is defined %}
+                    <img src="data:image/jpeg;base64,{{ app.token.attributes.jpegPhoto }}" alt="Foto de perfil" class="rounded-circle me-2" width="40" height="40">
+                {% else %}
+                    <i class="bi bi-person-circle me-2"></i>
+                {% endif %}
+                <span>
+                    {{ app.token.attributes.givenName ?? 'Usuario' }} {{ app.token.attributes.sn ?? '' }}
+                </span>
+                <a href="{{ path('app_logout') }}" class="btn btn-sm btn-outline-light ms-3">Cerrar sesión</a>
+                </div>
+            {% else %}
+                <a href="{{ path('secure_test') }}" class="btn btn-sm btn-outline-light">Iniciar sesión</a>
+            {% endif %}
+        </div>
         </div>
     </nav>
 
     {% block body %}{% endblock %}
     {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  
+  <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     {% endblock %}
 </body>
 </html>

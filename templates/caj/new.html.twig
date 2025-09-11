@@ -4,39 +4,30 @@
 
 {% block body %}
      
-        {% for flashMessage in app.session.flashBag.get('aviso') %}
-            <div class="alert alert-success">                                
-                {{ flashMessage|raw|nl2br }}
+        {% if app.request.get('mensaje') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ app.request.get('mensaje') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        {% endfor %}
+        {% endif %}
 
-        {% for flashMessage in app.session.flashBag.get('error') %}
-            <div class="alert alert-danger">
-
-                {{ flashMessage|nl2br }}
-            </div>
-        {% endfor %}
-  
-
-    {% set casoSeleccionado = form.caso.vars.data ?? null %}
-       
-            {% if not form.caso.vars.data %}
-                <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    Swal.fire({
-                    icon: "error",
-                    title: "Debe seleccionar un caso",
-                    text: "Antes de registrar CAJ, es necesario elegir un caso.",
-                    confirmButtonText: "Ir a casos"
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "{{ path('app_index') }}";
-                    }
-                    });
-                });
-                </script>
-            {% endif %}
-      {% if casoSeleccionado %} 
+        {% if sinCaso %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                icon: "error",
+                title: "Debe seleccionar un caso",
+                text: "Antes de registrar MPA, es necesario elegir un caso.",
+                confirmButtonText: "Ir a casos"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                window.location.href = "{{ path('app_caso_index') }}";
+                }
+            });
+            });
+        </script>
+        {% endif %}
+      {% if caso is defined %} 
       <section id="formSecretaria" class="container my-5">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                 <h2 class="mb-0">Sección Centro de Asistencia Judicial - CAJ</h2>
@@ -75,9 +66,9 @@
                                     {{ form_widget(form.caj_1c,{'attr': {'class': 'form-select'}})  }}
                             </div>
                             <div class="col-md-3">
-                                     {{ form_label(form.caj_1d, null, {'label_attr': {'class': 'form-label'}}) }}
-                                     {{ form_errors(form.caj_1d) }}
-                                     {{ form_widget(form.caj_1d,{'attr': {'class': 'form-select'}})  }}
+                                     {{ form_label(form.tipoAsistenciasBrindadas, null, {'label_attr': {'class': 'form-label'}}) }}
+                                     {{ form_errors(form.tipoAsistenciasBrindadas) }}
+                                     {{ form_widget(form.tipoAsistenciasBrindadas,{'attr': {'class': 'form-select'}})  }}
                             </div>
                         </div>
                       </div>{#del accordion body 1#}
@@ -87,7 +78,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading2">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
-                        2.Patrocinio Brindado a la víctima
+                        2.Patrocinio brindado a la víctima
                     </button>
                 </h2>
                 <div id="collapse2" class="accordion-collapse collapse">
@@ -102,6 +93,7 @@
                                 <div class="col-md-6">
                                     <label for="caj_2b" class="form-label">¿La víctima aceptó el patrocinio? </label>
                                     <div class="form-check form-switch">
+                                        {{ form_label(form.caj_2b)}}
                                         {{ form_widget(form.caj_2b, {
                                         'id': 'caj_2b',
                                         'attr': {'class': 'form-check-input'}
@@ -143,7 +135,7 @@
             <div class="accordion-item">
                  <h2 class="accordion-header" id="heading3">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
-                            3.Acompañamiento y Asistencia Posterior al hecho al Grupo Familiar
+                            3.Acompañamiento y asistencia posterior al hecho al grupo familiar
                        </button>
                   </h2>
                <div id="collapse3" class="accordion-collapse collapse">
@@ -168,9 +160,9 @@
                                          </div>
                                 </div>
                                 <div class="col-md-6">
-                                               {{ form_label(form.caj_3b, null, {'label_attr': {'class': 'form-label'}}) }}
-                                               {{ form_errors(form.caj_3b) }}
-                                               {{ form_widget(form.caj_3b,{'attr': {'class': 'form-select'}})  }}
+                                               {{ form_label(form.asistenciasProporcionadas, null, {'label_attr': {'class': 'form-label'}}) }}
+                                               {{ form_errors(form.asistenciasProporcionadas) }}
+                                               {{ form_widget(form.asistenciasProporcionadas,{'attr': {'class': 'form-select'}})  }}
                                  </div>
                                 <div class="col-md-12"><br></div>
                             </div>
@@ -242,9 +234,9 @@
                                   <div class="col-md-8"> {{ form_label(form.caj_4b) }}</div>     
                         </div>    
                         <div class="row mb-3">       
-                                <div class="col-md-6"> 
+                                <div class="col-md-6 rango-wrapper"> 
                                       {{ form_widget(form.caj_4b) }}
-                                      <div id="etiqueta-rango" class="mt-2 fw-bold ">Seleccione una opción</div>
+                                      <div class="etiqueta-rango mt-2 fw-bold">Seleccione una opción</div>
                                 </div>
                         </div>
                         <div class="row mb-3">   
@@ -260,9 +252,28 @@
 
         </div> {#div del acordeon formulario#}
 
-        <div class="text-center mt-4">
-             <button type="submit" class="btn btn-primary">Guardar</button>
+            <br>
+                <div class="mb-3">
+                <label for="{{ form.archivo.vars.id }}" class="form-label fw-bold">
+                    <i class="la la-upload me-1"></i> Adjuntar archivos
+                </label>
+                {{ form_errors(form.archivo) }}
+                {{ form_widget(form.archivo, {
+                    'attr': {
+                    'class': 'form-control',
+                    'id': form.archivo.vars.id
+                    }
+                }) }}
+                </div>
+<br>
+        <div class="col-md-12 d-flex justify-content-end">
+            <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+            <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
+           &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+            </div>
         </div>
+    </div>
 </section>
 {{ form_end(form) }}
  {% endif %}
@@ -271,4 +282,7 @@
 
     {{ parent() }}
         <script src="{{ asset('js/caj.js') }}"></script>
+        <script src="{{ asset('js/rango.js') }}"></script>
+    
+        
 {% endblock %}

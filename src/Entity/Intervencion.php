@@ -14,10 +14,6 @@ class Intervencion
     #[ORM\Column(type: "integer")]
     private ?int $id_intervencion = null;
 
-    #[ORM\ManyToOne(targetEntity: Sddnayf::class)]
-    #[ORM\JoinColumn(name: "sddnayf_id_sddnayf", referencedColumnName: "id", nullable: false)]
-    private ?Sddnayf $sddnayf = null;
-
     #[ORM\Column(type: "string", length: 255)]
     private ?string $sddnayf_1a = null;
 
@@ -56,17 +52,6 @@ class Intervencion
     public function getIdIntervencion(): ?int
     {
         return $this->id_intervencion;
-    }
-
-    public function getSddnayf(): ?Sddnayf
-    {
-        return $this->sddnayf;
-    }
-
-    public function setSddnayf(?Sddnayf $sddnayf): self
-    {
-        $this->sddnayf = $sddnayf;
-        return $this;
     }
 
     public function getSddnayf1a(): ?string

@@ -30,9 +30,6 @@ class NiniosVinculados
     #[ORM\Column(type: "string")]
     private string $sddnayf5e;
 
-    #[ORM\ManyToOne(targetEntity: Sddnayf::class)]
-    #[ORM\JoinColumn(name: "sddnayf_id_sddnayf", referencedColumnName: "id", nullable: false)]
-    private Sddnayf $sddnayf;
 
     // Getters and Setters
 
@@ -93,17 +90,6 @@ class NiniosVinculados
     public function setSddnayf5e(string $sddnayf5e): self
     {
         $this->sddnayf5e = $sddnayf5e;
-        return $this;
-    }
-
-    public function getSddnayf(): Sddnayf
-    {
-        return $this->sddnayf;
-    }
-
-    public function setSddnayf(Sddnayf $sddnayf): self
-    {
-        $this->sddnayf = $sddnayf;
         return $this;
     }
 }

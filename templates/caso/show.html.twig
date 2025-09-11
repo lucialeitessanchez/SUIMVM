@@ -1,22 +1,25 @@
 {% extends 'base.html.twig' %}
-{% block title %}Ver CASO{% endblock %}
+{% block title %}Vista de Datos - Identificación de la victima{% endblock %}
 
 {% block body %}
-<section class="container my-5">
-    <h2 class="text-left mb-4">Identificación de la víctima</h2>
+
+  {% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'smgyd':smgyd } %}
+
+<section class="container my-3">
+
+ <div class="d-flex justify-content-between align-items-end mb-3">
+        <h2 class="text-left">Identificación de la víctima</h2>
+     
+            <span class="ms-3">
+                Ud. está trabajando con el caso Nro:
+                <span class="badge badge-caso">{{ caso.idCaso }}</span>
+            </span>
+</div>
+   
+
+</div>
     <hr>
-    {% for flashMessage in app.session.flashBag.get('aviso') %}
-            <div class="alert alert-success">                                
-                {{ flashMessage|raw|nl2br }}
-            </div>
-        {% endfor %}
-
-        {% for flashMessage in app.session.flashBag.get('error') %}
-            <div class="alert alert-danger">
-
-                {{ flashMessage|nl2br }}
-            </div>
-        {% endfor %}
+   
     {{ form_start(form) }}
     <div class="row mb-3">
                 <!-- Fecha de carga -->
@@ -54,7 +57,7 @@
               
                 <div class="col-md-2">
                      <label class="form-label" for="nacionalidad">Nacionalidad</label>
-                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}" required>
+                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}" required disabled>
                             <option selected disabled>Seleccione...</option>
                     </select>
                 </div>
@@ -65,8 +68,8 @@
                     <label class="form-label">Sexo asignado en el DNI</label>
                     <select class="form-select" id="sexo" name="sexo" required disabled>
                         <option disabled {% if datosPersona.sexo is empty %}selected{% endif %}>Seleccione...</option>
-                        <option value="Femenino" {% if datosPersona.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
-                        <option value="Masculino" {% if datosPersona.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+                        <option value="F" {% if datosPersona.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
+                        <option value="M" {% if datosPersona.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
                         <option value="No binario" {% if datosPersona.sexo == 'No binario' %}selected{% endif %}>No binario</option>
                     </select>
                 </div>
@@ -83,22 +86,22 @@
                         <option value="No especificado" {% if datosPersona.genero == 'No especificado' %}selected{% endif %}>No especificado</option>
                     </select>
                 </div>
+                <div class="col-md-4">
+                     {{ form_label(form.orientacionSexual, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.orientacionSexual) }}
+                    {{ form_widget(form.orientacionSexual,{'attr': {'class': 'form-select'}}) }}
+                </div>
+                </div>
+    <div class="row mb-3">
                 <div class="col-md-2">
-
                     {{ form_label(form.edad, null, {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_errors(form.edad) }}
                     {{ form_widget(form.edad,{'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="col-md-2">
-                    <label for="franjaEtaria" class="form-label">Franja etaria</label>
-                    <select class="form-select" id="franjaEtaria" disabled>
-                        <option disabled selected>Según edad seleccionada</option>
-                        <option value="0-15 años">0-15 años</option>
-                        <option value="16-30 años">16-30 años</option>
-                        <option value="31-50 años">31-50 años</option>
-                        <option value="51-70 años">51-70 años</option>
-                        <option value="71 años o más">71 años o más</option>
-                    </select>
+                    {{ form_label(form.franjaEtaria, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.franjaEtaria) }}
+                    {{ form_widget(form.franjaEtaria,{'attr': {'class': 'form-control'}}) }}
                 </div>
     </div>
     <div class="row mb-3">
@@ -127,9 +130,9 @@
                     {{ form_errors(form.domicilio) }}
         </div>
         <div class="col-md-4">
-                    {{ form_label(form.lugarHecho, null, {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.lugarHecho, {'attr': {'class': 'form-control'}}) }}
-                    {{ form_errors(form.lugarHecho) }}
+                    {{ form_label(form.lugarHechoNomenclador, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.lugarHechoNomenclador, {'attr': {'class': 'form-select'}}) }}
+                    {{ form_errors(form.lugarHechoNomenclador) }}
         </div>
  
         <div class="col-md-4">
@@ -147,15 +150,18 @@
                 <!-- Departamento -->
                     <div class="col-md-4">
                         <label for="departamento" class="form-label">Departamento</label>
-                        <input type="text" class="form-control" id="departamento" readonly="true">
+                        <input type="text" class="form-control" id="departamento" readonly="true" disabled>
                     </div>
                 
                     <!-- Microregión -->
                     <div class="col-md-4">
                         <label for="microregion" class="form-label">Microregión</label>
-                        <input type="text" class="form-control" id="microregion" readonly>
+                        <input type="text" class="form-control" id="microregion" readonly disabled>
                     </div>
      </div>
+     <br>
+
+     
      
 
         {{ form_widget(form) }}
@@ -172,6 +178,9 @@
         <script>
     window.localidadInfoTemplate = '{{ path('localidad_info', { id: 'PLACEHOLDER' }) }}';
     window.verificarDniUrlTemplate = "{{ path('persona_verificar_dni', { nrodoc: 'PLACEHOLDER' }) }}";
+    
+    
+    
 </script>
           <script src="{{ asset('js/dptoYmicroregion.js') }}"></script>
           <script src="{{ asset('js/persona.js') }}"></script>

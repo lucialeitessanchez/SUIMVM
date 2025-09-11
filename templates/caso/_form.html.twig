@@ -1,0 +1,172 @@
+{{ form_start(form) }}
+<section class="container my-3">
+<div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0">Identificación de la víctima</h2>
+
+          <span class="ms-3">
+            Ud. está trabajando con el caso Nro:
+            <span class="badge badge-caso">{{ caso.idCaso }}</span>
+          </span>
+            
+        </div>
+        <hr>
+    <div class="row mb-3">
+                <!-- Fecha de carga -->
+                <div class="col-md-4">
+                                
+                    {{ form_label(form.fechaCarga , null, {'label_attr': {'class': 'form-label'}}) }}                    
+                    {{ form_errors(form.fechaCarga) }}
+                    {{ form_widget(form.fechaCarga,{'attr': {'class': 'form-control'}})  }}
+                </div>
+                <!-- Fecha de del hecho -->
+                <div class="col-md-4">
+                    {{ form_label(form.fechaHecho, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.fechaHecho) }}
+                    {{ form_widget(form.fechaHecho,{'attr': {'class': 'form-control'}})  }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(form.fechaAnoticiamiento, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.fechaAnoticiamiento) }}
+                    {{ form_widget(form.fechaAnoticiamiento,{'attr': {'class': 'form-control'}})  }}
+                </div>
+    </div>
+    <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="nombre" value = "{{datosPersona.nombre}}" placeholder="Nombre de la víctima" >
+                </div>
+                <div class="col-md-4">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" name="apellido" id="apellido" value = "{{datosPersona.apellido}}" placeholder="Apellido de la víctima">
+                </div>
+                <div class="col-md-2">
+                    <label for="dni" class="form-label">DNI</label>
+                    <input type="text" class="form-control" name="nrodoc" id="nrodoc" value = "{{datosPersona.nrodoc}}" placeholder="Número de DNI" >
+                </div>
+              
+                <div class="col-md-2">
+                     <label class="form-label" for="nacionalidad">Nacionalidad</label>
+                    <select class="form-select" id="nacionalidad" name="nacionalidad" data-nacionalidad="{{ datosPersona.nacionalidad }}">
+                          <option disabled {% if not datosPersona.nacionalidad %}selected{% endif %}>Seleccione...</option>
+                          
+                    </select>
+                </div>
+    </div>
+    <div class="row mb-3">
+                <!-- Sexo asignado en el DNI -->
+                <div class="col-md-4">
+                    <label class="form-label">Sexo asignado en el DNI</label>
+                    <select class="form-select" id="sexo" name="sexo">
+                        <option disabled {% if datosPersona.sexo is empty %}selected{% endif %}>Seleccione...</option>
+                        <option value="F" {% if datosPersona.sexo == 'F' %}selected{% endif %}>Femenino</option>
+                        <option value="M" {% if datosPersona.sexo == 'M' %}selected{% endif %}>Masculino</option>
+                        <option value="No binario" {% if datosPersona.sexo == 'No binario' %}selected{% endif %}>No binario</option>
+                    </select>
+                </div>
+    
+                <!-- Género autopercibido de la víctima -->
+                <div class="col-md-4">
+                    <label for="generoAutop" class="form-label">Género autopercibido de la víctima</label>
+                    <select class="form-select" id="generoAutop" name="generoAutop">
+                        <option disabled {% if datosPersona.genero is empty %}selected{% endif %}>Seleccione...</option>
+                        <option value="Mujer cis" {% if datosPersona.genero == 'Mujer cis' %}selected{% endif %}>Mujer cis</option>
+                        <option value="Mujer trans" {% if datosPersona.genero == 'Mujer trans' %}selected{% endif %}>Mujer trans</option>
+                        <option value="Varon trans" {% if datosPersona.genero == 'Varon trans' %}selected{% endif %}>Varon trans</option>
+                        <option value="No binario" {% if datosPersona.genero == 'No binario' %}selected{% endif %}>No binario</option>     
+                        <option value="No especificado" {% if datosPersona.genero == 'No especificado' %}selected{% endif %}>No especificado</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                     {{ form_label(form.orientacionSexual, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.orientacionSexual) }}
+                    {{ form_widget(form.orientacionSexual,{'attr': {'class': 'form-select'}}) }}
+                </div>
+                </div>
+    <div class="row mb-3">
+                <div class="col-md-2">
+                    {{ form_label(form.edad, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.edad) }}
+                    {{ form_widget(form.edad,{'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_label(form.franjaEtaria, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.franjaEtaria) }}
+                    {{ form_widget(form.franjaEtaria,{'attr': {'class': 'form-control'}}) }}
+                </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+                    <label for="femicidioVinculado" class="form-label">¿Presuntamente se trata de un femicidio vinculado?</label>
+                    <div class="form-check form-switch">
+                            {{ form_row(form.femicidioVinculado, {'label_attr': {'class': 'form-label'}}) }}
+                    </div>
+        </div> 
+        <div class="col-md-4">
+                    <label for="crimenOdio" class="form-label">¿Se trata de un crimen de odio o discriminación?</label>
+                    <div class="form-check form-switch">
+                            {{ form_row(form.crimenOdio, {'label_attr': {'class': 'form-label'}}) }}
+                    </div>
+        </div> 
+        <div class="col-md-4">
+                    {{ form_label(form.tipoMuerte, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.tipoMuerte, {'attr': {'class': 'form-select'}}) }}
+                    {{ form_errors(form.tipoMuerte) }}
+        </div>
+    </div>
+    <div class="row mb-3">
+           <div class="col-md-4">
+                    {{ form_label(form.domicilio, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.domicilio, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.domicilio) }}
+        </div>
+        <div class="col-md-4">
+                    {{ form_label(form.lugarHechoNomenclador, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.lugarHechoNomenclador, {'attr': {'class': 'form-select'}}) }}
+                    {{ form_errors(form.lugarHechoNomenclador) }}
+        </div>
+ 
+        <div class="col-md-4">
+                    {{ form_label(form.barrio, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.barrio, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.barrio) }}
+        </div>
+     </div>
+     <div class="row mb-3">
+                <div class="col-md-4">
+                    {{ form_label(form.localidad, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_errors(form.localidad) }}
+                    {{ form_widget(form.localidad,{'attr': {'class': 'select2-autocomplete form-select'}})  }}
+                </div>
+                <!-- Departamento -->
+                    <div class="col-md-4">
+                        <label for="departamento" class="form-label">Departamento</label>
+                        <input type="text" class="form-control" id="departamento" readonly="true" disabled>
+                    </div>
+                
+                    <!-- Microregión -->
+                    <div class="col-md-4">
+                        <label for="microregion" class="form-label">Microregión</label>
+                        <input type="text" class="form-control" id="microregion" readonly disabled>
+                    </div>
+     </div>
+     <br>
+       
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+                &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+                </div>
+        </div>
+
+        {{ form_widget(form) }}
+   {{ form_end(form) }}
+
+</section>
+
+
+ 
+
+
+
+

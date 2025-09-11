@@ -1,29 +1,29 @@
 <?php
+
 namespace App\Entity;
 
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EquipoReferenciaRepository;
 
-#[ORM\Entity]
-#[ORM\Table(name: "equipo_referencia")]
+#[ORM\Entity(repositoryClass: EquipoReferenciaRepository::class)]
+#[ORM\Table(name: 'equipo_referencia')]
 
 class EquipoReferencia
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(name: "id_equipo", type: "integer")]
-    private int $id_equipo;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'id_equipo', type: 'integer')]
+    private ?int $id = null;
 
-    #[ORM\Column(type: "string", length: 100)]
-    private string $equipo;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $equipo = null;
 
-    public function getIdEquipo(): ?int
+    public function getId(): ?int
     {
-        return $this->id_equipo;
+        return $this->id;
     }
 
-    public function getEquipo(): string
+    public function getEquipo(): ?string
     {
         return $this->equipo;
     }
@@ -32,5 +32,10 @@ class EquipoReferencia
     {
         $this->equipo = $equipo;
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->equipo ?? '';
     }
 }

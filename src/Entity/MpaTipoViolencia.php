@@ -6,35 +6,35 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
+#[ORM\Table(name: 'mpa_tipoViolencia')]
 class MpaTipoViolencia
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $idmpa_tipoViolencia = null;
+    #[ORM\Column(name: 'id', type: 'integer')]
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $descripcion_violencia = null;
+    private ?string $descripcionViolencia = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'mpa_id_mpa', referencedColumnName: 'id_mpa', nullable: false)]
     private ?Mpa $mpa = null;
 
     // Getters y setters
-
-    public function getIdmpaTipoViolencia(): ?int
+    public function getId(): ?int
     {
-        return $this->idmpa_tipoViolencia;
+        return $this->id;
     }
-
+  
     public function getDescripcionViolencia(): ?string
     {
-        return $this->descripcion_violencia;
+        return $this->descripcionViolencia;
     }
 
-    public function setDescripcionViolencia(?string $descripcion_violencia): self
+    public function setDescripcionViolencia(?string $descripcionViolencia): self
     {
-        $this->descripcion_violencia = $descripcion_violencia;
+        $this->descripcionViolencia = $descripcionViolencia;
         return $this;
     }
 

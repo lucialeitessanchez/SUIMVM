@@ -1,0 +1,237 @@
+{% if sinCaso %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Swal.fire({
+        icon: "error",
+        title: "Debe seleccionar un caso",
+        text: "Antes de registrar SMGyD, es necesario elegir un caso.",
+        confirmButtonText: "Ir a casos"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{ path('app_caso_index') }}";
+        }
+      });
+    });
+  </script>
+{% endif %}
+
+{% if caso is defined %}
+  <section id="formSecretaria" class="container my-3">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h2 class="mb-0">Sección SDDNAyF</h2>
+      <span class="ms-3">
+        Ud. está trabajando con el caso Nro:
+        <span class="badge badge-caso">{{ caso.idCaso }}</span>
+      </span>
+    </div>
+
+    {{ form_start(form) }}
+
+    <div class="accordion" id="accordionFormularioViolencia">
+
+      <!-- Ítem 1 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading1">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+            1. Datos de la víctima de muerte violenta por razones de género
+          </button>
+        </h2>
+        <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionFormularioViolencia">
+          <div class="accordion-body">
+           <div class="row mb-3">
+       
+              <div class="col-md-4">
+                   {{ form_row(form.sddnayf_1a, {'label_attr': {'class': 'form-label'}}) }}
+              </div>
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf_1b, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_1b) }}
+                  {{ form_widget(form.sddnayf_1b,{'attr': {'class': 'form-select'}})  }}
+                
+              </div>
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf_1c, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_1c) }}
+                  {{ form_widget(form.sddnayf_1c,{'attr': {'class': 'form-select'}})  }}
+                
+              </div>   
+            </div>         
+             <div class="row position-relative mb-3">   
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf_1d, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_1d) }}
+                  {{ form_widget(form.sddnayf_1d,{'attr': {'class': 'form-select'}})  }}
+              </div>   
+               <div class="col-md-4">
+                  {{ form_label(form.sddnayf_1e, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_1e) }}
+                  {{ form_widget(form.sddnayf_1e,{'attr': {'class': 'form-select'}})  }}
+              </div> 
+              <div class="col-md-2">
+                  {{ form_label(form.sddnayf1fa, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf1fa) }}
+                  {{ form_widget(form.sddnayf1fa,{'attr': {'class': 'form-control'}})  }}
+              </div> 
+              <div class="col-md-2">
+                  {{ form_label(form.sddnayf1fb, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf1fb) }}
+                  {{ form_widget(form.sddnayf1fb,{'attr': {'class': 'form-control'}})  }}
+              </div>
+               <div class="flotante-indicacion">
+                    En caso de haber más de una, indique la última
+                </div>
+            </div>
+            <div class="row position-relative mb-3">   
+                  <div class="col-md-4">
+                      {{ form_label(form.sddnayf_1g, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf_1g) }}
+                      {{ form_widget(form.sddnayf_1g,{'attr': {'class': 'form-select'}})  }}
+                 </div> 
+                   <div class="col-md-4">
+                      {{ form_label(form.sddnayf_1h, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf_1h) }}
+                      {{ form_widget(form.sddnayf_1h,{'attr': {'class': 'form-select'}})  }}
+                 </div>
+                 <div class="col-md-4">     
+                       <label for="sddnayf_1i" class="form-label">Indique si el OA ha intervenido en relacion a situaciones en conflicto con la Ley Penal</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf_1i, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+                  </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Ítem 2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+            2. Datos del presunto agresor de la víctima de muerte violenta por razones de género
+          </button>
+        </h2>
+        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionFormularioViolencia">
+          <div class="accordion-body">
+            <div class="row mb-3">
+              <div class="col-md-4">
+                  <label for="sddnayf_1i" class="form-label">¿El OA tuvo intervencion en su niñez y/o adolescencia?</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf_2a, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+              </div>
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf_2b, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_2b) }}
+                  {{ form_widget(form.sddnayf_2b,{'attr': {'class': 'form-select'}})  }}
+                
+              </div>
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf_2c, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_2c) }}
+                  {{ form_widget(form.sddnayf_2c,{'attr': {'class': 'form-select'}})  }}
+                
+              </div>   
+            </div>
+            <div class="row position-relative mb-3">   
+              <div class="col-md-4">
+                  {{ form_label(form.sddnayf_2d, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_2d) }}
+                  {{ form_widget(form.sddnayf_2d,{'attr': {'class': 'form-select'}})  }}
+              </div>   
+               <div class="col-md-4">
+                  {{ form_label(form.sddnayf_2e, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_2e) }}
+                  {{ form_widget(form.sddnayf_2e,{'attr': {'class': 'form-select'}})  }}
+              </div> 
+              <div class="col-md-2">
+                  {{ form_label(form.sddnayf_2fa, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_2fa) }}
+                  {{ form_widget(form.sddnayf_2fa,{'attr': {'class': 'form-control'}})  }}
+              </div> 
+              <div class="col-md-2">
+                  {{ form_label(form.sddnayf_2fb, null, {'label_attr': {'class': 'form-label'}}) }}
+                  {{ form_errors(form.sddnayf_2fb) }}
+                  {{ form_widget(form.sddnayf_2fb,{'attr': {'class': 'form-control'}})  }}
+              </div>
+               <div class="flotante-indicacion">
+                    En caso de haber más de una, indique la última
+                </div>
+            </div>
+            <div class="row position-relative mb-3">   
+                  <div class="col-md-4">
+                      {{ form_label(form.sddnayf_2g, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf_2g) }}
+                      {{ form_widget(form.sddnayf_2g,{'attr': {'class': 'form-select'}})  }}
+                 </div> 
+                   <div class="col-md-4">
+                      {{ form_label(form.sddnayf_2h, null, {'label_attr': {'class': 'form-label'}}) }}
+                      {{ form_errors(form.sddnayf_2h) }}
+                      {{ form_widget(form.sddnayf_2h,{'attr': {'class': 'form-select'}})  }}
+                 </div>
+                 <div class="col-md-4">     
+                       <label for="sddnayf_2i" class="form-label">Indique si el OA ha intervenido en relacion a situaciones en conflicto con la Ley Penal</label>
+                       <div class="form-check form-switch">
+                            {{ form_row(form.sddnayf_2i, {'label_attr': {'class': 'form-label'}}) }}
+                       </div>
+                  </div>
+            </div>
+
+          </div>
+        </div>
+      </div> {#fin item 2#}
+
+      {# item 3 #}
+      <div class="accordion-item">
+    <h2 class="accordion-header" id="headingHijos">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHijos" aria-expanded="false" aria-controls="collapseHijos">
+            3. Datos personales de hijxs de la victima de muerte por razones de genero 
+        </button>
+    </h2>
+    <div id="collapseHijos" class="accordion-collapse collapse" aria-labelledby="headingHijos" data-bs-parent="#accordion">
+        <div class="accordion-body">
+            <div id="hijosVictima-collection"
+                 data-prototype="{{ include('sddnayf/_hijoVictima_row.html.twig', { form: form.hijosVictima.vars.prototype })|e('html_attr') }}"
+                data-index="{{ form.hijosVictima|length }}">
+
+                {% for hijoForm in form.hijosVictima %}
+                    {% include 'sddnayf/_hijoVictima_row.html.twig' with { form: hijoForm } %}
+                {% endfor %}
+            </div>
+            <div class="col-md-12 d-flex justify-content-end">
+                <button type="button" class="btn btn-primary mt-3" id="add-hijo">
+                    + Agregar hijo/a
+                </button>
+            </div>
+        </div>
+    </div>
+</div>{# fin item3#}
+   </div>
+  </div>        
+  </div>  
+  </div>        
+  </div>
+     <br>
+{% if modo != 'show' %}
+        <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Save') }}</button>
+               &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+                </div>
+        </div>
+   {% endif %}
+
+    {{ form_end(form) }}
+    <br>
+  </section>
+{% endif %}
+<style>
+  .flotante-indicacion {
+      position: absolute;
+      right: -850px; /* ajustá según el espacio real disponible */
+      top: 80px;    /* ajustá según la altura de los campos de fecha */
+      font-size: 0.875rem;
+      color: #6c757d;
+  }
+</style>

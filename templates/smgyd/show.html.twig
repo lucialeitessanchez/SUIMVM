@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vista de datos - AL{% endblock %}
+
+{% block body %}
+{% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'smgyd':smgyd} %}    
+
+    {{ include('smgyd/_form.html.twig', {'modo': 'show'}) }}
+   
+{% endblock %}
+{% block javascripts %}
+
+         {{ parent() }}
+    <script src="{{ asset('js/smgyd_familiares.js') }}"></script>
+    <script src="{{ asset('js/smgyd_familiarReferencia.js') }}"></script>
+    <script src="{{ asset('js/smgyd_proceso.js') }}"></script>
+    <script src="{{ asset('js/smgyd_organizacion.js') }}"></script>
+       
+{% endblock %}

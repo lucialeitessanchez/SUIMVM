@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\SmgydFamiliar;
+use App\Entity\Nomenclador;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class SmgydFamiliarType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('apenom', TextType::class, [
+                'label' => 'Apellido y nombre',
+                'required' => false,
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('nrodoc', TextType::class, [
+                'label' => 'Nro. de documento',
+                'required' => false,
+            ])
+            ->add('edad', IntegerType::class, [
+                'required' => false,
+            ])
+            ->add('condicion', ChoiceType::class, [
+                'label' => 'Condicion',
+                'placeholder' => 'Seleccione...',
+                'choices' => [
+                      'Persona con discapacidad' => 'Persona con discapacidad',
+                      'Adulo mayor' => 'Adulto mayor',
+                      'Dependiente' => 'Dependiente',                       
+                  ],
+                'required' => false,
+              ])
+            ->add('vinculo', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione...',
+                'required' => false,
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'TIPO_VINCULO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => SmgydFamiliar::class,
+        ]);
+    }
+}

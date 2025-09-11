@@ -1,0 +1,21 @@
+<div class="row familiar-item mb-3 p-3 border rounded">
+    <div class="col-md-4">
+        {{ form_row(form.apenom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-2">
+        {{ form_row(form.nrodoc, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-1">
+        {{ form_row(form.edad, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="col-md-2">
+        {{ form_row(form.vinculo, {'attr': {'class': 'form-select'}}) }}
+    </div>
+    <div class="col-md-2">
+        {{ form_row(form.condicion, {'attr': {'class': 'form-select'}}) }}
+    </div>
+    <div class="col-md-1">
+    <br>
+        <button type="button" class="btn btn-danger btn-sm remove-familiar">Eliminar</button>
+    </div>
+</div>

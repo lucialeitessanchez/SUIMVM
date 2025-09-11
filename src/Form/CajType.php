@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CajType extends AbstractType
@@ -32,6 +33,7 @@ class CajType extends AbstractType
             ->add('caj_1b', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Fecha de la consulta', 
+                'required' => false,
                 ])
               
             ->add('caj_1c', EntityType::class, array(
@@ -48,6 +50,7 @@ class CajType extends AbstractType
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
             ))
+            /*
             ->add('caj_1d', EntityType::class, array(
                 'required' => false,
                 'label' => 'Tipo de asistencia brindada',
@@ -61,7 +64,21 @@ class CajType extends AbstractType
                     ->setParameter('nomenclador', 'TIPO_TRATAMIENTO')
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
-            ))
+            ))*/
+            ->add('tipoAsistenciasBrindadas', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'multiple' => true,
+                'required' => false,
+                'by_reference' => false,
+                'label' => 'Tipo de asistencia brindada',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'TIPO_TRATAMIENTO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+            ])
             ->add('caj_2a', CheckboxType::class, [
                 'label' => 'No / Sí',
                 'required' => false,
@@ -108,27 +125,30 @@ class CajType extends AbstractType
                 'class' => EquipoReferencia::class,
                 'label' => '¿Cómo llegó el caso al CAJ?',
                 'choice_label' => 'equipo', // ajusta según tu entidad
+                'required' => false,
             ])
-            ->add('caj_3j', ChoiceType::class, [
-                'label' => 'Tipo de caso',
-                'placeholder' => 'Seleccione...',
-                'choices' => [
-                    'Suicidio' => 'Suicidio',
-                    'Muerte dudosa' => 'Muerte dudosa',
-                    'Femicidio'=>'Femicidio',
-                    'Travesticidio'=>'Travesticidio',
-                    'Transfemicidio' => 'Transfemicidio',
-                    'Tentativa de femicidio' => 'Tentativa de femicidio',
-                ],
-                'required' => true,
-            ])
+  
+            ->add('caj_3j', EntityType::class, array(
+                    'required' => false,
+                    'label' => 'Tipo hecho',
+                    'multiple' => false,
+                    'choice_label' => 'valor_nomenclador',
+                    'placeholder' => 'Seleccione',
+                    'class' => Nomenclador::class,
+                    'query_builder' => function ($repositorio) {
+                        return $repositorio->createQueryBuilder('n')
+                        ->where('n.nomenclador = :nomenclador')
+                        ->setParameter('nomenclador', 'TIPO_HECHO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                    }
+                ))   
             ->add('caj_3a', CheckboxType::class, [
                 'label' => 'No / Sí',
                 'required' => false,
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])
-            
+            /*
             ->add('caj_3b', EntityType::class, array(
                 'required' => false,
                 'label' => 'Tipo de asistencia proporcionada al grupo familiar',
@@ -142,7 +162,22 @@ class CajType extends AbstractType
                     ->setParameter('nomenclador', 'MEDIDA_PROTECCION')
                     ->orderBy('n.valor_nomenclador', 'ASC');
                 }
-            ))
+            ))*/
+
+            ->add('asistenciasProporcionadas', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'multiple' => true,
+                'required' => false,
+                'by_reference' => false,
+                'label' => 'Tipo de asistencia proporcionada al grupo familiar',
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'MEDIDA_PROTECCION')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+            ])
             ->add('caj_3c', CheckboxType::class, [
                 'label' => 'No / Sí',
                 'required' => false,
@@ -208,10 +243,12 @@ class CajType extends AbstractType
             ->add('caj_4c', TextareaType::class, [
                 'label' => 'Observaciones y recomendaciones para mejorar futuras intervenciones',
                 'required'=> false,
-                 ])
-            ->add('caso', EntityType::class, [
-                'class' => Caso::class,
-                'choice_label' => 'id_Caso', // ajusta según tu entidad
+            ])
+            ->add('archivo',FileType::class, [
+                'label' =>'Subir archivos',
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
             ]);
     }
 

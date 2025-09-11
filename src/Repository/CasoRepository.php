@@ -30,4 +30,36 @@ class CasoRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+        public function findByDocumento(string $documento): array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.persona', 'p') // asumir que Caso tiene relación persona
+            ->where('p.nrodoc = :documento')
+            ->setParameter('documento', $documento)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByApellidoNombre(string $valor): array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.persona', 'p')
+            ->where('p.apellido LIKE :val OR p.nombre LIKE :val')
+            ->setParameter('val', '%'.$valor.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+        public function findByLocalidad(string $valor): array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.localidad', 'l')
+            ->addSelect('l')
+            ->where('l.nombre LIKE :val')
+            ->setParameter('val', '%'.$valor.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
