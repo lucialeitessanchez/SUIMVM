@@ -11,8 +11,28 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
-class Mpa
+class Mpa implements ArchivableInterface
 {
+    private Collection $archivos;
+
+    public function __construct()
+    {
+        $this->archivos = new ArrayCollection();
+    }
+
+    public function addArchivo(Archivo $archivo): void
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setMpa($this); // aquí relacionás en el lado del archivo
+        }
+    }
+
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'id_mpa', type: 'integer')]
@@ -154,17 +174,6 @@ class Mpa
     )]
     private Collection $otrasViolencias;
 
-    #[ORM\OneToMany(mappedBy: 'mpa', targetEntity: Archivo::class, cascade: ['persist', 'remove'])]
-    private Collection $archivos;
-
-
-    public function __construct()
-    {
-        $this->tiposViolencias = new ArrayCollection();
-        $this->mecanicasDelHecho = new ArrayCollection();
-        $this->otrasViolencias = new ArrayCollection();
-        $this->archivos = new ArrayCollection();
-    }
     // Getter
     public function getTiposViolencias(): Collection { return $this->tiposViolencias; }
     // Add
@@ -338,23 +347,7 @@ class Mpa
     return (string) $this->id;
 }
 
-    /**
-     * @return Collection<int, Archivo>
-     */
-    public function getArchivos(): Collection
-    {
-        return $this->archivos;
-    }
 
-    public function addArchivo(Archivo $archivo): static
-    {
-        if (!$this->archivos->contains($archivo)) {
-            $this->archivos->add($archivo);
-            $archivo->setMpa($this);
-        }
-
-        return $this;
-    }
 
     public function removeArchivo(Archivo $archivo): static
     {

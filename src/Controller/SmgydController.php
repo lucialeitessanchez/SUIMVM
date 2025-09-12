@@ -24,6 +24,13 @@ use App\Service\CasoTabsDataProvider;
 #[Route('/smgyd')]
 class SmgydController extends AbstractController
 {
+    private ArchivoService $archivoService;
+
+    public function __construct(ArchivoService $archivoService)
+    {
+        $this->archivoService = $archivoService;
+    }
+
     #[Route('/', name: 'app_smgyd_index', methods: ['GET'])]
     public function index(SmgydRepository $smgydRepository): Response
     {
@@ -72,15 +79,16 @@ class SmgydController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$sinCaso)
             $smgyd->setCaso($caso); 
+            
+            $em->persist($smgyd);
 
             // Manejo de archivos usando el servicio
             $archivosSubidos = $form->get('archivos')->getData();
+
             foreach ($archivosSubidos as $uploadedFile) {
-                $archivoEntity = $this->$archivoService->guardarArchivoEntidad($uploadedFile, $smgyd);
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $smgyd);
                 $em->persist($archivoEntity);
             }
-            
-            $em->persist($smgyd);
             foreach ($smgyd->getFamiliaresReferencia() as $fr) {
                 if ($fr->getSmgyd() === null) {
                     dump('FAMILIAR SIN SMGYD', $fr);
