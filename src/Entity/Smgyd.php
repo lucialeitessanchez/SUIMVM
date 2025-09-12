@@ -177,10 +177,7 @@ class Smgyd
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $usuariocarga = null;
 
-    /**
-     * @var Collection<int, Archivo>
-     */
-    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'smgyd')]
+    #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: Archivo::class, cascade: ['persist', 'remove'])]
     private Collection $archivos;
 
     public function __construct()
