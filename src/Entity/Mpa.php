@@ -9,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Dom\Text;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
+use App\Entity\ArchivableInterface;
 #[ORM\Entity]
 class Mpa implements ArchivableInterface
 {
@@ -17,9 +17,12 @@ class Mpa implements ArchivableInterface
 
     public function __construct()
     {
+        $this->tiposViolencias = new ArrayCollection();
+        $this->mecanicasDelHecho = new ArrayCollection();
+        $this->otrasViolencias = new ArrayCollection();
         $this->archivos = new ArrayCollection();
     }
-
+    
     public function addArchivo(Archivo $archivo): void
     {
         if (!$this->archivos->contains($archivo)) {

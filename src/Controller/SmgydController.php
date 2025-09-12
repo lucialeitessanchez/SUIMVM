@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Archivo;
 use App\Entity\Smgyd;
 use App\Entity\Caso;
 use App\Entity\SmgydFamiliar;
@@ -20,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use Doctrine\ORM\EntityManager;
 
 #[Route('/smgyd')]
 class SmgydController extends AbstractController
@@ -110,7 +112,7 @@ class SmgydController extends AbstractController
     #[Route('/{idCaso}/show', name: 'app_smgyd_show', methods: ['GET'])]
     public function show(CasoRepository $casoRepository,
     SmgydRepository $smgydRepository,int $idCaso, 
-    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory, EntityManager $entityManager): Response
     {
         $caso = null;
         $sinCaso = false;
@@ -135,6 +137,8 @@ class SmgydController extends AbstractController
              $form = $formFactory->create(SmgydType::class, $smgyd, [
                  'disabled' => true, // importante: desactiva todos los campos
              ]);
+              // Traer archivos asociados al MPA
+            $archivos = $entityManager->getRepository(Archivo::class)->findBy(['smgyd' => $smgyd]);
 
              $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
@@ -143,6 +147,7 @@ class SmgydController extends AbstractController
             }
             $parametros['sinCaso'] = $sinCaso;
             $parametros['pestaña_activa'] = 'smgyd';
+            $parametros['archivos'] = $archivos;
     
             return $this->render('smgyd/show.html.twig', $parametros);
         
@@ -154,7 +159,7 @@ class SmgydController extends AbstractController
     int $idCaso,
     CasoRepository $casoRepository,
     CasoTabsDataProvider $tabsProvider,
-    EntityManagerInterface $em): Response
+    EntityManagerInterface $em, ArchivoService $archivoService): Response
     {
         $sinCaso = false;
         
@@ -185,11 +190,20 @@ class SmgydController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // --- Manejo de archivos nuevos ---
+        $archivosSubidos = $form->get('archivos')->getData();
+        foreach ($archivosSubidos as $uploadedFile) {
+            $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $smgyd);
+            $em->persist($archivoEntity);
+        }
             $em->flush();
 
             $this->addFlash('success_js', 'Seccion SMGyD guardada correctamente');   
             return $this->redirectToRoute('app_caso_index');
         }
+
+            // Archivos asociados al MPA (igual que en show)
+            $archivos = $em->getRepository(Archivo::class)->findBy(['smgyd' => $smgyd]);
 
             $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
@@ -198,7 +212,8 @@ class SmgydController extends AbstractController
             }
             $parametros['sinCaso'] = $sinCaso;
             $parametros['pestaña_activa'] = 'smgyd';
-    
+            $parametros['archivos'] = $archivos;
+
             return $this->render('smgyd/edit.html.twig', $parametros);
           }
 
