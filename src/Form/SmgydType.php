@@ -448,13 +448,15 @@ class SmgydType extends AbstractType
                 'by_reference' => false,
                  'label' => false,
             ])
-            ->add('archivo',FileType::class, [
-                'label' =>'Subir archivos',
-                'multiple' => true,
+        ;
+        if (!$options['disabled']) {
+            $builder->add('archivos', FileType::class, [
+                'label' => 'Subir Archivos',
                 'mapped' => false,
+                'multiple' => true,
                 'required' => false,
-            ])
-         ;
+            ]);
+        }
        
     }
 

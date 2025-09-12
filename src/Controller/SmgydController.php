@@ -11,6 +11,7 @@ use App\Entity\SmgydProcesoJudicial;
 use App\Form\SmgydType;
 use App\Repository\SmgydRepository;
 use App\Repository\CasoRepository;
+use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +36,8 @@ class SmgydController extends AbstractController
     public function new(Request $request, 
     CasoTabsDataProvider $tabsProvider, 
     CasoRepository $casoRepository, 
-    EntityManagerInterface $em,SessionInterface $session): Response
+    EntityManagerInterface $em,SessionInterface $session,
+    ArchivoService $archivoService): Response
     {
         $idCaso = $session->get('caso_id');
         
@@ -71,6 +73,13 @@ class SmgydController extends AbstractController
             if (!$sinCaso)
             $smgyd->setCaso($caso); 
 
+            // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->$archivoService->guardarArchivoEntidad($uploadedFile, $smgyd);
+                $em->persist($archivoEntity);
+            }
+            
             $em->persist($smgyd);
             foreach ($smgyd->getFamiliaresReferencia() as $fr) {
                 if ($fr->getSmgyd() === null) {
