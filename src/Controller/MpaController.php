@@ -19,12 +19,14 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\CasoTabsDataProvider;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/mpa')]
 final class MpaController extends AbstractController
 {
+    
     private ArchivoService $archivoService;
 
     public function __construct(ArchivoService $archivoService)

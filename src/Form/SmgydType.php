@@ -457,7 +457,6 @@ class SmgydType extends AbstractType
                     'required' => false,
                 ]);
             }
-       
     }
 
     public function configureOptions(OptionsResolver $resolver): void
