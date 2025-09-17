@@ -112,35 +112,35 @@ class SmgydController extends AbstractController
     #[Route('/{idCaso}/show', name: 'app_smgyd_show', methods: ['GET'])]
     public function show(CasoRepository $casoRepository,
     SmgydRepository $smgydRepository,int $idCaso, 
-    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory, EntityManager $entityManager): Response
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory, EntityManagerInterface $entityManager): Response
     {
         $caso = null;
         $sinCaso = false;
         $parametros = [];
 
-        // Buscar el caso           
+        // Buscar el caso
         $caso = $casoRepository->find($idCaso);
         if (!$caso) {
             throw $this->createNotFoundException('Caso no encontrado');
         }
 
          //busco si hay datos asociados para mostrar la pestaña desde el servicio
-         $tabsData = $tabsProvider->getData($caso);
+        $tabsData = $tabsProvider->getData($caso);
 
-         $smgyd = $smgydRepository->findOneBy(['caso' => $caso]);
-         if (!$smgydRepository) {
-             throw $this->createNotFoundException('No hay datos de SDH para este caso');
-         }
-       
-         
+        $smgyd = $smgydRepository->findOneBy(['caso' => $caso]);
+        if (!$smgydRepository) {
+            throw $this->createNotFoundException('No hay datos de SDH para este caso');
+        }
+    
+        
           // Creamos el form pero sin intención de editar
-             $form = $formFactory->create(SmgydType::class, $smgyd, [
+            $form = $formFactory->create(SmgydType::class, $smgyd, [
                  'disabled' => true, // importante: desactiva todos los campos
-             ]);
-              // Traer archivos asociados al MPA
+            ]);
+              // Traer archivos asociados a la sec
             $archivos = $entityManager->getRepository(Archivo::class)->findBy(['smgyd' => $smgyd]);
 
-             $parametros['form'] = $form->createView();
+            $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
             foreach ($tabsData as $clave => $valor) {
                 $parametros[$clave] = $valor;
