@@ -19,7 +19,7 @@ class SddnayfNew
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $sddnayf_1a = null;
- 
+
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
     #[ORM\JoinColumn(name: "sddnayf_1d", referencedColumnName: "id_nomenclador", nullable: true)]
     private ?Nomenclador $sddnayf_1d = null;

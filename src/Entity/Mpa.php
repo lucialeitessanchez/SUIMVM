@@ -13,6 +13,7 @@ use App\Entity\ArchivableInterface;
 #[ORM\Entity]
 class Mpa implements ArchivableInterface
 {
+    #[ORM\OneToMany(mappedBy: 'mpa', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $archivos;
 
     public function __construct()
