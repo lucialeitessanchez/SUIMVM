@@ -67,7 +67,7 @@ class SmgydController extends AbstractController
         }
         if (!empty($tabsData['smgyd'])) {
             // Llamar al método edit y devolver su Response
-            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em);
+            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em, $archivoService);
         } 
         $smgyd = new Smgyd();
         $smgyd->addFamiliar(new SmgydFamiliar());

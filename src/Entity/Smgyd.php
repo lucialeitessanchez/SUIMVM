@@ -10,7 +10,18 @@ use Doctrine\Common\Collections\Collection;
 #[ORM\Entity(repositoryClass: SmgydRepository::class)]
 class Smgyd implements ArchivableInterface
 {
+    #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $archivos;
+
+    public function __construct()
+    {
+        $this->familiares = new ArrayCollection();
+        $this->organizaciones = new ArrayCollection();
+        $this->procesosJudiciales = new ArrayCollection();
+        $this->equipos = new ArrayCollection();
+        $this->familiaresReferencia = new ArrayCollection();
+        $this->archivos = new ArrayCollection();
+    }
 
     public function addArchivo(Archivo $archivo): void
     {
@@ -24,6 +35,7 @@ class Smgyd implements ArchivableInterface
     {
         return $this->archivos;
     }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -192,16 +204,6 @@ class Smgyd implements ArchivableInterface
     private ?string $usuariocarga = null;
 
     
-    public function __construct()
-    {
-        $this->familiares = new ArrayCollection();
-        $this->organizaciones = new ArrayCollection();
-        $this->procesosJudiciales = new ArrayCollection();
-        $this->equipos = new ArrayCollection();
-        $this->familiaresReferencia = new ArrayCollection();
-        $this->archivos = new ArrayCollection();
-    }
-
     // Generación de getters y setters
     public function getId(): ?int { return $this->id; }
 
