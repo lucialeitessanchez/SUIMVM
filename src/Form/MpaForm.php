@@ -24,6 +24,7 @@ class MpaForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
             
             ->add('mpa_1', EntityType::class, array(
@@ -295,14 +296,15 @@ class MpaForm extends AbstractType
                         'style' => 'display:none;', // Oculta también el label y errores
                     ]
                 ])
-          /*  ->add('archivos',FileType::class, [
-                'label' =>'Subir archivos',
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
-            ])*/
-      
                 ;
+                if (!$options['disabled']) {
+                    $builder->add('archivos', FileType::class, [
+                        'label' => 'Subir Archivos',
+                        'mapped' => false,
+                        'multiple' => true,
+                        'required' => false,
+                    ]);
+                }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -311,5 +313,6 @@ class MpaForm extends AbstractType
             'data_class' => Mpa::class,
             'nomencladores_vinculo' => [], // por defecto vacío
         ]);
+        
     }
 }

@@ -440,22 +440,23 @@ class SmgydType extends AbstractType
                 'by_reference' => false,
                 'label' => false,
             ])
-             ->add('familiaresReferencia', CollectionType::class, [
+            ->add('familiaresReferencia', CollectionType::class, [
                 'entry_type' => SmgydFamiliarReferenciaType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                 'label' => false,
+                'label' => false,
             ])
-            ->add('archivo',FileType::class, [
-                'label' =>'Subir archivos',
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
-            ])
-         ;
-       
+            ;
+            if (!$options['disabled']) {
+                $builder->add('archivos', FileType::class, [
+                    'label' => 'Subir Archivos',
+                    'mapped' => false,
+                    'multiple' => true,
+                    'required' => false,
+                ]);
+            }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

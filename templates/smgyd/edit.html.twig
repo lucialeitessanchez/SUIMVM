@@ -6,7 +6,7 @@
 {% include 'partials/tabs_caso_edit.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'smgyd':smgyd } %}    
 
     {{ include('smgyd/_form.html.twig', {'button_label': 'Actualizar',
-                                              'modo':'edit'}) }}
+                                            'modo':'edit'}) }}
 
 {% endblock %}
 {% block javascripts %}
@@ -16,5 +16,5 @@
     <script src="{{ asset('js/smgyd_familiarReferencia.js') }}"></script>
     <script src="{{ asset('js/smgyd_proceso.js') }}"></script>
     <script src="{{ asset('js/smgyd_organizacion.js') }}"></script>
-      
+    <script src="{{ asset('js/vistaPreviaArchivo.js') }}"></script> 
 {% endblock %}

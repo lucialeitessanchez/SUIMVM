@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Archivo;
 use App\Entity\Smgyd;
 use App\Entity\Caso;
 use App\Entity\SmgydFamiliar;
@@ -11,6 +12,7 @@ use App\Entity\SmgydProcesoJudicial;
 use App\Form\SmgydType;
 use App\Repository\SmgydRepository;
 use App\Repository\CasoRepository;
+use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +21,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use Doctrine\ORM\EntityManager;
 
 #[Route('/smgyd')]
 class SmgydController extends AbstractController
 {
+    private ArchivoService $archivoService;
+
+    public function __construct(ArchivoService $archivoService)
+    {
+        $this->archivoService = $archivoService;
+    }
+
     #[Route('/', name: 'app_smgyd_index', methods: ['GET'])]
     public function index(SmgydRepository $smgydRepository): Response
     {
@@ -35,7 +45,8 @@ class SmgydController extends AbstractController
     public function new(Request $request, 
     CasoTabsDataProvider $tabsProvider, 
     CasoRepository $casoRepository, 
-    EntityManagerInterface $em,SessionInterface $session): Response
+    EntityManagerInterface $em,SessionInterface $session,
+    ArchivoService $archivoService): Response
     {
         $idCaso = $session->get('caso_id');
         
@@ -56,7 +67,7 @@ class SmgydController extends AbstractController
         }
         if (!empty($tabsData['smgyd'])) {
             // Llamar al método edit y devolver su Response
-            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em);
+            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em, $archivoService);
         } 
         $smgyd = new Smgyd();
         $smgyd->addFamiliar(new SmgydFamiliar());
@@ -70,8 +81,16 @@ class SmgydController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$sinCaso)
             $smgyd->setCaso($caso); 
-
+            
             $em->persist($smgyd);
+
+            // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $smgyd);
+                $em->persist($archivoEntity);
+            }
             foreach ($smgyd->getFamiliaresReferencia() as $fr) {
                 if ($fr->getSmgyd() === null) {
                     dump('FAMILIAR SIN SMGYD', $fr);
@@ -93,39 +112,42 @@ class SmgydController extends AbstractController
     #[Route('/{idCaso}/show', name: 'app_smgyd_show', methods: ['GET'])]
     public function show(CasoRepository $casoRepository,
     SmgydRepository $smgydRepository,int $idCaso, 
-    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory, EntityManagerInterface $entityManager): Response
     {
         $caso = null;
         $sinCaso = false;
         $parametros = [];
 
-        // Buscar el caso           
+        // Buscar el caso
         $caso = $casoRepository->find($idCaso);
         if (!$caso) {
             throw $this->createNotFoundException('Caso no encontrado');
         }
 
          //busco si hay datos asociados para mostrar la pestaña desde el servicio
-         $tabsData = $tabsProvider->getData($caso);
+        $tabsData = $tabsProvider->getData($caso);
 
-         $smgyd = $smgydRepository->findOneBy(['caso' => $caso]);
-         if (!$smgydRepository) {
-             throw $this->createNotFoundException('No hay datos de SDH para este caso');
-         }
-       
-         
+        $smgyd = $smgydRepository->findOneBy(['caso' => $caso]);
+        if (!$smgydRepository) {
+            throw $this->createNotFoundException('No hay datos de SDH para este caso');
+        }
+    
+        
           // Creamos el form pero sin intención de editar
-             $form = $formFactory->create(SmgydType::class, $smgyd, [
+            $form = $formFactory->create(SmgydType::class, $smgyd, [
                  'disabled' => true, // importante: desactiva todos los campos
-             ]);
+            ]);
+              // Traer archivos asociados a la sec
+            $archivos = $entityManager->getRepository(Archivo::class)->findBy(['smgyd' => $smgyd]);
 
-             $parametros['form'] = $form->createView();
+            $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
             foreach ($tabsData as $clave => $valor) {
                 $parametros[$clave] = $valor;
             }
             $parametros['sinCaso'] = $sinCaso;
             $parametros['pestaña_activa'] = 'smgyd';
+            $parametros['archivos'] = $archivos;
     
             return $this->render('smgyd/show.html.twig', $parametros);
         
@@ -137,7 +159,7 @@ class SmgydController extends AbstractController
     int $idCaso,
     CasoRepository $casoRepository,
     CasoTabsDataProvider $tabsProvider,
-    EntityManagerInterface $em): Response
+    EntityManagerInterface $em, ArchivoService $archivoService): Response
     {
         $sinCaso = false;
         
@@ -168,11 +190,20 @@ class SmgydController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // --- Manejo de archivos nuevos ---
+        $archivosSubidos = $form->get('archivos')->getData();
+        foreach ($archivosSubidos as $uploadedFile) {
+            $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $smgyd);
+            $em->persist($archivoEntity);
+        }
             $em->flush();
 
             $this->addFlash('success_js', 'Seccion SMGyD guardada correctamente');   
             return $this->redirectToRoute('app_caso_index');
         }
+
+            // Archivos asociados al MPA (igual que en show)
+            $archivos = $em->getRepository(Archivo::class)->findBy(['smgyd' => $smgyd]);
 
             $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
@@ -181,7 +212,8 @@ class SmgydController extends AbstractController
             }
             $parametros['sinCaso'] = $sinCaso;
             $parametros['pestaña_activa'] = 'smgyd';
-    
+            $parametros['archivos'] = $archivos;
+
             return $this->render('smgyd/edit.html.twig', $parametros);
           }
 

@@ -8,11 +8,34 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Dom\Text;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection; 
-
+use Doctrine\Common\Collections\Collection;
+use App\Entity\ArchivableInterface;
 #[ORM\Entity]
-class Mpa
+class Mpa implements ArchivableInterface
 {
+    private Collection $archivos;
+
+    public function __construct()
+    {
+        $this->tiposViolencias = new ArrayCollection();
+        $this->mecanicasDelHecho = new ArrayCollection();
+        $this->otrasViolencias = new ArrayCollection();
+        $this->archivos = new ArrayCollection();
+    }
+    
+    public function addArchivo(Archivo $archivo): void
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setMpa($this); // aquí relacionás en el lado del archivo
+        }
+    }
+
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'id_mpa', type: 'integer')]
@@ -52,7 +75,7 @@ class Mpa
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $mpa_6a = null;
 
-   #[ORM\Column(type: 'time', nullable: true)]
+    #[ORM\Column(type: 'time', nullable: true)]
     private ?\DateTimeInterface $mpa_6b = null;
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
@@ -154,20 +177,6 @@ class Mpa
     )]
     private Collection $otrasViolencias;
 
-    /**
-     * @var Collection<int, Archivo>
-     */
-    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'mpa')]
-    private Collection $archivos;
-
-
-    public function __construct()
-    {
-        $this->tiposViolencias = new ArrayCollection();
-        $this->mecanicasDelHecho = new ArrayCollection();
-        $this->otrasViolencias = new ArrayCollection();
-        $this->archivos = new ArrayCollection();
-    }
     // Getter
     public function getTiposViolencias(): Collection { return $this->tiposViolencias; }
     // Add
@@ -341,23 +350,7 @@ class Mpa
     return (string) $this->id;
 }
 
-    /**
-     * @return Collection<int, Archivo>
-     */
-    public function getArchivos(): Collection
-    {
-        return $this->archivos;
-    }
 
-    public function addArchivo(Archivo $archivo): static
-    {
-        if (!$this->archivos->contains($archivo)) {
-            $this->archivos->add($archivo);
-            $archivo->setMpa($this);
-        }
-
-        return $this;
-    }
 
     public function removeArchivo(Archivo $archivo): static
     {

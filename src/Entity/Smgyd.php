@@ -8,8 +8,34 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: SmgydRepository::class)]
-class Smgyd
+class Smgyd implements ArchivableInterface
 {
+    #[ORM\OneToMany(mappedBy: 'smgyd', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $archivos;
+
+    public function __construct()
+    {
+        $this->familiares = new ArrayCollection();
+        $this->organizaciones = new ArrayCollection();
+        $this->procesosJudiciales = new ArrayCollection();
+        $this->equipos = new ArrayCollection();
+        $this->familiaresReferencia = new ArrayCollection();
+        $this->archivos = new ArrayCollection();
+    }
+
+    public function addArchivo(Archivo $archivo): void
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setSmgyd($this); // aquí relacionás en el lado del archivo
+        }
+    }
+
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -142,7 +168,7 @@ class Smgyd
         name: 'smgyd_equipo',
         joinColumns: [new ORM\JoinColumn(name: 'smgyd_id', referencedColumnName: 'id')],// nombre opcional de la tabla intermedia
         inverseJoinColumns: [new ORM\JoinColumn(name: 'equipo_referencia_id', referencedColumnName: 'id_equipo')]
-        )] 
+        )]
     private Collection $equipos;
 
     #[ORM\Column(name:"smgyd_16b",type: 'string', length: 255, nullable: true)]
@@ -177,22 +203,7 @@ class Smgyd
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $usuariocarga = null;
 
-    /**
-     * @var Collection<int, Archivo>
-     */
-    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'smgyd')]
-    private Collection $archivos;
-
-    public function __construct()
-    {
-        $this->familiares = new ArrayCollection();
-        $this->organizaciones = new ArrayCollection();
-        $this->procesosJudiciales = new ArrayCollection();
-        $this->equipos = new ArrayCollection();
-        $this->familiaresReferencia = new ArrayCollection();
-        $this->archivos = new ArrayCollection();
-    }
-
+    
     // Generación de getters y setters
     public function getId(): ?int { return $this->id; }
 
@@ -435,23 +446,6 @@ class Smgyd
     public function getUsuariocarga(): ?string { return $this->usuariocarga; }
     public function setUsuariocarga(?string $usuariocarga): self { $this->usuariocarga = $usuariocarga; return $this; }
 
-    /**
-     * @return Collection<int, Archivo>
-     */
-    public function getArchivos(): Collection
-    {
-        return $this->archivos;
-    }
-
-    public function addArchivo(Archivo $archivo): static
-    {
-        if (!$this->archivos->contains($archivo)) {
-            $this->archivos->add($archivo);
-            $archivo->setSmgyd($this);
-        }
-
-        return $this;
-    }
 
     public function removeArchivo(Archivo $archivo): static
     {

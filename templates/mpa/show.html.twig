@@ -247,7 +247,7 @@
                                               {{ form_label(form.tiposViolencias,null, {'label_attr': {'class': 'form-label'}}) }}
                                               {{ form_errors(form.tiposViolencias) }}
                                               {{ form_widget(form.tiposViolencias, {'attr': {'class': 'form-select'}}) }}
-                                       
+                                      
                                         </div>
 
                                         <input type="hidden" name="tiposViolencia" id="tiposViolencia">
@@ -256,17 +256,28 @@
                     </div> {#collapse#}
           </div>{#item 3 #}
     </div>{#acordeon form #}
-   
+
+  {# Agrega una línea horizontal para separar la sección de archivos #}
+<hr class="my-4">
+
+<h2>Archivos Adjuntos</h2>
+
+{% if archivos is not empty %}
+    <div class="list-group">
+        {% for archivo in archivos %}
+            <a href="{{ asset('uploads/archivos/' ~ archivo.nombreArchivo) }}" 
+                target="_blank"
+                class="list-group-item list-group-item-action d-flex align-items-center">
+                <span>{{ archivo.originalName }} </span>
+                <i class="la la-external-link-alt"></i> 
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">No hay archivos adjuntos para MPA.</p>
+{% endif %}
+
 <br>
-    {#
-        <div class="col-md-12 d-flex justify-content-end">
-                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
-                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
-                &nbsp;&nbsp;&nbsp;
-                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
-                </div>
-        </div>
-    #}
 
     {{ form_end(form) }}
     </section>

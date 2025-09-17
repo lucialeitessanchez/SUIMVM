@@ -10,6 +10,7 @@ use App\Entity\Nomenclador;
 use App\Repository\MpaRepository;
 use App\Repository\CasoRepository;
 use App\Form\MpaForm;
+use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +19,21 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\CasoTabsDataProvider;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/mpa')]
 final class MpaController extends AbstractController
 {
+    
+    private ArchivoService $archivoService;
+
+    public function __construct(ArchivoService $archivoService)
+    {
+        $this->archivoService = $archivoService;
+    }
+
     #[Route(name: 'app_mpa_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -36,7 +46,7 @@ final class MpaController extends AbstractController
         ]);
     }
     #[Route('/new', name: 'app_mpa_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SessionInterface $session, ArchivoService $archivoService): Response
     {
         $idCaso = $session->get('caso_id');
 
@@ -65,37 +75,16 @@ final class MpaController extends AbstractController
             $mpa->setUsuarioCarga("Usuario 1");
             if (!$sinCaso) {
                 $mpa->setCaso($caso);
+                $entityManager->persist($mpa);
+                $entityManager->flush();
             }
 
-            // --- Procesamiento de archivos ---
-            /** @var UploadedFile[] $uploadedFiles */
-            $uploadedFiles = $form->get('archivos')->getData();
-
-            foreach ($uploadedFiles as $file) {
-                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
-
-                try {
-                    $file->move(
-                        $this->getParameter('archivos_directory'),
-                        $newFilename
-                    );
-
-                    $archivoEntity = new Archivo();
-                    $archivoEntity->setNombreArchivo($newFilename);
-                    $archivoEntity->setOriginalFilename($originalFilename);
-                    $archivoEntity->setMimeType($file->getMimeType());
-                    $archivoEntity->setSize($file->getSize());
-                    
-                    $mpa->addArchivo($archivoEntity); 
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Problemas al subir el archivo ' . $originalFilename . ': ' . $e->getMessage());
-                    // Si un archivo falla, puedes decidir si quieres que el proceso de guardado continúe o no.
-                    // En este caso, simplemente añade un flash y sigue con el siguiente.
-                }
+            // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $mpa);
+                $entityManager->persist($archivoEntity);
             }
-
             // --- Guardar los tipos de violencia ---
             $tiposViolenciaJson = $request->request->get('tiposViolencia');
             $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
@@ -105,6 +94,7 @@ final class MpaController extends AbstractController
                     $tipo->setMpa($mpa);
                     $tipo->setDescripcionViolencia($texto);
                     $entityManager->persist($tipo);
+                    $entityManager->flush();
                 }
             }
             
@@ -145,7 +135,7 @@ final class MpaController extends AbstractController
             throw $this->createNotFoundException('No hay datos de mpa para este caso');
         }
     
-        // 🔧 Asegurar que mpa_9c (Nomenclador) esté gestionado
+        // Asegurar que mpa_9c (Nomenclador) esté gestionado
         $original = $mpa->getMpa9c();
         if ($original && !$entityManager->contains($original)) {
             $reloaded = $entityManager->getRepository(\App\Entity\Nomenclador::class)->find($original->getId());
@@ -156,79 +146,93 @@ final class MpaController extends AbstractController
         $form = $formFactory->create(MpaForm::class, $mpa, [
             'disabled' => true,
         ]);
+        // Traer archivos asociados al MPA
+        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['mpa' => $mpa]);
         
+        // Pasar todo a twig
         foreach ($tabsData as $clave => $valor) {
             $parametros[$clave] = $valor;
         }
         $parametros['form'] = $form->createView();
-        $parametros['caso'] = $caso;     
+        $parametros['caso'] = $caso;
         $parametros['pestaña_activa'] = 'mpa';
-
+        $parametros['archivos'] = $archivos;
+        
         return $this->render('mpa/show.html.twig', $parametros);
-       
     }
 
-    #[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, int $idCaso,
-    CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
-    EntityManagerInterface $entityManager): Response
-    {
+#[Route('/{idCaso}/edit', name: 'app_mpa_edit', methods: ['GET', 'POST'])]
+public function edit(
+    Request $request,
+    int $idCaso,
+    CasoRepository $casoRepository,
+    CasoTabsDataProvider $tabsProvider,
+    EntityManagerInterface $entityManager,
+    ArchivoService $archivoService
+): Response {
+    // Buscar el caso
+    $caso = $casoRepository->find($idCaso);
+    if (!$caso) {
+        throw $this->createNotFoundException('Caso no encontrado');
+    }
 
-         // Buscar el caso           
-         $caso = $casoRepository->find($idCaso);
-         if (!$caso) {
-             throw $this->createNotFoundException('Caso no encontrado');
-         }
+    // Datos de pestañas
+    $tabsData = $tabsProvider->getData($caso);
 
-          //busco si hay datos asociados para mostrar la pestaña desde el servicio
-          $tabsData = $tabsProvider->getData($caso);
+    // Buscar MPA asociado
+    $mpa = $entityManager->getRepository(Mpa::class)->findOneBy(['caso' => $caso]);
+    if (!$mpa) {
+        throw $this->createNotFoundException('No hay datos de MPA para este caso');
+    }
 
-          $mpa = $entityManager->getRepository(Mpa::class)->findOneBy(['caso' => $caso]);
-          if (!$mpa) {
-              throw $this->createNotFoundException('No hay datos de CAJ para este caso');
-          }
+    $form = $this->createForm(MpaForm::class, $mpa);
+    $form->handleRequest($request);
 
-        $form = $this->createForm(MpaForm::class, $mpa);
-        $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        // --- Manejo de archivos nuevos ---
+        $archivosSubidos = $form->get('archivos')->getData();
+        foreach ($archivosSubidos as $uploadedFile) {
+            $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $mpa);
+            $entityManager->persist($archivoEntity);
+        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-             /** @var UploadedFile[] $archivosSubidos */
-        $archivosSubidos = $form['archivos']->getData();
+        // --- Manejo de tipos de violencia ---
+        $tiposViolenciaJson = $request->request->get('tiposViolencia');
+        $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
+        if (is_array($tiposViolenciaArray)) {
+            foreach ($mpa->getTiposViolencia() as $existente) {
+                $entityManager->remove($existente);
+            }
 
-        if ($archivosSubidos) {
-            foreach ($archivosSubidos as $archivo) {
-                $nuevoArchivo = new Archivo();
-
-                $nombreArchivo = uniqid().'.'.$archivo->guessExtension();
-                $archivo->move($this->getParameter('archivos'), $nombreArchivo);
-
-                $nuevoArchivo->setNombreArchivo($nombreArchivo);
-                $nuevoArchivo->setOriginalFilename($archivo->getClientOriginalName());
-                $nuevoArchivo->setMimeType($archivo->getMimeType());
-                $nuevoArchivo->setSize($archivo->getSize());
-                $nuevoArchivo->setMpa($mpa); // Enlaza con el objeto actual
-
-                $entityManager->persist($nuevoArchivo);
+            foreach ($tiposViolenciaArray as $texto) {
+                $tipo = new MpaTipoViolencia();
+                $tipo->setMpa($mpa);
+                $tipo->setDescripcionViolencia($texto);
+                $entityManager->persist($tipo);
             }
         }
 
-            $entityManager->flush();
+        $entityManager->persist($mpa);
+        $entityManager->flush();
 
-            //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);
-            $this->addFlash('success_js', 'Datos guardados correctamente');   
-           return $this->redirectToRoute('app_caso_index');
-        }
-
-        foreach ($tabsData as $clave => $valor) {
-            $parametros[$clave] = $valor;
-        }
-        $parametros['form'] = $form->createView();
-        $parametros['caso'] = $caso;     
-        $parametros['pestaña_activa'] = 'mpa';
-
-        return $this->render('mpa/edit.html.twig', $parametros);
-        
+        $this->addFlash('success_js', 'Datos de MPA actualizados correctamente');
+        return $this->redirectToRoute('app_caso_index');
     }
+
+    // Archivos asociados al MPA (igual que en show)
+    $archivos = $entityManager->getRepository(Archivo::class)->findBy(['mpa' => $mpa]);
+
+    foreach ($tabsData as $clave => $valor) {
+        $parametros[$clave] = $valor;
+    }
+    $parametros['form'] = $form->createView();
+    $parametros['caso'] = $caso;
+    $parametros['pestaña_activa'] = 'mpa';
+    $parametros['archivos'] = $archivos;
+
+    return $this->render('mpa/edit.html.twig', $parametros);
+}
+
 
     #[Route('/{id_mpa}', name: 'app_mpa_delete', methods: ['POST'])]
     public function delete(Request $request, Mpa $mpa, EntityManagerInterface $entityManager): Response
