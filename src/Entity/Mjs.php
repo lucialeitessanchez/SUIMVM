@@ -5,12 +5,36 @@ namespace App\Entity;
 use App\Entity\Nomenclador;
 use App\Entity\Caso;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'mjs')]
 
-class Mjs
+class Mjs implements ArchivableInterface
 {
+    #[ORM\OneToMany(mappedBy: 'mjs', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $archivos;
+
+    public function __construct()
+    {
+      
+        $this->archivos = new ArrayCollection();
+    }
+
+    public function addArchivo(Archivo $archivo): void
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setMjs($this); // aquí relacionás en el lado del archivo
+        }
+    }
+
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]

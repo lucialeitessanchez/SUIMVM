@@ -1,0 +1,32 @@
+<div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#seccion1">
+                    1. Historial de denuncias previas
+                </button>
+            </h2>
+            <div id="seccion1" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label for="denunciasPrevias">¿Cuántas denuncias previas registró la víctima en esta sede?</label>
+                    <input type="number" class="form-control" id="denunciasPrevias" placeholder="Número de denuncias previas">
+
+                    <div class="form-group">
+                        <label for="delitoDenunciado">Delito denunciado</label>
+                        <select class="form-select" id="delitoDenunciado">
+                            <option>Amenazas</option>
+                            <option>Acoso</option>
+                            <option>Hostigamiento</option>
+                        </select>
+                    </div>
+
+                    <label for="fechaDenuncia">Fecha aproximada de la denuncia</label>
+                    <input type="date" class="form-control" id="fechaDenuncia">
+
+                    <label for="resultadoDenuncia">Resultado de la denuncia</label>
+                    <select class="form-select" id="resultadoDenuncia">
+                        <option>En curso</option>
+                        <option>Archivada</option>
+                        <option>Resuelta</option>
+                        <option>Intervención preventiva sin sanción</option>
+                    </select>
+            </div>
+        </div>

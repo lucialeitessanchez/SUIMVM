@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+class MjsDefaultController extends AbstractController {
+
+#[Route('/mjs')]
+    #[Route('/index', name: 'app_index', methods: ['GET'])]
+    public function index(Security $security): Response {
+        $user = $security->getUser();
+        $token = $security->getToken();
+
+        if ($user instanceof \App\Security\User && method_exists($token, 'getAttributes')) {
+            $attrs = $token->getAttributes();
+
+            $user->setUid($attrs['uid'] ?? '');
+            $user->setCuil($attrs['cuil'] ?? '');
+            $user->setNombre($attrs['givenName'] ?? '');
+        }
+
+        return $this->render('index.html.twig', array('usuario' => $user));
+    }
+
+    #[Route('/secure/test', name: 'secure_test')]
+    public function testSecure(): Response
+    {
+        $usuario = $this->getUser();
+        return $this->render('index.html.twig', array('' => $usuario));
+    }
+
+    #[Route('/mjs_default', name: 'mjs_app_default', methods: ['GET'])]
+    public function default(EntityManagerInterface $entityManager): Response {
+        //$biens = $entityManager
+        //  ->getRepository(Bien::class)
+        //  ->findAll();
+        $usuario = $this->getUser();
+      
+        // return $this->render('index.html.twig');
+        return $this->render('mjs/justiciayseguridad_form.html.twig',array('sinCaso'=>false));
+    }
+  
+
+}

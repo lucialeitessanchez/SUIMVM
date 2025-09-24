@@ -38,6 +38,11 @@ class Archivo
     #[ORM\JoinColumn(name: 'caj_id', referencedColumnName: 'id_caj', nullable: true, onDelete: 'SET NULL')]
     private ?Caj $caj = null;
 
+    //mjs
+    #[ORM\ManyToOne(targetEntity: Mjs::class, inversedBy: 'archivos')]
+    #[ORM\JoinColumn(name: 'mjs_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    private ?Mjs $mjs = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +128,17 @@ class Archivo
     public function setCaj(?Caj $caj): static
     {
         $this->caj = $caj;
+
+        return $this;
+    }
+    public function getMjs(): ?Mjs
+    {
+        return $this->mjs;
+    }
+
+    public function setMjs(?Mjs $mjs): static
+    {
+        $this->mjs = $mjs;
 
         return $this;
     }

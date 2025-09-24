@@ -7,6 +7,8 @@ use App\Repository\MpaRepository;
 use App\Repository\GobLocalesRepository;
 use App\Repository\SmgydRepository;
 use App\Repository\SddnayfNewRepository;
+use App\Repository\PgcsjRepository;
+use App\Repository\MjsRepository;
 use App\Entity\Caso;
 
 class CasoTabsDataProvider
@@ -17,10 +19,12 @@ class CasoTabsDataProvider
     private $gobLocalesRepository;
     private $smgydRepository;
     private $sddnayfNewRepository;
+    private $pgcsjRepository;
+    private $mjsRepository;
 
     public function __construct(CajRepository $cajRepository, SdhRepository $sdhRepository, 
     MpaRepository $mpaRepository, GobLocalesRepository $gobLocalesRepository, 
-    SmgydRepository $smgydRepository,SddnayfNewRepository $sddnayfNewRepository)
+    SmgydRepository $smgydRepository,SddnayfNewRepository $sddnayfNewRepository,PgcsjRepository $pgcsjRepository, MjsRepository $mjsRepository)
     {
         $this->cajRepository = $cajRepository;
         $this->sdhRepository = $sdhRepository;
@@ -28,6 +32,8 @@ class CasoTabsDataProvider
         $this->gobLocalesRepository = $gobLocalesRepository;
         $this->smgydRepository = $smgydRepository;
         $this->sddnayfNewRepository = $sddnayfNewRepository;
+        $this->pgcsjRepository= $pgcsjRepository;
+        $this->mjsRepository = $mjsRepository;
     }
 
     public function getData(Caso $caso): array
@@ -50,7 +56,8 @@ class CasoTabsDataProvider
             'mpa' => $this->mpaRepository->findBy(['caso' => $caso]) ?: [],
             'smgyd' => $this->smgydRepository->findBy(['caso' => $caso]) ?: [],
             'sddnayf' => $this->sddnayfNewRepository->findBy(['caso' => $caso]) ?: [],
-            'pgcsj' => $this->sddnayfNewRepository->findBy(['caso' => $caso]) ?: [],
+            'pgcsj' => $this->pgcsjRepository->findBy(['caso' => $caso]) ?: [],
+            'mjs'=>$this->mjsRepository->findBy(['caso'=>$caso])?:[],
         ];
     }
 }

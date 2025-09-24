@@ -1,0 +1,155 @@
+ <!-- Sección 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#seccion1">
+                    1. Existencia de llamados al 911 relacionados con el hecho
+                </button>
+            </h2>
+            <div id="seccion1" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label>¿Hubo llamados al 911 el día del hecho?</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="huboLlamado911">
+                        <label class="form-check-label" for="huboLlamado911">No/Sí</label>
+                    </div>
+
+                    <label class="mt-2">¿Hubo llamados previos relacionados?</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="huboLlamadoPrevios911">
+                        <label class="form-check-label" for="huboLlamado911">No/Sí</label>
+                    </div>
+                    
+                    <label class="mt-2">¿Dispone del audio del llamado?</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="hayAudio911">
+                        <label class="form-check-label" for="huboLlamado911">No/Sí</label>
+                    </div>
+                    <input type="file" class="form-control mt-2">
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#seccion2">
+                    2. Características de los llamados
+                </button>
+            </h2>
+            <div id="seccion2" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label>Persona que realiza el llamado:</label>
+                    <select class="form-select">
+                        <option>La propia víctima</option>
+                        <option>Vecinos</option>
+                        <option>Familiares</option>
+                        <option>Transeúntes</option>
+                        <option>Compañeros de trabajo</option>
+                    </select>
+
+                    <label class="mt-2">Tipo de emergencia:</label>
+                    <select class="form-select">
+                        <option>Informe sobre muerte o hallazgo de cadáver</option>
+                        <option>Solicitud de auxilio por agresiones o conflictos</option>
+                        <option>Intervención por salud mental</option>
+                        <option>Intento de suicidio</option>
+                        <option>Informe sobre desaparición de una persona</option>
+                        <option>Situación sospechosa</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#seccion3">
+                    3. Tiempo de respuesta del 911
+                </button>
+            </h2>
+            <div id="seccion3" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label>Tiempo transcurrido (en minutos):</label>
+                    <input type="number" class="form-control">
+
+                    <label class="mt-2">Tipo de respuesta enviada:</label>
+                    <select class="form-select">
+                        <option>Móvil policial</option>
+                        <option>Unidad de atención médica</option>
+                        <option>Unidad de emergencia de salud mental</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 4 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#seccion4">
+                    4. Seguimiento posterior al primer llamado
+                </button>
+            </h2>
+            <div id="seccion4" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label>¿Hubo seguimiento posterior?</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="huboLlamado911">
+                        <label class="form-check-label" for="huboLlamado911">No/Sí</label>
+                    </div>
+                    <label class="mt-2">Tiempo hasta el seguimiento (minutos):</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 5 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#seccion5">
+                    5. Calidad de la respuesta
+                </button>
+            </h2>
+            <div id="seccion5" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label>Estado de la situación:</label>
+                    <select class="form-select">
+                        <option>Controlada</option>
+                        <option>En curso</option>
+                        <option>Escalada de violencia</option>
+                    </select>
+
+                    <label class="mt-2">¿Se notificó a otros organismos?</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="huboLlamado911">
+                        <label class="form-check-label" for="huboLlamado911">No/Sí</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 6 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#seccion6">
+                    6. Resultado de la intervención
+                </button>
+            </h2>
+            <div id="seccion6" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label>Resultado de la intervención:</label>
+                    <select class="form-select">
+                        <option>Víctima derivada a centro médico</option>
+                        <option>Víctima trasladada a lugar seguro</option>
+                        <option>Agresor detenido</option>
+                        <option>Agresor fugado</option>
+                    </select>
+
+                    <label class="mt-2">¿Se necesitó una intervención adicional?</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="huboLlamado911">
+                        <label class="form-check-label" for="huboLlamado911">No/Sí</label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
