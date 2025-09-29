@@ -10,6 +10,7 @@ use App\Repository\SddnayfNewRepository;
 use App\Repository\PgcsjRepository;
 use App\Repository\MjsRepository;
 use App\Entity\Caso;
+use App\Entity\MjsServicioPenitenciario;
 
 class CasoTabsDataProvider
 {
@@ -20,11 +21,11 @@ class CasoTabsDataProvider
     private $smgydRepository;
     private $sddnayfNewRepository;
     private $pgcsjRepository;
-    private $mjsRepository;
+    private $mjsServicioPenitenciarioRepository;
 
     public function __construct(CajRepository $cajRepository, SdhRepository $sdhRepository, 
     MpaRepository $mpaRepository, GobLocalesRepository $gobLocalesRepository, 
-    SmgydRepository $smgydRepository,SddnayfNewRepository $sddnayfNewRepository,PgcsjRepository $pgcsjRepository, MjsRepository $mjsRepository)
+    SmgydRepository $smgydRepository,SddnayfNewRepository $sddnayfNewRepository,PgcsjRepository $pgcsjRepository, MjsServicioPenitenciario $mjsServicioPenitenciarioRepository)
     {
         $this->cajRepository = $cajRepository;
         $this->sdhRepository = $sdhRepository;
@@ -33,12 +34,12 @@ class CasoTabsDataProvider
         $this->smgydRepository = $smgydRepository;
         $this->sddnayfNewRepository = $sddnayfNewRepository;
         $this->pgcsjRepository= $pgcsjRepository;
-        $this->mjsRepository = $mjsRepository;
+        $this->mjsServicioPenitenciarioRepository = $mjsServicioPenitenciarioRepository;
     }
 
     public function getData(Caso $caso): array
     {
-      /*  return [
+    /*  return [
             'caj' => $this->cajRepository->findBy(['caso' => $caso]),
             'sdh' => $this->sdhRepository->findBy(['caso' => $caso]),
             'gl' => $this->gobLocalesRepository->findBy(['caso' => $caso]),
@@ -46,9 +47,9 @@ class CasoTabsDataProvider
             'smgyd'=> $this->smgydRepository->findBy(['caso' => $caso],),
             'sddnayf'=> $this->sddnayfNewRepository->findBy(['caso' => $caso],)
             //'mpa' => $this->mpaRepository->findByCasoWithTipoViolencia($caso),
-           
+        
         ];*/
-           
+        
         return [
             'caj' => $this->cajRepository->findBy(['caso' => $caso]) ?: [],
             'sdh' => $this->sdhRepository->findBy(['caso' => $caso]) ?: [],
@@ -57,7 +58,7 @@ class CasoTabsDataProvider
             'smgyd' => $this->smgydRepository->findBy(['caso' => $caso]) ?: [],
             'sddnayf' => $this->sddnayfNewRepository->findBy(['caso' => $caso]) ?: [],
             'pgcsj' => $this->pgcsjRepository->findBy(['caso' => $caso]) ?: [],
-            'mjs'=>$this->mjsRepository->findBy(['caso'=>$caso])?:[],
+            'mjsServicioPenitenciario'=>$this->mjsServicioPenitenciarioRepository->findBy(['caso'=>$caso])?:[],
         ];
     }
 }

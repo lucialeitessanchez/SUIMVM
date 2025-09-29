@@ -9,16 +9,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'mjs')]
+#[ORM\Table(name: 'mjs_servicio_penitenciario')]
 
-class Mjs implements ArchivableInterface
+class MjsServicioPenitenciario implements ArchivableInterface
 {
-    #[ORM\OneToMany(mappedBy: 'mjs', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'mjs_servicio_penitenciario', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $archivos;
 
     public function __construct()
     {
-      
         $this->archivos = new ArrayCollection();
     }
 
@@ -26,7 +25,7 @@ class Mjs implements ArchivableInterface
     {
         if (!$this->archivos->contains($archivo)) {
             $this->archivos->add($archivo);
-            $archivo->setMjs($this); // aquí relacionás en el lado del archivo
+            $archivo->setMjsServicioPenitenciario($this); // aquí relacionás en el lado del archivo
         }
     }
 
