@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
-use App\Service\ArchivoAdjuntoService;
+//use App\Service\ArchivoAdjuntoService;
 
 #[Route('/pgcsj')]
 class PgcsjController extends AbstractController
@@ -34,7 +34,7 @@ class PgcsjController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em,
     CasoRepository $casoRepo, SessionInterface $session,
     CasoTabsDataProvider $tabsProvider,
-    ArchivoAdjuntoService $archivoService  
+    
     ): Response
     {
         $idCaso = $session->get('caso_id');
@@ -85,14 +85,16 @@ class PgcsjController extends AbstractController
         
             $em->persist($pgcsj);
             $em->flush(); 
-            /** @var UploadedFile[] $archivos */
+           
+            /*
+           
             $archivos = $form->get('archivos')->get('archivo')->getData();
             if ($archivos) {
                     $usuario = 'prueba'; // o el objeto User según tu entidad
                     $archivoService->guardarAdjuntos($archivos, 'Pgcsj', $pgcsj->getId(), $usuario);
             }
 
-          
+          */
 
             $this->addFlash('success_js', 'Seccion PGCSJ guardada correctamente');   
             return $this->redirectToRoute('app_caso_index');
