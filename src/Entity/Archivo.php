@@ -39,9 +39,9 @@ class Archivo
     private ?Caj $caj = null;
 
     //mjs
-    #[ORM\ManyToOne(targetEntity: Mjs::class, inversedBy: 'archivos')]
+    #[ORM\ManyToOne(targetEntity: MjsServicioPenitenciario::class, inversedBy: 'archivos')]
     #[ORM\JoinColumn(name: 'mjs_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
-    private ?Mjs $mjs = null;
+    private ?MjsServicioPenitenciario $mjs = null;
 
     public function getId(): ?int
     {
@@ -131,12 +131,12 @@ class Archivo
 
         return $this;
     }
-    public function getMjs(): ?Mjs
+    public function getMjs(): ?MjsServicioPenitenciario
     {
         return $this->mjs;
     }
 
-    public function setMjs(?Mjs $mjs): static
+    public function setMjs(?MjsServicioPenitenciario $mjs): static
     {
         $this->mjs = $mjs;
 
