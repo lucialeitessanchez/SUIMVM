@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Mjs;
 use App\Entity\Caso;
 use App\Entity\ArchivableInterface;
+use App\Entity\MjsServicioPenitenciario;
 use App\Form\MjsServicioPenitenciarioType;
 use App\Repository\CasoRepository;
 use App\Service\ArchivoService;
@@ -30,7 +31,7 @@ class MjsServicioPenitenciarioController extends AbstractController
     #[Route('/', name: 'mjs_index', methods: ['GET'])]
     public function index(EntityManagerInterface $em): Response
     {
-        $mjsList = $em->getRepository(Mjs::class)->findAll();
+        $mjsList = $em->getRepository(MjsServicioPenitenciario::class)->findAll();
 
         return $this->render('smgyd/mjs/index.html.twig', [
             'mjsList' => $mjsList,
@@ -64,7 +65,7 @@ class MjsServicioPenitenciarioController extends AbstractController
             // Llamar al método edit y devolver su Response
             return $this->edit($request,$idCaso, $em, $casoRepository, $tabsProvider,  $archivoService);
         } 
-        $mjs = new Mjs();
+        $mjs = new MjsServicioPenitenciario();
         $form = $this->createForm(MjsServicioPenitenciarioType::class, $mjs);
 
         $form->handleRequest($request);
@@ -95,7 +96,7 @@ class MjsServicioPenitenciarioController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'mjs_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Mjs $mjs, EntityManagerInterface $em): Response
+    public function edit(Request $request, MjsServicioPenitenciario $mjs, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(MjsServicioPenitenciarioType::class, $mjs);
 
@@ -113,7 +114,7 @@ class MjsServicioPenitenciarioController extends AbstractController
     }
 
     #[Route('/{id}', name: 'mjs_show', methods: ['GET'])]
-    public function show(Mjs $mjs): Response
+    public function show(MjsServicioPenitenciario $mjs): Response
     {
         return $this->render('smgyd/mjs/show.html.twig', [
             'mjs' => $mjs,
@@ -121,7 +122,7 @@ class MjsServicioPenitenciarioController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'mjs_delete', methods: ['POST'])]
-    public function delete(Request $request, Mjs $mjs, EntityManagerInterface $em): Response
+    public function delete(Request $request, MjsServicioPenitenciario $mjs, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete'.$mjs->getId(), $request->request->get('_token'))) {
             $em->remove($mjs);

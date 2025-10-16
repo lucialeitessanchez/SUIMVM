@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Mjs;
 use App\Entity\Nomenclador;
 use App\Entity\Caso;
+use App\Entity\MjsServicioPenitenciario;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -59,14 +60,15 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione',
-                'required' => false, 'label'=>'Motivo',
+                'required' => false, 
+                'label'=>'Tipo de tratamiento recibido ',                
                 'query_builder' => function ($repo) {
                     return $repo->createQueryBuilder('n')
                         ->where('n.nomenclador = :clave')
                         ->setParameter('clave', 'MJS_TIPO_TRATAMIENTO')
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
-        ])
+               ])
            
             ->add('mjs_1b5_b', ChoiceType::class, [
                 'label' => 'Cumplimiento',
@@ -100,30 +102,80 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'attr' => ['class' => 'form-check'], // se puede personalizar más en el Twig
             ])
            
-            ->add('mjs_2a', CheckboxType::class, ['required' => false])
-            ->add('mjs_2b', TextType::class, ['required' => false])
+            ->add('mjs_2a', CheckboxType::class, [ //existencia de medidas
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+           
             ->add('mjs_2b1', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'descripcion',
                 'placeholder' => 'Seleccione',
                 'required' => false,
             ])
+            ->add('mjs_2b1', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione',
+                'required' => false, 
+                'label'=>'Motivo de encarcelamiento',                
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'MJS_MOTIVO_ENCARCELAMIENTO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+               ])
+
             ->add('mjs_2b2', TextType::class, ['required' => false])
             ->add('mjs_2b3', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false,
             ])
-            ->add('mjs_2b4', CheckboxType::class, ['required' => false])
-            ->add('mjs_3a', CheckboxType::class, ['required' => false])
-            ->add('mjs_3b', TextType::class, ['required' => false])
+            ->add('mjs_2b4', CheckboxType::class, [ //existencia de medidas
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('mjs_3a', CheckboxType::class, [ //existencia de medidas
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+         
             ->add('mjs_3b1', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'descripcion',
                 'placeholder' => 'Seleccione',
                 'required' => false,
             ])
-            ->add('mjs_4a', CheckboxType::class, ['required' => false])
-            ->add('mjs_4b', TextareaType::class, ['required' => false])
+            ->add('mjs_3b1', EntityType::class, [
+                'class' => Nomenclador::class,
+                'choice_label' => 'valor_nomenclador',
+                'placeholder' => 'Seleccione',
+                'required' => false, 
+                'label'=>'Tratamiento e intervenciones asignados',                
+                'query_builder' => function ($repo) {
+                    return $repo->createQueryBuilder('n')
+                        ->where('n.nomenclador = :clave')
+                        ->setParameter('clave', 'MJS_MOTIVO_ENCARCELAMIENTO')
+                        ->orderBy('n.valor_nomenclador', 'ASC');
+                },
+               ])
+            ->add('mjs_4a', CheckboxType::class, [ //existencia de medidas
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+            ])
+            ->add('mjs_4b', TextareaType::class, [
+                'required' => false,
+                'label'=>"Opinion del equipo penitenciario sobre la posibilidad de reinsercion social del agresor"
+                ])
             ;
          
     }
@@ -131,7 +183,7 @@ class MjsServicioPenitenciarioType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Mjs::class,
+            'data_class' => MjsServicioPenitenciario::class,
         ]);
     }
 }
