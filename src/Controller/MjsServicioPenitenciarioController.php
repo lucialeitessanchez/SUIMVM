@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
 
-#[Route('/mjs')]
+#[Route('/mjs/servicio-penitenciario')]
 class MjsServicioPenitenciarioController extends AbstractController
 {
     private ArchivoService $archivoService;
@@ -38,7 +38,7 @@ class MjsServicioPenitenciarioController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'mjs_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_mjs_servicio_penitenciario', methods: ['GET', 'POST'])]
     public function new(Request $request,  CasoTabsDataProvider $tabsProvider, 
     CasoRepository $casoRepository, 
     EntityManagerInterface $em,SessionInterface $session,
@@ -67,8 +67,8 @@ class MjsServicioPenitenciarioController extends AbstractController
         } 
         $mjs = new MjsServicioPenitenciario();
         $form = $this->createForm(MjsServicioPenitenciarioType::class, $mjs);
-
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
           
             if (!$sinCaso)
@@ -88,11 +88,11 @@ class MjsServicioPenitenciarioController extends AbstractController
             $this->addFlash('success_js', 'Seccion MJyS guardada correctamente');   
             return $this->redirectToRoute('app_caso_index');
         }
-
-        $parametros['form'] = $form->createView();
-        $parametros['sinCaso'] = $sinCaso;
-        $parametros['modo'] = 'edit';
-        return $this->render('mjs/new.html.twig', $parametros);
+            return $this->render('mjs/_form_sp.html.twig', [
+                'form' => $form->createView(),
+                'sinCaso' => $sinCaso,
+                'modo' => 'edit',
+            ]);
     }
 
     #[Route('/{id}/edit', name: 'mjs_edit', methods: ['GET', 'POST'])]

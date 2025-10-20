@@ -16,52 +16,11 @@
     });
   </script>
 {% endif %}
-    <!-- SUBMENÚ PARA EL MINISTERIO DE JUSTICIA Y SEGURIDAD -->
-<!-- SUBMENÚ LATERAL -->
-<button class="btn btn-outline-primary d-lg-none" onclick="toggleMenu()">☰ Menú</button>
-<div id="subMenu" class="bg-light border-end p-3" style="width: 250px; height: 100vh; position: fixed; left: 0; top: 56px; display: none;">
-    <h5 class="fw-bold">Ministerio de Justicia y Seguridad</h5>
-    <ul class="nav flex-column">
-        <li class="nav-item"><a id="menu-911" class="nav-link">📞 911 - Centro de Emergencias</a></li>
-        <li class="nav-item"><a id="menu-denunciasPrevias" class="nav-link">📄 Denuncias Previas</a></li>
-        <li class="nav-item"><a id="menu-denunciasPosteriores" class="nav-link">⚖️ Denuncias Posteriores al Hecho de Muerte</a></li>
-        <li class="nav-item"><a id="menu-programaProtec" class="nav-link">🔒 Programa de Protección a Víctimas y Testigos</a></li>
-        <li class="nav-item"><a id="menu-agenciaInvestigacion" class="nav-link">🕵️ Agencia de Investigación Criminal</a></li>
-        <li class="nav-item"><a id="menu-servicioPenitenciario" class="nav-link">🏛️ Servicio Penitenciario</a></li>
-    </ul>
-</div>
-
-    <!-- 🔹 Contenedor del Acordeón 911 opcion -->
-    <div id="accordionContainer911" class="accordionContainer">
-    <h4>Detalles del 911 - Centro de Emergencias</h4>
-        <div class="accordion" id="accordion911">
-        
-
-        </div>
-    </div>
-
-    <!-- Acordeón para Denuncias Previas -->
-    <div id="accordionContainerDenunciasPrevias" class="accordionContainer" style="display: none;">
-        <h4>Denuncias previas</h4>
-        <div class="accordion" id="accordiondenunciasPrevias">
-            <!-- Sección 1 -->
-            
-        </div>
-    </div>
-    <!-- Acordeón para Servicio Penitenciario -->
-    <div id="accordionContainerservicioPenitenciario" class="accordionContainer" style="display: none;">
-        <h4>Denuncias previas</h4>
-        <div class="accordion" id="accordionservicioPenitenciario">
-              
-        </div>
-    </div>
-</div>
-{% endblock %}
-{% block javascripts %}
-
-     {{ parent()}}
-       <script src="{{ asset('js/submenu.js') }}"></script>
+  <div class="d-flex">
+    {% include 'mjs/_submenu_justiciayseguridad.html.twig' %}
    
+  </div>
+
 {% endblock %}
 
 

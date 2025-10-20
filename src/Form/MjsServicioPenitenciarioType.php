@@ -109,12 +109,7 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'label_attr' => ['class' => 'form-check-label'],
             ])
            
-            ->add('mjs_2b1', EntityType::class, [
-                'class' => Nomenclador::class,
-                'choice_label' => 'descripcion',
-                'placeholder' => 'Seleccione',
-                'required' => false,
-            ])
+            
             ->add('mjs_2b1', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',
@@ -147,12 +142,7 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'label_attr' => ['class' => 'form-check-label'],
             ])
          
-            ->add('mjs_3b1', EntityType::class, [
-                'class' => Nomenclador::class,
-                'choice_label' => 'descripcion',
-                'placeholder' => 'Seleccione',
-                'required' => false,
-            ])
+          
             ->add('mjs_3b1', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',

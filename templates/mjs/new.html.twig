@@ -1,14 +1,14 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}MJyS{% endblock %}
 
 {% block body %}
 
-    {{ include('mjs/_form.html.twig', {'button_label': 'Guardar'}) }}
+      {{ include('mjs/_form_sp.html.twig', {
+        'form': form,
+        'button_label': 'Guardar'
+    }) }}
     
 {% endblock %}
 {% block javascripts %}
 
-   {{ parent()}}
+ 
     
 {% endblock %}

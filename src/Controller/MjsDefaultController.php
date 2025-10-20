@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Entity\MjsServicioPenitenciario;
+use App\Form\MjsServicioPenitenciarioType;
 
 class MjsDefaultController extends AbstractController {
 
@@ -38,14 +41,20 @@ class MjsDefaultController extends AbstractController {
     }
 
     #[Route('/mjs_default', name: 'mjs_app_default', methods: ['GET'])]
-    public function default(EntityManagerInterface $entityManager): Response {
+    public function default(Request $request,EntityManagerInterface $entityManager,
+    SessionInterface $session, MjsServicioPenitenciarioController $mjsController): Response {
         //$biens = $entityManager
         //  ->getRepository(Bien::class)
         //  ->findAll();
         $usuario = $this->getUser();
-      
+       // Creamos una instancia vacía del formulario hijo
+   
+
+    return $this->render('mjs/justiciayseguridad_form.html.twig', [
+        'sinCaso' => false,
+    ]);
         // return $this->render('index.html.twig');
-        return $this->render('mjs/justiciayseguridad_form.html.twig',array('sinCaso'=>false));
+      //  return $this->render('mjs/justiciayseguridad_form.html.twig',array('sinCaso'=>false));
     }
   
 
