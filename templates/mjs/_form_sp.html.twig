@@ -2,17 +2,30 @@
 {% block body %}
    {% include 'mjs/_submenu_justiciayseguridad.html.twig' %}
 <div class="container mt-3" style="margin-left:270px;">
-  <h3 class="mb-4">🏛️ Servicio Penitenciario</h3>
+ 
+      <div class="d-flex align-items-center justify-content-between mb-5">
+          <h2 class="mb-0">🏛️ Servicio Penitenciario</h2>
+
+          <div class="ms-3 d-flex align-items-center flex-grow-1"  style="min-width: 0;">
+                <span style="margin-left:500px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    Ud. está trabajando con el caso Nro:
+                </span>
+                <span class="badge badge-caso ms-2">{{ caso.idCaso }}</span>
+            </div>
+            
+        </div>
+        
+            
     {{ form_start(form) }}
  
     <div class="row mb-3">       
-        <div class="col-md-3">
+        <div class="col-md-4">
              <label for="mjs_1a" class="form-label">¿El agresor tuvo situaciones de encarcelamiento previas al hecho?</label>
              <div class="form-check form-switch">
                   {{ form_row(form.mjs_1a, {'label_attr': {'class': 'form-label'}}) }}
              </div>
         </div>    
-        <div class="col-md-3">
+        <div class="col-md-4">
           {{ form_label(form.mjs_1b1, null, {'label_attr': {'class': 'form-label'}}) }}
             {{ form_errors(form.mjs_1b1) }}
             {{ form_widget(form.mjs_1b1, {'attr': {'class': 'form-select'}}) }}
@@ -22,16 +35,14 @@
             {{ form_errors(form.mjs_1b2) }}
             {{ form_widget(form.mjs_1b2, {'attr': {'class': 'form-control'}}) }}
         </div>
+    </div>
+       <div class="row mb-3">        
         <div class="col-md-3">                   
            {{ form_label(form.mjs_1b3, null, {'label_attr': {'class': 'form-label'}}) }}
             {{ form_errors(form.mjs_1b3) }}
             {{ form_widget(form.mjs_1b3, {'attr': {'class': 'form-control'}}) }}
         </div>
-        
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-2">
+        <div class="col-md-5">
             <label for="mjs_1b4" class="form-label">¿El agresor recibio algun tipo de tratamiento o intervencion durante su tiempo de reclusion?</label>
                 <div class="form-check form-switch">
                     {{ form_row(form.mjs_1b4, {'label_attr': {'class': 'form-label'}}) }}
@@ -42,20 +53,20 @@
             {{ form_errors(form.mjs_1b5_a) }}
             {{ form_widget(form.mjs_1b5_a, {'attr': {'class': 'form-select'}}) }}        
         </div>
-        <div class="col-md-2">
-            <div class="form-check">
-                {{ form_widget(form.mjs_1b5_b) }}
-            </div>
+    </div>
+
+    <div class="row mb-3">        
+        <div class="col-md-4">
+         <label for="mjs_1b5_b" class="form-label">Cumplimiento</label>
+              {{ form_widget(form.mjs_1b5_b) }}
         </div>
-        <div class="col-md-4 rango-wrapper">
-             {{ form_label(form.mjs_1b5_c, null, {'label_attr': {'class': 'form-label'}}) }}
-             {{ form_widget(form.mjs_1b5_c) }}
-            <span class="etiqueta-rango mt-2 fw-bold">Seleccione una opción</span>
+        <div class="col-md-4">
+         {{ form_row(form.mjs_1b5_c) }}
         </div>
     </div>
 
     <div class="row mb-3">
-        <div class="col-md-2">         
+        <div class="col-md-4">         
              <label for="mjs_2a" class="form-label">¿La victima tuvo situaciones de encarcelamiento previas al hecho?</label>
              <div class="form-check form-switch">
                   {{ form_row(form.mjs_2a, {'label_attr': {'class': 'form-label'}}) }}
@@ -66,6 +77,7 @@
             {{ form_errors(form.mjs_2b1) }}
             {{ form_widget(form.mjs_2b1, {'attr': {'class': 'form-select'}}) }}        
         </div>
+    
         <div class="col-md-2">      
             {{ form_label(form.mjs_2b2, null, {'label_attr': {'class': 'form-label'}}) }}
             {{ form_errors(form.mjs_2b2) }}
@@ -76,7 +88,9 @@
             {{ form_errors(form.mjs_2b3) }}
             {{ form_widget(form.mjs_2b3, {'attr': {'class': 'form-control'}}) }} 
         </div>
-        <div class="col-md-2">
+     </div>
+     <div class="row mb-3">     
+        <div class="col-md-6">
              <label for="mjs_2b4" class="form-label">¿La victima recibio algun tipo de intervencion penitenciaria en relacion a violencia de genero?</label>
              <div class="form-check form-switch">
                   {{ form_row(form.mjs_2b4, {'label_attr': {'class': 'form-label'}}) }}
@@ -85,8 +99,8 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-md-2">
-         <label for="mjs_3a" class="form-label">¿El agresor fue encarcelado despues del hecjo de femicidio?</label>
+        <div class="col-md-4">
+         <label for="mjs_3a" class="form-label">¿El agresor fue encarcelado despues del hecho de femicidio?</label>
              <div class="form-check form-switch">
                   {{ form_row(form.mjs_3a, {'label_attr': {'class': 'form-label'}}) }}
              </div>
@@ -96,7 +110,7 @@
             {{ form_errors(form.mjs_3b1) }}
             {{ form_widget(form.mjs_3b1, {'attr': {'class': 'form-select'}}) }} 
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
              <label for="mjs_4a" class="form-label">¿Se ha realizado una evalucion de riesgo de reincidencia?</label>
              <div class="form-check form-switch">
                   {{ form_row(form.mjs_4a, {'label_attr': {'class': 'form-label'}}) }}
@@ -110,10 +124,17 @@
             {{ form_widget(form.mjs_4b, {'attr': {'class': 'form-control'}}) }}
         </div>
     </div>
-    <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </div>
-
+    <br>
+ {% if modo != 'show' %}
+        <div class="col-md-10 d-flex justify-content-end">
+                <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+                <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">{{ button_label|default('Guardar') }}</button>
+               &nbsp;&nbsp;&nbsp;
+                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
+                </div>
+        </div>
+   {% endif %}
+   <br>
     {{ form_end(form) }}
 </div>
 {% endblock %}

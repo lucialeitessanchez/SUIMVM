@@ -44,10 +44,15 @@ class MjsServicioPenitenciarioType extends AbstractType
                 },
         ])
           
-            ->add('mjs_1b2', TextType::class, ['required' => false])
+            ->add('mjs_1b2', TextType::class, [
+                'required' => false,
+                'label'=>'Duracion de la condena'
+                ])
+
             ->add('mjs_1b3', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false,
+                'label'=>'Fecha de liberacion'
             ])
             
             ->add('mjs_1b4', CheckboxType::class, [ //existencia de medidas
@@ -55,6 +60,7 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
+                
             ])
             ->add('mjs_1b5_a', EntityType::class, [
                 'class' => Nomenclador::class,
@@ -86,13 +92,13 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'attr' => ['class' => 'form-check'], // se puede personalizar más en el Twig
             ])
            
+   
             ->add('mjs_1b5_c', ChoiceType::class, [
                 'label' => 'Evaluacion de la conducta',
                 'choices' => [
                     'Colaborador' => 'Colaborador',
                     'Conflictivo' => 'Conflictivo',
                     'Distante' => 'Distante',
-                    
                 ],
                 'expanded' => true, // Muestra como botones radio
                 'multiple' => false, // Solo se puede elegir una
@@ -123,11 +129,14 @@ class MjsServicioPenitenciarioType extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
                ])
-
-            ->add('mjs_2b2', TextType::class, ['required' => false])
+            ->add('mjs_2b2', TextType::class, [
+                'required' => false,
+                'label'=>'Duracion de la condena'
+                ])
             ->add('mjs_2b3', DateType::class, [
                 'widget' => 'single_text',
                 'required' => false,
+                'label'=>'Fecha de liberacion'
             ])
             ->add('mjs_2b4', CheckboxType::class, [ //existencia de medidas
                 'label' => 'No / Sí',
@@ -140,9 +149,7 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
-            ])
-         
-          
+            ])          
             ->add('mjs_3b1', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',

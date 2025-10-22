@@ -41,7 +41,7 @@ class MjsServicioPenitenciarioController extends AbstractController
     #[Route('/new', name: 'app_mjs_servicio_penitenciario', methods: ['GET', 'POST'])]
     public function new(Request $request,  CasoTabsDataProvider $tabsProvider, 
     CasoRepository $casoRepository, 
-    EntityManagerInterface $em,SessionInterface $session,
+    EntityManagerInterface $em,SessionInterface $session,CasoRepository $casoRepo,
     ArchivoService $archivoService): Response
     {
         $idCaso = $session->get('caso_id');
@@ -55,17 +55,22 @@ class MjsServicioPenitenciarioController extends AbstractController
         } else {
             $caso = $em->getRepository(Caso::class)->find($idCaso);
             $parametros['caso'] = $caso;
-            $tabsData = $tabsProvider->getData($casoRepository->find($idCaso));
+            $tabsData = $tabsProvider->getData($casoRepo->find($idCaso));
+
             if (!$caso) {
                 $this->addFlash('error', 'El caso seleccionado no existe.');
                 $sinCaso = true;
             }
         }
-        if (!empty($tabsData['mjs'])) {
+        if (!empty($tabsData['mjs_sp'])) {
             // Llamar al método edit y devolver su Response
             return $this->edit($request,$idCaso, $em, $casoRepository, $tabsProvider,  $archivoService);
         } 
         $mjs = new MjsServicioPenitenciario();
+
+        $mjs->setFechaCarga(new \DateTimeImmutable());
+        $mjs->setUsuarioCarga($this->getUser()?->getUserIdentifier() ?? 'sistema');
+
         $form = $this->createForm(MjsServicioPenitenciarioType::class, $mjs);
         $form->handleRequest($request);
         
@@ -75,24 +80,23 @@ class MjsServicioPenitenciarioController extends AbstractController
             $mjs->setCaso($caso); 
 
             $em->persist($mjs);
-
+/*
              // Manejo de archivos usando el servicio
              $archivosSubidos = $form->get('archivos')->getData();
 
              foreach ($archivosSubidos as $uploadedFile) {
                  $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $mjs);
                  $em->persist($archivoEntity);
-             }
+             }*/
             $em->flush();
        
-            $this->addFlash('success_js', 'Seccion MJyS guardada correctamente');   
+            $this->addFlash('success_js', 'Seccion MJyS-Servicio Penitenciario guardada correctamente');   
             return $this->redirectToRoute('app_caso_index');
         }
-            return $this->render('mjs/_form_sp.html.twig', [
-                'form' => $form->createView(),
-                'sinCaso' => $sinCaso,
-                'modo' => 'edit',
-            ]);
+        $parametros['form'] = $form->createView();
+        $parametros['sinCaso'] = $sinCaso;
+        $parametros['modo'] = 'edit';
+            return $this->render('mjs/_form_sp.html.twig',$parametros);
     }
 
     #[Route('/{id}/edit', name: 'mjs_edit', methods: ['GET', 'POST'])]
@@ -109,7 +113,7 @@ class MjsServicioPenitenciarioController extends AbstractController
 
         return $this->render('smgyd/mjs/edit.html.twig', [
             'form' => $form->createView(),
-            'mjs' => $mjs,
+            'mjs' => $mjs, 
         ]);
     }
 

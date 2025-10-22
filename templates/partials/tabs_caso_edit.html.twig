@@ -87,13 +87,13 @@
       <a href="{{ path('app_sddnayf_edit', { idCaso: caso.idCaso }) }}"
          class="circle-tab {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
          title="Sec.de Derechos de la Niñez, Adolescencia y Familia">
-        <span class="circle-letter"><h6>SDDNAyF</h6></span>
+        <span class="circle-letter"><h6 style="font-size: 0.9rem; margin:0;">SDDNAyF</h6></span>
       </a>
      {% else %}
           <a href="{{ path('app_sddnayf_new', { idCaso: caso.idCaso }) }}"
             class="circle-tab position-relative {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
             title="Sec.de Derechos de la Niñez, Adolescencia y Familia">
-              <span class="circle-letter"><h6>SDDNAyF</h6></span>
+              <span class="circle-letter"><h6 style="font-size: 0.8rem; margin:0;">SDDNAyF</h6></span>
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
     {% endif %}

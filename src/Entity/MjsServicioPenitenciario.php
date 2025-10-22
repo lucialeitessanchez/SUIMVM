@@ -61,7 +61,7 @@ class MjsServicioPenitenciario implements ArchivableInterface
     private ?Nomenclador $mjs_1b5_a = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?int $mjs_1b5_b = null;
+    private ?string $mjs_1b5_b = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $mjs_1b5_c = null;
