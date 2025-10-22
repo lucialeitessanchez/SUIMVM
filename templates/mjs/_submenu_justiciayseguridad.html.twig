@@ -10,9 +10,14 @@
         <li class="nav-item"><a id="menu-denunciasPosteriores" class="nav-link">⚖️ Denuncias Posteriores al Hecho de Muerte</a></li>
         <li class="nav-item"><a id="menu-programaProtec" class="nav-link">🔒 Programa de Protección a Víctimas y Testigos</a></li>
         <li class="nav-item"><a id="menu-agenciaInvestigacion" class="nav-link">🕵️ Agencia de Investigación Criminal</a></li>
+         
         <li class="nav-item">
         <a id="menu-servicioPenitenciario" class="nav-link"
-            href="{{ path('app_mjs_servicio_penitenciario') }}">
+            href="{% if mjs_sp is empty %}
+                        {{ path('app_mjs_servicio_penitenciario') }}
+                    {% else %}
+                        {{ path ('app_mjs_servicio_penitenciario_edit', { id: mjs_sp.id }) }}
+                    {% endif %}">
             🏛️ Servicio Penitenciario
         </a>
         </li>

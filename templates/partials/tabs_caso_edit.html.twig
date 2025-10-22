@@ -111,6 +111,22 @@
               <i class="bi bi-plus-circle small-icon-overlay"></i>
           </a>
     {% endif %}
+
+  {% if mjs_sp is not empty %}
+      <a href="{{ path('mjs_app_default', { idCaso: caso.idCaso }) }}"
+         class="circle-tab {% if pestaña_activa == 'mjs_sp' %}active{% endif %}"
+         title="MJS">
+        <span class="circle-letter"><h6>MJS</h6></span>
+      </a>
+     {% else %}
+          <a href="{{ path('mjs_app_default', { idCaso: caso.idCaso }) }}"
+            class="circle-tab position-relative {% if pestaña_activa == 'mjs' %}active{% endif %}"
+            title="MJS">
+              <span class="circle-letter"><h6>MJS</h6></span>
+              <i class="bi bi-plus-circle small-icon-overlay"></i>
+          </a>
+    {% endif %}
+    
   </div>
 
 

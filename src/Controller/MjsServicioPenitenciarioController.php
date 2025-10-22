@@ -99,7 +99,7 @@ class MjsServicioPenitenciarioController extends AbstractController
             return $this->render('mjs/_form_sp.html.twig',$parametros);
     }
 
-    #[Route('/{id}/edit', name: 'mjs_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_mjs_servicio_penitenciario_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MjsServicioPenitenciario $mjs, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(MjsServicioPenitenciarioType::class, $mjs);
@@ -117,10 +117,10 @@ class MjsServicioPenitenciarioController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'mjs_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'mjs_sp_show', methods: ['GET'])]
     public function show(MjsServicioPenitenciario $mjs): Response
     {
-        return $this->render('smgyd/mjs/show.html.twig', [
+        return $this->render('mjs/show_sp.html.twig', [
             'mjs' => $mjs,
         ]);
     }

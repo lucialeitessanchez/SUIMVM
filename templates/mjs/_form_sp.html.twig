@@ -1,6 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block body %}
    {% include 'mjs/_submenu_justiciayseguridad.html.twig' %}
+   {% if sinCaso %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      Swal.fire({
+        icon: "error",
+        title: "Debe seleccionar un caso",
+        text: "Antes de registrar Areas Locales, es necesario elegir un caso.",
+        confirmButtonText: "Ir a casos"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "{{ path('app_caso_index') }}";
+        }
+      });
+    });
+  </script>
+{% endif %}
+ {% if caso is defined  %}  
 <div class="container mt-3" style="margin-left:270px;">
  
       <div class="d-flex align-items-center justify-content-between mb-5">
@@ -137,4 +154,5 @@
    <br>
     {{ form_end(form) }}
 </div>
+{% endif %}
 {% endblock %}
