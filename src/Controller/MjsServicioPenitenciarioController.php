@@ -64,7 +64,7 @@ class MjsServicioPenitenciarioController extends AbstractController
         }
         if (!empty($tabsData['mjs_sp'])) {
             // Llamar al método edit y devolver su Response
-            return $this->edit($request,$idCaso, $em, $casoRepository, $tabsProvider,  $archivoService);
+            return $this->edit($request, $casoRepository,  $tabsProvider, $em,$idCaso,);
         } 
         $mjs = new MjsServicioPenitenciario();
 
@@ -96,25 +96,54 @@ class MjsServicioPenitenciarioController extends AbstractController
         $parametros['form'] = $form->createView();
         $parametros['sinCaso'] = $sinCaso;
         $parametros['modo'] = 'edit';
-            return $this->render('mjs/_form_sp.html.twig',$parametros);
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+   
+        $parametros['pestaña_activa'] = 'mjs_sp';
+            return $this->render('mjs/new.html.twig',$parametros);
     }
 
-    #[Route('/{id}/edit', name: 'app_mjs_servicio_penitenciario_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, MjsServicioPenitenciario $mjs, EntityManagerInterface $em): Response
+    #[Route('/{idCaso}/edit', name: 'app_mjs_servicio_penitenciario_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, 
+    CasoRepository $casoRepository,
+    CasoTabsDataProvider $tabsProvider,SessionInterface $session,
+    EntityManagerInterface $em,  int $idCaso,): Response
     {
-        $form = $this->createForm(MjsServicioPenitenciarioType::class, $mjs);
+        $idCaso = $session->get('caso_id');
 
+        $sinCaso=false;
+        $caso = $casoRepository->find($idCaso);
+        if (!$caso) {
+            throw $this->createNotFoundException('Caso no encontrado');
+            $sinCaso=true;
+        }
+        $tabsData = $tabsProvider->getData($caso);
+        $mjs_sp = $em->getRepository(MjsServicioPenitenciario::class)->findOneBy(['caso' => $caso]);
+
+        if (!$mjs_sp) {
+            return $this->redirectToRoute('app_mjs_servicio_penitenciario', ['idCaso' => $idCaso]);
+        }
+
+        $form = $this->createForm(MjsServicioPenitenciarioType::class, $mjs_sp);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $this->addFlash('success', 'Mjs actualizada correctamente!');
-            return $this->redirectToRoute('mjs_index');
+            return $this->redirectToRoute('app_caso_index');
         }
 
-        return $this->render('smgyd/mjs/edit.html.twig', [
-            'form' => $form->createView(),
-            'mjs' => $mjs, 
-        ]);
+             $parametros['form'] = $form->createView();
+            $parametros['caso'] = $caso;
+            $parametros['sinCaso'] = $sinCaso;
+            foreach ($tabsData as $clave => $valor) {
+                $parametros[$clave] = $valor;
+            }
+       
+            $parametros['pestaña_activa'] = 'mjs_sp';
+
+        return $this->render('mjs/edit.html.twig', $parametros);
     }
 
     #[Route('/{id}', name: 'mjs_sp_show', methods: ['GET'])]

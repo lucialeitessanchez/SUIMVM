@@ -1,4 +1,3 @@
-{# templates/mjs/_submenu_justiciayseguridad.html.twig #}
 <button class="btn btn-outline-primary d-lg-none" onclick="toggleMenu()">☰ Menú</button>
 
 <div class="bg-light border-end p-3"
@@ -11,16 +10,19 @@
         <li class="nav-item"><a id="menu-programaProtec" class="nav-link">🔒 Programa de Protección a Víctimas y Testigos</a></li>
         <li class="nav-item"><a id="menu-agenciaInvestigacion" class="nav-link">🕵️ Agencia de Investigación Criminal</a></li>
          
-        <li class="nav-item">
-        <a id="menu-servicioPenitenciario" class="nav-link"
-            href="{% if mjs_sp is empty %}
-                        {{ path('app_mjs_servicio_penitenciario') }}
-                    {% else %}
-                        {{ path ('app_mjs_servicio_penitenciario_edit', { id: mjs_sp.id }) }}
-                    {% endif %}">
-            🏛️ Servicio Penitenciario
-        </a>
-        </li>
+<li class="nav-item">
+  {% if mjs_sp is empty %}
+
+    <a id="menu-servicioPenitenciario"
+        class="nav-link" href="{{ path('app_mjs_servicio_penitenciario')}}">
+        🏛️ Servicio Penitenciario</a>
+    {% else %}
+     <a id="menu-servicioPenitenciario"
+        class="nav-link" href="{{path('app_mjs_servicio_penitenciario_edit', { idCaso: 3}) }}">
+        🏛️ Servicio Penitenciario</a>
+     {% endif %}
+ </li>
+
     </ul>
 </div>
 

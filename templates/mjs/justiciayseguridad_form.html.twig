@@ -17,8 +17,7 @@
   </script>
 {% endif %}
   <div class="d-flex">
- 
-   {% include 'mjs/_submenu_justiciayseguridad.html.twig' with { mjs_sp: mjs_sp } %}
+   {% include 'mjs/_submenu_justiciayseguridad.html.twig' with { mjs_sp: mjs_sp |default([])} %}
   </div>
 
 {% endblock %}
