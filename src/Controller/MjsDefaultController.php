@@ -43,13 +43,14 @@ class MjsDefaultController extends AbstractController {
         return $this->render('index.html.twig', array('' => $usuario));
     }
 
-    #[Route('/mjs_default', name: 'mjs_app_default', methods: ['GET'])]
+    #[Route('/mjs_defaul', name: 'mjs_app_default', methods: ['GET'] )]
     public function default(
         Request $request,
         EntityManagerInterface $em,
         SessionInterface $session,
         CasoTabsDataProvider $tabsProvider,
-        CasoRepository $casoRepository
+        CasoRepository $casoRepository,
+
     ): Response {
         $usuario = $this->getUser();
         $idCaso = $session->get('caso_id');
@@ -75,7 +76,7 @@ class MjsDefaultController extends AbstractController {
         // ✅ definimos SIEMPRE mjs_sp, aunque no exista
         $parametros['mjs_sp'] = $tabsData['mjs_sp'] ?? [];
         $parametros['sinCaso'] = $sinCaso;
-        dump($tabsData['mjs_sp'] ?? 'NO EXISTE');
+        
         return $this->render('mjs/justiciayseguridad_form.html.twig', $parametros);
     }
   }

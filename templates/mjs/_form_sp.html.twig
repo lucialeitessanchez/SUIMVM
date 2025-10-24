@@ -1,6 +1,7 @@
 
 {% block body %}
    {% include 'mjs/_submenu_justiciayseguridad.html.twig' %}
+
    {% if sinCaso %}
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -30,8 +31,7 @@
                 <span class="badge badge-caso ms-2">{{ caso.idCaso }}</span>
             </div>
             
-        </div>
-        
+        </div>       
             
     {{ form_start(form) }}
  

@@ -149,6 +149,7 @@ class CasoController extends AbstractController
         $parametros['datosPersona']=$datosPersona;
         $parametros['departamento']=$departamento;
         $parametros['microregion']=$microregion;
+     
 
         foreach ($tabsData as $clave => $valor) {
             $parametros[$clave] = $valor;

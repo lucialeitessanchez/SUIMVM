@@ -17,9 +17,11 @@
         class="nav-link" href="{{ path('app_mjs_servicio_penitenciario')}}">
         🏛️ Servicio Penitenciario</a>
     {% else %}
-     <a id="menu-servicioPenitenciario"
-        class="nav-link" href="{{path('app_mjs_servicio_penitenciario_edit', { idCaso: 3}) }}">
-        🏛️ Servicio Penitenciario</a>
+   
+        <a id="menu-servicioPenitenciario"
+            class="nav-link" href="{{path('app_mjs_servicio_penitenciario_edit', { idCaso: mjs_sp[0].id}) }}">
+            🏛️ Servicio Penitenciario</a>
+        
      {% endif %}
  </li>
 

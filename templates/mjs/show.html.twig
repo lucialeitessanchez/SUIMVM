@@ -5,7 +5,7 @@
 {% block body %}
 {% include 'partials/tabs_caso.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa,'smgyd':smgyd,'gl':gl,'sddnayf':sddnayf,'mjs':mjs} %}    
 
-    {{ include('mjs/_form.html.twig', {'modo': 'show'}) }}
+    {{ include('mjs/_form_sp.html.twig', {'modo': 'show'}) }}
    
 {% endblock %}
 {% block javascripts %}
