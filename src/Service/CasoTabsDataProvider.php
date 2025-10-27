@@ -39,16 +39,6 @@ class CasoTabsDataProvider
 
     public function getData(Caso $caso): array
     {
-    /*  return [
-            'caj' => $this->cajRepository->findBy(['caso' => $caso]),
-            'sdh' => $this->sdhRepository->findBy(['caso' => $caso]),
-            'gl' => $this->gobLocalesRepository->findBy(['caso' => $caso]),
-            'mpa' => $this->mpaRepository->findBy(['caso' => $caso]),
-            'smgyd'=> $this->smgydRepository->findBy(['caso' => $caso],),
-            'sddnayf'=> $this->sddnayfNewRepository->findBy(['caso' => $caso],)
-            //'mpa' => $this->mpaRepository->findByCasoWithTipoViolencia($caso),
-        
-        ];*/
         
         return [
             'caj' => $this->cajRepository->findBy(['caso' => $caso]) ?: [],
