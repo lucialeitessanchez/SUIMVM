@@ -9,11 +9,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'mjs_servicio_penitenciario')]
+#[ORM\Table(name: 'mjs')]
 
-class MjsServicioPenitenciario implements ArchivableInterface
+class Mjs implements ArchivableInterface
 {
-    #[ORM\OneToMany(mappedBy: 'msj_servicio_penitenciario', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'mjs', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $archivos;
 
     public function __construct()
