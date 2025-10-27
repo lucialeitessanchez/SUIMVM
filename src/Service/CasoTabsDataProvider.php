@@ -10,7 +10,7 @@ use App\Repository\SddnayfNewRepository;
 use App\Repository\PgcsjRepository;
 use App\Repository\MjsRepository;
 use App\Entity\Caso;
-use App\Entity\MjsServicioPenitenciario;
+use App\Repository\MjsServicioPenitenciarioRepository;
 
 class CasoTabsDataProvider
 {
@@ -25,7 +25,7 @@ class CasoTabsDataProvider
 
     public function __construct(CajRepository $cajRepository, SdhRepository $sdhRepository, 
     MpaRepository $mpaRepository, GobLocalesRepository $gobLocalesRepository, 
-    SmgydRepository $smgydRepository,SddnayfNewRepository $sddnayfNewRepository,PgcsjRepository $pgcsjRepository, MjsServicioPenitenciario $mjsServicioPenitenciarioRepository)
+    SmgydRepository $smgydRepository,SddnayfNewRepository $sddnayfNewRepository,PgcsjRepository $pgcsjRepository,MjsServicioPenitenciarioRepository $mjsServicioPenitenciarioRepository)
     {
         $this->cajRepository = $cajRepository;
         $this->sdhRepository = $sdhRepository;
@@ -58,7 +58,7 @@ class CasoTabsDataProvider
             'smgyd' => $this->smgydRepository->findBy(['caso' => $caso]) ?: [],
             'sddnayf' => $this->sddnayfNewRepository->findBy(['caso' => $caso]) ?: [],
             'pgcsj' => $this->pgcsjRepository->findBy(['caso' => $caso]) ?: [],
-            'mjsServicioPenitenciario'=>$this->mjsServicioPenitenciarioRepository->findBy(['caso'=>$caso])?:[],
+            'mjsServicioPenitenciario'=>$this->mjsServicioPenitenciarioRepository->findBy(['caso'=>$caso]) ?: [],
         ];
     }
 }
