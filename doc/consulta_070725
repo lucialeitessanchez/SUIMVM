@@ -1,0 +1,47 @@
+CONSULTA
+
+Acerca de la pregunta tipo de muerte:
+
+En Identificacion de la victima --> TIPO DE MUERTE
+
+En Centro de asistencia judicial --> TIPO DE CASO
+
+En SMGyD --> TIPO DE HECHO
+
+En MPA --> TIPO DE FEMICIDIO
+
+Tenemos estas opciones: confirmar si son las correctas
+
+        TIPO_HECHO 	Femicidio íntimo
+        TIPO_HECHO 	Femicidio no íntimo
+        TIPO_HECHO 	Femicidio familiar
+        TIPO_HECHO 	Femicidio sexual
+        TIPO_HECHO 	Presuntamente se trata de un femicidio vinculado
+        TIPO_HECHO 	Presuntamente se trata de un crimen de odio o disc...
+        TIPO_HECHO 	Presuntamente se trata de un suicidio en contexto ...
+        TIPO_HECHO 	Muerte violenta por intervencion de un tercero
+        TIPO_HECHO 	Suicidio
+        TIPO_HECHO 	Muerte dudosa
+        TIPO_HECHO 	Femicidio
+        TIPO_HECHO 	Travesticidio
+        TIPO_HECHO 	Transfemicidio
+        TIPO_HECHO 	Tentativa de femicidio
+        
+Acerca de la pregunta vinculo, tenemos estas opciones. Confirmarlas
+
+    TIPO_VINCULO    Pareja
+	TIPO_VINCULO 	Familiar
+	TIPO_VINCULO 	Amigo/a
+	TIPO_VINCULO 	Ninguno
+	TIPO_VINCULO    Miembro de un grupo vinculado al agresor
+	TIPO_VINCULO    Persona desconocida
+	TIPO_VINCULO    Ex pareja
+	TIPO_VINCULO    Pertenencia directa a un grupo
+	TIPO_VINCULO    Relación indirecta
+	TIPO_VINCULO    Víctima de extorsión o coerción por grupos crimina...
+	TIPO_VINCULO 	Conocido/a
+	TIPO_VINCULO 	Sicario
+	TIPO_VINCULO 	Sin datos
+
+
+

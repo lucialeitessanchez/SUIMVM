@@ -8,7 +8,7 @@ use App\Entity\ArchivableInterface;
 use App\Entity\MjsServicioPenitenciario;
 use App\Form\MjsServicioPenitenciarioType;
 use App\Repository\CasoRepository;
-use App\Repository\MjsRepository;
+use App\Repository\MjsServicioPenitenciarioRepository;
 use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,7 +41,7 @@ class MjsServicioPenitenciarioController extends AbstractController
 
     #[Route('/new', name: 'app_mjs_servicio_penitenciario', methods: ['GET', 'POST'])]
     public function new(Request $request,  CasoTabsDataProvider $tabsProvider, 
-    CasoRepository $casoRepository, MjsRepository $mjsRepository,
+    CasoRepository $casoRepository, MjsServicioPenitenciarioRepository $mjsRepository,
     EntityManagerInterface $em,SessionInterface $session,CasoRepository $casoRepo,
     ArchivoService $archivoService): Response
     {

@@ -8,7 +8,6 @@ use App\Repository\GobLocalesRepository;
 use App\Repository\SmgydRepository;
 use App\Repository\SddnayfNewRepository;
 use App\Repository\PgcsjRepository;
-use App\Repository\MjsRepository;
 use App\Entity\Caso;
 use App\Repository\MjsServicioPenitenciarioRepository;
 

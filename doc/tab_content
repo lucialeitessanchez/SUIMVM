@@ -1,0 +1,24 @@
+ {# --- Tab Content --- #}
+<div class="tab-content mt-3">
+    {% set first = true %}
+
+    {% if caj is not empty %}
+        <div class="tab-pane fade {% if first %}show active{% set first = false %}{% endif %}" id="pane-caj" role="tabpanel">
+            {# Contenido de CAJ #}
+            <p>Datos de CAJ: {{ caj  }}</p>
+        </div>
+    {% endif %}
+
+    {% if sdh is not empty %}
+        <div class="tab-pane fade {% if first %}show active{% set first = false %}{% endif %}" id="pane-sdh" role="tabpanel">
+            {# Contenido de SDH #}
+            <p>Datos de SDH: {{ sdh }}</p>
+        </div>
+    {% endif %}
+
+    {% if mpa is not empty %}
+        <div class="tab-pane fade {% if first %}show active{% set first = false %}{% endif %}" id="pane-mpa" role="tabpanel">
+            {# Contenido de MPA #}
+            <p>Datos de MPA: {{ mpa  }}</p>
+        </div>
+    {% endif %}

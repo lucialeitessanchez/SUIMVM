@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Mjs;
+//use App\Entity\Mjs;
 use App\Entity\MjsServicioPenitenciario;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
