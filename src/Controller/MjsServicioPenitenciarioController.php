@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use Doctrine\ORM\EntityManager;
 
 #[Route('/mjs/servicio-penitenciario')]
 class MjsServicioPenitenciarioController extends AbstractController
@@ -158,13 +159,53 @@ class MjsServicioPenitenciarioController extends AbstractController
         return $this->render('mjs/edit.html.twig', $parametros);
     }
 
-    #[Route('/{id}', name: 'mjs_sp_show', methods: ['GET'])]
-    public function show(MjsServicioPenitenciario $mjs): Response
+    #[Route('/{idCaso}/show', name: 'mjs_sp_show')]
+    public function show(
+        MjsServicioPenitenciarioRepository $mjsRepository,
+        CasoRepository $casoRepository,
+        int $idCaso,
+        FormFactoryInterface $formFactory,
+        CasoTabsDataProvider $tabsProvider,
+        EntityManagerInterface $entityManager
+    ): Response
     {
-        return $this->render('mjs/show_sp.html.twig', [
-            'mjs' => $mjs,
+        $caso = $casoRepository->find($idCaso);
+        if (!$caso) {
+            throw $this->createNotFoundException('Caso no encontrado');
+        }
+    
+        $tabsData = $tabsProvider->getData($caso);
+    
+        $mjs = $mjsRepository->findOneBy(['caso' => $caso]);
+        if (!$mjs) {
+            throw $this->createNotFoundException('No hay datos de MJS-SP para este caso');
+        }
+    
+        $form = $formFactory->create(MjsServicioPenitenciarioType::class, $mjs, [
+            'disabled' => true,
         ]);
+    
+        $archivos = $entityManager->getRepository(Archivo::class)
+            ->findBy(['mjsServicioPenitenciario' => $mjs]);
+    
+        // ✅ Variables para Twig
+        $parametros = [
+            'form' => $form->createView(),
+            'caso' => $caso,
+            'archivos' => $archivos,
+            'pestaña_activa' => 'mjs_sp',
+            'mjs' => $mjs, // 👈 necesario para tu include
+        ];
+    
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+    
+        return $this->render('mjs/show.html.twig', $parametros);
     }
+    
+
+    
 
     #[Route('/{id}/delete', name: 'mjs_delete', methods: ['POST'])]
     public function delete(Request $request, MjsServicioPenitenciario $mjs, EntityManagerInterface $em): Response

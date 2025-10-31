@@ -79,7 +79,7 @@ class CajController extends AbstractController
     CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
     {
           // Buscar el caso           
-          $caso = $casoRepository->find($idCaso);
+            $caso = $casoRepository->find($idCaso);
             if (!$caso) {
                 throw $this->createNotFoundException('Caso no encontrado');
             }
