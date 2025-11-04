@@ -7,6 +7,7 @@ use App\Entity\Caso;
 use App\Form\SddnayfNewType;
 use App\Repository\SddnayfNewRepository;
 use App\Repository\CasoRepository;
+use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ class SddnayfNewController extends AbstractController
     public function new(
         Request $request,
         EntityManagerInterface $em,CasoRepository $casoRepo, SessionInterface $session,
-        CasoTabsDataProvider $tabsProvider
+        CasoTabsDataProvider $tabsProvider,ArchivoService $archivoService
     ): Response {
         
         $idCaso = $session->get('caso_id');
@@ -70,6 +71,13 @@ class SddnayfNewController extends AbstractController
                     $sddnayf->setCaso($caso); 
                     $sddnayf->setFechacarga(new \DateTime());
                     $sddnayf->setUsuariocarga($this->getUser()?->getUserIdentifier());
+
+                    // Manejo de archivos usando el servicio
+                $archivosSubidos = $form->get('archivos')->getData();
+                foreach ($archivosSubidos as $uploadedFile) {
+                    $archivoEntity = $this->$archivoService->guardarArchivoEntidad($uploadedFile, $sddnayf);
+                    $em->persist($archivoEntity);
+                }
 
                     $em->persist($sddnayf);
                     $em->flush();
