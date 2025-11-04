@@ -10,7 +10,7 @@ use App\Entity\SddnayfHijosVictima;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'sddnayf_new')]
-class SddnayfNew
+class SddnayfNew implements ArchivableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -162,26 +162,21 @@ class SddnayfNew
         return $this->archivos;
     }
 
-    public function addArchivo(Archivo $archivo): static
+    public function addArchivo(Archivo $archivo): void
     {
         if (!$this->archivos->contains($archivo)) {
             $this->archivos->add($archivo);
             $archivo->setSddnayf($this);
         }
-
-        return $this;
     }
 
-    public function removeArchivo(Archivo $archivo): static
+    public function removeArchivo(Archivo $archivo): void
     {
         if ($this->archivos->removeElement($archivo)) {
-            // set the owning side to null (unless already changed)
             if ($archivo->getSddnayf() === $this) {
                 $archivo->setSddnayf(null);
             }
         }
-
-        return $this;
     }
     public function getSddnayf1a(): ?string
     {

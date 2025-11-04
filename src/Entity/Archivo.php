@@ -39,8 +39,9 @@ class Archivo
     private ?Caj $caj = null;
 
     //secretaria de niñez
+
     #[ORM\ManyToOne(targetEntity: SddnayfNew::class, inversedBy: 'archivos')]
-    #[ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     private ?SddnayfNew $sddnayf = null;
 
     //mjs
@@ -138,25 +139,23 @@ class Archivo
     }
     public function getMjsServicioPenitenciario(): ?MjsServicioPenitenciario
     {
-        return $this->getMjsServicioPenitenciario();
+        return $this->mjsServicioPenitenciario;
     }
-
+    
     public function setMjsServicioPenitenciario(?MjsServicioPenitenciario $mjsServicioPenitenciario): static
     {
         $this->mjsServicioPenitenciario = $mjsServicioPenitenciario;
-
         return $this;
     }
-
+    
     public function getSddnayf(): ?SddnayfNew
     {
-        return $this->getSddnayf();
+        return $this->sddnayf;
     }
-
+    
     public function setSddnayf(?SddnayfNew $sddnayf): static
     {
         $this->sddnayf = $sddnayf;
-
         return $this;
     }
 }
