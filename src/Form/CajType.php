@@ -218,7 +218,6 @@ class CajType extends AbstractType
                     'max' => 2,
                     'step' => 1,
                     'class' => 'form-range', // Bootstrap 5
-                  
                 ],
                 'required' => false,
             ])
@@ -226,13 +225,15 @@ class CajType extends AbstractType
             ->add('caj_4c', TextareaType::class, [
                 'label' => 'Observaciones y recomendaciones para mejorar futuras intervenciones',
                 'required'=> false,
-            ])
-            ->add('archivo',FileType::class, [
-                'label' =>'Subir archivos',
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
             ]);
+            if (!$options['disabled']) {
+                $builder->add('archivos', FileType::class, [
+                    'label' => 'Subir Archivos',
+                    'mapped' => false,
+                    'multiple' => true,
+                    'required' => false,
+                ]);
+            }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

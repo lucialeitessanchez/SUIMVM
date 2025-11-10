@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Archivo;
 use App\Entity\Caj;
 use App\Entity\Caso;
 use App\Repository\CajRepository;
 use App\Repository\CasoRepository;
 use App\Form\CajType;
+use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -23,7 +25,8 @@ class CajController extends AbstractController
     public function new(Request $request, 
     EntityManagerInterface $em, SessionInterface $session,CasoRepository $casoRepo,
     CasoTabsDataProvider $tabsProvider,
-    FormFactoryInterface $formFactory,CajRepository $cajRepository
+    FormFactoryInterface $formFactory,CajRepository $cajRepository,
+    ArchivoService $archivoService
     ): Response
     {
 
@@ -45,10 +48,10 @@ class CajController extends AbstractController
                 $sinCaso = true;
             }
         }
-       
+    
         if (!empty($tabsData['caj'])) {
             // Llamar al método edit y devolver su Response
-            return $this->edit($request, $idCaso, $casoRepo, $cajRepository,$tabsProvider,$em);
+            return $this->edit($request, $idCaso, $casoRepo, $cajRepository,$tabsProvider,$em,$archivoService);
         }
     
         $caj = new Caj();    
@@ -60,6 +63,15 @@ class CajController extends AbstractController
             $caj->setCaso($caso);
             $caj->setUsuarioCarga('prueba');
             $caj->setFechaCarga(new \DateTime());
+
+             // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->$archivoService->guardarArchivoEntidad($uploadedFile, $caj);
+                $em->persist($archivoEntity);
+            }
+
             $em->persist($caj);
             $em->flush();
 
@@ -76,7 +88,8 @@ class CajController extends AbstractController
     #[Route('/{idCaso}/ver_caj', name: 'caj_ver')]
     public function ver(CasoRepository $casoRepository,
     CajRepository $cajRepository,int $idCaso, 
-    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory,
+    EntityManagerInterface $entityManager): Response
     {
           // Buscar el caso           
             $caso = $casoRepository->find($idCaso);
@@ -102,7 +115,9 @@ class CajController extends AbstractController
                 $parametros['form'] = $form->createView();
                 $parametros['caso'] = $caso;
                 $parametros['pestaña_activa'] = 'caj';
-
+                $archivos = $entityManager->getRepository(Archivo::class)
+                ->findBy(['mjsServicioPenitenciario' => $caj]);
+                $parametros['archivos'] = $archivos;
                 return $this->render('caj/show.html.twig', $parametros);
             
             }
@@ -111,7 +126,8 @@ class CajController extends AbstractController
             public function edit(Request $request, int $idCaso,
             CasoRepository $casoRepository, CajRepository $cajRepository,
             CasoTabsDataProvider $tabsProvider,
-            EntityManagerInterface $entityManager): Response
+            EntityManagerInterface $entityManager,
+            ArchivoService $archivoService): Response
             {
 
                 // Buscar el caso           
@@ -133,6 +149,11 @@ class CajController extends AbstractController
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
+                    $archivosSubidos = $form->get('archivos')->getData();
+                    foreach ($archivosSubidos as $uploadedFile) {
+                        $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $caj);
+                        $entityManager->persist($archivoEntity);
+                    }
                     $entityManager->flush();
                     //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);
                     $this->addFlash('success_js', 'Datos guardados correctamente');   
@@ -142,9 +163,13 @@ class CajController extends AbstractController
                 foreach ($tabsData as $clave => $valor) {
                     $parametros[$clave] = $valor;
                 }
+
+                 // Archivos asociados al MPA (igual que en show)
+                $archivos = $entityManager->getRepository(Archivo::class)->findBy(['caj' => $caj]);
                 $parametros['form'] = $form->createView();
                 $parametros['caso'] = $caso;
                 $parametros['pestaña_activa'] = 'caj';
+                $parametros['archivos'] = $archivos;
 
                 return $this->render('caj/edit.html.twig', $parametros);
                 

@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
 #[ORM\Table(name: "caj")]
-class Caj
+class Caj implements ArchivableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
@@ -123,10 +123,7 @@ class Caj
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $usuarioCarga = null;
 
-    /**
-     * @var Collection<int, Archivo>
-     */
-    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'caj')]
+    #[ORM\OneToMany(mappedBy: 'caj', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $archivos;
 
     public function __construct()
@@ -481,33 +478,17 @@ public function setAsistenciasProporcionadas(Collection $asistenciasProporcionad
         return $this;
     }
 
-    /**
-     * @return Collection<int, Archivo>
-     */
-    public function getArchivos(): Collection
-    {
-        return $this->archivos;
-    }
-
-    public function addArchivo(Archivo $archivo): static
+    public function addArchivo(Archivo $archivo): void
     {
         if (!$this->archivos->contains($archivo)) {
             $this->archivos->add($archivo);
-            $archivo->setCaj($this);
+            $archivo->setCaj($this); // aquí relacionás en el lado del archivo
         }
-        return $this;
     }
 
-    public function removeArchivo(Archivo $archivo): static
+    public function getArchivos(): Collection
     {
-        if ($this->archivos->removeElement($archivo)) {
-            // set the owning side to null (unless already changed)
-            if ($archivo->getCaj() === $this) {
-                $archivo->setCaj(null);
-            }
-        }
-
-        return $this;
+        return $this->archivos;
     }
 
 }
