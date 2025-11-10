@@ -253,8 +253,30 @@
         </div>
   
         {{ form_widget(form) }}
+  {# 📎 Nuevo bloque para archivos adjuntos #}
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Archivos adjuntos</h5>
+                      
 
-       <div class="col-md-12 d-flex justify-content-end">
+                        {% if archivos is defined and archivos|length > 0 %}
+                            <hr>
+                            <h6>Archivos cargados:</h6>
+                            <ul class="list-group">
+                                {% for archivo in archivos %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <a href="{{ asset('uploads/' ~ archivo.nombreArchivo) }}" target="_blank">
+                                            {{ archivo.originalName }}
+                                        </a>
+                                        <span class="badge bg-secondary">{{ archivo.mimeType }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+    <div class="col-md-12 d-flex justify-content-end">
             <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
             <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
            &nbsp;&nbsp;&nbsp;
