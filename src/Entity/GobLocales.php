@@ -84,6 +84,9 @@ class GobLocales
     #[ORM\Column(name: 'usuario_carga', type: 'string', length: 255, nullable: true)]
     private ?string $usuarioCarga = null;
 
+    #[ORM\OneToMany(mappedBy: 'areasLocales', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $archivos;
+
     // getters y setters...
     public function getId(): ?int
 {
@@ -109,8 +112,22 @@ public function __construct()
      $this->gobloc16a = new ArrayCollection();
      $this->gobloc18 = new ArrayCollection();
      $this->gobloc19 = new ArrayCollection();
+     $this->archivos = new ArrayCollection();
 }
 
+
+public function addArchivo(Archivo $archivo): void
+{
+    if (!$this->archivos->contains($archivo)) {
+        $this->archivos->add($archivo);
+        $archivo->setAreasLocales($this); // aquí relacionás en el lado del archivo
+    }
+}
+
+public function getArchivos(): Collection
+{
+    return $this->archivos;
+}
 // Getter
 public function getGobloc12(): Collection
 {

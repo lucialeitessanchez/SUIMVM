@@ -495,7 +495,6 @@ public function setAsistenciasProporcionadas(Collection $asistenciasProporcionad
             $this->archivos->add($archivo);
             $archivo->setCaj($this);
         }
-
         return $this;
     }
 

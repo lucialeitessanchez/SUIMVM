@@ -109,6 +109,9 @@ class Sdh
     )]
     private Collection $institucionesIntervinientes;
 
+    #[ORM\OneToMany(mappedBy: 'sdh', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $archivos;
+
     //----------------------------------
 public function getInstitucionesIntervinientes(): Collection { return $this->institucionesIntervinientes;}
 public function addInstitucionInterviniente(Nomenclador $institucion): self 
@@ -176,8 +179,23 @@ public function setInstitucionesIntervinientes(Collection $instituciones): self
         $this->tipoProtecciones = new ArrayCollection();
         $this->medidasBusqueda = new ArrayCollection();
         $this->institucionesBusqueda = new ArrayCollection();
+        $this->archivos = new ArrayCollection();
     }
-
+    
+    
+    public function addArchivo(Archivo $archivo): void
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setSdh($this); // aquí relacionás en el lado del archivo
+        }
+    }
+    
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+    
     // Getters y Setters
     public function getIdSdh(): int { return $this->id_sdh; }
 
