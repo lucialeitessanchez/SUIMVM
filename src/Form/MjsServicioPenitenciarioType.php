@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -162,7 +163,7 @@ class MjsServicioPenitenciarioType extends AbstractType
                         ->setParameter('clave', 'MJS_MOTIVO_ENCARCELAMIENTO')
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
-               ])
+            ])
             ->add('mjs_4a', CheckboxType::class, [ //existencia de medidas
                 'label' => 'No / Sí',
                 'required' => false,
@@ -174,7 +175,14 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'label'=>"Opinion del equipo penitenciario sobre la posibilidad de reinsercion social del agresor"
                 ])
             ;
-         
+            if (!$options['disabled']) {
+                $builder->add('archivos', FileType::class, [
+                    'label' => 'Subir Archivos',
+                    'mapped' => false,
+                    'multiple' => true,
+                    'required' => false,
+                ]);
+            }
     }
 
     public function configureOptions(OptionsResolver $resolver)

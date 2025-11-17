@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Mjs;
 use App\Entity\Caso;
 use App\Entity\ArchivableInterface;
+use App\Entity\Archivo;
 use App\Entity\MjsServicioPenitenciario;
 use App\Form\MjsServicioPenitenciarioType;
 use App\Repository\CasoRepository;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use Doctrine\ORM\EntityManager;
 
 #[Route('/mjs/servicio-penitenciario')]
 class MjsServicioPenitenciarioController extends AbstractController
@@ -78,14 +80,15 @@ class MjsServicioPenitenciarioController extends AbstractController
             $mjs->setCaso($caso); 
 
             $em->persist($mjs);
-/*
-             // Manejo de archivos usando el servicio
-             $archivosSubidos = $form->get('archivos')->getData();
 
-             foreach ($archivosSubidos as $uploadedFile) {
-                 $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $mjs);
-                 $em->persist($archivoEntity);
-             }*/
+            // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $mjs);
+                $em->persist($archivoEntity);
+            }
+
             $em->flush();
        
             $this->addFlash('success_js', 'Seccion MJyS-Servicio Penitenciario guardada correctamente');   
@@ -103,20 +106,23 @@ class MjsServicioPenitenciarioController extends AbstractController
     }
 
     #[Route('/{idCaso}/edit', name: 'app_mjs_servicio_penitenciario_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, 
+    public function edit(Request $request,
     CasoRepository $casoRepository,
     CasoTabsDataProvider $tabsProvider,SessionInterface $session,
-    EntityManagerInterface $em,  int $idCaso,): Response
+    EntityManagerInterface $em,  int $idCaso,
+    ArchivoService $archivoService): Response
     {
-        $idCaso = $session->get('caso_id');
 
-        $sinCaso=false;
-        $caso = $casoRepository->find($idCaso);
-        if (!$caso) {
-            throw $this->createNotFoundException('Caso no encontrado');
-            $sinCaso=true;
-        }
-        $tabsData = $tabsProvider->getData($caso);
+         // Buscar el caso
+            $caso = $casoRepository->find($idCaso);
+            if (!$caso) {
+                throw $this->createNotFoundException('Caso no encontrado');
+            }
+
+            // Datos de pestañas
+            $tabsData = $tabsProvider->getData($caso);
+
+
         $mjs_sp = $em->getRepository(MjsServicioPenitenciario::class)->findOneBy(['caso' => $caso]);
 
         if (!$mjs_sp) {
@@ -127,30 +133,79 @@ class MjsServicioPenitenciarioController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+               // --- Manejo de archivos nuevos ---
+        $archivosSubidos = $form->get('archivos')->getData();
+        foreach ($archivosSubidos as $uploadedFile) {
+            $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $mjs_sp);
+            $em->persist($archivoEntity);
+        }
             $em->flush();
             $this->addFlash('success', 'Mjs actualizada correctamente!');
             return $this->redirectToRoute('app_caso_index');
         }
 
-             $parametros['form'] = $form->createView();
+             // Archivos asociados al MPA (igual que en show)
+            $archivos = $em->getRepository(Archivo::class)->findBy(['mjsServicioPenitenciario' => $mjs_sp]);
+
+            $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
-            $parametros['sinCaso'] = $sinCaso;
+            $parametros['archivos'] = $archivos;
             foreach ($tabsData as $clave => $valor) {
                 $parametros[$clave] = $valor;
             }
-       
+    
             $parametros['pestaña_activa'] = 'mjs_sp';
 
         return $this->render('mjs/edit.html.twig', $parametros);
     }
 
-    #[Route('/{id}', name: 'mjs_sp_show', methods: ['GET'])]
-    public function show(MjsServicioPenitenciario $mjs): Response
+    #[Route('/{idCaso}/show', name: 'mjs_sp_show')]
+    public function show(
+        MjsServicioPenitenciarioRepository $mjsRepository,
+        CasoRepository $casoRepository,
+        int $idCaso,
+        FormFactoryInterface $formFactory,
+        CasoTabsDataProvider $tabsProvider,
+        EntityManagerInterface $entityManager
+    ): Response
     {
-        return $this->render('mjs/show_sp.html.twig', [
-            'mjs' => $mjs,
+        $caso = $casoRepository->find($idCaso);
+        if (!$caso) {
+            throw $this->createNotFoundException('Caso no encontrado');
+        }
+    
+        $tabsData = $tabsProvider->getData($caso);
+    
+        $mjs = $mjsRepository->findOneBy(['caso' => $caso]);
+        if (!$mjs) {
+            throw $this->createNotFoundException('No hay datos de MJS-SP para este caso');
+        }
+    
+        $form = $formFactory->create(MjsServicioPenitenciarioType::class, $mjs, [
+            'disabled' => true,
         ]);
+    
+        $archivos = $entityManager->getRepository(Archivo::class)
+            ->findBy(['mjsServicioPenitenciario' => $mjs]);
+    
+        // ✅ Variables para Twig
+        $parametros = [
+            'form' => $form->createView(),
+            'caso' => $caso,
+            'archivos' => $archivos,
+            'pestaña_activa' => 'mjs_sp',
+            'mjs' => $mjs, // 👈 necesario para tu include
+        ];
+    
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+    
+        return $this->render('mjs/show.html.twig', $parametros);
     }
+    
+
+    
 
     #[Route('/{id}/delete', name: 'mjs_delete', methods: ['POST'])]
     public function delete(Request $request, MjsServicioPenitenciario $mjs, EntityManagerInterface $em): Response

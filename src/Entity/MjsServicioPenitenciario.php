@@ -13,27 +13,6 @@ use Doctrine\Common\Collections\Collection;
 
 class MjsServicioPenitenciario implements ArchivableInterface
 {
-    #[ORM\OneToMany(mappedBy: 'mjsServicioPenitenciario', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    private Collection $archivos;
-
-    public function __construct()
-    {
-      
-        $this->archivos = new ArrayCollection();
-    }
-
-    public function addArchivo(Archivo $archivo): void
-    {
-        if (!$this->archivos->contains($archivo)) {
-            $this->archivos->add($archivo);
-            $archivo->setMjsServicioPenitenciario($this); // aquí relacionás en el lado del archivo
-        }
-    }
-
-    public function getArchivos(): Collection
-    {
-        return $this->archivos;
-    }
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -110,6 +89,27 @@ class MjsServicioPenitenciario implements ArchivableInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $usuario_carga = null;
+
+    #[ORM\OneToMany(mappedBy: 'mjs_servicio_penitenciario', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $archivos;
+
+    public function __construct()
+    {
+        $this->archivos = new ArrayCollection();
+    }
+
+    public function addArchivo(Archivo $archivo): void
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setMjsServicioPenitenciario($this); // aquí relacionás en el lado del archivo
+        }
+    }
+
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
 
     // Getters y setters
     public function getId(): ?int { return $this->id; }

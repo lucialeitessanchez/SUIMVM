@@ -10,7 +10,7 @@ use App\Entity\SddnayfHijosVictima;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'sddnayf_new')]
-class SddnayfNew
+class SddnayfNew implements ArchivableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -128,6 +128,12 @@ class SddnayfNew
     )]
     private Collection $sddnayf_1e;
 
+            /**
+     * @var Collection<int, Archivo>
+     */
+    #[ORM\OneToMany(targetEntity: Archivo::class, mappedBy: 'sddnayf')]
+    private Collection $archivos;
+
     public function __construct()
         {
             $this->sddnayf_1b = new ArrayCollection();
@@ -137,9 +143,10 @@ class SddnayfNew
             $this->sddnayf_2c = new ArrayCollection();
             $this->sddnayf_2e = new ArrayCollection();
             $this->hijosVictima = new ArrayCollection();
+            $this->archivos = new ArrayCollection();
+            
         }
 
- 
     // Getters y Setters
 
     public function getId(): ?int
@@ -147,6 +154,30 @@ class SddnayfNew
         return $this->id;
     }
 
+    /**
+     * @return Collection<int, Archivo>
+     */
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
+    public function addArchivo(Archivo $archivo): void
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setSddnayf($this);
+        }
+    }
+
+    public function removeArchivo(Archivo $archivo): void
+    {
+        if ($this->archivos->removeElement($archivo)) {
+            if ($archivo->getSddnayf() === $this) {
+                $archivo->setSddnayf(null);
+            }
+        }
+    }
     public function getSddnayf1a(): ?string
     {
         return $this->sddnayf_1a;

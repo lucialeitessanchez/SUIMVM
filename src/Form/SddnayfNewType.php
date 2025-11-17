@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -250,6 +251,14 @@ class SddnayfNewType extends AbstractType
                  'label' => false,
             ])
         ;
+        if (!$options['disabled']) {
+            $builder->add('archivos', FileType::class, [
+                'label' => 'Subir Archivos',
+                'mapped' => false,
+                'multiple' => true,
+                'required' => false,
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

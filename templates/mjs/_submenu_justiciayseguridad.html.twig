@@ -11,18 +11,17 @@
         <li class="nav-item"><a id="menu-agenciaInvestigacion" class="nav-link">🕵️ Agencia de Investigación Criminal</a></li>
          #}
 <li class="nav-item">
-  {% if mjs_sp is empty %}
-
-    <a id="menu-servicioPenitenciario"
-        class="nav-link" href="{{ path('app_mjs_servicio_penitenciario')}}">
-        🏛️ Servicio Penitenciario</a>
-    {% else %}
-   
+        {% if mjs_sp is empty %}
         <a id="menu-servicioPenitenciario"
-            class="nav-link" href="{{path('app_mjs_servicio_penitenciario_edit', { idCaso: mjs_sp[0].id}) }}">
+            class="nav-link"
+            href="{{ path('app_mjs_servicio_penitenciario') }}">
             🏛️ Servicio Penitenciario</a>
-        
-     {% endif %}
+        {% else %}
+        <a id="menu-servicioPenitenciario"
+    class="nav-link"
+    href="{{ path('mjs_sp_show', { idCaso: caso.idCaso }) }}">
+    🏛️ Servicio Penitenciario</a>
+        {% endif %}
  </li>
 
     </ul>

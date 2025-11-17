@@ -148,22 +148,6 @@ class CajType extends AbstractType
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])
-            /*
-            ->add('caj_3b', EntityType::class, array(
-                'required' => false,
-                'label' => 'Tipo de asistencia proporcionada al grupo familiar',
-                'multiple' => false,
-                'choice_label' => 'valor_nomenclador',
-                'placeholder' => 'Seleccione',
-                'class' => Nomenclador::class,
-                'query_builder' => function ($repositorio) {
-                    return $repositorio->createQueryBuilder('n')
-                    ->where('n.nomenclador = :nomenclador')
-                    ->setParameter('nomenclador', 'MEDIDA_PROTECCION')
-                    ->orderBy('n.valor_nomenclador', 'ASC');
-                }
-            ))*/
-
             ->add('asistenciasProporcionadas', EntityType::class, [
                 'class' => Nomenclador::class,
                 'choice_label' => 'valor_nomenclador',
@@ -184,7 +168,6 @@ class CajType extends AbstractType
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])
-          
             ->add('caj_3d', CheckboxType::class, [
                 'label' => 'No / Sí',
                 'required' => false,
@@ -235,7 +218,6 @@ class CajType extends AbstractType
                     'max' => 2,
                     'step' => 1,
                     'class' => 'form-range', // Bootstrap 5
-                  
                 ],
                 'required' => false,
             ])
@@ -243,13 +225,15 @@ class CajType extends AbstractType
             ->add('caj_4c', TextareaType::class, [
                 'label' => 'Observaciones y recomendaciones para mejorar futuras intervenciones',
                 'required'=> false,
-            ])
-            ->add('archivo',FileType::class, [
-                'label' =>'Subir archivos',
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
             ]);
+            if (!$options['disabled']) {
+                $builder->add('archivos', FileType::class, [
+                    'label' => 'Subir Archivos',
+                    'mapped' => false,
+                    'multiple' => true,
+                    'required' => false,
+                ]);
+            }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

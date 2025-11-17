@@ -38,10 +38,24 @@ class Archivo
     #[ORM\JoinColumn(name: 'caj_id', referencedColumnName: 'id_caj', nullable: true, onDelete: 'SET NULL')]
     private ?Caj $caj = null;
 
+    //secretaria de niñez
+
+    #[ORM\ManyToOne(targetEntity: SddnayfNew::class, inversedBy: 'archivos')]
+    #[ORM\JoinColumn(name: 'sddnayf_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    private ?SddnayfNew $sddnayf = null;
+
     //mjs
     #[ORM\ManyToOne(targetEntity: MjsServicioPenitenciario::class, inversedBy: 'archivos')]
     #[ORM\JoinColumn(name: 'mjs_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?MjsServicioPenitenciario $mjsServicioPenitenciario = null;
+
+    #[ORM\ManyToOne(targetEntity: GobLocales::class, inversedBy: 'archivos')]
+    #[ORM\JoinColumn(name: 'areasL_id', referencedColumnName: 'id_gob_locales', nullable: true, onDelete: 'SET NULL')]
+    private ?GobLocales $areasLocales = null;
+
+    #[ORM\ManyToOne(targetEntity: Sdh::class, inversedBy: 'archivos')]
+    #[ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh', nullable: true, onDelete: 'SET NULL')]
+    private ?GobLocales $sdh = null;
 
     public function getId(): ?int
     {
@@ -133,13 +147,45 @@ class Archivo
     }
     public function getMjsServicioPenitenciario(): ?MjsServicioPenitenciario
     {
-        return $this->getMjsServicioPenitenciario();
+        return $this->mjsServicioPenitenciario;
     }
-
+    
     public function setMjsServicioPenitenciario(?MjsServicioPenitenciario $mjsServicioPenitenciario): static
     {
         $this->mjsServicioPenitenciario = $mjsServicioPenitenciario;
+        return $this;
+    }
+    
+    public function getSddnayf(): ?SddnayfNew
+    {
+        return $this->sddnayf;
+    }
+    
+    public function setSddnayf(?SddnayfNew $sddnayf): static
+    {
+        $this->sddnayf = $sddnayf;
+        return $this;
+    }
 
+    public function getAreasLocales(): ?GobLocales
+    {
+        return $this->areasLocales;
+    }
+    
+    public function setAreasLocales(?GobLocales $areasLocales): static
+    {
+        $this->areasLocales = $areasLocales;
+        return $this;
+    }
+
+    public function getSdh(): ?Sdh
+    {
+        return $this->sdh;
+    }
+    
+    public function setSdh(?Sdh $sdh): static
+    {
+        $this->sdh = $sdh;
         return $this;
     }
 }

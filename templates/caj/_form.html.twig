@@ -222,12 +222,64 @@
 
         </div> {#div del acordeon formulario#}
 <br>
-           <div class="col-md-12 d-flex justify-content-end">
-            <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
-            <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
-           &nbsp;&nbsp;&nbsp;
-                <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white" >Cancelar</a>
-            </div>
+
+    {# SECCIÓN DE ARCHIVOS ADJUNTOS #}
+    <hr class="my-4">
+    <h2>Archivos Adjuntos</h2>
+
+    {% if archivos is defined and archivos is not empty %}
+        <div class="list-group mb-3">
+            {% for archivo in archivos %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="{{ asset('uploads/archivos/' ~ archivo.nombreArchivo) }}" 
+                           target="_blank" class="text-decoration-none">
+                            <i class="la la-file me-2"></i>
+                            {{ archivo.originalName }}
+                        </a>
+                    </div>
+                    <div>
+                        {# Opción para eliminar archivo existente (si lo implementás en el controlador) #}
+                        <a href="{{ path('archivo_eliminar', {'id': archivo.id}) }}" 
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('¿Está seguro de eliminar este archivo?')">
+                           <i class="la la-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        {{ form_end(form) }}
+    {% else %}
+        <p class="text-muted">No hay archivos cargados.</p>
+    {% endif %}
+
+    {# Input para agregar más archivos #}
+    <div class="mb-3">
+        {{ form_errors(form.archivos) }}
+        {{ form_widget(form.archivos, {
+            'attr': {
+                'class': 'form-control',
+                'id': 'mpa_archivos_input_js_hook',
+                'accept': '.pdf,.jpg,.jpeg,.png',
+                'multiple': 'multiple'
+            }
+        }) }}
+        <div id="archivos_preview_container" class="mt-3 d-flex flex-wrap gap-2"></div>
+    </div>
+
+    <br>
+
+    <div class="col-md-12 d-flex justify-content-end">
+        <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+            <button type="submit" class="btn btn-outline-primary" style="background-color:blue;color:white">
+                {{ button_label|default('Guardar') }}
+            </button>
+            &nbsp;&nbsp;&nbsp;
+            <a href="{{ path('app_caso_index') }}" class="btn btn-outline-secondary" style="background-color:black;color:white">
+                Cancelar
+            </a>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
 </section>
