@@ -156,7 +156,7 @@ class PgcsjType extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
             ])
-            ->add('archivos', FileType::class, [
+         /*   ->add('archivos', FileType::class, [
                 'label' => 'Archivos adjuntos',
                 'multiple' => true,
                 'mapped' => false, // ⬅ evita que Symfony intente asignarlo a una propiedad string
@@ -172,7 +172,7 @@ class PgcsjType extends AbstractType
                         'mimeTypesMessage' => 'Formato no permitido. Solo PDF, JPG o PNG.',
                     ]),
                 ],
-            ])
+            ])*/
             ;
     }
 
