@@ -71,12 +71,12 @@ class CajController extends AbstractController
             $caj->setFechaCarga(new \DateTime());
 
              // Manejo de archivos usando el servicio
-            $archivosSubidos = $form->get('archivos')->getData();
+      //      $archivosSubidos = $form->get('archivos')->getData();
 
             foreach ($archivosSubidos as $uploadedFile) {
                 $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $caj);
                 $em->persist($archivoEntity);
-            }
+            }*/
 
             $em->persist($caj);
             $em->flush();
@@ -155,11 +155,11 @@ class CajController extends AbstractController
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $archivosSubidos = $form->get('archivos')->getData();
+                  /*  $archivosSubidos = $form->get('archivos')->getData();
                     foreach ($archivosSubidos as $uploadedFile) {
                         $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $caj);
                         $entityManager->persist($archivoEntity);
-                    }
+                    }*/
                     $entityManager->flush();
                     //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);
                     $this->addFlash('success_js', 'Datos guardados correctamente');   

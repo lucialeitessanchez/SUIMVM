@@ -127,11 +127,11 @@
                 </div>
         </div>
    {% endif %}
-      <h5>Archivos adjuntos</h5>
+    {#  <h5>Archivos adjuntos</h5>
           {{ form_label(form.archivos) }}
           {{ form_widget(form.archivos, { 'attr': { 'class': 'form-control', 'multiple': 'multiple' } }) }}
           {{ form_errors(form.archivos) }}
-
+  #}
 
     {{ form_end(form) }}
 </div>

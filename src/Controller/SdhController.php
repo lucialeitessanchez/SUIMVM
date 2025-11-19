@@ -83,11 +83,22 @@ class SdhController extends AbstractController
     SdhRepository $sdhRepository,int $idCaso, 
     CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
     {
+        $caso = null;
+        $sinCaso = false;
+        $parametros = [];
          // Buscar el caso           
          $caso = $casoRepository->find($idCaso);
          if (!$caso) {
              throw $this->createNotFoundException('Caso no encontrado');
-         }
+             $sinCaso = true;
+            } else {
+                $caso = $casoRepository->find($idCaso);
+                $parametros['caso'] = $caso;
+                if (!$caso) {
+                    $this->addFlash('error', 'El caso seleccionado no existe.');
+                    $sinCaso = true;
+                }
+            }
 
           //busco si hay datos asociados para mostrar la pestaña desde el servicio
           $tabsData = $tabsProvider->getData($caso);
@@ -102,18 +113,16 @@ class SdhController extends AbstractController
               $form = $formFactory->create(SdhType::class, $sdh, [
                   'disabled' => true, // importante: desactiva todos los campos
               ]);
-              
-          return $this->render('sdh/show.html.twig', [
-            'form' =>$form,
-            'caso' => $caso,
-            'caj' => $tabsData['caj'],
-            'sdh' => $tabsData['sdh'],
-            'mpa' => $tabsData['mpa'],
-            'gl' => $tabsData['gl'],   
-            'smgyd' => $tabsData['smgyd'],  
-            'sddnayf'=>$tabsData['sddnayf'],    
-            'pestaña_activa'=>'sdh',
-        ]);
+              $parametros['form'] = $form->createView();
+              $parametros['caso'] = $caso;
+              $parametros['sinCaso'] = $sinCaso;
+              foreach ($tabsData as $clave => $valor) {
+                  $parametros[$clave] = $valor;
+              }
+         
+              $parametros['pestaña_activa'] = 'sdh';
+              return $this->render('sdh/show.html.twig', $parametros);
+        
             
     }
 
@@ -123,11 +132,22 @@ class SdhController extends AbstractController
     EntityManagerInterface $entityManager): Response
     {
 
+        $caso = null;
+        $sinCaso = false;
+        $parametros = [];
          // Buscar el caso           
          $caso = $casoRepository->find($idCaso);
          if (!$caso) {
              throw $this->createNotFoundException('Caso no encontrado');
-         }
+             $sinCaso = true;
+            } else {
+                $caso = $casoRepository->find($idCaso);
+                $parametros['caso'] = $caso;
+                if (!$caso) {
+                    $this->addFlash('error', 'El caso seleccionado no existe.');
+                    $sinCaso = true;
+                }
+            }
 
           //busco si hay datos asociados para mostrar la pestaña desde el servicio
           $tabsData = $tabsProvider->getData($caso);
@@ -148,16 +168,14 @@ class SdhController extends AbstractController
            return $this->redirectToRoute('app_caso_index');
         }
         $parametros['form'] = $form->createView();
-        $parametros['mpa'] = $tabsData['mpa'];
-        $parametros['caso'] = $caso;
-        $parametros['caj'] = $tabsData['caj'];
-        $parametros['sdh'] = $sdh;
-        $parametros['gl'] = $tabsData['gl'];     
-        $parametros['smgyd'] = $tabsData['smgyd'];  
-        $parametros['sddnayf'] = $tabsData['sddnayf'];         
-        $parametros['pestaña_activa'] = 'sdh';
-
-        return $this->render('sdh/edit.html.twig', $parametros);
+              $parametros['caso'] = $caso;
+              $parametros['sinCaso'] = $sinCaso;
+              foreach ($tabsData as $clave => $valor) {
+                  $parametros[$clave] = $valor;
+              }
+         
+              $parametros['pestaña_activa'] = 'sdh';
+              return $this->render('sdh/edit.html.twig', $parametros);
         
     }
     

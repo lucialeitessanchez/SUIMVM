@@ -56,33 +56,23 @@ class PgcsjController extends AbstractController
                 $sinCaso = true;
             }
         }
-        
-       /*
+           
         if (!empty($tabsData['pgcsj'])) {
             // Llamar al método edit y devolver su Response
 
             return $this->edit($request, $idCaso, $casoRepo, $tabsProvider, $em);
         }
-*/
 
         $pgcsj = new Pgcsj();
         $form = $this->createForm(PgcsjType::class, $pgcsj);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach ($form->getErrors(true) as $error) {
-                dump($error->getMessage());
-                dump($error->getOrigin()->getName()); // nombre del campo
-                dump($error->getCause()?->getValue()); // ⬅️ valor que generó el error
-            }
-            die;
+          
             $pgcsj->setCaso($caso); 
             $pgcsj->setFechacarga(new \DateTime());
             $pgcsj->setUsuariocarga($this->getUser()?->getUserIdentifier());
-       
-
-            
-        
+               
             $em->persist($pgcsj);
             $em->flush(); 
            

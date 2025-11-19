@@ -32,7 +32,8 @@ class CasoController extends AbstractController
 
         $casos = $entityManager
         ->getRepository(Caso::class)
-        ->findAll();
+        ->findBy([], ['id_caso' => 'DESC']);
+      //  ->findAll();
     if ($casos){
             return $this->render('/caso/casoList.html.twig', [
            'casos' => $casos,
