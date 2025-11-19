@@ -239,12 +239,12 @@
                         </a>
                     </div>
                     <div>
-                        {# Opción para eliminar archivo existente (si lo implementás en el controlador) #}
+                        {# Opción para eliminar archivo existente (si lo implementás en el controlador) 
                         <a href="{{ path('archivo_eliminar', {'id': archivo.id}) }}" 
                            class="btn btn-sm btn-outline-danger"
                            onclick="return confirm('¿Está seguro de eliminar este archivo?')">
                            <i class="la la-trash"></i>
-                        </a>
+                        </a>#}
                     </div>
                 </div>
             {% endfor %}
@@ -259,7 +259,7 @@
         {{ form_widget(form.archivos, {
             'attr': {
                 'class': 'form-control',
-                'id': 'mpa_archivos_input_js_hook',
+                'id': 'caj_archivos_input_js_hook',
                 'accept': '.pdf,.jpg,.jpeg,.png',
                 'multiple': 'multiple'
             }

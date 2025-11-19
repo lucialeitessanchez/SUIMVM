@@ -21,6 +21,12 @@ use App\Service\CasoTabsDataProvider;
 #[Route('/caj')]
 class CajController extends AbstractController
 {
+    private ArchivoService $archivoService;
+    public function __construct(ArchivoService $archivoService)
+{
+    $this->archivoService = $archivoService;
+}
+
     #[Route('/new', name: 'caj_new', methods: ['GET', 'POST'])]
     public function new(Request $request, 
     EntityManagerInterface $em, SessionInterface $session,CasoRepository $casoRepo,
@@ -68,7 +74,7 @@ class CajController extends AbstractController
             $archivosSubidos = $form->get('archivos')->getData();
 
             foreach ($archivosSubidos as $uploadedFile) {
-                $archivoEntity = $this->$archivoService->guardarArchivoEntidad($uploadedFile, $caj);
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $caj);
                 $em->persist($archivoEntity);
             }
 
