@@ -40,7 +40,7 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'query_builder' => function ($repo) {
                     return $repo->createQueryBuilder('n')
                         ->where('n.nomenclador = :clave')
-                        ->setParameter('clave', 'MJS_MOTIVO')
+                        ->setParameter('clave', 'MJS_SP_MOTIVO')
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
         ])
@@ -72,7 +72,7 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'query_builder' => function ($repo) {
                     return $repo->createQueryBuilder('n')
                         ->where('n.nomenclador = :clave')
-                        ->setParameter('clave', 'MJS_TIPO_TRATAMIENTO')
+                        ->setParameter('clave', 'MJS_SP_TIPO_TRATAMIENTO')
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
                ])
@@ -126,7 +126,7 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'query_builder' => function ($repo) {
                     return $repo->createQueryBuilder('n')
                         ->where('n.nomenclador = :clave')
-                        ->setParameter('clave', 'MJS_MOTIVO_ENCARCELAMIENTO')
+                        ->setParameter('clave', 'MJS_SP_MOTIVO_ENCARCELACION')
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
                ])
@@ -151,19 +151,10 @@ class MjsServicioPenitenciarioType extends AbstractType
                 'attr' => ['class' => 'form-check-input'], // Bootstrap switch
                 'label_attr' => ['class' => 'form-check-label'],
             ])          
-            ->add('mjs_3b1', EntityType::class, [
-                'class' => Nomenclador::class,
-                'choice_label' => 'valor_nomenclador',
-                'placeholder' => 'Seleccione',
-                'required' => false, 
-                'label'=>'Tratamiento e intervenciones asignados',                
-                'query_builder' => function ($repo) {
-                    return $repo->createQueryBuilder('n')
-                        ->where('n.nomenclador = :clave')
-                        ->setParameter('clave', 'MJS_MOTIVO_ENCARCELAMIENTO')
-                        ->orderBy('n.valor_nomenclador', 'ASC');
-                },
-            ])
+            ->add('mjs_3b', TextareaType::class, [
+                'required' => false,
+                'label'=>"Tratamiento e intervenciones asignados"
+                ])
             ->add('mjs_4a', CheckboxType::class, [ //existencia de medidas
                 'label' => 'No / Sí',
                 'required' => false,

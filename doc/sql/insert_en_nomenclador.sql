@@ -144,3 +144,29 @@ INSERT INTO `nomenclador` (`id_nomenclador`, `nomenclador`, `valor_nomenclador`)
 (NULL, 'PGCSJ_13', 'Asistencia psicologica'),   
 (NULL, 'PGCSJ_13', 'Asistencia legal'),   
 (NULL, 'PGCSJ_13', 'Asistencia social') 
+
+
+mjs_SERVICIO PENITENTCIARIO
+INSERT INTO `nomenclador` (`id_nomenclador`, `nomenclador`, `valor_nomenclador`) VALUES 
+(NULL, 'MJS_SP_MOTIVO', 'Violencia de genero'),
+(NULL, 'MJS_SP_MOTIVO','Delitos contra la propiedad'),
+(NULL, 'MJS_SP_MOTIVO','Delitos contra la integridad sexual'),
+(NULL, 'MJS_SP_MOTIVO','Participaciones en organizaciones criminales')
+
+MJS_SP_TIPO_TRATAMIENTO
+INSERT INTO `nomenclador` (`id_nomenclador`, `nomenclador`, `valor_nomenclador`) VALUES 
+(NULL, 'MJS_SP_TIPO_TRATAMIENTO', 'Psicoterapia individual'),
+(NULL, 'MJS_SP_TIPO_TRATAMIENTO','Programa de control de violencia'),
+(NULL, 'MJS_SP_TIPO_TRATAMIENTO','Taller de masculinidades'),
+(NULL, 'MJS_SP_TIPO_TRATAMIENTO','Terapia para control de adicciones'),
+(NULL, 'MJS_SP_TIPO_TRATAMIENTO','Programa de reinsercion laboral')
+
+MJS_SP_MOTIVO_ENCARCELACION
+INSERT INTO `nomenclador` (`id_nomenclador`, `nomenclador`, `valor_nomenclador`) VALUES 
+(NULL, 'MJS_SP_MOTIVO_ENCARCELACION', 'Delitos contra la propiedad'),
+(NULL, 'MJS_SP_MOTIVO_ENCARCELACION','Delitos contra la integridad personal'),
+(NULL, 'MJS_SP_MOTIVO_ENCARCELACION','Delitos de drogas'),
+(NULL, 'MJS_SP_MOTIVO_ENCARCELACION','Participacion en organizaciones criminales'),
+(NULL, 'MJS_SP_MOTIVO_ENCARCELACION','Amenazas'),
+(NULL, 'MJS_SP_MOTIVO_ENCARCELACION','Portacion de armas')
+

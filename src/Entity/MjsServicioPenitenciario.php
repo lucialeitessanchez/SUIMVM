@@ -67,7 +67,7 @@ class MjsServicioPenitenciario implements ArchivableInterface
     #[ORM\Column(type: 'boolean', nullable: true)]
     private ?bool $mjs_3a = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'text',  nullable: true)]
     private ?string $mjs_3b = null;
 
     #[ORM\ManyToOne(targetEntity: Nomenclador::class)]
