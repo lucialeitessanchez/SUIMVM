@@ -227,7 +227,7 @@ class CajType extends AbstractType
                 'required'=> false,
             ])
     
-            ->add('archivo',FileType::class, [
+            ->add('archivos',FileType::class, [
                 'label' =>'Subir archivos',
                 'multiple' => true,
                 'mapped' => false,
