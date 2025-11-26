@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\PersonaService;
 use App\Service\CasoTabsDataProvider;
+use App\Service\AlertaEmailService;
 
 #[Route('/caso')]
 class CasoController extends AbstractController
@@ -45,7 +46,7 @@ class CasoController extends AbstractController
 
     //-----------------------------------
     #[Route('/nuevo', name: 'caso_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    public function new(Request $request, EntityManagerInterface $em, AlertaEmailService $alertaEmailService): Response
     {
      //seteo el origen (hasta que reciba usuario)
      $organismo=new Organismo();
@@ -98,6 +99,11 @@ class CasoController extends AbstractController
             $em->flush();
 
             $id=$caso->getIdCaso();
+                // ----------------------------------------
+                // 🚨 Enviar alerta a TODOS los organismos
+                // ----------------------------------------
+                $alertaEmailService->enviarAlertaNuevoCaso($id);
+
         // ✅ Mensaje flash
            // $this->addFlash('aviso', 'El caso fue guardado exitosamente con el número '.$id);
            $this->addFlash('success_js', 'Datos guardados correctamente');   

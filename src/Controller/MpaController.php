@@ -200,7 +200,7 @@ public function edit(
         $tiposViolenciaJson = $request->request->get('tiposViolencia');
         $tiposViolenciaArray = json_decode($tiposViolenciaJson, true);
         if (is_array($tiposViolenciaArray)) {
-            foreach ($mpa->getTiposViolencia() as $existente) {
+            foreach ($mpa->getTiposViolencias() as $existente) {
                 $entityManager->remove($existente);
             }
 
