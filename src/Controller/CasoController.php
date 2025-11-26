@@ -44,6 +44,13 @@ class CasoController extends AbstractController
         return $this->render('/index.html.twig');}
     }
 
+    #[Route('/enviarMail', name: 'mail_alerta', methods: ['GET', 'POST'])]
+    public function MailAlerta(Request $request,AlertaEmailService $alertaEmailService): Response
+    {
+    
+        $alertaEmailService->enviarAlertaNuevoCaso(29);
+        return new Response("se envio alerta");
+    }
     //-----------------------------------
     #[Route('/nuevo', name: 'caso_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $em, AlertaEmailService $alertaEmailService): Response

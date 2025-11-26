@@ -27,7 +27,8 @@ class AlertaEmailService
 
             // ⚠️ Ajusta esto según cómo guardás los mails
             $mail = $org->getEmail();  // ← VARCHAR simple
-           // dump("Enviando a: " . $mail);
+            echo("Enviando a: " . $mail);
+
             if (!$mail) {
                 continue;
             }
@@ -37,15 +38,16 @@ class AlertaEmailService
                 ->from('informatica.migyd@santafe.gov.ar')
                 ->to($mail)
                 ->subject('Nuevo caso registrado')
-                ->text("Se registró un nuevo caso en el sistema.\nID del caso: $idCaso");
+                ->text("Se registró un nuevo caso en el sistema RUFEM.\nID del caso: $idCaso");
 
                 try {
                     $this->mailer->send($email);
                 } catch (\Throwable $e) {
                     dd("ERROR SMTP: " . $e->getMessage());
+                    die("error".$e->getMessage());
                 }
-            
+            echo "envio";
         }
-     //   dd("TERMINÓ SERVICE");
+       //dd("TERMINÓ SERVICE");
     }
 }
