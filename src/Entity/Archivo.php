@@ -55,7 +55,7 @@ class Archivo
 
     #[ORM\ManyToOne(targetEntity: Sdh::class, inversedBy: 'archivos')]
     #[ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh', nullable: true, onDelete: 'SET NULL')]
-    private ?GobLocales $sdh = null;
+    private ?Sdh $sdh = null;
 
     public function getId(): ?int
     {
