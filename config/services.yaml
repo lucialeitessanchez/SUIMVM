@@ -1,5 +1,5 @@
 parameters:
-    archivos_directory: '%kernel.project_dir%/public/uploads/archivos'
+    archivos_directory: '%kernel.project_dir%/var/uploads/archivos'
 
 services:
     # default configuration for services in *this* file
