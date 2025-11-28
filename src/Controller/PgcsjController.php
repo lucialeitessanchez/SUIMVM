@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use App\Service\ArchivoService;
 //use App\Service\ArchivoAdjuntoService;
 
 #[Route('/pgcsj')]
@@ -34,7 +35,7 @@ class PgcsjController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em,
     CasoRepository $casoRepo, SessionInterface $session,
     CasoTabsDataProvider $tabsProvider,
-    
+
     ): Response
     {
         $idCaso = $session->get('caso_id');
@@ -74,6 +75,8 @@ class PgcsjController extends AbstractController
             $pgcsj->setUsuariocarga($this->getUser()?->getUserIdentifier());
                
             $em->persist($pgcsj);
+
+            
             $em->flush(); 
            
             /*
