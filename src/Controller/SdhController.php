@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Archivo;
 use App\Entity\Sdh;
 use App\Entity\Caso;
 use App\Entity\Nomenclador;
@@ -17,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use Doctrine\ORM\EntityManager;
 
 #[Route('/sdh')]
 class SdhController extends AbstractController
@@ -64,13 +66,13 @@ class SdhController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          
+        
             //seteo usuario carga
             // Manejo de archivos usando el servicio
             $archivosSubidos = $form->get('archivos')->getData();
 
             foreach ($archivosSubidos as $uploadedFile) {
-                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $caj);
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $sdh);
                 $em->persist($archivoEntity);
             }
             $sdh->setFechaCarga(new \DateTime());
@@ -93,7 +95,7 @@ class SdhController extends AbstractController
     #[Route('/{idCaso}/show', name: 'app_sdh_show', methods: ['GET'])]
     public function show(CasoRepository $casoRepository,
     SdhRepository $sdhRepository,int $idCaso, 
-    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory,EntityManagerInterface $entityManager): Response
     {
         $caso = null;
         $sinCaso = false;
@@ -125,9 +127,13 @@ class SdhController extends AbstractController
               $form = $formFactory->create(SdhType::class, $sdh, [
                   'disabled' => true, // importante: desactiva todos los campos
               ]);
+
+              $archivos = $entityManager->getRepository(Archivo::class);
+
               $parametros['form'] = $form->createView();
               $parametros['caso'] = $caso;
               $parametros['sinCaso'] = $sinCaso;
+              $parametros['archivos'] = $archivos;
               foreach ($tabsData as $clave => $valor) {
                   $parametros[$clave] = $valor;
               }
