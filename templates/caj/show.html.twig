@@ -237,7 +237,7 @@
 {% if archivos is not empty %}
     <div class="list-group">
         {% for archivo in archivos %}
-            <a href="{{ asset('uploads/archivos/' ~ archivo.nombreArchivo) }}" 
+            <a href="{{ asset('/var/uploads/archivos/' ~ archivo.nombreArchivo) }}" 
                 target="_blank"
                 class="list-group-item list-group-item-action d-flex align-items-center">
                 <span>{{ archivo.originalName }} </span>
