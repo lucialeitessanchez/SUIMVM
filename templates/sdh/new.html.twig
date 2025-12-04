@@ -31,7 +31,7 @@
                 </div>
   
         {# Acordeón del formulario #}
-              {{ form_start(form) }}
+        {{ form_start(form) }}
         <div class="accordion" id="accordionFormularioSdh">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading1">
@@ -251,10 +251,8 @@
                 <br>
                 
         </div>
-  
-
-             <br>
-                <div class="mb-3">
+        {# archivos #}
+        <div class="mb-3">
                 <label for="{{ form.archivos.vars.id }}" class="form-label fw-bold">
                     <i class="la la-upload me-1"></i> Adjuntar archivos
                 </label>
@@ -267,6 +265,7 @@
                 }) }}
                 </div>
 <br>
+
     <div class="col-md-12 d-flex justify-content-end">
             <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
             <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
