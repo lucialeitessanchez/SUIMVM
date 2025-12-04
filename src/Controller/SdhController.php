@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Archivo;
 use App\Entity\Sdh;
 use App\Entity\Caso;
 use App\Entity\Nomenclador;
@@ -8,6 +9,7 @@ use App\Entity\SdhTipoTrata;
 use App\Form\SdhType;
 use App\Repository\CasoRepository;
 use App\Repository\SdhRepository;
+use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
-use App\Service\ArchivoService;
+
+use Doctrine\ORM\EntityManager;
+
 
 #[Route('/sdh')]
 class SdhController extends AbstractController
 {
+    private ArchivoService $archivoService;
+    public function __construct(ArchivoService $archivoService)
+{
+    $this->archivoService = $archivoService;
+}
     #[Route('/new_sdh', name: 'sdh_new', methods: ['GET', 'POST'])]
     public function new(Request $request, 
     EntityManagerInterface $em, CasoRepository $casoRepository, 
@@ -54,15 +63,21 @@ class SdhController extends AbstractController
         $sdh = new Sdh();
        
         $sdh->setFechaCarga(new \DateTime());
-       // $sdh->setUsuarioCarga($this->getUser()?->getUserIdentifier());
+        $sdh->setUsuarioCarga($this->getUser()?->getUserIdentifier());
 
         $form = $this->createForm(SdhType::class, $sdh);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          
+        
             //seteo usuario carga
-            $sdh->setUsuarioCarga("prueba");
+            // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $sdh);
+                $em->persist($archivoEntity);
+            }
             $sdh->setFechaCarga(new \DateTime());
             if (!$sinCaso)
                     $sdh->setCasoIdCaso($caso); 
@@ -88,7 +103,7 @@ class SdhController extends AbstractController
     #[Route('/{idCaso}/show', name: 'app_sdh_show', methods: ['GET'])]
     public function show(CasoRepository $casoRepository,
     SdhRepository $sdhRepository,int $idCaso, 
-    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory,EntityManagerInterface $entityManager): Response
     {
         $caso = null;
         $sinCaso = false;
@@ -120,9 +135,13 @@ class SdhController extends AbstractController
               $form = $formFactory->create(SdhType::class, $sdh, [
                   'disabled' => true, // importante: desactiva todos los campos
               ]);
+
+              $archivos = $entityManager->getRepository(Archivo::class);
+
               $parametros['form'] = $form->createView();
               $parametros['caso'] = $caso;
               $parametros['sinCaso'] = $sinCaso;
+              $parametros['archivos'] = $archivos;
               foreach ($tabsData as $clave => $valor) {
                   $parametros[$clave] = $valor;
               }
