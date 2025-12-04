@@ -252,30 +252,21 @@
                 
         </div>
   
-        {{ form_widget(form) }}
-  {# 📎 Nuevo bloque para archivos adjuntos #}
-                <div class="card mt-4 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title mb-3">Archivos adjuntos</h5>
-                      
 
-                        {% if archivos is defined and archivos|length > 0 %}
-                            <hr>
-                            <h6>Archivos cargados:</h6>
-                            <ul class="list-group">
-                                {% for archivo in archivos %}
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <a href="{{ asset('uploads/' ~ archivo.nombreArchivo) }}" target="_blank">
-                                            {{ archivo.originalName }}
-                                        </a>
-                                        <span class="badge bg-secondary">{{ archivo.mimeType }}</span>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </div>
+             <br>
+                <div class="mb-3">
+                <label for="{{ form.archivos.vars.id }}" class="form-label fw-bold">
+                    <i class="la la-upload me-1"></i> Adjuntar archivos
+                </label>
+                {{ form_errors(form.archivos) }}
+                {{ form_widget(form.archivos, {
+                    'attr': {
+                    'class': 'form-control',
+                    'id': form.archivos.vars.id
+                    }
+                }) }}
                 </div>
-                <br>
+<br>
     <div class="col-md-12 d-flex justify-content-end">
             <div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
             <button type="submit" class="btn  btn-outline-primary" style="background-color:blue;color:white">Guardar</button>
