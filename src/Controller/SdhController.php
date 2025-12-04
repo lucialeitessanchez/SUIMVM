@@ -128,7 +128,8 @@ class SdhController extends AbstractController
                   'disabled' => true, // importante: desactiva todos los campos
               ]);
 
-              $archivos = $entityManager->getRepository(Archivo::class);
+              // Traer archivos asociados al MPA
+        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['sdh' => $sdh]);
 
               $parametros['form'] = $form->createView();
               $parametros['caso'] = $caso;
