@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use App\Service\CasoTabsDataProvider;
+use App\Service\ArchivoService;
 
 #[Route('/sdh')]
 class SdhController extends AbstractController
@@ -24,7 +25,8 @@ class SdhController extends AbstractController
     public function new(Request $request, 
     EntityManagerInterface $em, CasoRepository $casoRepository, 
     CasoTabsDataProvider $tabsProvider, 
-    SessionInterface $session
+    SessionInterface $session,
+    ArchivoService $archivoService
     ): Response
     {
         $idCaso = $session->get('caso_id');
@@ -66,6 +68,11 @@ class SdhController extends AbstractController
                     $sdh->setCasoIdCaso($caso); 
                     
             $em->persist($sdh);
+            $archivosSubidos = $form->get('archivos')->getData();
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $sdh);
+                $em->persist($archivoEntity);
+            }
             $em->flush();       
            
             
@@ -119,11 +126,9 @@ class SdhController extends AbstractController
               foreach ($tabsData as $clave => $valor) {
                   $parametros[$clave] = $valor;
               }
-         
               $parametros['pestaña_activa'] = 'sdh';
               return $this->render('sdh/show.html.twig', $parametros);
         
-            
     }
 
     #[Route('/{idCaso}/edit', name: 'app_sdh_edit', methods: ['GET', 'POST'])]
