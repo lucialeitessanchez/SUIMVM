@@ -83,11 +83,7 @@ class SdhController extends AbstractController
                     $sdh->setCasoIdCaso($caso); 
                     
             $em->persist($sdh);
-            $archivosSubidos = $form->get('archivos')->getData();
-            foreach ($archivosSubidos as $uploadedFile) {
-                $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $sdh);
-                $em->persist($archivoEntity);
-            }
+      
             $em->flush();       
            
             

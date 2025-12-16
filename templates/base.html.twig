@@ -64,9 +64,16 @@
                         <li><a class="dropdown-item" href="{{ path ('app_pgcsj_new') }}">PGCSJ</a></li>
                         <li><a class="dropdown-item" href="{{ path ('mjs_app_default') }}">MJyS</a></li>
   
-                {#<li class="nav-item"><a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a></li>#}
-            </ul>
-            </li>
+                        {#<li class="nav-item"><a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a></li>#}
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Administracion</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('organismo_new')}}">Gestion de Organismos</i></a></li>
+                        
+                    </ul>
+                </li>
         </div>
             <div class="ms-auto d-flex align-items-center text-white">
             {% if app.user %}
