@@ -17,20 +17,20 @@ class Organismo
     #[ORM\Column(type: 'string', length: 45)]
     private string $nombreOrganismo;
 
-    #[ORM\Column(type: 'string', length: 45)]
-    private string $referente;
+    #[ORM\Column(type: 'string', length: 45, nullable:true)]
+    private ?string $referente=null;
 
-    #[ORM\Column(type: 'string', length: 45)]
-    private string $domicilio;
+    #[ORM\Column(type: 'string', length: 45, nullable:true)]
+    private ?string $domicilio=null;
 
-    #[ORM\Column(type: 'string', length: 45)]
-    private string $telefono;
+    #[ORM\Column(type: 'string', length: 45, nullable:true)]
+    private ?string $telefono=null;
 
-    #[ORM\Column(type: 'string', length: 45)]
-    private string $celular;
+    #[ORM\Column(type: 'string', length: 45, nullable:true)]
+    private ?string $celular=null;
 
-    #[ORM\Column(type: 'string', length: 45)]
-    private string $email;
+    #[ORM\Column(type: 'string', length: 45, nullable:true)]
+    private ?string $email=null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: 'localidad_id_localidad', referencedColumnName: 'id_localidad')]
@@ -58,7 +58,7 @@ class Organismo
         return $this;
     }
 
-    public function getReferente(): string
+    public function getReferente(): ?string
     {
         return $this->referente;
     }
@@ -69,7 +69,7 @@ class Organismo
         return $this;
     }
 
-    public function getDomicilio(): string
+    public function getDomicilio(): ?string
     {
         return $this->domicilio;
     }
@@ -80,7 +80,7 @@ class Organismo
         return $this;
     }
 
-    public function getTelefono(): string
+    public function getTelefono(): ?string
     {
         return $this->telefono;
     }
@@ -91,7 +91,7 @@ class Organismo
         return $this;
     }
 
-    public function getCelular(): string
+    public function getCelular(): ?string
     {
         return $this->celular;
     }
@@ -102,7 +102,7 @@ class Organismo
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }

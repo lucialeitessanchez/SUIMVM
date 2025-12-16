@@ -37,7 +37,7 @@ class OrganismoController extends AbstractController
 
             //return $this->redirectToRoute('organismo_index');
             $this->addFlash('success_js', 'El organismo se guardó correctamente');   
-            return $this->redirectToRoute('app_caso_index');
+            return $this->redirectToRoute('organismo_index');
         }
 
         return $this->render('organismo/new.html.twig', [
@@ -71,6 +71,7 @@ class OrganismoController extends AbstractController
         return $this->render('organismo/edit.html.twig', [
             'form' => $form->createView(),
             'organismo' => $organismo,
+            'modo'=>'edit',
         ]);
     }
 
