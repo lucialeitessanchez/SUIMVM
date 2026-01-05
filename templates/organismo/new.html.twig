@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Agregar organismo{% endblock %}
+
+{% block body %}
+<section class="container my-5">
+<h2>Agregar Organismo</h2>
+
+        {% include 'organismo/_form.html.twig' with {form: form, button_label: 'Guardar'} %}
+
+        {% include 'organismo/_delete_form.html.twig' %}
+
+{% endblock %}

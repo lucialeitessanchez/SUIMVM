@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle del organismo{% endblock %}
+
+{% block body %}
+
+<section class="container my-5">
+
+<h2>{{ organismo.nombreOrganismo }}</h2>
+<hr>
+<div class="card shadow-sm rounded-4 my-4">
+    <div class="card-body p-4">
+        <div class="row fs-5 lh-lg">
+
+            <div class="col-md-6">
+                <p>
+                    <strong class="text-secondary me-2">Referente:</strong>
+                    {{ organismo.referente }}
+                </p>
+                <p>
+                    <strong class="text-secondary me-2">Domicilio:</strong>
+                    {{ organismo.domicilio }}
+                </p>
+                <p>
+                    <strong class="text-secondary me-2">Teléfono:</strong>
+                    {{ organismo.telefono }}
+                </p>
+                <p>
+                    <strong class="text-secondary me-2">Es organismo origen?:</strong>
+                   {{ esIniciador ? 'Sí' : 'No' }}
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <p>
+                    <strong class="text-secondary me-2">Celular:</strong>
+                    {{ organismo.celular }}
+                </p>
+                <p>
+                    <strong class="text-secondary me-2">Email:</strong>
+                    {{ organismo.email }}
+                </p>
+                <p>
+                    <strong class="text-secondary me-2">Localidad:</strong>
+                    {{ organismo.localidad }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+  <div class="col-md-12 d-flex justify-content-center">
+<div class="btn-group d-flex justify-content-center" role="group" style="align-item:center">
+<a class="btn  btn-outline-primary" href="{{ path('organismo_edit', {idOrganismo: organismo.idOrganismo}) }} " style="background-color:blue;color:white">Editar</a>
+
+{% include 'organismo/_delete_form.html.twig' %}
+
+<a class="btn btn-outline-secondary" href="{{ path('organismo_index') }}" style="background-color:black;color:white">Volver</a>
+</div>
+</div>
+{% endblock %}

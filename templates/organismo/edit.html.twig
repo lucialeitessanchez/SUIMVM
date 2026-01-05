@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar organismo{% endblock %}
+
+{% block body %}
+
+<section class="container my-5">
+<h2>Editar Organismo</h2>
+
+{% include 'organismo/_form.html.twig' with {form: form, button_label: 'Actualizar'} %}
+
+{% include 'organismo/_delete_form.html.twig' %}
+
+
+{% endblock %}

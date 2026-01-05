@@ -20,7 +20,10 @@ class OrganismoType extends AbstractType
             ->add('nombreOrganismo', TextType::class, [
                 'label' => 'Nombre del organismo'
             ])
-            ->add('referente', TextType::class)
+            ->add('referente', TextType::class, [
+                  'required' => false,
+            ]
+            )
             ->add('domicilio', TextType::class)
             ->add('telefono', TextType::class)
             ->add('celular', TextType::class)
@@ -32,6 +35,14 @@ class OrganismoType extends AbstractType
                 'attr' => [
                     'class' => 'select2-autocomplete',
                 ],
+            ])
+      
+            ->add('esIniciador', CheckboxType::class, [
+                'label' => 'No / Sí',
+                'required' => false,
+                'attr' => ['class' => 'form-check-input'], // Bootstrap switch
+                'label_attr' => ['class' => 'form-check-label'],
+                'mapped' => false, // 👈 CLAVE
             ])
         ;
     }

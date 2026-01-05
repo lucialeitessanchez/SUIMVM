@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organismos{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Listado de Organismos</h1>
+
+        <a href="{{ path('organismo_new') }}" class="btn btn-primary">
+            + Nuevo Organismo
+        </a>
+    </div>
+
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Referente</th>
+                <th>Localidad</th>
+                <th>Teléfono</th>
+                <th>Celular</th>
+                <th>Email</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for organismo in organismos %}
+            <tr>
+                <td>{{ organismo.idOrganismo }}</td>
+                <td>{{ organismo.nombreOrganismo }}</td>
+                <td>{{ organismo.referente }}</td>
+                <td>{{ organismo.localidad }}</td>
+                <td>{{ organismo.telefono }}</td>
+                <td>{{ organismo.celular }}</td>
+                <td>{{ organismo.email }}</td>
+                <td class="text-center">
+                    <a href="{{ path('organismo_show', {'idOrganismo': organismo.idOrganismo}) }}"
+                       class="btn btn-sm btn-outline-secondary">
+                        Ver
+                    </a>
+                    <a href="{{ path('organismo_edit', {'idOrganismo': organismo.idOrganismo }) }}"
+                       class="btn btn-sm btn-outline-primary">
+                        Editar
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8" class="text-center text-muted">
+                    No hay organismos cargados
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
