@@ -239,7 +239,7 @@
   
         {{ form_widget(form) }}
 
-{# Agrega una línea horizontal para separar la sección de archivos #}
+ {# Agrega una línea horizontal para separar la sección de archivos #}
 <hr class="my-4">
 
 <h2>Archivos Adjuntos</h2>
@@ -256,8 +256,10 @@
         {% endfor %}
     </div>
 {% else %}
-    <p class="text-muted">No hay archivos adjuntos para SDH.</p>
+    <p class="text-muted">No hay archivos adjuntos para CAJ.</p>
 {% endif %}
+
+<br>
 
     {{ form_end(form) }}
      </section>
