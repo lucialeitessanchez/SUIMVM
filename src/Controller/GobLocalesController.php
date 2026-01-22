@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Archivo;
 use App\Entity\Caso;
 use App\Entity\GobLocales;
 use App\Repository\CasoRepository;
 use App\Form\GobLocalesType;
 use App\Repository\GobLocalesRepository;
+use App\Service\ArchivoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,12 @@ use App\Service\CasoTabsDataProvider;
 #[Route('/gob_locales')]
 class GobLocalesController extends AbstractController
 {
+    private ArchivoService $archivoService;
+    public function __construct(ArchivoService $archivoService)
+    {
+        $this->archivoService = $archivoService;
+    }
+
     #[Route('/{idCaso}/show', name: 'gob_locales_show', methods: ['GET'])]
     public function show(
         int $idCaso,
@@ -46,7 +53,8 @@ class GobLocalesController extends AbstractController
         }
         $tabsData = $tabsProvider->getData($caso);
         $gobLocales = $gobLocalesRepository->findOneBy(['caso' => $caso]);
-
+         // Traer archivos asociados al MPA
+        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['gobLocales' => $gobLocales]);
         if (!$gobLocales) {
             $this->addFlash('warning', 'No hay datos cargados de GobLocales para este caso');
             return $this->redirectToRoute('caso_index'); // o donde corresponda
@@ -62,7 +70,7 @@ class GobLocalesController extends AbstractController
         foreach ($tabsData as $clave => $valor) {
             $parametros[$clave] = $valor;
         }
-   
+        $parametros['archivos'] = $archivos;
         $parametros['pestaña_activa'] = 'gl';
 
         return $this->render('gobLocal/show.html.twig', $parametros);
