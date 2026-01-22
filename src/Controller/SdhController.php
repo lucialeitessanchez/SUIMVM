@@ -139,18 +139,18 @@ class SdhController extends AbstractController
               ]);
 
               // Traer archivos asociados al MPA
-        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['sdh' => $sdh]);
+                $archivos = $entityManager->getRepository(Archivo::class)->findBy(['sdh' => $sdh]);
 
-              $parametros['form'] = $form->createView();
-              $parametros['caso'] = $caso;
-              $parametros['sinCaso'] = $sinCaso;
-              $parametros['archivos'] = $archivos;
-              foreach ($tabsData as $clave => $valor) {
-                  $parametros[$clave] = $valor;
-              }
-              $parametros['pestaña_activa'] = 'sdh';
-              return $this->render('sdh/show.html.twig', $parametros);
-        
+            $parametros['form'] = $form->createView();
+            $parametros['caso'] = $caso;
+            $parametros['sinCaso'] = $sinCaso;
+            $parametros['archivos'] = $archivos;
+            foreach ($tabsData as $clave => $valor) {
+                $parametros[$clave] = $valor;
+            }
+            $parametros['pestaña_activa'] = 'sdh';
+            return $this->render('sdh/show.html.twig', $parametros);
+    
     }
 
     #[Route('/{idCaso}/edit', name: 'app_sdh_edit', methods: ['GET', 'POST'])]

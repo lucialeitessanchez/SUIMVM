@@ -23,6 +23,14 @@ use Doctrine\Common\Collections\Collection;
 #[Route('/sddnayf')]
 class SddnayfNewController extends AbstractController
 {
+
+    private ArchivoService $archivoService;
+    public function __construct(ArchivoService $archivoService)
+    {
+        $this->archivoService = $archivoService;
+    }
+
+
     #[Route('/new_sddnayf', name: 'app_sddnayf_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
@@ -73,12 +81,13 @@ class SddnayfNewController extends AbstractController
                     $sddnayf->setFechacarga(new \DateTime());
                     $sddnayf->setUsuariocarga($this->getUser()?->getUserIdentifier());
 
-                    // Manejo de archivos usando el servicio
-                $archivosSubidos = $form->get('archivos')->getData();
-                foreach ($archivosSubidos as $uploadedFile) {
-                    $archivoEntity = $this->$archivoService->guardarArchivoEntidad($uploadedFile, $sddnayf);
-                    $em->persist($archivoEntity);
-                }
+                        // Manejo de archivos usando el servicio
+                    $archivosSubidos = $form->get('archivos')->getData();
+
+                    foreach ($archivosSubidos as $uploadedFile) {
+                        $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $sddnayf);
+                        $em->persist($archivoEntity);
+                    }
 
                     $em->persist($sddnayf);
                     $em->flush();
@@ -130,6 +139,7 @@ class SddnayfNewController extends AbstractController
         $form->handleRequest($request);
     
             if ($form->isSubmitted() && $form->isValid()) {
+                
                         // --- Manejo de archivos nuevos ---
             $archivosSubidos = $form->get('archivos')->getData();
             foreach ($archivosSubidos as $uploadedFile) {
