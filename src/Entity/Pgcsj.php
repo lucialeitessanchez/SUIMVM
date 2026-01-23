@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: PgcsjRepository::class)]
 #[ORM\Table(name: 'pgcsj')]
-class Pgcsj
+class Pgcsj implements ArchivableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -83,11 +83,41 @@ class Pgcsj
     #[ORM\InverseJoinColumn(name: "nomenclador_id", referencedColumnName: "id_nomenclador", onDelete: "CASCADE")]
     private Collection $pgcsj_13;
 
+    #[ORM\OneToMany(mappedBy: 'pgcsj', targetEntity: Archivo::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $archivos;
+
+
     public function __construct()
     {
         $this->pgcsj_3 = new ArrayCollection();
         $this->pgcsj_11 = new ArrayCollection();
         $this->pgcsj_13 = new ArrayCollection();
+        $this->archivos = new ArrayCollection();
+    }
+
+    public function addArchivo(Archivo $archivo): void
+    {
+        if (!$this->archivos->contains($archivo)) {
+            $this->archivos->add($archivo);
+            $archivo->setPgcsj($this); // aquí relacionás en el lado del archivo
+        }
+    }
+
+    public function getArchivos(): Collection
+    {
+        return $this->archivos;
+    }
+
+    public function removeArchivo(Archivo $archivo): static
+    {
+        if ($this->archivos->removeElement($archivo)) {
+            // set the owning side to null (unless already changed)
+            if ($archivo->getSmgyd() === $this) {
+                $archivo->setSmgyd(null);
+            }
+        }
+
+        return $this;
     }
 
     public function getPgcsj3(): Collection

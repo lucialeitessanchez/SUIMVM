@@ -57,6 +57,10 @@ class Archivo
     #[ORM\JoinColumn(name: 'sdh_id', referencedColumnName: 'id_sdh', nullable: true, onDelete: 'SET NULL')]
     private ?Sdh $sdh = null;
 
+    #[ORM\ManyToOne(targetEntity: Pgcsj::class, inversedBy: 'archivos')]
+    #[ORM\JoinColumn(name: 'pgcsj_id', referencedColumnName: 'id_pgcsj', nullable: true, onDelete: 'SET NULL')]
+    private ?Pgcsj $pgcsj = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -186,6 +190,18 @@ class Archivo
     public function setSdh(?Sdh $sdh): static
     {
         $this->sdh = $sdh;
+        return $this;
+    }
+
+
+    public function getPgcsj(): ?Pgcsj
+    {
+        return $this->pgcsj;
+    }
+    
+    public function setPgcsj(?Pgcsj $pgcsj): static
+    {
+        $this->pgcsj = $pgcsj;
         return $this;
     }
 }
