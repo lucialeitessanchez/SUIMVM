@@ -54,7 +54,7 @@ class GobLocalesController extends AbstractController
         $tabsData = $tabsProvider->getData($caso);
         $gobLocales = $gobLocalesRepository->findOneBy(['caso' => $caso]);
          // Traer archivos asociados al MPA
-        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['gobLocales' => $gobLocales]);
+        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['areasLocales' => $gobLocales]);
         if (!$gobLocales) {
             $this->addFlash('warning', 'No hay datos cargados de GobLocales para este caso');
             return $this->redirectToRoute('caso_index'); // o donde corresponda
@@ -74,7 +74,7 @@ class GobLocalesController extends AbstractController
         $parametros['pestaña_activa'] = 'gl';
 
         return $this->render('gobLocal/show.html.twig', $parametros);
-         
+        
     }
 
     #[Route('/{idCaso}/edit', name: 'gob_locales_edit', methods: ['GET', 'POST'])]
