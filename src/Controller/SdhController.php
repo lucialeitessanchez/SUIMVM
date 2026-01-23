@@ -205,7 +205,7 @@ class SdhController extends AbstractController
         }
 
          // Archivos asociados al SDH (igual que en show)
-        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['smgyd' => $sdh]);
+        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['sdh' => $sdh]);
 
         $parametros['form'] = $form->createView();
         $parametros['caso'] = $caso;

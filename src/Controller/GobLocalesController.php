@@ -83,7 +83,7 @@ class GobLocalesController extends AbstractController
         GobLocalesRepository $gobLocalesRepository,
         CasoRepository $casoRepository,
         CasoTabsDataProvider $tabsProvider,
-        EntityManagerInterface $em,  int $idCaso,
+        EntityManagerInterface $em,  int $idCaso,ArchivoService $archivoService
     ): Response {
 
         $sinCaso=false;
@@ -103,14 +103,25 @@ class GobLocalesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // --- Manejo de archivos nuevos ---
+            $archivosSubidos = $form->get('archivos')->getData();
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $gobLocales);
+                $em->persist($archivoEntity);
+            }
+
+
             $em->flush();
             $this->addFlash('success_js', 'Seccion AL guardada correctamente');   
             return $this->redirectToRoute('app_caso_index');
         }
-        
+
+        // Archivos asociados al SDH (igual que en show)
+            $archivos = $em->getRepository(Archivo::class)->findBy(['areasLocales' => $gobLocales]);
             $parametros['form'] = $form->createView();
             $parametros['caso'] = $caso;
             $parametros['sinCaso'] = $sinCaso;
+            $parametros['archivos'] = $archivos;
             foreach ($tabsData as $clave => $valor) {
                 $parametros[$clave] = $valor;
             }
@@ -126,7 +137,7 @@ class GobLocalesController extends AbstractController
         CasoRepository $casoRepository,
         EntityManagerInterface $em,SessionInterface $session,        
         GobLocalesRepository $gobLocalesRepository,        
-        CasoTabsDataProvider $tabsProvider      
+        CasoTabsDataProvider $tabsProvider, ArchivoService $archivoService      
     ): Response {
        
         $idCaso = $session->get('caso_id');
@@ -152,7 +163,7 @@ class GobLocalesController extends AbstractController
        
         if (!empty($tabsData['gl'])) {
             // Llamar al método edit y devolver su Response
-            return $this->edit($request, $gobLocalesRepository, $casoRepository, $tabsProvider, $em,$idCaso);
+            return $this->edit($request, $gobLocalesRepository, $casoRepository, $tabsProvider, $em,$idCaso,$archivoService);
         } 
 
         
@@ -166,10 +177,17 @@ class GobLocalesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $gobLocales->setCaso($caso);
+            // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $gobLocales);
+                $em->persist($archivoEntity);
+            }
+
             $em->persist($gobLocales);
             $em->flush();
-          // dd($idCaso);
-          //  dd($gobLocales->getCaso()->getIdCaso());
+
            $this->addFlash('success_js', 'Seccion Area Local guardada correctamente');   
            return $this->redirectToRoute('app_caso_index');
         }
