@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+<h1>{{ titulo }}</h1>
+
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-md-4 mb-3">
+        {{ form_label(form.usuaemail) }}
+        {{ form_widget(form.usuaemail, { attr: { class: 'form-control' } }) }}
+        {{ form_errors(form.usuaemail) }}
+    </div>
+
+    <div class="col-md-4 mb-3">
+        {{ form_label(form.usuanombre) }}
+        {{ form_widget(form.usuanombre, { attr: { class: 'form-control' } }) }}
+        {{ form_errors(form.usuanombre) }}
+    </div>
+        <div class="col-md-4 mb-3">
+        {{ form_label(form.usuaapellido) }}
+        {{ form_widget(form.usuaapellido, { attr: { class: 'form-control' } }) }}
+        {{ form_errors(form.usuaapellido) }}
+    </div>
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.roles) }}
+    <div class="border rounded p-2">
+        {{ form_widget(form.roles) }}
+    </div>
+    {{ form_errors(form.roles) }}
+</div>
+
+<div class="form-check mb-3">
+    {{ form_widget(form.activo, { attr: { class: 'form-check-input' } }) }}
+    {{ form_label(form.activo, null, { label_attr: { class: 'form-check-label' } }) }}
+</div>
+
+  <div class="col-md-12 d-flex justify-content-end">
+<div class="mt-4">
+    <button class="btn btn-success">
+        {{ modo == 'new' ? 'Crear usuario' : 'Guardar cambios' }}
+    </button>
+
+    <a href="{{ path('usuario_index') }}" class="btn btn-secondary">
+        Volver
+    </a>
+</div>
+</div>
+{{ form_end(form) }}
+</div>
+{% endblock %}

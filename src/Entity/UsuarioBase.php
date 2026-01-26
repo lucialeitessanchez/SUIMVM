@@ -77,6 +77,9 @@ class UsuarioBase
     #[ORM\Column(name:"usua_telefono", type:"string", length: 255, nullable:true)]
     private $usuaTelefono;
 
+    #[ORM\Column(name:"activo",type: "boolean",nullable:true)]
+    private ?bool $activo = null;
+
     public function getUsuaId(): ?int
     {
         return $this->usuaId;
@@ -153,6 +156,8 @@ class UsuarioBase
 
         return $this;
     }
+    public function getActivo(): ?bool { return $this->activo; }
+    public function setActivo(?bool $value): self { $this->activo = $value; return $this; }
 
 
 }

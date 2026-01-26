@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Usuarios</h1>
+
+        <a href="{{ path('usuario_nuevo') }}" class="btn btn-primary mb-3">
+          + Nuevo usuario
+        </a>
+    </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Roles</th>
+            <th>Activo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.usuaEmail }}</td>
+            <td>{{ usuario.usuaNombre }} {{ usuario.usuaApellido }}</td>
+            <td>
+                {% for rol in usuario.roles %}
+                    <span class="badge bg-secondary">
+                        {{ rol.rolId }}
+                    </span>
+                {% endfor %}
+            </td>
+            <td>
+                {{ usuario.activo ? 'Sí' : 'No' }}
+            </td>
+            <td>
+                <a href="{{ path('usuario_editar', {id: usuario.usuaId}) }}"
+                   class="btn btn-sm btn-warning">
+                    Editar
+                </a>
+
+                {% if usuario.activo %}
+                    <a href="{{ path('usuario_desactivar', {id: usuario.usuaId}) }}"
+                       class="btn btn-sm btn-danger"
+                       onclick="return confirm('¿Desactivar usuario?')">
+                        Desactivar
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
