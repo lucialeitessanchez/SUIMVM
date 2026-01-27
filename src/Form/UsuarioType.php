@@ -3,6 +3,7 @@ namespace App\Form;
 
 use App\Entity\Usuario;
 use App\Entity\Rol;
+use App\Entity\Organismo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -35,6 +36,14 @@ class UsuarioType extends AbstractType
             ->add('activo', CheckboxType::class, [
                 'label' => 'Activo',
                 'required' => false,
+            ])
+
+            ->add('organismo', EntityType::class, [
+                'class' => Organismo::class,
+                'choice_label' => 'nombreOrganismo',
+                'multiple' => false,
+                'expanded' => false, // checkboxes
+                'label' => 'Organismo',
             ])
         ;
     }

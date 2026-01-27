@@ -15,6 +15,7 @@
     <thead>
         <tr>
             <th>Email</th>
+            <th>Organismo</th>
             <th>Nombre</th>
             <th>Roles</th>
             <th>Activo</th>
@@ -26,6 +27,7 @@
         <tr>
             <td>{{ usuario.usuaEmail }}</td>
             <td>{{ usuario.usuaNombre }} {{ usuario.usuaApellido }}</td>
+            <td>{{ usuario.organismo.nombreOrganismo }}</td>
             <td>
                 {% for rol in usuario.roles %}
                     <span class="badge bg-secondary">

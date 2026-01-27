@@ -80,6 +80,14 @@ class UsuarioBase
     #[ORM\Column(name:"activo",type: "boolean",nullable:true)]
     private ?bool $activo = null;
 
+    #[ORM\ManyToOne(targetEntity: Organismo::class)]
+    #[ORM\JoinColumn(
+        name: "organismo_id_organismo",
+        referencedColumnName: "id_organismo",
+        nullable: true
+    )]
+    private ?Organismo $organismo = null;
+
     public function getUsuaId(): ?int
     {
         return $this->usuaId;
@@ -159,6 +167,16 @@ class UsuarioBase
     public function getActivo(): ?bool { return $this->activo; }
     public function setActivo(?bool $value): self { $this->activo = $value; return $this; }
 
+    public function getOrganismo(): ?Organismo
+    {
+        return $this->organismo;
+    }
+
+    public function setOrganismo(?Organismo $organismo): self
+    {
+        $this->organismo = $organismo;
+        return $this;
+    }
 
 }
 

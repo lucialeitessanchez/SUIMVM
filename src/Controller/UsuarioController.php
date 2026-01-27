@@ -17,7 +17,8 @@ class UsuarioController extends AbstractController
     public function index(UsuarioRepository $repo): Response
     {
         return $this->render('usuario/index.html.twig', [
-            'usuarios' => $repo->findAll(),
+            'usuarios' => $repo->findBy([], ['organismo' => 'DESC', 'usuaApellido' => 'ASC'])
+
         ]);
     }
 
