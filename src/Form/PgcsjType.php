@@ -156,24 +156,15 @@ class PgcsjType extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
             ])
-         /*   ->add('archivos', FileType::class, [
-                'label' => 'Archivos adjuntos',
-                'multiple' => true,
-                'mapped' => false, // ⬅ evita que Symfony intente asignarlo a una propiedad string
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '10M',
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Formato no permitido. Solo PDF, JPG o PNG.',
-                    ]),
-                ],
-            ])*/
             ;
+            if (!$options['disabled']) {
+                $builder->add('archivos', FileType::class, [
+                    'label' => 'Subir Archivos',
+                    'mapped' => false,
+                    'multiple' => true,
+                    'required' => false,
+                ]);
+            }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Archivo;
 use App\Entity\Pgcsj;
 use App\Entity\Caso;
 use App\Form\PgcsjType;
@@ -21,6 +22,14 @@ use App\Service\ArchivoService;
 #[Route('/pgcsj')]
 class PgcsjController extends AbstractController
 {
+    private ArchivoService $archivoService;
+
+    public function __construct(ArchivoService $archivoService)
+    {
+        $this->archivoService = $archivoService;
+    }
+
+
     #[Route('/', name: 'app_pgcsj_index', methods: ['GET'])]
     public function index(PgcsjRepository $pgcsjRepository): Response
     {
@@ -35,7 +44,7 @@ class PgcsjController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em,
     CasoRepository $casoRepo, SessionInterface $session,
     CasoTabsDataProvider $tabsProvider,
-
+    ArchivoService $archivoService
     ): Response
     {
         $idCaso = $session->get('caso_id');
@@ -57,11 +66,11 @@ class PgcsjController extends AbstractController
                 $sinCaso = true;
             }
         }
-           
+        
         if (!empty($tabsData['pgcsj'])) {
             // Llamar al método edit y devolver su Response
 
-            return $this->edit($request, $idCaso, $casoRepo, $tabsProvider, $em);
+            return $this->edit($request, $idCaso, $casoRepo, $tabsProvider, $em, $archivoService);
         }
 
         $pgcsj = new Pgcsj();
@@ -69,25 +78,21 @@ class PgcsjController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          
+        
             $pgcsj->setCaso($caso); 
             $pgcsj->setFechacarga(new \DateTime());
             $pgcsj->setUsuariocarga($this->getUser()?->getUserIdentifier());
-               
+            // Manejo de archivos usando el servicio
+            $archivosSubidos = $form->get('archivos')->getData();
+
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $pgcsj);
+                $em->persist($archivoEntity);
+            }
             $em->persist($pgcsj);
 
             
             $em->flush(); 
-           
-            /*
-           
-            $archivos = $form->get('archivos')->get('archivo')->getData();
-            if ($archivos) {
-                    $usuario = 'prueba'; // o el objeto User según tu entidad
-                    $archivoService->guardarAdjuntos($archivos, 'Pgcsj', $pgcsj->getId(), $usuario);
-            }
-
-          */
 
             $this->addFlash('success_js', 'Seccion PGCSJ guardada correctamente');   
             return $this->redirectToRoute('app_caso_index');
@@ -104,7 +109,7 @@ class PgcsjController extends AbstractController
     public function show(
     CasoRepository $casoRepository,
     PgcsjRepository $pgcsjRepository,int $idCaso, 
-    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory): Response
+    CasoTabsDataProvider $tabsProvider,FormFactoryInterface $formFactory, EntityManagerInterface $entityManager): Response
     {
         $caso = null;
         $sinCaso = false;
@@ -117,18 +122,21 @@ class PgcsjController extends AbstractController
         }
 
          //busco si hay datos asociados para mostrar la pestaña desde el servicio
-         $tabsData = $tabsProvider->getData($caso);
+        $tabsData = $tabsProvider->getData($caso);
 
-         $pgcsj = $pgcsjRepository->findOneBy(['caso' => $caso]);
-         if (!$pgcsjRepository) {
-             throw $this->createNotFoundException('No hay datos de SDH para este caso');
-         }
+        $pgcsj = $pgcsjRepository->findOneBy(['caso' => $caso]);
+        if (!$pgcsjRepository) {
+            throw $this->createNotFoundException('No hay datos de SDH para este caso');
+        }
 
            // Creamos el form pero sin intención de editar
         $form = $formFactory->create(PgcsjType::class, $pgcsj, [
             'disabled' => true, // importante: desactiva todos los campos
         ]);
+          // Traer archivos asociados a la sec
+        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['pgcsj' => $pgcsj]);
 
+        
         $parametros['form'] = $form->createView();
         $parametros['caso'] = $caso;
         foreach ($tabsData as $clave => $valor) {
@@ -136,7 +144,7 @@ class PgcsjController extends AbstractController
         }
         $parametros['sinCaso'] = $sinCaso;
         $parametros['pestaña_activa'] = 'pgcsj';
-
+        $parametros['archivos'] = $archivos;
         return $this->render('pgcsj/show.html.twig', $parametros);
     }
 //---------------------------------------------------------------------
@@ -146,7 +154,8 @@ class PgcsjController extends AbstractController
         int $idCaso,
         CasoRepository $casoRepository,
         CasoTabsDataProvider $tabsProvider,
-        EntityManagerInterface $em): Response
+        EntityManagerInterface $em,
+        ArchivoService $archivoService): Response
         {
         $sinCaso=false;
         $caso = $casoRepository->find($idCaso);
@@ -167,12 +176,19 @@ class PgcsjController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            // --- Manejo de archivos nuevos ---
+            $archivosSubidos = $form->get('archivos')->getData();
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $pgcsj);
+                $em->persist($archivoEntity);
+            }
             $em->flush();
 
             $this->addFlash('success_js', 'Formulario actualizado correctamente.');    
             return $this->redirectToRoute('app_caso_index');
         }
+        // Archivos asociados al pgcsj (igual que en show)
+        $archivos = $em->getRepository(Archivo::class)->findBy(['pgcsj' => $pgcsj]);
 
         $parametros['form'] = $form->createView();
         $parametros['caso'] = $caso;
@@ -181,6 +197,7 @@ class PgcsjController extends AbstractController
         }
         $parametros['sinCaso'] = $sinCaso;
         $parametros['pestaña_activa'] = 'pgcsj';
+        $parametros['archivos'] = $archivos;
 
         return $this->render('pgcsj/edit.html.twig', $parametros);
     }
