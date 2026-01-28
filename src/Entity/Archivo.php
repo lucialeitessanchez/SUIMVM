@@ -58,7 +58,7 @@ class Archivo
     private ?Sdh $sdh = null;
 
     #[ORM\ManyToOne(targetEntity: Pgcsj::class, inversedBy: 'archivos')]
-    #[ORM\JoinColumn(name: 'pgcsj_id', referencedColumnName: 'id_pgcsj', nullable: true, onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(name: 'pgcsj_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Pgcsj $pgcsj = null;
 
     public function getId(): ?int
