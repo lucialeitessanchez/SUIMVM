@@ -121,8 +121,9 @@ class CajController extends AbstractController
                 $parametros['form'] = $form->createView();
                 $parametros['caso'] = $caso;
                 $parametros['pestaña_activa'] = 'caj';
+
                 $archivos = $entityManager->getRepository(Archivo::class)
-                ->findBy(['mjsServicioPenitenciario' => $caj]);
+                ->findBy(['caj' => $caj]);
                 $parametros['archivos'] = $archivos;
                 return $this->render('caj/show.html.twig', $parametros);
             

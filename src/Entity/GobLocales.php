@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'gob_locales')]
-class GobLocales
+class GobLocales implements ArchivableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -237,11 +237,13 @@
 {% if archivos is not empty %}
     <div class="list-group">
         {% for archivo in archivos %}
-            <a href="{{ asset('archivos/' ~ archivo.nombreArchivo) }}" 
+            <a href="{{ path('ver_archivo', {'nombre': archivo.nombreArchivo}) }}" 
                 target="_blank"
-                class="list-group-item list-group-item-action d-flex align-items-center">
-                <span>{{ archivo.originalName }} </span>
-                <i class="la la-external-link-alt"></i> 
+                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="la la-file-pdf"></i> {{ archivo.originalName }}
+                </span>
+                <span class="badge bg-primary rounded-pill">Ver PDF</span>
             </a>
         {% endfor %}
     </div>

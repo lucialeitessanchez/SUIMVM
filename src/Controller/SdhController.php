@@ -27,9 +27,10 @@ class SdhController extends AbstractController
 {
     private ArchivoService $archivoService;
     public function __construct(ArchivoService $archivoService)
-{
-    $this->archivoService = $archivoService;
-}
+    {
+        $this->archivoService = $archivoService;
+    }
+
     #[Route('/new_sdh', name: 'sdh_new', methods: ['GET', 'POST'])]
     public function new(Request $request, 
     EntityManagerInterface $em, CasoRepository $casoRepository, 
@@ -38,6 +39,8 @@ class SdhController extends AbstractController
     ArchivoService $archivoService
     ): Response
     {
+
+        
         $idCaso = $session->get('caso_id');
 
         $caso = null;
@@ -58,7 +61,7 @@ class SdhController extends AbstractController
         }
         if (!empty($tabsData['sdh'])) {
             // Llamar al método edit y devolver su Response
-            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em);
+            return $this->edit($request,$idCaso, $casoRepository, $tabsProvider, $em,$archivoService);
         } 
         $sdh = new Sdh();
        
@@ -72,12 +75,15 @@ class SdhController extends AbstractController
         
             //seteo usuario carga
             // Manejo de archivos usando el servicio
+               // Manejo de archivos usando el servicio
+            // Manejo de archivos usando el servicio
             $archivosSubidos = $form->get('archivos')->getData();
 
             foreach ($archivosSubidos as $uploadedFile) {
                 $archivoEntity = $this->archivoService->guardarArchivoEntidad($uploadedFile, $sdh);
                 $em->persist($archivoEntity);
             }
+
             $sdh->setFechaCarga(new \DateTime());
             if (!$sinCaso)
                     $sdh->setCasoIdCaso($caso); 
@@ -133,24 +139,24 @@ class SdhController extends AbstractController
               ]);
 
               // Traer archivos asociados al MPA
-        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['sdh' => $sdh]);
+                $archivos = $entityManager->getRepository(Archivo::class)->findBy(['sdh' => $sdh]);
 
-              $parametros['form'] = $form->createView();
-              $parametros['caso'] = $caso;
-              $parametros['sinCaso'] = $sinCaso;
-              $parametros['archivos'] = $archivos;
-              foreach ($tabsData as $clave => $valor) {
-                  $parametros[$clave] = $valor;
-              }
-              $parametros['pestaña_activa'] = 'sdh';
-              return $this->render('sdh/show.html.twig', $parametros);
-        
+            $parametros['form'] = $form->createView();
+            $parametros['caso'] = $caso;
+            $parametros['sinCaso'] = $sinCaso;
+            $parametros['archivos'] = $archivos;
+            foreach ($tabsData as $clave => $valor) {
+                $parametros[$clave] = $valor;
+            }
+            $parametros['pestaña_activa'] = 'sdh';
+            return $this->render('sdh/show.html.twig', $parametros);
+    
     }
 
     #[Route('/{idCaso}/edit', name: 'app_sdh_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, int $idCaso,
     CasoRepository $casoRepository, CasoTabsDataProvider $tabsProvider,
-    EntityManagerInterface $entityManager): Response
+    EntityManagerInterface $entityManager,ArchivoService $archivoService): Response
     {
 
         $caso = null;
@@ -182,21 +188,35 @@ class SdhController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+                // --- Manejo de archivos nuevos ---
+        $archivosSubidos = $form->get('archivos')->getData();
+            foreach ($archivosSubidos as $uploadedFile) {
+                $archivoEntity = $archivoService->guardarArchivoEntidad($uploadedFile, $sdh);
+                $entityManager->persist($archivoEntity);
+            }
+
             $entityManager->flush();
+            
 
             //return $this->redirectToRoute('app_mpa_edit', [], Response::HTTP_SEE_OTHER);
             $this->addFlash('success_js', 'Datos guardados correctamente');   
-           return $this->redirectToRoute('app_caso_index');
+            return $this->redirectToRoute('app_caso_index');
         }
+
+         // Archivos asociados al SDH (igual que en show)
+        $archivos = $entityManager->getRepository(Archivo::class)->findBy(['sdh' => $sdh]);
+
         $parametros['form'] = $form->createView();
-              $parametros['caso'] = $caso;
-              $parametros['sinCaso'] = $sinCaso;
-              foreach ($tabsData as $clave => $valor) {
-                  $parametros[$clave] = $valor;
-              }
-         
-              $parametros['pestaña_activa'] = 'sdh';
-              return $this->render('sdh/edit.html.twig', $parametros);
+        $parametros['caso'] = $caso;
+        $parametros['sinCaso'] = $sinCaso;
+        foreach ($tabsData as $clave => $valor) {
+            $parametros[$clave] = $valor;
+        }
+    
+        $parametros['pestaña_activa'] = 'sdh';
+        $parametros['archivos'] = $archivos;
+        return $this->render('sdh/edit.html.twig', $parametros);
         
     }
     

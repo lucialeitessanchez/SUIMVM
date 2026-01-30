@@ -6,7 +6,7 @@
 {% include 'partials/tabs_caso_edit.html.twig' with { 'caso': caso, 'caj': caj, 'sdh': sdh, 'mpa': mpa } %}    
     
 
-    {{ include('sdh/_form.html.twig', {'button_label': 'Actualizar'}) }}
+    {{ include('sdh/_form.html.twig', {'button_label': 'Actualizar','modo':'edit'}) }}
 
     
 {% endblock %}
@@ -14,5 +14,5 @@
 
     {{ parent() }}
     <script src="{{ asset('js/rango.js') }}"></script>
-     
+    <script src="{{ asset('js/vistaPreviaArchivo.js') }}"></script>
 {% endblock %}

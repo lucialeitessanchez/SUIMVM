@@ -150,12 +150,6 @@ class GobLocalesType extends AbstractType
                         ->orderBy('n.valor_nomenclador', 'ASC');
                 },
             ])
-            ->add('archivo',FileType::class, [
-                'label' =>'Subir archivos',
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
-            ])
             ->add('caso', EntityType::class, [
                 'class' => Caso::class,
                 'choice_label' => 'id_caso',
@@ -164,6 +158,14 @@ class GobLocalesType extends AbstractType
                     'style' => 'display:none;', // Oculta también el label y errores
                 ]
                 ]);
+            if (!$options['disabled']) {
+                $builder->add('archivos', FileType::class, [
+                    'label' => 'Subir Archivos',
+                    'mapped' => false,
+                    'multiple' => true,
+                    'required' => false,
+                ]);
+            }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
