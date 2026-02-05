@@ -43,7 +43,7 @@ class AppCustomAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {   
-     
+        
         /** @var \App\Security\User $user */
         $user = $token->getUser();
 

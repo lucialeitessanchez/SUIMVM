@@ -2,31 +2,49 @@
 
 namespace App\Security;
 
+use App\Entity\Usuario;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+use Doctrine\ORM\EntityManagerInterface;
 
 class UserProvider implements UserProviderInterface
 {   
     private RequestStack $requestStack;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack,
+    EntityManagerInterface $entityManager)
     {
         $this->requestStack = $requestStack;
+        $this->entityManager = $entityManager;
     }
     public function loadUserByIdentifier(string $identifier): UserInterface
     {   
+        // 1️⃣ Traer datos de CAS desde sesión
         $session = $this->requestStack->getSession(); // necesitás inyectar RequestStack
         $attrs = $session->get('cas_user_data', []);
-
-        // Acá deberías buscar el usuario por nombre de usuario, email, etc.
+      
+          // Acá deberías buscar el usuario por nombre de usuario, email, etc.
         // aca mas adelante tengo que tener en mi BD guardado los usuarios que deberian poder usar el sistema
-        if ($identifier !== '24285246209') {
-            throw new UserNotFoundException("Usuario '$identifier' no encontrado.");
+        //usuario en BD usando CUIL
+        $usuarioBd = $this->entityManager ->getRepository(Usuario::class) ->findOneBy(['usuaCuil' => $identifier]);
+        
+        //Organismo desde BD 
+        $user = new User($identifier,'', ['ROLE_ADMIN']); 
+        if ($usuarioBd->getOrganismo()) { 
+            $user ->setIdOrganismo($usuarioBd->getOrganismo()->getIdOrganismo()) 
+            ->setNombreOrganismo($usuarioBd->getOrganismo()->getNombreOrganismo())
+            ->setNombre($user->getNombreCompleto()); 
         }
-        return new User($identifier,'', ['ROLE_ADMIN']); // Suponiendo que User implementa UserInterface
+   //comento esto, pero no ingresa otro usuario (¿?)
+     /*   if ($identifier !== '24285246209') {
+            throw new UserNotFoundException("Usuario '$identifier' no encontrado.");
+        }*/
+       // return new User($identifier,'', ['ROLE_ADMIN']); // Suponiendo que User implementa UserInterface
+       return $user;
     }
 
 

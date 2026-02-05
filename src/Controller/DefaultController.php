@@ -15,18 +15,20 @@ class DefaultController extends AbstractController {
 
     #[Route('/index', name: 'app_index', methods: ['GET'])]
     public function index(Security $security): Response {
+       
         $user = $security->getUser();
         $token = $security->getToken();
-
+  
         if ($user instanceof \App\Security\User && method_exists($token, 'getAttributes')) {
             $attrs = $token->getAttributes();
 
-            $user->setUid($attrs['uid'] ?? '');
-            $user->setCuil($attrs['cuil'] ?? '');
-            $user->setNombre($attrs['givenName'] ?? '');
+      //      $user->setUid($attrs['uid'] ?? '');
+      //      $user->setCuil($attrs['cuil'] ?? '');
+      //      $user->setNombre($attrs['givenName'] ?? '');
         }
 
-        return $this->render('index.html.twig', array('usuario' => $user));
+        //return $this->render('index.html.twig', array('usuario' => $user));
+        return $this->render('index.html.twig');
     }
 
     #[Route('/secure/test', name: 'secure_test')]
@@ -52,8 +54,6 @@ class DefaultController extends AbstractController {
     public function logout()
     {
     }
-
-
 
     #[Route('/failure', name: 'failure', methods: ['GET'])]
     public function failure()

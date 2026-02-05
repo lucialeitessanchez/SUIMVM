@@ -18,6 +18,9 @@ class User implements UserInterface
     private $cuil;
     private $password;
     private $uid;
+    private $idOrganismo;
+    private $nombreOrganismo;
+
 
 
     function __construct( $id, $password, $roles) 
@@ -55,8 +58,9 @@ class User implements UserInterface
     {
         return $this->uid;
     }
+    public function getIdOrganismo(): ?string { return $this->idOrganismo; }
+    public function getNombreOrganismo(): ?string { return $this->nombreOrganismo; }
 
-    
     public function setUid(string $uid): self
     {
         $this->uid = $uid;
@@ -85,7 +89,21 @@ class User implements UserInterface
         $this->apellido = $apellido;
         return $this;
     }
+    public function setIdOrganismo(string $idOrganismo): self
+    {
+        $this->idOrganismo = $idOrganismo;
+        return $this;
+    }
+    public function setNombreOrganismo(string $nombreOrganismo): self
+    {
+        $this->nombreOrganismo = $nombreOrganismo;
+        return $this;
+    }
 
+    public function getUsername(): string
+    {
+        return trim($this->uid);
+    }
     /**
      * @see UserInterface
      */

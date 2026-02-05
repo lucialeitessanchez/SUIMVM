@@ -24,7 +24,11 @@ class UsuarioType extends AbstractType
                 'label' => 'Nombre',
             ])
             ->add('usuaapellido', TextType::class, [
-                'label' => 'Nombre',
+                'label' => 'Apellido',
+            ])
+            ->add('usuacuil', TextType::class, [
+                'label' => 'CUIL',
+                'required'=>'true'
             ])
             ->add('roles', EntityType::class, [
                 'class' => Rol::class,
