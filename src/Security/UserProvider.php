@@ -26,7 +26,7 @@ class UserProvider implements UserProviderInterface
         // 1️⃣ Traer datos de CAS desde sesión
         $session = $this->requestStack->getSession(); // necesitás inyectar RequestStack
         $attrs = $session->get('cas_user_data', []);
-      
+    
           // Acá deberías buscar el usuario por nombre de usuario, email, etc.
         // aca mas adelante tengo que tener en mi BD guardado los usuarios que deberian poder usar el sistema
         //usuario en BD usando CUIL
@@ -40,18 +40,10 @@ class UserProvider implements UserProviderInterface
             ->setNombreOrganismo($usuarioBd->getOrganismo()->getNombreOrganismo())
             ->setNombre($usuarioBd->getUsuaNombre().','.$usuarioBd->getUsuaApellido())
             ->setUid($usuarioBd->getUsuaUid())
-          //  ->setApellido($user->getApellido())
-           // ->setUid($user->getUid())
             ; 
-        }} else {
-            throw new UserNotFoundException('Usuario no registrado');;
-        }
-   //comento esto, pero no ingresa otro usuario (¿?)
-     /*   if ($identifier !== '24285246209') {
-            throw new UserNotFoundException("Usuario '$identifier' no encontrado.");
-        }*/
-       // return new User($identifier,'', ['ROLE_ADMIN']); // Suponiendo que User implementa UserInterface
-       return $user;
+        }}
+
+    return $user;
     }
 
 
