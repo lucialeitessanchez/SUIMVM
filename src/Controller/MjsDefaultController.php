@@ -28,9 +28,9 @@ class MjsDefaultController extends AbstractController {
         if ($user instanceof \App\Security\User && method_exists($token, 'getAttributes')) {
             $attrs = $token->getAttributes();
 
-            $user->setUid($attrs['uid'] ?? '');
+         /*   $user->setUid($attrs['uid'] ?? '');
             $user->setCuil($attrs['cuil'] ?? '');
-            $user->setNombre($attrs['givenName'] ?? '');
+            $user->setNombre($attrs['givenName'] ?? '');*/
         }
 
         return $this->render('index.html.twig', array('usuario' => $user));

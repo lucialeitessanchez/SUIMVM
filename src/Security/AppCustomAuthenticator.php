@@ -52,10 +52,10 @@ class AppCustomAuthenticator extends AbstractAuthenticator
 
         $attributes = $this->cas->getAttributes();
 
-        $user->setUid($attributes['uid'] ?? null);
+      /*  $user->setUid($attributes['uid'] ?? null);
         $user->setCuil($attributes['cuil'] ?? null);
         $user->setNombre($attributes['givenName'] ?? null);
-        $user->setApellido($attributes['sn'] ?? null);
+        $user->setApellido($attributes['sn'] ?? null);*/
        // $user->setEmail($attributes['mail'] ?? null);
 
         // Redireccionar a home o donde quieras

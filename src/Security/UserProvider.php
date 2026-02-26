@@ -37,7 +37,11 @@ class UserProvider implements UserProviderInterface
         if ($usuarioBd->getOrganismo()) { 
             $user ->setIdOrganismo($usuarioBd->getOrganismo()->getIdOrganismo()) 
             ->setNombreOrganismo($usuarioBd->getOrganismo()->getNombreOrganismo())
-            ->setNombre($user->getNombreCompleto()); 
+            ->setNombre($usuarioBd->getUsuaNombre().','.$usuarioBd->getUsuaApellido())
+            ->setUid($usuarioBd->getUsuaUid())
+          //  ->setApellido($user->getApellido())
+           // ->setUid($user->getUid())
+            ; 
         }
    //comento esto, pero no ingresa otro usuario (¿?)
      /*   if ($identifier !== '24285246209') {
