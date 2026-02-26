@@ -34,6 +34,7 @@ class UserProvider implements UserProviderInterface
         
         //Organismo desde BD 
         $user = new User($identifier,'', ['ROLE_ADMIN']); 
+        if ($usuarioBd !== null){
         if ($usuarioBd->getOrganismo()) { 
             $user ->setIdOrganismo($usuarioBd->getOrganismo()->getIdOrganismo()) 
             ->setNombreOrganismo($usuarioBd->getOrganismo()->getNombreOrganismo())
@@ -42,6 +43,8 @@ class UserProvider implements UserProviderInterface
           //  ->setApellido($user->getApellido())
            // ->setUid($user->getUid())
             ; 
+        }} else {
+            throw new UserNotFoundException('Usuario no registrado');;
         }
    //comento esto, pero no ingresa otro usuario (¿?)
      /*   if ($identifier !== '24285246209') {
