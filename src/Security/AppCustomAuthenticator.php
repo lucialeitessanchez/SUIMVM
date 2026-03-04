@@ -15,19 +15,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Stg\Bundle\CasBundle\Service\CasService;
 use App\Security\UserProvider;
-
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class AppCustomAuthenticator extends AbstractAuthenticator
 {
     private CasService $cas;
     private Security $security;
     private UserProvider $userProvider;
+    private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(CasService $cas, Security $security, UserProvider $userProvider)
+    public function __construct(CasService $cas, Security $security, UserProvider $userProvider,UrlGeneratorInterface $urlGenerator)
     {
         $this->cas = $cas;
         $this->security = $security;
         $this->userProvider = $userProvider;
+        $this->urlGenerator = $urlGenerator;
+        
     }
 
     public function supports(Request $request): ?bool
@@ -64,7 +68,13 @@ class AppCustomAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        return new Response("Fallo de autenticación: " . $exception->getMessage(), Response::HTTP_UNAUTHORIZED);
+        if ($exception instanceof CustomUserMessageAuthenticationException) {
+            return new RedirectResponse(
+                $this->urlGenerator->generate('app_acceso_denegado')
+            );
+        }
+    
+        return new RedirectResponse('/');
     }
 
     public function start(Request $request, AuthenticationException $authException = null): Response

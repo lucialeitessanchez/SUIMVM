@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class UserProvider implements UserProviderInterface
 {   
@@ -30,21 +31,32 @@ class UserProvider implements UserProviderInterface
           // Acá deberías buscar el usuario por nombre de usuario, email, etc.
         // aca mas adelante tengo que tener en mi BD guardado los usuarios que deberian poder usar el sistema
         //usuario en BD usando CUIL
-        $usuarioBd = $this->entityManager ->getRepository(Usuario::class) ->findOneBy(['usuaCuil' => $identifier]);
+        $usuarioBd = $this->entityManager
+        ->getRepository(Usuario::class)
+        ->findOneBy(['usuaCuil' => $identifier]);
+    
+        if (!$usuarioBd) {
+            return new User($identifier, '', ['ROLE_NO_ACCESS']);
+        }
+    
+    $roles = [];
         
-        //Organismo desde BD 
-        $user = new User($identifier,'', ['ROLE_ADMIN']); 
-        if ($usuarioBd !== null){
-        if ($usuarioBd->getOrganismo()) { 
-            $user ->setIdOrganismo($usuarioBd->getOrganismo()->getIdOrganismo()) 
+    foreach ($usuarioBd->getRoles() as $rol) {
+        $roles[] = $rol->getRolId();
+    }
+    
+    $user = new User($identifier, '', $roles);
+    
+    if ($usuarioBd->getOrganismo()) {
+        $user
+            ->setIdOrganismo($usuarioBd->getOrganismo()->getIdOrganismo())
             ->setNombreOrganismo($usuarioBd->getOrganismo()->getNombreOrganismo())
             ->setNombre($usuarioBd->getUsuaNombre().','.$usuarioBd->getUsuaApellido())
-            ->setUid($usuarioBd->getUsuaUid())
-            ; 
-        }}
-
-    return $user;
+            ->setUid($usuarioBd->getUsuaUid());
     }
+    
+    return $user;
+}
 
 
     public function refreshUser(UserInterface $user): UserInterface
@@ -59,6 +71,6 @@ class UserProvider implements UserProviderInterface
 
     public function supportsClass(string $class): bool
     {
-        return $class === User::class;
+        return is_a($class, User::class, true);
     }
 }
