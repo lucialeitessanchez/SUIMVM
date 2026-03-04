@@ -42,37 +42,38 @@
                 <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Casos</a>
+                    {% if is_granted('ROLE_MIGYD_ADMIN') %}
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('caso_new') }}">Iniciar Caso</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_caso_index') }}">Listado Casos</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Historial Casos</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Organismos</a>
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Organismos</a>
+                    {% if is_granted('ROLE_MIGYD_ADMIN') %}
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('app_smgyd_new')}}">SMGyD<i class="fas fa-asterisk text-danger ms-2"></i></a></li>
                         <li><a class="dropdown-item" href="{{ path('app_mpa_new') }}">MPA<i class="fas fa-asterisk text-danger ms-2"></i></a></li>
                         <li><a class="dropdown-item" href="{{ path('caj_new') }}">Centro Asistencia Judicial</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_sddnayf_new')}}">SDNAyF</a></li>
-                        {#<li><a class="dropdown-item" href="#">Cámara Federal</a></li>#}
-                        {#<li><a class="dropdown-item" href="#">Defensoría del Pueblo</a></li>#}
                         <li><a class="dropdown-item" href="{{ path('sdh_new') }}">Secretaría de Derechos Humanos</a></li>
-                        {#<li><a class="dropdown-item" href="#">Ministerio de Salud</a></li>#}
                         <li><a class="dropdown-item" href="{{ path ('gob_locales_new') }}">Áreas locales</a></li>
                         <li><a class="dropdown-item" href="{{ path ('app_pgcsj_new') }}">PGCSJ</a></li>
                         <li><a class="dropdown-item" href="{{ path ('mjs_app_default') }}">MJyS</a></li>
-  
-                        {#<li class="nav-item"><a class="nav-link" href="#">Ministerio de Justicia y Seguridad</a></li>#}
                     </ul>
+                    {% endif %}
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Administracion</a>
+                    {% if is_granted('ROLE_MIGYD_ADMIN') %}
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('organismo_index')}}">Gestion de Organismos</i></a></li>
-                         <li><a class="dropdown-item" href="{{ path('usuario_index')}}">Gestion de Usuarios</i></a></li>
+                        <li><a class="dropdown-item" href="{{ path('usuario_index')}}">Gestion de Usuarios</i></a></li>
                     </ul>
+                    {% endif %}
                 </li>
         </div>
             <div class="ms-auto d-flex align-items-center text-white">
