@@ -63,8 +63,9 @@
                         <li><a class="dropdown-item" href="{{ path ('gob_locales_new') }}">Áreas locales</a></li>
                         <li><a class="dropdown-item" href="{{ path ('app_pgcsj_new') }}">PGCSJ</a></li>
                         <li><a class="dropdown-item" href="{{ path ('mjs_app_default') }}">MJyS</a></li>
-                    </ul>
                     {% endif %}
+                    </ul>
+                    
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Administracion</a>
@@ -72,8 +73,9 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('organismo_index')}}">Gestion de Organismos</i></a></li>
                         <li><a class="dropdown-item" href="{{ path('usuario_index')}}">Gestion de Usuarios</i></a></li>
-                    </ul>
                     {% endif %}
+                    </ul>
+                    
                 </li>
         </div>
             <div class="ms-auto d-flex align-items-center text-white">
@@ -87,9 +89,9 @@
                 {% endif %}
                 <span>
                     {{ app.user.getNombreCompleto }} - {{ app.user.nombreOrganismo}} ({{ app.user.uid }} )
-                    {#{ app.token.attributes.givenName ?? 'Usuario' }} {{ app.token.attributes.sn ?? '' }#}
+            
                 </span>
-                <a href="{{ path('cas_logout') }}">Cerrar sesión</a>
+                <a type="button" class="btn btn-dark" href="{{ path('cas_logout') }}">Cerrar sesión</a>
                 </div>
             {% else %}
                 <a href="{{ path('secure_test') }}" class="btn btn-sm btn-outline-light">Iniciar sesión</a>
@@ -97,15 +99,6 @@
        
         </div>
     </nav>
-    {#
-{% if app.user.vista in ['VISTA_ONG','VISTA_MPA'] %}
-
-{% endif %}
-
-{% if app.user.organismos in [1,2,3] %}
-
-{% endif %}
-#}
 
     {% block body %}{% endblock %}
     {% block javascripts %}
