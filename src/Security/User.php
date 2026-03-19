@@ -59,6 +59,7 @@ class User implements UserInterface
         return $this->uid;
     }
     public function getIdOrganismo(): ?string { return $this->idOrganismo; }
+    public function getIdOrigen(): ?string { return $this->idOrigen; }
     public function getNombreOrganismo(): ?string { return $this->nombreOrganismo; }
 
     public function setUid(string $uid): self
@@ -92,6 +93,11 @@ class User implements UserInterface
     public function setIdOrganismo(string $idOrganismo): self
     {
         $this->idOrganismo = $idOrganismo;
+        return $this;
+    }
+    public function setIdOrigen(string $idOrigen): self
+    {
+        $this->setIdOrigen = $idOrigen;
         return $this;
     }
     public function setNombreOrganismo(string $nombreOrganismo): self

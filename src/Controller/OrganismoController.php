@@ -97,11 +97,16 @@ class OrganismoController extends AbstractController
         ]);
     }
 
-    #[Route('/{idOrganismo}', name: 'organismo_delete', methods: ['POST'])]
+    #[Route('/{idOrganismo}/delete', name: 'organismo_delete',methods: ['GET', 'POST'])]
     public function delete(Request $request, Organismo $organismo, EntityManagerInterface $em): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$organismo->getIdOrganismo(), $request->request->get('_token'))) {
-            $em->remove($organismo);
+        if ($this->isCsrfTokenValid(
+            'delete'.$organismo->getIdOrganismo(),
+            $request->query->get('_token')
+        )) {
+            
+            $organismo->setFechaBaja(new \DateTimeImmutable());
+            //$em->setFechaBaja(new \DateTime());
             $em->flush();
 
             $this->addFlash('success', 'Organismo eliminado');

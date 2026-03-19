@@ -12,4 +12,6 @@ class OrganismoRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Organismo::class);
     }
+
+   
 }

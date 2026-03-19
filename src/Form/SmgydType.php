@@ -47,7 +47,7 @@ class SmgydType extends AbstractType
                 'choice_label' => 'valor_nomenclador',
                 'placeholder' => 'Seleccione...',
                 'required' => false,
-                'label'=>'Situacion economica de la victima',
+                'label'=>'Ocupación',
                 'query_builder' => function ($repo) {
                     return $repo->createQueryBuilder('n')
                         ->where('n.nomenclador = :clave')

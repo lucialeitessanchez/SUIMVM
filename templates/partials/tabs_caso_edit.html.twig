@@ -1,4 +1,6 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+   {% set organismo = app.user.idOrganismo %}
+
   <div class="circle-tabs d-flex justify-content-end flex-wrap gap-3 mt-3 mb-0" style="padding-right:9rem; ">
 
     <a href="{{ path('app_caso_edit', { idCaso: caso.idCaso }) }}"
@@ -8,128 +10,169 @@
       <i class="bi bi-person-lines-fill"></i>
     </a>
 
-    {% if caj is not empty %}
-      <a href="{{ path('app_caj_edit', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'caj' %}active{% endif %}"
-         title="Centro de Asistencia Judicial">
-        <span class="circle-letter"><h5>CAJ</h5></span>
+    {% if organismo == '3' %}
+
+      {% set ruta = caj is not empty 
+          ? path('app_caj_edit', { idCaso: caso.idCaso }) 
+          : path('caj_new', { idCaso: caso.idCaso }) 
+      %}
+
+      <a href="{{ ruta }}"
+        class="circle-tab {% if caj is empty %}position-relative{% endif %} {% if pestaña_activa == 'caj' %}active{% endif %}"
+        title="Centro de Asistencia Judicial">
+
+          <span class="circle-letter"><h5>CAJ</h5></span>
+
+          {% if caj is empty %}
+            <i class="bi bi-plus-circle small-icon-overlay"></i>
+          {% endif %}
+
       </a>
-      {% else %}
-          <a href="{{ path('caj_new', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'caj' %}active{% endif %}"
-            title="Centro de Asistencia Judicial">
-              <span class="circle-letter"><h5>CAJ</h5></span>
-              <i class="bi bi-plus-circle small-icon-overlay"></i>
-          </a>
+    {% endif %}
+
+   {% if organismo == '10' %}
+
+      {% set ruta = sdh is not empty 
+          ? path('app_sdh_edit', { idCaso: caso.idCaso }) 
+          : path('sdh_new', { idCaso: caso.idCaso }) 
+      %}
+
+      <a href="{{ ruta }}"
+        class="circle-tab {% if caj is empty %}position-relative{% endif %} {% if pestaña_activa == 'sdh' %}active{% endif %}"
+        title="Secretaría de Derechos Humanos">
+
+          <span class="circle-letter"><h5>CAJ</h5></span>
+
+          {% if sdh is empty %}
+            <i class="bi bi-plus-circle small-icon-overlay"></i>
+          {% endif %}
+
+      </a>
+    {% endif %}
+   
+   {% if organismo == '2' %}
+
+      {% set ruta = mpa is not empty 
+          ? path('app_mpa_edit', { idCaso: caso.idCaso }) 
+          : path('mpa_new', { idCaso: caso.idCaso }) 
+      %}
+
+      <a href="{{ ruta }}"
+        class="circle-tab {% if mpa is empty %}position-relative{% endif %} {% if pestaña_activa == 'mpa' %}active{% endif %}"
+        title="Ministerio público de la acusación">
+
+          <span class="circle-letter"><h5>MPA</h5></span>
+
+          {% if mpa is empty %}
+            <i class="bi bi-plus-circle small-icon-overlay"></i>
+          {% endif %}
+
+      </a>
+    {% endif %}
     
+   {% if organismo == '11' %}
+
+  {% set ruta = gl is not empty 
+      ? path('app_gl_edit', { idCaso: caso.idCaso }) 
+      : path('app_gl_new', { idCaso: caso.idCaso }) 
+  %}
+
+  <a href="{{ ruta }}"
+     class="circle-tab {% if gl is empty %}position-relative{% endif %} {% if pestaña_activa == 'gl' %}active{% endif %}"
+     title="Areas Locales">
+
+      <span class="circle-letter"><h6>AL</h6></span>
+
+      {% if gl is empty %}
+        <i class="bi bi-plus-circle small-icon-overlay"></i>
       {% endif %}
 
-    {% if sdh is not empty %}
-      <a href="{{ path('app_sdh_edit', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'sdh' %}active{% endif %}"
-         title="Secretaría de Derechos Humanos">
-        <span class="circle-letter"><h5>SDH</h5></span>
-      </a>
-     {% else %}
-          <a href="{{ path('sdh_new', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'sdh' %}active{% endif %}"
-            title="Secretaría de Derechos Humanos">
-              <span class="circle-letter"><h5>SDH</h5></span>
-              <i class="bi bi-plus-circle small-icon-overlay"></i>
-          </a>
-    {% endif %}
+  </a>
 
-    {% if mpa is not empty %}
-      <a href="{{ path('app_mpa_edit', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'mpa' %}active{% endif %}"
-         title="Ministerio Público de la Acusación">
-        <span class="circle-letter"><h5>MPA</h5></span>
-      </a>
-     {% else %}
-          <a href="{{ path('app_mpa_new', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'mpa' %}active{% endif %}"
-            title="Ministerio Público de la Acusación">
-              <span class="circle-letter"><h5>MPA</h5></span>
-              <i class="bi bi-plus-circle small-icon-overlay"></i>
-          </a>
-    {% endif %}
-    {% if gl is not empty %}
-          <a href="{{ path('gob_locales_edit', { idCaso: caso.idCaso }) }}"
-            class="circle-tab {% if pestaña_activa == 'gl' %}active{% endif %}"
-            title="Areas Locales">
-             <span class="circle-letter"><h5>AL</h5></span>
-          </a>
-        
-     {% else %}
-          <a href="{{ path('gob_locales_new', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'gl' %}active{% endif %}"
-            title="Areas Locales">
-              <span class="circle-letter"><h5>AL</h5></span>
-              <i class="bi bi-plus-circle small-icon-overlay"></i>
-          </a>
-    {% endif %}
-    {% if smgyd is not empty %}
-      <a href="{{ path('app_smgyd_edit', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'smgyd' %}active{% endif %}"
-         title="Sec.Mujeres, Género y Diversidad">
-        <span class="circle-letter"><h6>SMGyD</h6></span>
-      </a>
-     {% else %}
-          <a href="{{ path('app_smgyd_new', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'smgyd' %}active{% endif %}"
-            title="Sec.Mujeres, Género y Diversidad">
-              <span class="circle-letter"><h6>SMGyD</h6></span>
-              <i class="bi bi-plus-circle small-icon-overlay"></i>
-          </a>
-    {% endif %}
+{% endif %}
 
-    {% if sddnayf is not empty %}
-      <a href="{{ path('app_sddnayf_edit', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
-         title="Sec.de Derechos de la Niñez, Adolescencia y Familia">
-        <span class="circle-letter"><h6 style="font-size: 0.9rem; margin:0;">SDDNAyF</h6></span>
-      </a>
-     {% else %}
-          <a href="{{ path('app_sddnayf_new', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
-            title="Sec.de Derechos de la Niñez, Adolescencia y Familia">
-              <span class="circle-letter"><h6 style="font-size: 0.8rem; margin:0;">SDDNAyF</h6></span>
-              <i class="bi bi-plus-circle small-icon-overlay"></i>
-          </a>
-    {% endif %}
-       {% if pgcsj is not empty %}
-      <a href="{{ path('app_pgcsj_edit', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'pgcsj' %}active{% endif %}"
-         title="Procuración general de la Corte Suprema de Justicia">
-        <span class="circle-letter"><h6>PGCSJ</h6></span>
-      </a>
-     {% else %}
-          <a href="{{ path('app_pgcsj_new', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'pgcsj' %}active{% endif %}"
-            title="Procuración general de la Corte Suprema de Justicia">
-              <span class="circle-letter"><h6>PGCSJ</h6></span>
-              <i class="bi bi-plus-circle small-icon-overlay"></i>
-          </a>
-    {% endif %}
+    {% if organismo == '1' %}
 
-  {% if mjs_sp is not empty %}
-      <a href="{{ path('mjs_app_default', { idCaso: caso.idCaso }) }}"
-         class="circle-tab {% if pestaña_activa == 'mjs_sp' %}active{% endif %}"
-         title="MJS">
-        <span class="circle-letter"><h6>MJS</h6></span>
-      </a>
-     {% else %}
-          <a href="{{ path('mjs_app_default', { idCaso: caso.idCaso }) }}"
-            class="circle-tab position-relative {% if pestaña_activa == 'mjs' %}active{% endif %}"
-            title="MJS">
-              <span class="circle-letter"><h6>MJS</h6></span>
-              <i class="bi bi-plus-circle small-icon-overlay"></i>
-          </a>
-    {% endif %}
-    
+  {% set ruta = smgyd is not empty 
+      ? path('app_smgyd_edit', { idCaso: caso.idCaso }) 
+      : path('app_smgyd_new', { idCaso: caso.idCaso }) 
+  %}
+
+  <a href="{{ ruta }}"
+     class="circle-tab {% if smgyd is empty %}position-relative{% endif %} {% if pestaña_activa == 'smgyd' %}active{% endif %}"
+     title="Secretaría de Mujeres, Género y Diversidad">
+
+      <span class="circle-letter"><h6>SMGyD</h6></span>
+
+      {% if smgyd is empty %}
+        <i class="bi bi-plus-circle small-icon-overlay"></i>
+      {% endif %}
+
+  </a>
+
+{% endif %}
+   
+ {% if organismo == '9' %}
+
+  {% set ruta = sddnayf is not empty 
+      ? path('app_sddnayf_edit', { idCaso: caso.idCaso }) 
+      : path('app_sddnayf_new', { idCaso: caso.idCaso }) 
+  %}
+
+  <a href="{{ ruta }}"
+     class="circle-tab {% if sddnayf is empty %}position-relative{% endif %} {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
+     title="Secretaría de Derechos de la Niñez, Adolescencia y Familia">
+
+      <span class="circle-letter"><h6>sddnayf</h6></span>
+
+      {% if sddnayf is empty %}
+        <i class="bi bi-plus-circle small-icon-overlay"></i>
+      {% endif %}
+
+  </a>
+{% endif %}
+
+    {% if organismo == '12' %}
+
+  {% set ruta = pgcsj is not empty 
+      ? path('app_pgcsj_edit', { idCaso: caso.idCaso }) 
+      : path('app_pgcsj_new', { idCaso: caso.idCaso }) 
+  %}
+
+  <a href="{{ ruta }}"
+     class="circle-tab {% if pgcsj is empty %}position-relative{% endif %} {% if pestaña_activa == 'pgcsj' %}active{% endif %}"
+     title="Procuración general de la Corte Suprema de Justicia">
+
+      <span class="circle-letter"><h6>PGCSJ</h6></span>
+
+      {% if pgcsj is empty %}
+        <i class="bi bi-plus-circle small-icon-overlay"></i>
+      {% endif %}
+
+  </a>
+{% endif %}
+
+    {% if organismo == '13' %}
+
+  {% set ruta = mjs_sp is not empty 
+      ? path('mjs_app_default', { idCaso: caso.idCaso }) 
+      : path('mjs_app_default', { idCaso: caso.idCaso }) 
+  %}
+
+  <a href="{{ ruta }}"
+     class="circle-tab {% if pgcsj is empty %}position-relative{% endif %} {% if pestaña_activa == 'mjs_sp' %}active{% endif %}"
+     title="Procuración general de la Corte Suprema de Justicia">
+
+      <span class="circle-letter"><h6>MJS</h6></span>
+
+      {% if mjs_sp is empty %}
+        <i class="bi bi-plus-circle small-icon-overlay"></i>
+      {% endif %}
+
+  </a>
+{% endif %}   
+      
   </div>
-
-
     
 
 <style>

@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         {% for organismo in organismos %}
-            <tr>
+            <tr class="{% if organismo.getFechaBaja() is not null %}table-secondary{% endif %}">
                 <td>{{ organismo.idOrganismo }}</td>
                 <td>{{ organismo.nombreOrganismo }}</td>
                 <td>{{ organismo.referente }}</td>
@@ -45,6 +45,13 @@
                        class="btn btn-sm btn-outline-primary">
                         Editar
                     </a>
+                    <a href="{{ path('organismo_delete', {
+                        'idOrganismo': organismo.idOrganismo,
+                        '_token': csrf_token('delete' ~ organismo.idOrganismo)
+                        }) }}"
+                        class="btn btn-sm btn-outline-primary">
+                        Borrar
+                        </a>
                 </td>
             </tr>
         {% else %}

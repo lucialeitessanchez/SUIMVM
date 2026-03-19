@@ -70,6 +70,7 @@
                     <select class="form-select" id="generoAutop" name="generoAutop">
                         <option disabled {% if datosPersona.genero is empty %}selected{% endif %}>Seleccione...</option>
                         <option value="Mujer cis" {% if datosPersona.genero == 'Mujer cis' %}selected{% endif %}>Mujer cis</option>
+                        <option value="Varon cis" {% if datosPersona.genero == 'Varon cis' %}selected{% endif %}>Varon cis</option>
                         <option value="Mujer trans" {% if datosPersona.genero == 'Mujer trans' %}selected{% endif %}>Mujer trans</option>
                         <option value="Varon trans" {% if datosPersona.genero == 'Varon trans' %}selected{% endif %}>Varon trans</option>
                         <option value="No binario" {% if datosPersona.genero == 'No binario' %}selected{% endif %}>No binario</option>     

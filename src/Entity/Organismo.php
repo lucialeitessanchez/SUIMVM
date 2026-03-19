@@ -36,6 +36,10 @@ class Organismo
     #[ORM\JoinColumn(name: 'localidad_id_localidad', referencedColumnName: 'id_localidad')]
     private Localidad $localidad;
 
+    #[ORM\Column(name: 'fecha_baja',type: 'datetime',nullable:true)]
+    private ?\DateTimeInterface $fechaBaja;
+
+
     public function getIdOrganismo(): int
     {
         return $this->idOrganismo;
@@ -123,6 +127,17 @@ class Organismo
         $this->localidad = $localidad;
         return $this;
     }
+
+    public function getFechaBaja(): ?\DateTimeInterface
+{
+    return $this->fechaBaja;
+}
+
+public function setFechaBaja(?\DateTimeInterface $fechaBaja): self
+{
+    $this->fechaBaja = $fechaBaja;
+    return $this;
+}
 
     public function __toString(): string
     {

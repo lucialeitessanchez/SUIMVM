@@ -1,5 +1,8 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  {% set organismo = app.user.idOrganismo %}
+
   <div class="circle-tabs d-flex justify-content-end flex-wrap gap-3 mt-3 mb-0" style="padding-right:9rem; ">
+
 
     <a href="{{ path('caso_ver', { id: caso.idCaso }) }}"
        class="circle-tab {% if pestaña_activa == 'caso' %}active{% endif %}"
