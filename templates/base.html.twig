@@ -51,7 +51,7 @@
                         {% endif %}
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+               {#} <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Organismos</a>
                     {% if is_granted('ROLE_MIGYD_ADMIN') %}
                     <ul class="dropdown-menu">
@@ -66,13 +66,15 @@
                     {% endif %}
                     </ul>
                     
-                </li>
+                </li>#}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Administracion</a>
                     {% if is_granted('ROLE_MIGYD_ADMIN') %}
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('organismo_index')}}">Gestion de Organismos</i></a></li>
                         <li><a class="dropdown-item" href="{{ path('usuario_index')}}">Gestion de Usuarios</i></a></li>
+                     
+                   {#}   <li><a class="dropdown-item" href="{{ path('nomenclador_index')}}">Gestion del Nomenclador</i></a></li>#}
                     {% endif %}
                     </ul>
                     

@@ -10,7 +10,7 @@
       <i class="bi bi-person-lines-fill"></i>
     </a>
 
-    {% if organismo == '3' %}
+    {% if organismo in [3,1] %}
 
       {% set ruta = caj is not empty 
           ? path('app_caj_edit', { idCaso: caso.idCaso }) 
@@ -30,7 +30,7 @@
       </a>
     {% endif %}
 
-   {% if organismo == '10' %}
+   {% if organismo in [10,1] %}
 
       {% set ruta = sdh is not empty 
           ? path('app_sdh_edit', { idCaso: caso.idCaso }) 
@@ -50,7 +50,7 @@
       </a>
     {% endif %}
    
-   {% if organismo == '2' %}
+   {% if organismo in [2,1] %}
 
       {% set ruta = mpa is not empty 
           ? path('app_mpa_edit', { idCaso: caso.idCaso }) 
@@ -70,11 +70,11 @@
       </a>
     {% endif %}
     
-   {% if organismo == '11' %}
+   {% if organismo in [11,1] %}
 
   {% set ruta = gl is not empty 
-      ? path('app_gl_edit', { idCaso: caso.idCaso }) 
-      : path('app_gl_new', { idCaso: caso.idCaso }) 
+      ? path('gob_locales_edit', { idCaso: caso.idCaso }) 
+      : path('gob_locales_new', { idCaso: caso.idCaso }) 
   %}
 
   <a href="{{ ruta }}"
@@ -112,7 +112,7 @@
 
 {% endif %}
    
- {% if organismo == '9' %}
+ {% if organismo  in [9,1] %}
 
   {% set ruta = sddnayf is not empty 
       ? path('app_sddnayf_edit', { idCaso: caso.idCaso }) 
@@ -132,7 +132,7 @@
   </a>
 {% endif %}
 
-    {% if organismo == '12' %}
+    {% if organismo in [12,1] %}
 
   {% set ruta = pgcsj is not empty 
       ? path('app_pgcsj_edit', { idCaso: caso.idCaso }) 
@@ -152,7 +152,7 @@
   </a>
 {% endif %}
 
-    {% if organismo == '13' %}
+    {% if organismo in [13,1] %}
 
   {% set ruta = mjs_sp is not empty 
       ? path('mjs_app_default', { idCaso: caso.idCaso }) 
