@@ -54,7 +54,7 @@
 
       {% set ruta = mpa is not empty 
           ? path('app_mpa_edit', { idCaso: caso.idCaso }) 
-          : path('mpa_new', { idCaso: caso.idCaso }) 
+          : path('app_mpa_new', { idCaso: caso.idCaso }) 
       %}
 
       <a href="{{ ruta }}"
