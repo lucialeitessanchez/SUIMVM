@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <section class="container my-5">
+    <h2>Agregar Nomenclador</h2>
+
+    {% include 'nomenclador/_form.html.twig' with {
+        form: form,
+        button_label: 'Crear'
+    } %}
+{% endblock %}

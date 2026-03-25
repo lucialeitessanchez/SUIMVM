@@ -1,42 +1,66 @@
 <?php
 
 namespace App\Controller;
+
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\NomencladorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Nomenclador;
-use Symfony\Component\Routing\Attribute\Route;
+use App\Form\NomencladorType;
 
 #[Route('/nomenclador')]
 class NomencladorController extends AbstractController
 {
-    #[Route('/', name: 'nomenclador_index')]
+
+    #[Route('/', name: 'nomenclador_index', methods: ['GET'])]
     public function index(NomencladorRepository $repo): Response
     {
-        $nomencladores = $repo->findBy([], ['nomenclador' => 'ASC']);
+        $nomencladores = $repo->findBy([], [
+            'nomenclador' => 'ASC',
+            'valor_nomenclador' => 'ASC'
+        ]);
 
+
+        $agrupados = [];
+
+        foreach ($nomencladores as $n) {
+            $agrupados[$n->getNomenclador()][] = $n;
+        }
+    
         return $this->render('nomenclador/index.html.twig', [
-            'nomencladores' => $nomencladores
+            'agrupados' => $agrupados
         ]);
     }
+
 
     #[Route('/new', name: 'app_nomenclador_new')]
-    public function new(Request $request, EntityManagerInterface $em): Response
-    {
-        $nomenclador = new Nomenclador();
-        $form = $this->createForm(NomencladorType::class, $nomenclador);
+public function new(Request $request, EntityManagerInterface $em): Response
+{
+    $nomenclador = new Nomenclador();
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($nomenclador);
-            $em->flush();
-
-            return $this->redirectToRoute('app_nomenclador_index');
-        }
-
-        return $this->render('nomenclador/form.html.twig', [
-            'form' => $form
-        ]);
+    // 👇 esto es la magia
+    if ($request->query->get('tipo')) {
+        $nomenclador->setNomenclador($request->query->get('tipo'));
     }
+
+    $form = $this->createForm(NomencladorType::class, $nomenclador);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($nomenclador);
+        $em->flush();
+
+        return $this->redirectToRoute('nomenclador_index');
+    }
+
+    return $this->render('nomenclador/new.html.twig', [
+        'form' => $form
+    ]);
+}
 
     #[Route('/edit/{id}', name: 'app_nomenclador_edit')]
     public function edit(Nomenclador $nomenclador, Request $request, EntityManagerInterface $em): Response
@@ -48,10 +72,10 @@ class NomencladorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
 
-            return $this->redirectToRoute('app_nomenclador_index');
+            return $this->redirectToRoute('nomenclador_index');
         }
 
-        return $this->render('nomenclador/form.html.twig', [
+        return $this->render('nomenclador/edit.html.twig', [
             'form' => $form
         ]);
     }
@@ -62,6 +86,6 @@ class NomencladorController extends AbstractController
         $em->remove($nomenclador);
         $em->flush();
 
-        return $this->redirectToRoute('app_nomenclador_index');
+        return $this->redirectToRoute('nomenclador_index');
     }
 }

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Nomenclador{% endblock %}
+
+{% block body %}
+    <section class="container my-5">
+    <h2>Editar Nomenclador</h2>
+ 
+
+    {% include 'nomenclador/_form.html.twig' with {
+        form: form,
+        button_label: 'Actualizar'
+    } %}
+{% endblock %}

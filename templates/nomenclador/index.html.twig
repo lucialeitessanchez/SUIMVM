@@ -8,29 +8,59 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Nomenclador</h1>
 
-        <a href="{{ path('app_nomenclador_new') }}" class="btn btn-primary">
-            + Nuevo 
+        <a href="{{ path('app_index') }}" class="btn btn-primary">
+           Volver
         </a>
     </div>
 
 
 <table class="table">
-    <thead>
+     <thead>
         <tr>
             <th>Tipo</th>
-            <th>Valor</th>
-            <th>Acciones</th>
+           {# <th>Acciones</th>#}
         </tr>
     </thead>
-    <tbody>
-        {% for n in nomencladores %}
+     {% for tipo, items in agrupados %}
             <tr>
-                <td>{{ n.nomenclador }}</td>
-                <td>{{ n.valorNomenclador }}</td>
                 <td>
-                    <a href="{{ path('app_nomenclador_edit', {id: n.idNomenclador}) }}" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="{{ path('app_nomenclador_delete', {id: n.idNomenclador}) }}" class="btn btn-sm btn-danger">Eliminar</a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle w-100 text-start"
+                                type="button"
+                                data-bs-toggle="dropdown">
+                            {{ tipo }}
+                        </button>
+
+                        <div class="dropdown-menu p-3" style="min-width: 350px;">
+
+                            {# LISTADO DE VALORES #}
+                            {% for n in items %}
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>{{ n.valorNomenclador }}</span>
+
+                                    <span>
+                                        <a href="{{ path('app_nomenclador_edit', {id: n.idNomenclador}) }}"
+                                           class="btn btn-sm btn-warning">✏</a>
+
+                                        <a href="{{ path('app_nomenclador_delete', {id: n.idNomenclador}) }}"
+                                           class="btn btn-sm btn-danger">🗑</a>
+                                    </span>
+                                </div>
+                            {% endfor %}
+
+                            <hr>
+
+                            {# AGREGAR NUEVO VALOR AL GRUPO #}
+                            <a href="{{ path('app_nomenclador_new', {tipo: tipo}) }}"
+                               class="btn btn-sm btn-success w-100">
+                                + Agregar valor
+                            </a>
+
+                        </div>
+                    </div>
                 </td>
+
+                
             </tr>
         {% endfor %}
     </tbody>
