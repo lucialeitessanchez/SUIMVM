@@ -22,12 +22,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 {% endblock %}
-
-
-
     
 </head>
+
 <body>
+
+ 
+
 
     {# Navbar común a todas las páginas #}
     
@@ -102,7 +103,7 @@
         </div>
     </nav>
 
-    {% block body %}{% endblock %}
+    {% block body %} {% endblock %}
     {% block javascripts %}
    
   
@@ -112,6 +113,17 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  {% for message in app.flashes('success') %}
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '{{ message }}',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+{% endfor %}
+  
     {% endblock %}
 </body>
 </html>

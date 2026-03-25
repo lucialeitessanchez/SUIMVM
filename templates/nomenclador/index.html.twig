@@ -42,8 +42,11 @@
                                         <a href="{{ path('app_nomenclador_edit', {id: n.idNomenclador}) }}"
                                            class="btn btn-sm btn-warning">✏</a>
 
-                                        <a href="{{ path('app_nomenclador_delete', {id: n.idNomenclador}) }}"
-                                           class="btn btn-sm btn-danger">🗑</a>
+                                        <a href="#"
+                                            class="btn btn-sm btn-danger btn-delete"
+                                            data-url="{{ path('app_nomenclador_delete', {id: n.idNomenclador}) }}">
+                                            🗑
+                                            </a>
                                     </span>
                                 </div>
                             {% endfor %}
@@ -66,4 +69,30 @@
     </tbody>
 </table>
 </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const url = this.getAttribute('data-url');
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "No vas a poder deshacer esta acción",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

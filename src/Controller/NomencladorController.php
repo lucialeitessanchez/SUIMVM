@@ -85,6 +85,8 @@ public function new(Request $request, EntityManagerInterface $em): Response
     {
         $em->remove($nomenclador);
         $em->flush();
+        // 👇 mensaje flash
+        $this->addFlash('success', 'Eliminado correctamente');
 
         return $this->redirectToRoute('nomenclador_index');
     }
