@@ -38,10 +38,10 @@
       %}
 
       <a href="{{ ruta }}"
-        class="circle-tab {% if caj is empty %}position-relative{% endif %} {% if pestaña_activa == 'sdh' %}active{% endif %}"
+        class="circle-tab {% if sdh is empty %}position-relative{% endif %} {% if pestaña_activa == 'sdh' %}active{% endif %}"
         title="Secretaría de Derechos Humanos">
 
-          <span class="circle-letter"><h5>CAJ</h5></span>
+          <span class="circle-letter"><h5>SDH</h5></span>
 
           {% if sdh is empty %}
             <i class="bi bi-plus-circle small-icon-overlay"></i>
@@ -123,7 +123,7 @@
      class="circle-tab {% if sddnayf is empty %}position-relative{% endif %} {% if pestaña_activa == 'sddnayf' %}active{% endif %}"
      title="Secretaría de Derechos de la Niñez, Adolescencia y Familia">
 
-      <span class="circle-letter"><h6>sddnayf</h6></span>
+      <span class="circle-letter"><h6>SDDNAyF</h6></span>
 
       {% if sddnayf is empty %}
         <i class="bi bi-plus-circle small-icon-overlay"></i>
@@ -160,7 +160,7 @@
   %}
 
   <a href="{{ ruta }}"
-     class="circle-tab {% if pgcsj is empty %}position-relative{% endif %} {% if pestaña_activa == 'mjs_sp' %}active{% endif %}"
+     class="circle-tab {% if mjs_sp is empty %}position-relative{% endif %} {% if pestaña_activa == 'mjs_sp' %}active{% endif %}"
      title="Procuración general de la Corte Suprema de Justicia">
 
       <span class="circle-letter"><h6>MJS</h6></span>

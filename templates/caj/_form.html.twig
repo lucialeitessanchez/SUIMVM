@@ -225,17 +225,24 @@
 
     {# SECCIÓN DE ARCHIVOS ADJUNTOS #}
     <hr class="my-4">
-    <h2>Archivos Adjuntos</h2>
+ <h6 class="d-flex align-items-center">
+    <i class="la la-upload me-1"></i>
+    Archivos Adjuntos
+</h6>
 
     {% if archivos is defined and archivos is not empty %}
         <div class="list-group mb-3">
             {% for archivo in archivos %}
-                <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="list-group">
                     <div>
                         <a href="{{ asset('uploads/archivos/' ~ archivo.nombreArchivo) }}" 
-                           target="_blank" class="text-decoration-none">
-                            <i class="la la-file me-2"></i>
-                            {{ archivo.originalName }}
+                           target="_blank" 
+                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+               
+                 <span>
+                    <i class="la la-file-pdf"></i> {{ archivo.originalName }}
+                </span>
+                <span class="badge bg-primary rounded-pill">Ver PDF</span>
                         </a>
                     </div>
                     <div>
