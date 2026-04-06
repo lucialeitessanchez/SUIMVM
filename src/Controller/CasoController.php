@@ -55,9 +55,10 @@ class CasoController extends AbstractController
     #[Route('/nuevo', name: 'caso_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $em, AlertaEmailService $alertaEmailService): Response
     {
+    $user = $this->getUser();
      //seteo el origen (hasta que reciba usuario)
      $organismo=new Organismo();
-     $organismo = $em->getRepository(Organismo::class)->find(1);
+     $organismo = $em->getRepository(Organismo::class)->find($user->getIdOrganismo());
      $organismo->getIdOrganismo();
     // var_dump($organismo->getIdOrganismo());
      $organismoOrigen=new OrganismoOrigen();
@@ -96,7 +97,7 @@ class CasoController extends AbstractController
             $caso->setPersonaIdPersona($persona);
             $caso->setFranjaEtaria($franjaEtaria);
             // Setear el organismo en el caso
-            $caso->setOrganismoOrigenIdOrigen($organismoOrigen);
+            $caso->setOrganismoOrigenIdOrigen($organismo);
 
             //seteo usuario carga
             $caso->setUsuarioCarga("prueba");

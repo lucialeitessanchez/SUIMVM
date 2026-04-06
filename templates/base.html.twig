@@ -43,13 +43,22 @@
                 <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Casos</a>
-                    {% if is_granted('ROLE_MIGYD_ADMIN') %}
+                    
                     <ul class="dropdown-menu">
+                    {% if is_granted('ROLE_MIGYD_ADMIN') %}
                         <li><a class="dropdown-item" href="{{ path('caso_new') }}">Iniciar Caso</a></li>
+                    {% endif %}
                         <li><a class="dropdown-item" href="{{ path('app_caso_index') }}">Listado Casos</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Historial Casos</a></li>
-                        {% endif %}
+                      
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Descargar datos</a>
+                  
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_descarga')}}">Descarga</i></a></li>
                     </ul>
                 </li>
                {#} <li class="nav-item dropdown">

@@ -63,9 +63,9 @@ class Caso
     #[ORM\JoinColumn(name: "persona_id_persona", referencedColumnName: "id_persona", nullable: false)]
     private ?Persona $persona_id_persona = null;
 
-    #[ORM\ManyToOne(targetEntity: OrganismoOrigen::class, inversedBy: "casos")]
-    #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_origen", nullable: false)]
-    private OrganismoOrigen $organismo_origen_id_origen;
+    #[ORM\ManyToOne(targetEntity: Organismo::class, inversedBy: "casos")]
+    #[ORM\JoinColumn(name: "organismo_origen_id_origen", referencedColumnName: "id_organismo", nullable: false)]
+    private Organismo $organismoIdOrganismo;
 
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $apenomAgresor = null;
@@ -252,14 +252,14 @@ public function setPersonaIdPersona(?Persona $persona_id_persona): self
     return $this;
 }
 
-public function getOrganismoOrigenIdOrigen(): OrganismoOrigen
+public function getOrganismoOrigenIdOrigen(): Organismo
 {
-    return $this->organismo_origen_id_origen;
+    return $this->organismoIdOrganismo;
 }
 
-public function setOrganismoOrigenIdOrigen(OrganismoOrigen $organismo_origen_id_origen): self
+public function setOrganismoOrigenIdOrigen(Organismo $organismoIdOrganismo): self
 {
-    $this->organismo_origen_id_origen = $organismo_origen_id_origen;
+    $this->organismoIdOrganismo = $organismoIdOrganismo;
     return $this;
 }
 
