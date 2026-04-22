@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Descarga de datos{% endblock %}
+{% block body %}
+<br>
+<section class="container my-3">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0">Descarga de datos</h2>
+</div>
+  <hr>
+<form method="get" action="{{ path('app_descarga_export') }}">
+    
+     <div class="row mb-3">
+       
+        <div class="col-md-8">
+         <label for="nombre" class="form-label">Organismo</label>     
+        <select name="organismo" id="organismo" class="form-select" required
+            {% if not is_granted('ROLE_MIGYD_ADMIN') %}disabled{% endif %}>
+            
+            <option value="">Seleccionar...</option>
+
+            {% for org in organismos %}
+                <option value="{{ org.idOrganismo }}">
+                    {{ org.nombreOrganismo }}
+                </option>
+            {% endfor %}
+        </select>
+        </div>
+    </div>
+
+    {# 👇 si está disabled, igual mandamos el valor #}
+    {% if not is_granted('ROLE_MIGYD_ADMIN') %}
+        <input type="hidden" name="organismo" value="{{ organismos[0].idOrganismo }}">
+    {% endif %}
+
+    <button class="btn btn-primary">
+        Descargar
+    </button>
+</div>
+</form>
+{% endblock %}

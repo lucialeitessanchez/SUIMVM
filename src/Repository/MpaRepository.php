@@ -25,4 +25,12 @@ class MpaRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByOrganismo($organismo)
+    {
+        return $this->createQueryBuilder('m')
+        ->join('m.caso', 'c')
+        ->addSelect('c')
+        ->getQuery()
+        ->getResult();
+    }
 }
