@@ -35,15 +35,13 @@ class CasoController extends AbstractController
         ->getRepository(Caso::class)
         ->findBy([], ['id_caso' => 'DESC']);
       //  ->findAll();
-    if ($casos){
+    
             return $this->render('/caso/casoList.html.twig', [
            'casos' => $casos,
            'idCaso'=>$idCaso,
-            ]);}
-    else {
-        return $this->render('/index.html.twig');}
+            ]);
     }
-
+   
     #[Route('/enviarMail', name: 'mail_alerta', methods: ['GET', 'POST'])]
     public function MailAlerta(Request $request,AlertaEmailService $alertaEmailService): Response
     {
