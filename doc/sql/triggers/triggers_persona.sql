@@ -1,7 +1,7 @@
-USE smgyd_suimvm;
+USE migyd_rufem;
 DELIMITER $$
 
-							CREATE TRIGGER persona_update BEFORE UPDATE ON smgyd_suimvm.persona
+							CREATE TRIGGER persona_update BEFORE UPDATE ON migyd_rufem.persona
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
@@ -9,7 +9,7 @@ DELIMITER $$
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
 							IF NOT (OLD.id_persona <=> NEW.id_persona) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'persona',
 										campo = 'id_persona',
@@ -20,7 +20,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.nombre <=> NEW.nombre) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'persona',
 										campo = 'nombre',
@@ -31,7 +31,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.apellido <=> NEW.apellido) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'persona',
 										campo = 'apellido',
@@ -42,7 +42,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.nrodoc <=> NEW.nrodoc) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'persona',
 										campo = 'nrodoc',
@@ -53,7 +53,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sexo <=> NEW.sexo) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'persona',
 										campo = 'sexo',
@@ -64,7 +64,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.genero_autop <=> NEW.genero_autop) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'persona',
 										campo = 'genero_autop',
@@ -75,7 +75,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.orientacion_sexual_id <=> NEW.orientacion_sexual_id) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'persona',
 										campo = 'orientacion_sexual_id',
@@ -86,7 +86,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.nacionalidad <=> NEW.nacionalidad) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'persona',
 										campo = 'nacionalidad',
@@ -104,14 +104,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-							CREATE TRIGGER persona_insert AFTER INSERT ON smgyd_suimvm.persona
+							CREATE TRIGGER persona_insert AFTER INSERT ON migyd_rufem.persona
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
 								SET @accion = 'INSERT';
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
-							INSERT INTO suimvm_auditoria SET
+							INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'id_persona',
@@ -120,7 +120,7 @@ DELIMITER $$
 								val_new = NEW.id_persona,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'nombre',
@@ -129,7 +129,7 @@ DELIMITER $$
 								val_new = NEW.nombre,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'apellido',
@@ -138,7 +138,7 @@ DELIMITER $$
 								val_new = NEW.apellido,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'nrodoc',
@@ -147,7 +147,7 @@ DELIMITER $$
 								val_new = NEW.nrodoc,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'sexo',
@@ -156,7 +156,7 @@ DELIMITER $$
 								val_new = NEW.sexo,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'genero_autop',
@@ -165,7 +165,7 @@ DELIMITER $$
 								val_new = NEW.genero_autop,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'orientacion_sexual_id',
@@ -174,7 +174,7 @@ DELIMITER $$
 								val_new = NEW.orientacion_sexual_id,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'nacionalidad',
@@ -191,14 +191,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-							CREATE TRIGGER persona_delete BEFORE DELETE ON smgyd_suimvm.persona
+							CREATE TRIGGER persona_delete BEFORE DELETE ON migyd_rufem.persona
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
 								SET @accion = 'DELETE';
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
-							INSERT INTO suimvm_auditoria SET
+							INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'id_persona',
@@ -207,7 +207,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'nombre',
@@ -216,7 +216,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'apellido',
@@ -225,7 +225,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'nrodoc',
@@ -234,7 +234,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'sexo',
@@ -243,7 +243,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'genero_autop',
@@ -252,7 +252,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'orientacion_sexual_id',
@@ -261,7 +261,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'persona',
 								campo = 'nacionalidad',

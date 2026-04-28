@@ -1,7 +1,7 @@
-USE smgyd_suimvm;
+USE migyd_rufem;
 DELIMITER $$
 
-							CREATE TRIGGER caso_update BEFORE UPDATE ON smgyd_suimvm.caso
+							CREATE TRIGGER caso_update BEFORE UPDATE ON migyd_rufem.caso
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
@@ -9,7 +9,7 @@ DELIMITER $$
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
 							IF NOT (OLD.id_caso <=> NEW.id_caso) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'id_caso',
@@ -20,7 +20,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.fecha_carga <=> NEW.fecha_carga) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'fecha_carga',
@@ -31,7 +31,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.fecha_hecho <=> NEW.fecha_hecho) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'fecha_hecho',
@@ -42,7 +42,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.fecha_anoticiamiento <=> NEW.fecha_anoticiamiento) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'fecha_anoticiamiento',
@@ -53,7 +53,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.edad <=> NEW.edad) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'edad',
@@ -64,7 +64,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.franja_etaria <=> NEW.franja_etaria) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'franja_etaria',
@@ -75,7 +75,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.domicilio <=> NEW.domicilio) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'domicilio',
@@ -86,7 +86,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.femicidio_vinculado <=> NEW.femicidio_vinculado) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'femicidio_vinculado',
@@ -97,7 +97,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.crimen_odio <=> NEW.crimen_odio) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'crimen_odio',
@@ -108,7 +108,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.barrio <=> NEW.barrio) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'barrio',
@@ -119,7 +119,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.lugar_hecho <=> NEW.lugar_hecho) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'lugar_hecho',
@@ -130,7 +130,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.tipo_muerte <=> NEW.tipo_muerte) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'tipo_muerte',
@@ -141,7 +141,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.localidad_id_localidad <=> NEW.localidad_id_localidad) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'localidad_id_localidad',
@@ -152,7 +152,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.localidad_id_hecho <=> NEW.localidad_id_hecho) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'localidad_id_hecho',
@@ -163,7 +163,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.persona_id_persona <=> NEW.persona_id_persona) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'persona_id_persona',
@@ -174,7 +174,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.organismo_origen_id_origen <=> NEW.organismo_origen_id_origen) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'organismo_origen_id_origen',
@@ -185,7 +185,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.apenom_agresor <=> NEW.apenom_agresor) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'apenom_agresor',
@@ -196,7 +196,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.nrodoc_agresor <=> NEW.nrodoc_agresor) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'nrodoc_agresor',
@@ -207,7 +207,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.edad_agresor <=> NEW.edad_agresor) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'edad_agresor',
@@ -218,7 +218,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.vinculo <=> NEW.vinculo) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'vinculo',
@@ -229,7 +229,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.lugar_hecho_nomenclador <=> NEW.lugar_hecho_nomenclador) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'lugar_hecho_nomenclador',
@@ -240,7 +240,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.usuario_carga <=> NEW.usuario_carga) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caso',
 										campo = 'usuario_carga',
@@ -258,14 +258,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-							CREATE TRIGGER caso_insert AFTER INSERT ON smgyd_suimvm.caso
+							CREATE TRIGGER caso_insert AFTER INSERT ON migyd_rufem.caso
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
 								SET @accion = 'INSERT';
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
-							INSERT INTO suimvm_auditoria SET
+							INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'id_caso',
@@ -274,7 +274,7 @@ DELIMITER $$
 								val_new = NEW.id_caso,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'fecha_carga',
@@ -283,7 +283,7 @@ DELIMITER $$
 								val_new = NEW.fecha_carga,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'fecha_hecho',
@@ -292,7 +292,7 @@ DELIMITER $$
 								val_new = NEW.fecha_hecho,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'fecha_anoticiamiento',
@@ -301,7 +301,7 @@ DELIMITER $$
 								val_new = NEW.fecha_anoticiamiento,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'edad',
@@ -310,7 +310,7 @@ DELIMITER $$
 								val_new = NEW.edad,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'franja_etaria',
@@ -319,7 +319,7 @@ DELIMITER $$
 								val_new = NEW.franja_etaria,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'domicilio',
@@ -328,7 +328,7 @@ DELIMITER $$
 								val_new = NEW.domicilio,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'femicidio_vinculado',
@@ -337,7 +337,7 @@ DELIMITER $$
 								val_new = NEW.femicidio_vinculado,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'crimen_odio',
@@ -346,7 +346,7 @@ DELIMITER $$
 								val_new = NEW.crimen_odio,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'barrio',
@@ -355,7 +355,7 @@ DELIMITER $$
 								val_new = NEW.barrio,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'lugar_hecho',
@@ -364,7 +364,7 @@ DELIMITER $$
 								val_new = NEW.lugar_hecho,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'tipo_muerte',
@@ -373,7 +373,7 @@ DELIMITER $$
 								val_new = NEW.tipo_muerte,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'localidad_id_localidad',
@@ -382,7 +382,7 @@ DELIMITER $$
 								val_new = NEW.localidad_id_localidad,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'localidad_id_hecho',
@@ -391,7 +391,7 @@ DELIMITER $$
 								val_new = NEW.localidad_id_hecho,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'persona_id_persona',
@@ -400,7 +400,7 @@ DELIMITER $$
 								val_new = NEW.persona_id_persona,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'organismo_origen_id_origen',
@@ -409,7 +409,7 @@ DELIMITER $$
 								val_new = NEW.organismo_origen_id_origen,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'apenom_agresor',
@@ -418,7 +418,7 @@ DELIMITER $$
 								val_new = NEW.apenom_agresor,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'nrodoc_agresor',
@@ -427,7 +427,7 @@ DELIMITER $$
 								val_new = NEW.nrodoc_agresor,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'edad_agresor',
@@ -436,7 +436,7 @@ DELIMITER $$
 								val_new = NEW.edad_agresor,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'vinculo',
@@ -445,7 +445,7 @@ DELIMITER $$
 								val_new = NEW.vinculo,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'lugar_hecho_nomenclador',
@@ -454,7 +454,7 @@ DELIMITER $$
 								val_new = NEW.lugar_hecho_nomenclador,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'usuario_carga',
@@ -471,14 +471,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-							CREATE TRIGGER caso_delete BEFORE DELETE ON smgyd_suimvm.caso
+							CREATE TRIGGER caso_delete BEFORE DELETE ON migyd_rufem.caso
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
 								SET @accion = 'DELETE';
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
-							INSERT INTO suimvm_auditoria SET
+							INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'id_caso',
@@ -487,7 +487,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'fecha_carga',
@@ -496,7 +496,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'fecha_hecho',
@@ -505,7 +505,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'fecha_anoticiamiento',
@@ -514,7 +514,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'edad',
@@ -523,7 +523,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'franja_etaria',
@@ -532,7 +532,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'domicilio',
@@ -541,7 +541,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'femicidio_vinculado',
@@ -550,7 +550,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'crimen_odio',
@@ -559,7 +559,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'barrio',
@@ -568,7 +568,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'lugar_hecho',
@@ -577,7 +577,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'tipo_muerte',
@@ -586,7 +586,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'localidad_id_localidad',
@@ -595,7 +595,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'localidad_id_hecho',
@@ -604,7 +604,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'persona_id_persona',
@@ -613,7 +613,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'organismo_origen_id_origen',
@@ -622,7 +622,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'apenom_agresor',
@@ -631,7 +631,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'nrodoc_agresor',
@@ -640,7 +640,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'edad_agresor',
@@ -649,7 +649,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'vinculo',
@@ -658,7 +658,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'lugar_hecho_nomenclador',
@@ -667,7 +667,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caso',
 								campo = 'usuario_carga',

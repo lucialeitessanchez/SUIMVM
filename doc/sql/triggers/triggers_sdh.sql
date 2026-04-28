@@ -1,7 +1,7 @@
-USE smgyd_suimvm;
+USE migyd_rufem;
 DELIMITER $$
 
-							CREATE TRIGGER sdh_update BEFORE UPDATE ON smgyd_suimvm.sdh
+							CREATE TRIGGER sdh_update BEFORE UPDATE ON migyd_rufem.sdh
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
@@ -9,7 +9,7 @@ DELIMITER $$
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
 							IF NOT (OLD.id_sdh <=> NEW.id_sdh) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'id_sdh',
@@ -20,7 +20,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_1 <=> NEW.sdh_1_1) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_1',
@@ -31,7 +31,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_9 <=> NEW.sdh_1_9) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_9',
@@ -42,7 +42,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_10 <=> NEW.sdh_1_10) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_10',
@@ -53,7 +53,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_2_id_nomenclador <=> NEW.sdh_1_2_id_nomenclador) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_2_id_nomenclador',
@@ -64,7 +64,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_3 <=> NEW.sdh_1_3) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_3',
@@ -75,7 +75,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_4 <=> NEW.sdh_1_4) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_4',
@@ -86,7 +86,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_5_id_nomenclador <=> NEW.sdh_1_5_id_nomenclador) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_5_id_nomenclador',
@@ -97,7 +97,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_6_id_nomenclador <=> NEW.sdh_1_6_id_nomenclador) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_6_id_nomenclador',
@@ -108,7 +108,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_7 <=> NEW.sdh_1_7) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_7',
@@ -119,7 +119,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_1_8 <=> NEW.sdh_1_8) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_1_8',
@@ -130,7 +130,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_2_1 <=> NEW.sdh_2_1) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_2_1',
@@ -141,7 +141,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_2_2_id_nomenclador <=> NEW.sdh_2_2_id_nomenclador) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_2_2_id_nomenclador',
@@ -152,7 +152,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_2_3 <=> NEW.sdh_2_3) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_2_3',
@@ -163,7 +163,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_2_4 <=> NEW.sdh_2_4) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_2_4',
@@ -174,7 +174,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_3_1 <=> NEW.sdh_3_1) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_3_1',
@@ -185,7 +185,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_3_2 <=> NEW.sdh_3_2) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_3_2',
@@ -196,7 +196,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_3_3_id_nomenclador <=> NEW.sdh_3_3_id_nomenclador) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_3_3_id_nomenclador',
@@ -207,7 +207,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_3_4_id_nomenclador <=> NEW.sdh_3_4_id_nomenclador) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_3_4_id_nomenclador',
@@ -218,7 +218,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_4_1 <=> NEW.sdh_4_1) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_4_1',
@@ -229,7 +229,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_4_2 <=> NEW.sdh_4_2) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_4_2',
@@ -240,7 +240,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_4_3 <=> NEW.sdh_4_3) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_4_3',
@@ -251,7 +251,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_5_1a <=> NEW.sdh_5_1a) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_5_1a',
@@ -262,7 +262,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_5_1b <=> NEW.sdh_5_1b) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_5_1b',
@@ -273,7 +273,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_5_2a <=> NEW.sdh_5_2a) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_5_2a',
@@ -284,7 +284,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.sdh_5_2b <=> NEW.sdh_5_2b) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'sdh_5_2b',
@@ -295,7 +295,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caso_id_caso <=> NEW.caso_id_caso) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'caso_id_caso',
@@ -306,7 +306,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.fecha_carga <=> NEW.fecha_carga) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'fecha_carga',
@@ -317,7 +317,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.usuario_carga <=> NEW.usuario_carga) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'sdh',
 										campo = 'usuario_carga',
@@ -335,14 +335,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-							CREATE TRIGGER sdh_insert AFTER INSERT ON smgyd_suimvm.sdh
+							CREATE TRIGGER sdh_insert AFTER INSERT ON migyd_rufem.sdh
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
 								SET @accion = 'INSERT';
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
-							INSERT INTO suimvm_auditoria SET
+							INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'id_sdh',
@@ -351,7 +351,7 @@ DELIMITER $$
 								val_new = NEW.id_sdh,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_1',
@@ -360,7 +360,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_1,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_9',
@@ -369,7 +369,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_9,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_10',
@@ -378,7 +378,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_10,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_2_id_nomenclador',
@@ -387,7 +387,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_2_id_nomenclador,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_3',
@@ -396,7 +396,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_3,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_4',
@@ -405,7 +405,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_4,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_5_id_nomenclador',
@@ -414,7 +414,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_5_id_nomenclador,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_6_id_nomenclador',
@@ -423,7 +423,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_6_id_nomenclador,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_7',
@@ -432,7 +432,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_7,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_8',
@@ -441,7 +441,7 @@ DELIMITER $$
 								val_new = NEW.sdh_1_8,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_2_1',
@@ -450,7 +450,7 @@ DELIMITER $$
 								val_new = NEW.sdh_2_1,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_2_2_id_nomenclador',
@@ -459,7 +459,7 @@ DELIMITER $$
 								val_new = NEW.sdh_2_2_id_nomenclador,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_2_3',
@@ -468,7 +468,7 @@ DELIMITER $$
 								val_new = NEW.sdh_2_3,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_2_4',
@@ -477,7 +477,7 @@ DELIMITER $$
 								val_new = NEW.sdh_2_4,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_3_1',
@@ -486,7 +486,7 @@ DELIMITER $$
 								val_new = NEW.sdh_3_1,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_3_2',
@@ -495,7 +495,7 @@ DELIMITER $$
 								val_new = NEW.sdh_3_2,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_3_3_id_nomenclador',
@@ -504,7 +504,7 @@ DELIMITER $$
 								val_new = NEW.sdh_3_3_id_nomenclador,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_3_4_id_nomenclador',
@@ -513,7 +513,7 @@ DELIMITER $$
 								val_new = NEW.sdh_3_4_id_nomenclador,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_4_1',
@@ -522,7 +522,7 @@ DELIMITER $$
 								val_new = NEW.sdh_4_1,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_4_2',
@@ -531,7 +531,7 @@ DELIMITER $$
 								val_new = NEW.sdh_4_2,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_4_3',
@@ -540,7 +540,7 @@ DELIMITER $$
 								val_new = NEW.sdh_4_3,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_5_1a',
@@ -549,7 +549,7 @@ DELIMITER $$
 								val_new = NEW.sdh_5_1a,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_5_1b',
@@ -558,7 +558,7 @@ DELIMITER $$
 								val_new = NEW.sdh_5_1b,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_5_2a',
@@ -567,7 +567,7 @@ DELIMITER $$
 								val_new = NEW.sdh_5_2a,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_5_2b',
@@ -576,7 +576,7 @@ DELIMITER $$
 								val_new = NEW.sdh_5_2b,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'caso_id_caso',
@@ -585,7 +585,7 @@ DELIMITER $$
 								val_new = NEW.caso_id_caso,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'fecha_carga',
@@ -594,7 +594,7 @@ DELIMITER $$
 								val_new = NEW.fecha_carga,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'usuario_carga',
@@ -611,14 +611,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-							CREATE TRIGGER sdh_delete BEFORE DELETE ON smgyd_suimvm.sdh
+							CREATE TRIGGER sdh_delete BEFORE DELETE ON migyd_rufem.sdh
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
 								SET @accion = 'DELETE';
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
-							INSERT INTO suimvm_auditoria SET
+							INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'id_sdh',
@@ -627,7 +627,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_1',
@@ -636,7 +636,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_9',
@@ -645,7 +645,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_10',
@@ -654,7 +654,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_2_id_nomenclador',
@@ -663,7 +663,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_3',
@@ -672,7 +672,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_4',
@@ -681,7 +681,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_5_id_nomenclador',
@@ -690,7 +690,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_6_id_nomenclador',
@@ -699,7 +699,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_7',
@@ -708,7 +708,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_1_8',
@@ -717,7 +717,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_2_1',
@@ -726,7 +726,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_2_2_id_nomenclador',
@@ -735,7 +735,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_2_3',
@@ -744,7 +744,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_2_4',
@@ -753,7 +753,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_3_1',
@@ -762,7 +762,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_3_2',
@@ -771,7 +771,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_3_3_id_nomenclador',
@@ -780,7 +780,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_3_4_id_nomenclador',
@@ -789,7 +789,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_4_1',
@@ -798,7 +798,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_4_2',
@@ -807,7 +807,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_4_3',
@@ -816,7 +816,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_5_1a',
@@ -825,7 +825,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_5_1b',
@@ -834,7 +834,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_5_2a',
@@ -843,7 +843,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'sdh_5_2b',
@@ -852,7 +852,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'caso_id_caso',
@@ -861,7 +861,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'fecha_carga',
@@ -870,7 +870,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'sdh',
 								campo = 'usuario_carga',

@@ -1,7 +1,7 @@
-USE smgyd_suimvm;
+USE migyd_rufem;
 DELIMITER $$
 
-							CREATE TRIGGER caj_update BEFORE UPDATE ON smgyd_suimvm.caj
+							CREATE TRIGGER caj_update BEFORE UPDATE ON migyd_rufem.caj
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
@@ -9,7 +9,7 @@ DELIMITER $$
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
 							IF NOT (OLD.id_caj <=> NEW.id_caj) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'id_caj',
@@ -20,7 +20,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_1a <=> NEW.caj_1a) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_1a',
@@ -31,7 +31,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_1b <=> NEW.caj_1b) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_1b',
@@ -42,7 +42,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_1c <=> NEW.caj_1c) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_1c',
@@ -53,7 +53,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_1d <=> NEW.caj_1d) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_1d',
@@ -64,7 +64,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_2a <=> NEW.caj_2a) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_2a',
@@ -75,7 +75,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_2b <=> NEW.caj_2b) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_2b',
@@ -86,7 +86,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_2c <=> NEW.caj_2c) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_2c',
@@ -97,7 +97,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_2d <=> NEW.caj_2d) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_2d',
@@ -108,7 +108,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_2e <=> NEW.caj_2e) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_2e',
@@ -119,7 +119,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_2f <=> NEW.caj_2f) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_2f',
@@ -130,7 +130,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3a <=> NEW.caj_3a) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3a',
@@ -141,7 +141,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3b <=> NEW.caj_3b) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3b',
@@ -152,7 +152,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3c <=> NEW.caj_3c) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3c',
@@ -163,7 +163,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3d <=> NEW.caj_3d) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3d',
@@ -174,7 +174,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3e <=> NEW.caj_3e) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3e',
@@ -185,7 +185,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3f <=> NEW.caj_3f) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3f',
@@ -196,7 +196,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3g <=> NEW.caj_3g) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3g',
@@ -207,7 +207,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3h <=> NEW.caj_3h) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3h',
@@ -218,7 +218,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_4a <=> NEW.caj_4a) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_4a',
@@ -229,7 +229,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_4b <=> NEW.caj_4b) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_4b',
@@ -240,7 +240,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_4c <=> NEW.caj_4c) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_4c',
@@ -251,7 +251,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3i <=> NEW.caj_3i) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3i',
@@ -262,7 +262,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caj_3j <=> NEW.caj_3j) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caj_3j',
@@ -273,7 +273,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.caso_id_caso <=> NEW.caso_id_caso) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'caso_id_caso',
@@ -284,7 +284,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.fecha_carga <=> NEW.fecha_carga) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'fecha_carga',
@@ -295,7 +295,7 @@ DELIMITER $$
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
 								END IF;IF NOT (OLD.usuario_carga <=> NEW.usuario_carga) THEN
-								INSERT INTO suimvm_auditoria SET
+								INSERT INTO migyd_rufem_auditoria SET
 										accion = @accion,
 										tabla = 'caj',
 										campo = 'usuario_carga',
@@ -313,14 +313,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-							CREATE TRIGGER caj_insert AFTER INSERT ON smgyd_suimvm.caj
+							CREATE TRIGGER caj_insert AFTER INSERT ON migyd_rufem.caj
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
 								SET @accion = 'INSERT';
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
-							INSERT INTO suimvm_auditoria SET
+							INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'id_caj',
@@ -329,7 +329,7 @@ DELIMITER $$
 								val_new = NEW.id_caj,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_1a',
@@ -338,7 +338,7 @@ DELIMITER $$
 								val_new = NEW.caj_1a,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_1b',
@@ -347,7 +347,7 @@ DELIMITER $$
 								val_new = NEW.caj_1b,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_1c',
@@ -356,7 +356,7 @@ DELIMITER $$
 								val_new = NEW.caj_1c,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_1d',
@@ -365,7 +365,7 @@ DELIMITER $$
 								val_new = NEW.caj_1d,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2a',
@@ -374,7 +374,7 @@ DELIMITER $$
 								val_new = NEW.caj_2a,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2b',
@@ -383,7 +383,7 @@ DELIMITER $$
 								val_new = NEW.caj_2b,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2c',
@@ -392,7 +392,7 @@ DELIMITER $$
 								val_new = NEW.caj_2c,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2d',
@@ -401,7 +401,7 @@ DELIMITER $$
 								val_new = NEW.caj_2d,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2e',
@@ -410,7 +410,7 @@ DELIMITER $$
 								val_new = NEW.caj_2e,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2f',
@@ -419,7 +419,7 @@ DELIMITER $$
 								val_new = NEW.caj_2f,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3a',
@@ -428,7 +428,7 @@ DELIMITER $$
 								val_new = NEW.caj_3a,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3b',
@@ -437,7 +437,7 @@ DELIMITER $$
 								val_new = NEW.caj_3b,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3c',
@@ -446,7 +446,7 @@ DELIMITER $$
 								val_new = NEW.caj_3c,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3d',
@@ -455,7 +455,7 @@ DELIMITER $$
 								val_new = NEW.caj_3d,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3e',
@@ -464,7 +464,7 @@ DELIMITER $$
 								val_new = NEW.caj_3e,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3f',
@@ -473,7 +473,7 @@ DELIMITER $$
 								val_new = NEW.caj_3f,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3g',
@@ -482,7 +482,7 @@ DELIMITER $$
 								val_new = NEW.caj_3g,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3h',
@@ -491,7 +491,7 @@ DELIMITER $$
 								val_new = NEW.caj_3h,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_4a',
@@ -500,7 +500,7 @@ DELIMITER $$
 								val_new = NEW.caj_4a,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_4b',
@@ -509,7 +509,7 @@ DELIMITER $$
 								val_new = NEW.caj_4b,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_4c',
@@ -518,7 +518,7 @@ DELIMITER $$
 								val_new = NEW.caj_4c,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3i',
@@ -527,7 +527,7 @@ DELIMITER $$
 								val_new = NEW.caj_3i,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3j',
@@ -536,7 +536,7 @@ DELIMITER $$
 								val_new = NEW.caj_3j,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caso_id_caso',
@@ -545,7 +545,7 @@ DELIMITER $$
 								val_new = NEW.caso_id_caso,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'fecha_carga',
@@ -554,7 +554,7 @@ DELIMITER $$
 								val_new = NEW.fecha_carga,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'usuario_carga',
@@ -571,14 +571,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-							CREATE TRIGGER caj_delete BEFORE DELETE ON smgyd_suimvm.caj
+							CREATE TRIGGER caj_delete BEFORE DELETE ON migyd_rufem.caj
 							FOR EACH ROW
 							BEGIN
 								SET @marca = NOW();
 								SET @accion = 'DELETE';
 								SET @user_name = IF(@user_name is null,SUBSTRING_INDEX(USER(),'@',1),@user_name);
 								SET @dir_ip_cliente = IF(@dir_ip_cliente is null,SUBSTRING_INDEX(USER(),'@',-1),@dir_ip_cliente);
-							INSERT INTO suimvm_auditoria SET
+							INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'id_caj',
@@ -587,7 +587,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_1a',
@@ -596,7 +596,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_1b',
@@ -605,7 +605,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_1c',
@@ -614,7 +614,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_1d',
@@ -623,7 +623,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2a',
@@ -632,7 +632,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2b',
@@ -641,7 +641,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2c',
@@ -650,7 +650,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2d',
@@ -659,7 +659,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2e',
@@ -668,7 +668,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_2f',
@@ -677,7 +677,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3a',
@@ -686,7 +686,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3b',
@@ -695,7 +695,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3c',
@@ -704,7 +704,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3d',
@@ -713,7 +713,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3e',
@@ -722,7 +722,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3f',
@@ -731,7 +731,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3g',
@@ -740,7 +740,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3h',
@@ -749,7 +749,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_4a',
@@ -758,7 +758,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_4b',
@@ -767,7 +767,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_4c',
@@ -776,7 +776,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3i',
@@ -785,7 +785,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caj_3j',
@@ -794,7 +794,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'caso_id_caso',
@@ -803,7 +803,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'fecha_carga',
@@ -812,7 +812,7 @@ DELIMITER $$
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO suimvm_auditoria SET
+								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
 								accion = @accion,
 								tabla = 'caj',
 								campo = 'usuario_carga',
