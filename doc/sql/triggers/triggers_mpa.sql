@@ -404,17 +404,6 @@ DELIMITER $$
 										usuario = @user_name,
 										dir_ip = @dir_ip_cliente,
 										marca =  @marca;
-								END IF;IF NOT (OLD.archivo <=> NEW.archivo) THEN
-								INSERT INTO migyd_rufem_auditoria SET
-										accion = @accion,
-										tabla = 'mpa',
-										campo = 'archivo',
-										registro_id = NEW.id_mpa,
-										val_old = OLD.archivo,
-										val_new = NEW.archivo,
-										usuario = @user_name,
-										dir_ip = @dir_ip_cliente,
-										marca =  @marca;
 								END IF;
 END;
 $$
@@ -754,15 +743,6 @@ DELIMITER $$
 								val_new = NEW.usuario_carga,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
-								accion = @accion,
-								tabla = 'mpa',
-								campo = 'archivo',
-								registro_id = NEW.id_mpa,
-								val_old = NULL,
-								val_new = NEW.archivo,
-								usuario = @user_name,
-								dir_ip = @dir_ip_cliente,
 								marca =  @marca;
 END;
 $$
@@ -1099,15 +1079,6 @@ DELIMITER $$
 								campo = 'usuario_carga',
 								registro_id = OLD.id_mpa,
 								val_old = OLD.usuario_carga,
-								val_new = NULL,
-								usuario = @user_name,
-								dir_ip = @dir_ip_cliente,
-								marca =  @marca;INSERT INTO migyd_rufem_auditoria SET
-								accion = @accion,
-								tabla = 'mpa',
-								campo = 'archivo',
-								registro_id = OLD.id_mpa,
-								val_old = OLD.archivo,
 								val_new = NULL,
 								usuario = @user_name,
 								dir_ip = @dir_ip_cliente,
