@@ -8,7 +8,7 @@ Centralizar y estandarizar la carga de información sobre casos de muerte violen
 
 ## Alcance
 
-El sistema es utilizado por la **Secretaría de Estado de Igualdad y Diversidad (SMGyD)** y por otros organismos vinculados a la temática, entre ellos:
+El sistema es utilizado por la **Secretaría de Mujeres, Género y Diversidad(SMGyD)** y por otros organismos vinculados a la temática, entre ellos:
 
 - **MPA** — Ministerio Público de la Acusación
 - **CAJ** — Colegio de Abogados / Cuerpo de Abogados (según corresponda)
