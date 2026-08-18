@@ -1,8 +1,8 @@
 cas:
-    hostname: dsso.santafe.gob.ar
+    hostname: sso.santafe.gob.ar
     url: /service-auth # opcional
     port: 443 # opcional
-    service_base_url: http://10.3.17.203/  # Url base del sistema que utiliza el bundle
+    service_base_url: http://www.santa.fe.gov.ar  # Url base del sistema que utiliza el bundle
     user: cuil # Si se quiere acceder por cuil sino uid. Por defecto se utiliza cuil
     logout_redirect: app_default  # opcional
     login_failure: app_acceso_denegado # opcional - Debe definirse en el área pública
